@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
         LoopViewPager viewpager = (LoopViewPager) findViewById(R.id.viewpager);
         CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
-        viewpager.setAdapter(new PicAdapter(getActivity());
+        viewpager.setAdapter(new PicAdapter(getActivity()));
         viewpager.setLooperPic(true);
         indicator.setViewPager(viewpager);
 
