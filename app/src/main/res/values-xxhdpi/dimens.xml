@@ -3,4 +3,7 @@
     <dimen name="px_1005">1005px</dimen>
     <dimen name="px_275">275px</dimen>
     <dimen name="px_45">45px</dimen>
+    <dimen name="px_549">549px</dimen>
+    <dimen name="px_20">20px</dimen>
+    <dimen name="px_14">14px</dimen>
 </resources>

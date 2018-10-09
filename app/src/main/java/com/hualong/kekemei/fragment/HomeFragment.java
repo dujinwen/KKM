@@ -26,8 +26,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        LoopViewPager viewpager = (LoopViewPager) findViewById(R.id.viewpager);
-        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        LoopViewPager viewpager = (LoopViewPager) view.findViewById(R.id.viewpager);
+        CircleIndicator indicator = (CircleIndicator) view.findViewById(R.id.indicator);
         viewpager.setAdapter(new PicAdapter(getActivity()));
         viewpager.setLooperPic(true);
         indicator.setViewPager(viewpager);
