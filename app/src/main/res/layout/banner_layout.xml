@@ -12,7 +12,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_20"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|right"
         android:background="@drawable/looper_bottom_bg">
 
         <com.hejunlin.superindicatorlibray.CircleIndicator

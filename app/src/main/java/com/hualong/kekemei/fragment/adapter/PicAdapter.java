@@ -17,16 +17,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.bean.HomeBean;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 /**
  * Created by hejunlin on 2016/8/25.
  */
-public class PicAdapter extends PagerAdapter{
+public class PicAdapter extends PagerAdapter {
 
     private int mSize;
+    private HomeBean homeBean;
     private Activity mActivity;
     private float mImageCorner = -1F;
-    private int[] ResIds = new int[] {
+    private int[] ResIds = new int[]{
             R.drawable.a,
             R.drawable.b,
             R.drawable.c,
@@ -34,7 +38,7 @@ public class PicAdapter extends PagerAdapter{
             R.drawable.e,
     };
 
-    private int[] TextIds = new int[] {
+    private int[] TextIds = new int[]{
             R.string.a_name,
             R.string.b_name,
             R.string.c_name,
@@ -51,29 +55,43 @@ public class PicAdapter extends PagerAdapter{
         mSize = count;
     }
 
-    @Override public int getCount() {
+    public PicAdapter(Activity activity, HomeBean homeBean) {
+        mActivity = activity;
+        mSize = homeBean.getData().getBanneradv().size();
+        this.homeBean = homeBean;
+    }
+
+    @Override
+    public int getCount() {
         return mSize;
     }
 
-    @Override public boolean isViewFromObject(View view, Object object) {
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
 
-    @Override public void destroyItem(ViewGroup view, int position, Object object) {
+    @Override
+    public void destroyItem(ViewGroup view, int position, Object object) {
         view.removeView((View) object);
     }
 
-    @Override public Object instantiateItem(ViewGroup container, int position) {
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mActivity.getApplicationContext()).inflate(R.layout.recommend_page_item, container, false);
-        ImageView imageView = (ImageView)view.findViewById(R.id.image);
-        TextView textView = (TextView)view.findViewById(R.id.image_desc);
-        textView.setText(TextIds[position]);
-        imageView.setImageResource(ResIds[position]);
-        Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        Bitmap newimage = getRoundCornerImage(image,50);
-        ImageView imageView2 = new ImageView(view.getContext());
-        imageView2.setImageBitmap(newimage);
-        container.addView(view);
+        ImageView imageView = (ImageView) view.findViewById(R.id.image);
+        TextView textView = (TextView) view.findViewById(R.id.image_desc);
+        //        textView.setText(TextIds[position]);
+        //                imageView.setImageResource(ResIds[position]);
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + homeBean.getData().getBanneradv().get(position).getImage(), imageView);
+        if (imageView != null) {
+
+            Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            Bitmap newimage = getRoundCornerImage(image, 50);
+            ImageView imageView2 = new ImageView(view.getContext());
+            imageView2.setImageBitmap(newimage);
+            container.addView(view);
+        }
         return view;
     }
 
@@ -90,7 +108,7 @@ public class PicAdapter extends PagerAdapter{
     }
 
     public Bitmap getRoundCornerImage(Bitmap bitmap, int roundPixels) {
-        Bitmap roundConcerImage = Bitmap.createBitmap(bitmap.getWidth(),bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap roundConcerImage = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(roundConcerImage);
         Paint paint = new Paint();
         Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());

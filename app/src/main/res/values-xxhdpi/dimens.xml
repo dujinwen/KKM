@@ -6,4 +6,10 @@
     <dimen name="px_549">549px</dimen>
     <dimen name="px_20">20px</dimen>
     <dimen name="px_14">14px</dimen>
+    <dimen name="px_46">46px</dimen>
+    <dimen name="px_160">160px</dimen>
+    <dimen name="px_613">613px</dimen>
+    <dimen name="px_868">868px</dimen>
+    <dimen name="px_27">27px</dimen>
+    <dimen name="px_30">30px</dimen>
 </resources>
