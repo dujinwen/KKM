@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e5e6e8"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="首页"/>
+        layout="@layout/banner_layout" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="@dimen/px_1005"
+        android:layout_height="@dimen/px_275"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_white_background"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/px_45"
+        android:paddingTop="@dimen/px_45">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="132px"
+                android:layout_height="132px"
+                android:layout_weight="1"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="美容" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="132px"
+                android:layout_height="132px"
+                android:layout_weight="1"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="美体" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="132px"
+                android:layout_height="132px"
+                android:layout_weight="1"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="养生" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="132px"
+                android:layout_height="132px"
+                android:layout_weight="1"
+                android:background="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="其他" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
@@ -12,7 +13,7 @@ import com.hualong.kekemei.fragment.MessageFragment;
 import com.hualong.kekemei.fragment.PersonFragment;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG_PAGE_HOME = "首页";
     private static final String TAG_PAGE_CITY = "附近";
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        StatusBarUtil.setStatusBarLayoutStyle(this,true);
+        ImmersionBar.with(this).init();
         setContentView(R.layout.activity_main);
 
         mNavigateTabBar = (MainNavigateTabBar) findViewById(R.id.mainTabBar);

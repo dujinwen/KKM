@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="127dp">
+
+    <com.hejunlin.superindicatorlibray.LoopViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="127dp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/looper_bottom_bg">
+
+        <com.hejunlin.superindicatorlibray.CircleIndicator
+            android:id="@id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="7dp"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+    </FrameLayout>
+
+
+</FrameLayout>
