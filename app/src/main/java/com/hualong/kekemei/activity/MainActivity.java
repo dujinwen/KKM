@@ -1,7 +1,7 @@
 package com.hualong.kekemei.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +13,8 @@ import com.hualong.kekemei.fragment.MessageFragment;
 import com.hualong.kekemei.fragment.PersonFragment;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
 
+import butterknife.BindView;
+
 public class MainActivity extends BaseActivity {
 
     private static final String TAG_PAGE_HOME = "首页";
@@ -21,17 +23,17 @@ public class MainActivity extends BaseActivity {
     private static final String TAG_PAGE_MESSAGE = "会员";
     private static final String TAG_PAGE_PERSON = "我的";
 
-
-    private MainNavigateTabBar mNavigateTabBar;
+    @BindView(R.id.mainTabBar)
+    MainNavigateTabBar mNavigateTabBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        StatusBarUtil.setStatusBarLayoutStyle(this,true);
-        ImmersionBar.with(this).init();
-        setContentView(R.layout.activity_main);
+    protected int setLayoutId() {
+        return R.layout.activity_main;
+    }
 
-        mNavigateTabBar = (MainNavigateTabBar) findViewById(R.id.mainTabBar);
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
 
         mNavigateTabBar.onRestoreInstanceState(savedInstanceState);
 
@@ -41,7 +43,6 @@ public class MainActivity extends BaseActivity {
         mNavigateTabBar.addTab(MessageFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.comui_tab_message, R.mipmap.comui_tab_message_selected, TAG_PAGE_MESSAGE));
         mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.comui_tab_person, R.mipmap.comui_tab_person_selected, TAG_PAGE_PERSON));
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

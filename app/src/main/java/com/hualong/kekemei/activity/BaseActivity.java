@@ -1,30 +1,100 @@
 package com.hualong.kekemei.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.gyf.barlibrary.ImmersionBar;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by peiyangfan on 2018/10/9.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
-    private ImmersionBar mImmersionBar;
+    private InputMethodManager imm;
+    protected ImmersionBar mImmersionBar;
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.init();   //所有子类都将继承这些相同的属性
-
+        setContentView(setLayoutId());
+        //绑定控件
+        unbinder = ButterKnife.bind(this);
+        //初始化沉浸式
+        if (isImmersionBarEnabled())
+            initImmersionBar();
+        //初始化数据
+        initData();
+        //view与数据绑定
+        initView(savedInstanceState);
+        //设置监听
+        setListener();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
+        this.imm = null;
         if (mImmersionBar != null)
-            mImmersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
+            mImmersionBar.destroy();  //在BaseActivity里销毁
+    }
+
+    protected abstract int setLayoutId();
+
+    protected void initImmersionBar() {
+        //在BaseActivity里初始化
+        mImmersionBar = ImmersionBar.with(this);
+        if (setTitleBar() != null) {
+            mImmersionBar.titleBar(setTitleBar());
+        }
+        mImmersionBar.init();
+
+    }
+
+    protected void initData() {
+    }
+
+    protected void initView(Bundle savedInstanceState) {
+    }
+
+    protected void setListener() {
+    }
+
+    protected View setTitleBar() {
+        return null;
+    }
+
+    /**
+     * 是否可以使用沉浸式
+     * Is immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    protected boolean isImmersionBarEnabled() {
+        return true;
+    }
+
+    public void finish() {
+        super.finish();
+        hideSoftKeyBoard();
+    }
+
+    public void hideSoftKeyBoard() {
+        View localView = getCurrentFocus();
+        if (this.imm == null) {
+            this.imm = ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE));
+        }
+        if ((localView != null) && (this.imm != null)) {
+            this.imm.hideSoftInputFromWindow(localView.getWindowToken(), 2);
+        }
     }
 }
