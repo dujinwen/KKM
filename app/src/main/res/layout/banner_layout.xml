@@ -16,7 +16,7 @@
         android:background="@drawable/looper_bottom_bg">
 
         <com.hejunlin.superindicatorlibray.CircleIndicator
-            android:id="@id/indicator"
+            android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="right|center_vertical"
