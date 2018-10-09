@@ -10,216 +10,224 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <com.stx.xhb.xbanner.XBanner
-
-                android:id="@+id/xbanner"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:AutoPlayTime="3000"
-                app:isShowIndicatorOnlyOne="true"
-                app:isShowNumberIndicator="true"
-                app:pageChangeDuration="800"
-                app:pointsContainerBackground="#44aaaaaa"
-                app:pointsPosition="RIGHT"
-                app:tipTextSize="12sp" />
-
-            <LinearLayout
-                android:layout_width="@dimen/px_1005"
-                android:layout_height="@dimen/px_275"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/px_45"
-                android:layout_marginTop="@dimen/px_45"
-                android:background="@drawable/btn_white_background"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
-                        android:layout_weight="1"
-                        android:background="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="美容" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
-                        android:layout_weight="1"
-                        android:background="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="美体" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
-                        android:layout_weight="1"
-                        android:background="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="养生" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
-                        android:layout_weight="1"
-                        android:background="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="其他" />
-                </LinearLayout>
-            </LinearLayout>
+            android:layout_height="match_parent">
+            <include android:layout_width="match_parent"
+                android:layout_height="184px"
+                layout="@layout/home_title_layout"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px_613"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+
+                <com.stx.xhb.xbanner.XBanner
+
+                    android:id="@+id/xbanner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/px_160"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="@dimen/px_30"
-                        android:text="附近的美容师"
-                        android:textColor="#5DBFB2"
-                        android:textSize="@dimen/px_46" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/px_27"
-                        android:src="@mipmap/title_more_btn" />
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px_868"
-                android:orientation="vertical">
+                    android:layout_height="@dimen/px_549"
+                    app:AutoPlayTime="3000"
+                    app:isShowIndicatorOnlyOne="true"
+                    app:isShowNumberIndicator="true"
+                    app:pageChangeDuration="800"
+                    app:pointsContainerBackground="#44aaaaaa"
+                    app:pointsPosition="RIGHT"
+                    app:tipTextSize="12sp" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/px_160"
-                    android:gravity="center"
+                    android:layout_width="@dimen/px_1005"
+                    android:layout_height="@dimen/px_275"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/px_45"
+                    android:layout_marginTop="@dimen/px_45"
+                    android:background="@drawable/btn_white_background"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:paddingLeft="@dimen/px_30"
-                        android:text="附近的DAVID KKM"
-                        android:textColor="#5DBFB2"
-                        android:textSize="@dimen/px_46" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="132px"
+                            android:layout_height="132px"
+                            android:layout_weight="1"
+                            android:background="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="美容" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/px_27"
-                        android:src="@mipmap/title_more_btn" />
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="132px"
+                            android:layout_height="132px"
+                            android:layout_weight="1"
+                            android:background="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="美体" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="132px"
+                            android:layout_height="132px"
+                            android:layout_weight="1"
+                            android:background="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="养生" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="132px"
+                            android:layout_height="132px"
+                            android:layout_weight="1"
+                            android:background="@mipmap/ic_launcher" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="其他" />
+                    </LinearLayout>
                 </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/px_160"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/px_613"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="@dimen/px_30"
-                        android:text="会员专区"
-                        android:textColor="#5DBFB2"
-                        android:textSize="@dimen/px_46" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/px_160"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/px_27"
-                        android:src="@mipmap/title_more_btn" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/px_30"
+                            android:text="附近的美容师"
+                            android:textColor="#5DBFB2"
+                            android:textSize="@dimen/px_46" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="@dimen/px_27"
+                            android:src="@mipmap/title_more_btn" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="@dimen/px_868"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/px_160"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/px_30"
+                            android:text="附近的DAVID KKM"
+                            android:textColor="#5DBFB2"
+                            android:textSize="@dimen/px_46" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="@dimen/px_27"
+                            android:src="@mipmap/title_more_btn" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/px_160"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="@dimen/px_30"
+                            android:text="会员专区"
+                            android:textColor="#5DBFB2"
+                            android:textSize="@dimen/px_46" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="@dimen/px_27"
+                            android:src="@mipmap/title_more_btn" />
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 </LinearLayout>
