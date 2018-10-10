@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/layout_title_bar" />
+
+    <com.hualong.kekemei.view.SectionRowView
+        android:id="@+id/txtSafely"
+        style="@style/CommonSectionRowView"
+        app:contentTxtColor="@color/common_text_dark"
+        app:hideRightArrow="true"
+        app:titleTxt="@string/setting_page_safely_setting" />
+
+    <com.hualong.kekemei.view.SectionRowView
+        android:id="@+id/txtFeedBack"
+        style="@style/CommonSectionRowView"
+        app:contentTxtColor="@color/common_text_dark"
+        app:hideRightArrow="true"
+        app:titleTxt="@string/setting_page_user_feed_back" />
+
+    <com.hualong.kekemei.view.SectionRowView
+        android:id="@+id/txtHelpCenter"
+        style="@style/CommonSectionRowView"
+        app:contentTxtColor="@color/common_text_dark"
+        app:hideRightArrow="true"
+        app:titleTxt="@string/setting_page_help_center" />
+
+    <com.hualong.kekemei.view.SectionRowView
+        android:id="@+id/txtAboutUs"
+        style="@style/CommonSectionRowView"
+        app:contentTxtColor="@color/common_text_dark"
+        app:hideRightArrow="true"
+        app:titleTxt="@string/setting_page_about_us" />
+
+    <com.hualong.kekemei.view.SectionRowView
+        android:id="@+id/txtCleanMemory"
+        style="@style/CommonSectionRowView"
+        app:contentTxtColor="@color/common_text_dark"
+        app:hideRightArrow="true"
+        app:titleTxt="@string/setting_page_clean_memory" />
 
 </LinearLayout>

@@ -3,5 +3,14 @@
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
+    <declare-styleable name="SectionRowView">
+        <attr name="titleTxt" format="string" />
+        <attr name="titleTxtSize" format="dimension" />
+        <attr name="subTitleTxt" format="string" />
+        <attr name="contentTxt" format="string" />
+        <attr name="contentTxtColor" format="color" />
+        <attr name="iconDrawable" format="reference" />
+        <attr name="hideRightArrow" format="boolean" />
+        <attr name="iconRightMargin" format="dimension" />
     </declare-styleable>
 </resources>
