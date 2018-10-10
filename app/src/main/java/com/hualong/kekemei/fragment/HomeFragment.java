@@ -3,18 +3,18 @@ package com.hualong.kekemei.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hejunlin.superindicatorlibray.CircleIndicator;
+import com.hejunlin.superindicatorlibray.LoopViewPager;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.HomeBean;
-import com.hualong.kekemei.fragment.adapter.PicAdapter;
-import com.hejunlin.superindicatorlibray.LoopViewPager;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -22,6 +22,10 @@ import com.stx.xhb.xbanner.XBanner;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 /**
@@ -31,9 +35,19 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
 
-    private LoopViewPager viewpager;
-    private CircleIndicator indicator;
-    private XBanner mXBanner;
+    @BindView(R.id.place)
+    TextView place;
+    @BindView(R.id.ll_place)
+    LinearLayout llPlace;
+    @BindView(R.id.text_msg)
+    TextView textMsg;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
+    @BindView(R.id.id_msg)
+    LinearLayout idMsg;
+    @BindView(R.id.xbanner)
+    XBanner xbanner;
+    Unbinder unbinder;
     private List<String> imgesUrl;
 
     @Nullable
@@ -42,14 +56,11 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        initView(view);
         initData();
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
-    private void initView(View view) {
-        mXBanner = (XBanner) view.findViewById(R.id.xbanner);
-    }
 
     private void initData() {
         OkGo.<String>post(URLs.HOME_URL).params("longitude", "116.4072154982")
@@ -59,13 +70,10 @@ public class HomeFragment extends Fragment {
                 Gson gson = new Gson();
                 imgesUrl = new ArrayList<>();
                 HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
-                //                viewpager.setAdapter(new PicAdapter(getActivity(),homeBean));
-                //                viewpager.setLooperPic(true);
-                //                indicator.setViewPager(viewpager);
                 for (int i = 0; i < homeBean.getData().getBanneradv().size(); i++) {
                     imgesUrl.add(URLs.BASE_URL + homeBean.getData().getBanneradv().get(i).getImage());
                 }
-                mXBanner.setData(imgesUrl, null);
+                xbanner.setData(imgesUrl, null);
             }
         });
     }
@@ -73,12 +81,18 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mXBanner.startAutoPlay();
+        xbanner.startAutoPlay();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mXBanner.stopAutoPlay();
+        xbanner.stopAutoPlay();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
