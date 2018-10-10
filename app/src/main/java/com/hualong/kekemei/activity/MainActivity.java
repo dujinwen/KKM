@@ -1,11 +1,9 @@
 package com.hualong.kekemei.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
@@ -19,7 +17,7 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG_PAGE_HOME = "首页";
     private static final String TAG_PAGE_CITY = "附近";
-    private static final String TAG_PAGE_PUBLISH = "预约";
+//    private static final String TAG_PAGE_PUBLISH = "预约";
     private static final String TAG_PAGE_MESSAGE = "会员";
     private static final String TAG_PAGE_PERSON = "我的";
 
@@ -39,7 +37,7 @@ public class MainActivity extends BaseActivity {
 
         mNavigateTabBar.addTab(HomeFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_shouye_btn_n, R.mipmap.home_shouye_btn_d, TAG_PAGE_HOME));
         mNavigateTabBar.addTab(CityFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_faxian_btn_n, R.mipmap.home_faxian_btn_d, TAG_PAGE_CITY));
-        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
+//        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
         mNavigateTabBar.addTab(MessageFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_dingdan_btn_n, R.mipmap.home_dingdan_btn_d, TAG_PAGE_MESSAGE));
         mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_wode_btn_n, R.mipmap.home_wode_btn_d, TAG_PAGE_PERSON));
     }
