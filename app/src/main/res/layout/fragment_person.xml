@@ -1,14 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myspace="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2F8F9"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="我的"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <View
+            android:id="@+id/top_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_526"
+            android:background="@mipmap/user_head_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="361px"
+            android:orientation="horizontal"
+            android:paddingLeft="56px"
+            android:paddingTop="189px">
+
+            <com.hualong.kekemei.Utills.CircleImageView
+                android:id="@+id/icon"
+                android:layout_width="171px"
+                android:layout_height="171px"
+                android:src="@mipmap/user_icon_default" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="63px"
+                android:paddingTop="20px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我不叫张三"
+                    android:textColor="#fff"
+                    android:textSize="49px" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="30px">
+
+                    <ImageView
+                        android:layout_width="230px"
+                        android:layout_height="52px"
+                        android:background="@mipmap/user_vip_ic" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="65px"
+                        android:text="普通会员"
+                        android:textColor="#fff"
+                        android:textSize="36px" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="969px"
+            android:layout_height="252px"
+            android:layout_marginLeft="53px"
+            android:layout_marginTop="392px"
+            android:background="@drawable/btn_white_background"
+            android:elevation="4dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="#333333"
+                    android:textSize="55px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="体验卡"
+                    android:textColor="#666666"
+                    android:textSize="40px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="#333333"
+                    android:textSize="55px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="代金券"
+                    android:textColor="#666666"
+                    android:textSize="40px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="#333333"
+                    android:textSize="55px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="红包"
+                    android:textColor="#666666"
+                    android:textSize="40px" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="971px"
+            android:layout_height="455px"
+            android:layout_marginLeft="53px"
+            android:layout_marginTop="680px"
+            android:background="@drawable/btn_white_background"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#33333333"
-    android:orientation="horizontal"
-    android:gravity="bottom">
+    android:gravity="bottom"
+    android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_place"
         android:layout_width="@dimen/px_251"
         android:layout_height="@dimen/px_86"
@@ -16,25 +16,30 @@
         android:gravity="center">
 
         <ImageView
-
+            android:id="@+id/iv_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/beautician_detail_address_ic" />
+            android:src="@mipmap/home_icon_site_normal" />
 
-        <TextView
-            android:id="@+id/place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px_23"
-            android:text="北京"
-            android:textSize="@dimen/px_40" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/px_30"
-            android:src="@mipmap/title_more_btn" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/iv_place"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="@dimen/px_30"
+                android:text="北京"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/px_40" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_search"
@@ -56,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_23"
             android:text="全场买一送一"
+            android:textColor="#ffffff"
             android:textSize="@dimen/px_40" />
 
     </LinearLayout>
@@ -72,6 +78,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/search_btn" />
+            android:src="@mipmap/home_icon_message_normal" />
     </LinearLayout>
 </LinearLayout>

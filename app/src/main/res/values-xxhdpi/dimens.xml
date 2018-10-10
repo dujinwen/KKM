@@ -19,4 +19,6 @@
     <dimen name="px_37">37px</dimen>
     <dimen name="px_22">22px</dimen>
     <dimen name="px_107">107px</dimen>
+    <dimen name="px_184">184px</dimen>
+    <dimen name="px_526">526px</dimen>
 </resources>
