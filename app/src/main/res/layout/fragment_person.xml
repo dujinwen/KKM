@@ -148,7 +148,13 @@
             android:background="@drawable/btn_white_background"
             android:orientation="horizontal">
 
-
+            <com.hualong.kekemei.Utills.NoScrollGridView
+                android:id="@+id/ncgv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="4"
+                android:scrollbars="none" />
         </LinearLayout>
     </RelativeLayout>
 
