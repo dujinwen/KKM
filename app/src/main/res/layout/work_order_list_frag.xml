@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="300dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.hualong.kekemei.Utills.IndictorWithNumber
+            android:id="@+id/indictor_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_173"
+            android:layout_below="@+id/image"
+            android:visibility="gone"
+            app:pstsDividerColor="#00000000"
+            app:pstsIndicatorColor="#1199ff"
+            app:pstsIndicatorHeight="@dimen/work_order_list_indictor_hight"
+            app:pstsTabPaddingLeftRight="@dimen/work_order_list_indictor_padding_left"
+            app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
+            app:pstsUnderlineColor="#e5e6e8"
+            app:pstsUnderlineHeight="@dimen/work_order_list_under_line_hight" />
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/swipe_rfresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <com.hualong.kekemei.Utills.MultipleStatusView
+            android:id="@+id/multiple_status_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</FrameLayout>
