@@ -1,5 +1,7 @@
 package com.hualong.kekemei.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -14,6 +16,8 @@ import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
+    public static final int TAB_HOME = 0;
+    private static final String KEY_TAB = "tab";
 
     private static final String TAG_PAGE_HOME = "首页";
     private static final String TAG_PAGE_CITY = "附近";
@@ -24,9 +28,31 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.mainTabBar)
     MainNavigateTabBar mNavigateTabBar;
 
+    private int mCurrentTab = TAB_HOME;
+
+    public static void start(Context context, int tab) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(KEY_TAB, tab);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        getIntentData(intent);
+    }
+
+    private void getIntentData(Intent intent) {
+        if (intent != null) {
+            mCurrentTab = intent.getIntExtra(KEY_TAB, mCurrentTab);
+            mNavigateTabBar.setCurrentSelectedTab(mCurrentTab);
+        }
     }
 
     @Override

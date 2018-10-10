@@ -41,7 +41,7 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-//        toolbar.setNavigationIcon(R.mipmap.comui_back);
+        toolbar.setNavigationIcon(R.mipmap.back);
         TextView tv_title = toolbar.findViewById(R.id.tv_title);
         tv_title.setText("设置");
 
