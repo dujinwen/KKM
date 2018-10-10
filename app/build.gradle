@@ -15,6 +15,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        debug {
+            storeFile file('../KKMkey.jks')
+            storePassword "s3EtsGCN"
+            keyAlias "key0"
+            keyPassword "s3EtsGCN"
+        }
+    }
 }
 
 dependencies {

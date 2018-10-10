@@ -74,6 +74,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/tiyan"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -96,6 +97,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/daijinquan"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -118,6 +120,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/hongbao"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -155,6 +158,65 @@
                 android:listSelector="@android:color/transparent"
                 android:numColumns="4"
                 android:scrollbars="none" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_613"
+            android:layout_marginTop="1168px"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/px_160"
+                android:background="#fff"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/px_30"
+                    android:text="为您推荐"
+                    android:textColor="#5DBFB2"
+                    android:textSize="@dimen/px_46" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/px_27"
+                    android:src="@mipmap/title_more_btn" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_tuijian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="37px"
+            android:layout_marginTop="81px"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/user_set_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="43px"
+                android:src="@mipmap/user_set_btn" />
+
+            <ImageView
+                android:id="@+id/user_message_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/user_message_btn" />
         </LinearLayout>
     </RelativeLayout>
 
