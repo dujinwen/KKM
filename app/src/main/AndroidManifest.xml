@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hualong.kekemei">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".App"
@@ -20,6 +21,8 @@
             android:value="GlideModule" />
         <activity android:name=".activity.MainActivity"
             android:clipToPadding="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:fitsSystemWindows="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +32,7 @@
         </activity>
 
         <activity android:name=".activity.SettingActivity"/>
+        <activity android:name=".activity.OrderListActivity"/>
     </application>
 
 </manifest>

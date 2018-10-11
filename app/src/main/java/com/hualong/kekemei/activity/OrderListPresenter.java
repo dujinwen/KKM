@@ -84,25 +84,25 @@ public class OrderListPresenter implements OrderListContract.Presenter, OrderLis
             OrderListBean orderListBean = (OrderListBean) response;
             refreshTabMod(orderListBean);
 
-            if (null == orderListBean.getPageResultVo().getResult() || orderListBean.getPageResultVo().getResult().size() == 0) {
+            if (null == orderListBean.getData() || orderListBean.getData().size() == 0) {
                 jView.showEmpty();
                 jView.shwoOrdersDeliverBtn(false);
             } else {
                 jView.shwoOrdersDeliverBtn(jOrderStatus == OrderListBean.ORDER_STATUS_TO_BE_DELIVERED ? true : false);
                 if (isRefresh)
                     jView.showRefreshLoading(false);
-                jView.showData(orderListBean.getPageResultVo().getResult());
+                jView.showData(orderListBean.getData());
             }
 
-            if (jPageNum > orderListBean.getPageResultVo().getTotalPageCount())
+            if (jPageNum > orderListBean.getData().size())
                 jView.showLoadMoreEnd();
             else
                 jView.showLoadMoreComplete();
         } else {
             jPageNum++;
             OrderListBean orderListBean = (OrderListBean) response;
-            jView.loadMoreSuccess(orderListBean.getPageResultVo().getResult());
-            if (jPageNum > orderListBean.getPageResultVo().getTotalPageCount()) {
+            jView.loadMoreSuccess(orderListBean.getData());
+            if (jPageNum > orderListBean.getData().size()) {
                 jView.showLoadMoreEnd();
             } else {
                 jView.showLoadMoreComplete();
@@ -122,28 +122,25 @@ public class OrderListPresenter implements OrderListContract.Presenter, OrderLis
             item = new IndictorWithNumber.TabModele.TitleNumber();
             item.title = "待付款";
             item.status = OrderListBean.ORDER_STATUS_TO_BE_PAID;
-            item.count = orderListBean.getStayPayNum();
             list.add(item);
 
             item = new IndictorWithNumber.TabModele.TitleNumber();
-            item.title = "待发货";
+            item.title = "待预约";
             item.status = OrderListBean.ORDER_STATUS_TO_BE_DELIVERED;
-            item.count = orderListBean.getStayDeliverNum();
             list.add(item);
 
             item = new IndictorWithNumber.TabModele.TitleNumber();
-            item.title = "待收货";
+            item.title = "待服务";
             item.status = OrderListBean.ORDER_STATUS_TO_RECEIVE_GOODS;
-            item.count = 0;
             list.add(item);
 
             item = new IndictorWithNumber.TabModele.TitleNumber();
-            item.title = "已完成";
+            item.title = "待评价";
             item.status = OrderListBean.ORDER_STATUS_FINISHED;
             list.add(item);
 
             item = new IndictorWithNumber.TabModele.TitleNumber();
-            item.title = "已取消";
+            item.title = "完成";
             item.status = OrderListBean.ORDER_STATUS_CANCLE;
             list.add(item);
 
@@ -160,10 +157,10 @@ public class OrderListPresenter implements OrderListContract.Presenter, OrderLis
 
 
     private int getTabNumber(int status, OrderListBean orderListBean) {
-        if (status == OrderListBean.ORDER_STATUS_TO_BE_DELIVERED)
-            return orderListBean.getStayDeliverNum();
-        if (status == OrderListBean.ORDER_STATUS_TO_BE_PAID)
-            return orderListBean.getStayPayNum();
+//        if (status == OrderListBean.ORDER_STATUS_TO_BE_DELIVERED)
+//            return orderListBean.getStayDeliverNum();
+//        if (status == OrderListBean.ORDER_STATUS_TO_BE_PAID)
+//            return orderListBean.getStayPayNum();
         return 0;
     }
 

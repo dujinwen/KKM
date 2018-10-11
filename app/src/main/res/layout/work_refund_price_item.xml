@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/work_order_item_price_hight"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/work_order_item_left_margent"
+    android:paddingRight="@dimen/work_order_item_left_margent"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/goods_price_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="¥8868.6"
+        android:textColor="@color/work_order_title_text"
+        android:textSize="@dimen/work_refund_item_price_deliver_size"
+        android:textStyle="bold" />
+
+    />
+
+    <TextView
+        android:id="@+id/goods_count_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/goods_price_total"
+        android:text="退款金额："
+        android:textColor="@color/work_order_title_text"
+        android:textSize="@dimen/work_refund_item_price_deliver_size" />
+
+</RelativeLayout>

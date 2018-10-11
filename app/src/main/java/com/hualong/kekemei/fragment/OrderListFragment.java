@@ -178,7 +178,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     }
 
     @Override
-    public void showData(List<OrderListBean.PageResultVoBean.ResultBean> dataList) {
+    public void showData(List<OrderListBean.DataBean> dataList) {
         if (isOnDestory)
             return;
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
@@ -202,7 +202,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     }
 
     @Override
-    public void loadMoreSuccess(List<OrderListBean.PageResultVoBean.ResultBean> dataList) {
+    public void loadMoreSuccess(List<OrderListBean.DataBean> dataList) {
         jAdapter.addData(dataList);
     }
 

@@ -20,7 +20,7 @@ public interface OrderListContract {
 
         void showRefreshLoading(boolean show);
 
-        void showData(List<OrderListBean.PageResultVoBean.ResultBean> dataList);
+        void showData(List<OrderListBean.DataBean> dataList);
 
         void showEmpty();
 
@@ -28,7 +28,7 @@ public interface OrderListContract {
 
         void showNoNetwork();
 
-        void loadMoreSuccess(List<OrderListBean.PageResultVoBean.ResultBean> moreList);
+        void loadMoreSuccess(List<OrderListBean.DataBean> moreList);
 
         void showLoadMoreFailed();
 
