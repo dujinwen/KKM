@@ -498,13 +498,13 @@ public class AppUtil {
     }
 
 
-    public static boolean checkPasswordRegex(String password){
+    public static boolean checkPasswordRegex(String password) {
         if (password == null || password.isEmpty() || password.length() == 0) return false;
 
         String regex = "^([A-Z]|[a-z]|[0-9]|[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“'。，、？]){8,20}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
-        return  matcher.matches();
+        return matcher.matches();
     }
 
     /**

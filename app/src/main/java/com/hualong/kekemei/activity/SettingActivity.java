@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.view.SectionRowView;
 
 import butterknife.BindView;
@@ -27,6 +28,8 @@ public class SettingActivity extends BaseActivity {
     SectionRowView aboutUs;
     @BindView(R.id.txtCleanMemory)
     SectionRowView cleanMemory;
+    @BindView(R.id.txtVersion)
+    SectionRowView version;
 
     @Override
     protected View setTitleBar() {
@@ -51,5 +54,7 @@ public class SettingActivity extends BaseActivity {
                 finish();
             }
         });
+
+        version.setContentTxt("V" + AppUtil.getVersionCode(this));
     }
 }

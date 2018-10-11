@@ -32,7 +32,7 @@
         android:singleLine="true"
         android:text="subTitle"
         android:textColor="@color/common_tx2"
-        android:textSize="14sp" />
+        android:textSize="@dimen/px_40" />
 
     <TextView
         android:id="@+id/tvContent"
@@ -45,6 +45,6 @@
         android:paddingRight="12dp"
         android:singleLine="true"
         android:text="Content"
-        android:textColor="@color/common_tx2"
-        android:textSize="14sp" />
+        android:textColor="@color/common_tx3"
+        android:textSize="@dimen/px_40" />
 </LinearLayout>
