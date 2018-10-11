@@ -12,4 +12,9 @@
     <color name="comui_tab_text_color">#ff333333</color>
 
     <color name="toolbar_background">#7AD2D2</color>
+
+    <color name="c_1199FF">#1199ff</color>
+    <color name="loading_color">#808692</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="transparent">#00000000</color>
 </resources>
