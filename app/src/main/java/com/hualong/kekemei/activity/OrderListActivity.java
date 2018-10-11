@@ -52,8 +52,10 @@ public class OrderListActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("mDefaultSelectedTab",3);
-        startActivity(intent);
+
+//        Intent intent = new Intent(this,MainActivity.class);
+//        intent.putExtra("tab",3);
+//        startActivity(intent);
+        MainActivity.start(this,3);
     }
 }
