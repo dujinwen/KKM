@@ -182,10 +182,10 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         Object object = v.getTag();
         if (object != null && object instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) v.getTag();
-            if (holder.tabIndex ==6 || holder.tabIndex == 2){
-                goToOrder();
-                return;
-            }
+//            if (holder.tabIndex ==6 || holder.tabIndex == 2){
+//                goToOrder();
+//                return;
+//            }
             showFragment(holder);
             if (mTabSelectListener != null) {
                 mTabSelectListener.onTabSelected(holder);
@@ -329,7 +329,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         this.tabBarCallback = tabBarCallback;
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         public String tag;
         public TabParam pageParam;
         public ImageView tabIcon;

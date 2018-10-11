@@ -1,7 +1,6 @@
 package com.hualong.kekemei.activity;
 
 
-
 import com.hualong.kekemei.Utills.IndictorWithNumber;
 import com.hualong.kekemei.bean.OrderListBean;
 
@@ -84,17 +83,15 @@ public class OrderListPresenter implements OrderListContract.Presenter, OrderLis
             OrderListBean orderListBean = (OrderListBean) response;
             refreshTabMod(orderListBean);
 
-            if (null == orderListBean.getData() || orderListBean.getData().size() == 0) {
+            if (null == response || null == orderListBean.getData() || orderListBean.getData().size() == 0) {
                 jView.showEmpty();
-                jView.shwoOrdersDeliverBtn(false);
             } else {
-                jView.shwoOrdersDeliverBtn(jOrderStatus == OrderListBean.ORDER_STATUS_TO_BE_DELIVERED ? true : false);
                 if (isRefresh)
                     jView.showRefreshLoading(false);
                 jView.showData(orderListBean.getData());
             }
 
-            if (jPageNum > orderListBean.getData().size())
+            if (null != response && jPageNum > orderListBean.getData().size())
                 jView.showLoadMoreEnd();
             else
                 jView.showLoadMoreComplete();
@@ -157,10 +154,10 @@ public class OrderListPresenter implements OrderListContract.Presenter, OrderLis
 
 
     private int getTabNumber(int status, OrderListBean orderListBean) {
-//        if (status == OrderListBean.ORDER_STATUS_TO_BE_DELIVERED)
-//            return orderListBean.getStayDeliverNum();
-//        if (status == OrderListBean.ORDER_STATUS_TO_BE_PAID)
-//            return orderListBean.getStayPayNum();
+        //        if (status == OrderListBean.ORDER_STATUS_TO_BE_DELIVERED)
+        //            return orderListBean.getStayDeliverNum();
+        //        if (status == OrderListBean.ORDER_STATUS_TO_BE_PAID)
+        //            return orderListBean.getStayPayNum();
         return 0;
     }
 

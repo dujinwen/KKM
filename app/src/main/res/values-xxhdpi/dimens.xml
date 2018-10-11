@@ -581,7 +581,7 @@
     <dimen name="margin_top">60px</dimen>
     <dimen name="work_refund_list_item_one_hight">150px</dimen>
     <dimen name="work_refund_item_price_hight">150px</dimen>
-    <dimen name="work_refund_item_price_deliver_size">42px</dimen>
+    <dimen name="work_refund_item_price_deliver_size">37px</dimen>
     <dimen name="work_refund_item_btn_width">230px</dimen>
     <dimen name="work_refund_item_btn_height">81px</dimen>
     <dimen name="work_refund_item_btn_text_size">36px</dimen>

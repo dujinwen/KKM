@@ -4,6 +4,7 @@ import android.content.Context;
 
 
 import com.hualong.kekemei.Utills.IndictorWithNumber;
+import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface OrderListContract {
 
         void showRefreshLoading(boolean show);
 
-        void showData(List<OrderListBean.DataBean> dataList);
+        void showData(List<DataBean> dataList);
 
         void showEmpty();
 
@@ -28,7 +29,7 @@ public interface OrderListContract {
 
         void showNoNetwork();
 
-        void loadMoreSuccess(List<OrderListBean.DataBean> moreList);
+        void loadMoreSuccess(List<DataBean> moreList);
 
         void showLoadMoreFailed();
 

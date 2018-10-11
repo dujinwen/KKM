@@ -17,6 +17,8 @@
 package com.hualong.kekemei.Utills;
 
 import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -27,9 +29,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -47,6 +46,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.loading.FragmentPagerAdapter;
 
 public class IndictorWithNumber extends HorizontalScrollView {
 

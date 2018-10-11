@@ -15,7 +15,7 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:text="¥8868.6"
-        android:textColor="@color/work_order_title_text"
+        android:textColor="#FF6C70"
         android:textSize="@dimen/work_refund_item_price_deliver_size"
         android:textStyle="bold" />
 
@@ -27,8 +27,25 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/goods_price_total"
-        android:text="退款金额："
+        android:text="应付总额："
         android:textColor="@color/work_order_title_text"
         android:textSize="@dimen/work_refund_item_price_deliver_size" />
+    <TextView
+        android:id="@+id/goods_count_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/goods_count_tip"
+        android:text="共2件商品 "
+        android:textColor="@color/work_order_title_text"
+        android:textSize="@dimen/work_refund_item_price_deliver_size"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imv_zhengpin"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone"/>
 
 </RelativeLayout>

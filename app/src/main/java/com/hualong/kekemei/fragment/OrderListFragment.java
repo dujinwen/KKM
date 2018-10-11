@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +21,7 @@ import com.hualong.kekemei.Utills.IndictorWithNumber;
 import com.hualong.kekemei.Utills.MultipleStatusView;
 import com.hualong.kekemei.activity.OrderListContract;
 import com.hualong.kekemei.activity.OrderListPresenter;
+import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;
 import com.hualong.kekemei.fragment.adapter.OrderListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -178,7 +178,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     }
 
     @Override
-    public void showData(List<OrderListBean.DataBean> dataList) {
+    public void showData(List<DataBean> dataList) {
         if (isOnDestory)
             return;
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
@@ -202,7 +202,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     }
 
     @Override
-    public void loadMoreSuccess(List<OrderListBean.DataBean> dataList) {
+    public void loadMoreSuccess(List<DataBean> dataList) {
         jAdapter.addData(dataList);
     }
 
@@ -229,8 +229,8 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     public void showIndictor(IndictorWithNumber.TabModele titleModle) {
-        if (null == jViewPager.getAdapter() && !isOnDestory && getActivity() != null && getActivity().getSupportFragmentManager() != null)
-            jViewPager.setAdapter(new IndictorWithNumber.MyPagerAdapter(getActivity().getSupportFragmentManager(), titleModle));
+        if (null == jViewPager.getAdapter() && !isOnDestory && getActivity() != null && getActivity().getFragmentManager() != null)
+            jViewPager.setAdapter(new IndictorWithNumber.MyPagerAdapter(getActivity().getFragmentManager(), titleModle));
         jIndictorWithNumber.setViewPager(jViewPager, titleModle);
         jIndictorWithNumber.setVisibility(View.VISIBLE);
     }

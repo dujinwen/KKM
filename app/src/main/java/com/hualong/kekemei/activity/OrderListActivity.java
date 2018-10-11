@@ -36,15 +36,15 @@ public class OrderListActivity extends BaseActivity {
         super.initView(savedInstanceState);
         toolbar.setTitle("我的订单");
 
-        orderListFragment = (OrderListFragment) getSupportFragmentManager()
+        orderListFragment = (OrderListFragment) getFragmentManager()
                 .findFragmentById(R.id.contentFrame);
         int orderStatus = OrderListBean.ORDER_STATUS_ALL;
         if (null != getIntent() && null != getIntent().getExtras())
             orderStatus = getIntent().getExtras().getInt(OrderListFragment.ARG_ORDER_STATUS, OrderListBean.ORDER_STATUS_ALL);
         if (orderListFragment == null) {
             orderListFragment = OrderListFragment.newInstance(orderStatus);
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
-                    orderListFragment, R.id.contentFrame);
+//            ActivityUtils.addFragmentToActivity(getFragmentManager(),
+//                    orderListFragment, R.id.contentFrame);
         }
     }
 
@@ -56,6 +56,6 @@ public class OrderListActivity extends BaseActivity {
 //        Intent intent = new Intent(this,MainActivity.class);
 //        intent.putExtra("tab",3);
 //        startActivity(intent);
-        MainActivity.start(this,3);
+//        MainActivity.start(this,3);
     }
 }

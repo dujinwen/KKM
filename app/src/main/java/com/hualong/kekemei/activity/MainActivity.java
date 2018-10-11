@@ -3,7 +3,9 @@ package com.hualong.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hualong.kekemei.R;
@@ -12,9 +14,9 @@ import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;
 import com.hualong.kekemei.fragment.PersonFragment;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
-import com.startsmake.mainnavigatetabbar.widget.TabBarCallback;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
     public static final int TAB_HOME = 0;
@@ -28,8 +30,13 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.mainTabBar)
     MainNavigateTabBar mNavigateTabBar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private int mCurrentTab = TAB_HOME;
+    private boolean hasTitle = false;
 
     public static void start(Context context, int tab) {
 
@@ -42,6 +49,15 @@ public class MainActivity extends BaseActivity {
     protected int setLayoutId() {
         return R.layout.activity_main;
     }
+
+//    @Override
+//    protected View setTitleBar() {
+//        if (hasTitle)
+//            return toolbar;
+//        else
+//            return super.setTitleBar();
+//    }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -77,12 +93,23 @@ public class MainActivity extends BaseActivity {
         //        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
         mNavigateTabBar.addTab(MessageFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_dingdan_btn_n, R.mipmap.home_dingdan_btn_d, TAG_PAGE_MESSAGE));
         mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_wode_btn_n, R.mipmap.home_wode_btn_d, TAG_PAGE_PERSON));
-        mNavigateTabBar.setCallBack(new TabBarCallback() {
-            @Override
-            public void goToOrder() {
-                startActivity(new Intent(MainActivity.this, OrderListActivity.class));
-            }
-        });
+        //        mNavigateTabBar.setCallBack(new TabBarCallback() {
+        //            @Override
+        //            public void goToOrder() {
+        //                startActivity(new Intent(MainActivity.this, OrderListActivity.class));
+        //            }
+        //        });
+//        mNavigateTabBar.setTabSelectListener(new MainNavigateTabBar.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(MainNavigateTabBar.ViewHolder holder) {
+//                if (holder.tabIndex == 2 || holder.tabIndex == 6) {
+//                    hasTitle = true;
+//                    tvTitle.setText("订单");
+//                } else {
+//                    hasTitle = false;
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -97,4 +124,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

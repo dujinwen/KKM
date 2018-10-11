@@ -1,8 +1,9 @@
 package com.hualong.kekemei.Utills;
 
+import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,8 +72,10 @@ public abstract class BaseFragment extends Fragment {
             }
         }
         if (null == mPrsDialog) {
-            mPrsDialog = new LoadingDialog(getContext(),
-                    TextUtils.isEmpty(msg) ? LoadingDialog.DEFULT_MSG : msg, false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mPrsDialog = new LoadingDialog(getContext(),
+                        TextUtils.isEmpty(msg) ? LoadingDialog.DEFULT_MSG : msg, false);
+            }
             mPrsDialog.show();
         }
     }
