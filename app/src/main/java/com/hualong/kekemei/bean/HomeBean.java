@@ -15,7 +15,7 @@ public class HomeBean {
      * code : 1
      * data : {"banneradv":[{"adv_pos_id":10339,"content":"测试","createtime":1538361648,"endtime":"2018-10-01 10:38:27","id":1,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","starttime":"2018-10-01 10:38:27","switch":1,"title":"测试","views":0},{"adv_pos_id":10343,"content":"测试","createtime":1538363019,"endtime":"2018-10-01 11:02:50","id":2,"image":"/assets/img/qrcode.png","starttime":"2018-10-01 11:02:50","switch":1,"title":"测试","views":0}],"beautician":[{"content":"3333333","id":1,"name":"美容师","shop_ids":"1,2","state":"1","state_text":"State 1","user_id":1},{"content":"fwfw","id":2,"name":"5555","shop_ids":"2,1","state":"2","state_text":"State 2","user_id":1}],"commentdata":[{"beautician_id":1,"comment_tag_ids":"5,3","content":"很好","createtime":1538469581,"id":1,"order_id":0,"project_id":3,"satisfaction":"2","satisfaction_text":"Satisfaction 2","shop_id":1,"start":"3","start_text":"Start 3","state":"1","state_text":"State 1","switch":1,"user_id":1},{"beautician_id":1,"comment_tag_ids":"5","content":"y4y4y54","createtime":1538619998,"id":2,"order_id":0,"project_id":4,"satisfaction":"0","satisfaction_text":"Satisfaction 0","shop_id":2,"start":"3","start_text":"Start 3","state":"1","state_text":"State 1","switch":1,"user_id":1},{"beautician_id":2,"comment_tag_ids":"3","content":"fewfewfw","createtime":1538645747,"id":3,"order_id":1,"project_id":3,"satisfaction":"2","satisfaction_text":"Satisfaction 2","shop_id":2,"start":"1","start_text":"Start 1","state":"1","state_text":"State 1","switch":1,"user_id":1}],"hotdata":[{"activitytime":"2018-10-02 11:01:59","activitytime_end":"2018-10-02 11:01:59","content":"测试测试测试测试测试","createtime":1538449687,"flag":"","flag_text":"","id":1,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg,/uploads/20180925/29393d1005dc4ffabaee1736aaa2b6a0.jpg","name":"热门项目","price":150,"price_discount":0,"price_market":0,"price_member":0,"price_newmember":0,"price_second":0,"project_category_id":3,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"2","state_text":"State 2","treatment_count":"0","treatment_price":"0.00","views":0,"weigh":100},{"activitytime":"2018-10-02 11:19:22","activitytime_end":"2018-10-02 11:19:22","content":"55555","createtime":1538450467,"flag":"","flag_text":"","id":2,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","name":"5555","price":555,"price_discount":0,"price_market":0,"price_member":0,"price_newmember":0,"price_second":0,"project_category_id":2,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"1","state_text":"State 1","treatment_count":"0","treatment_price":"0.00","views":0,"weigh":100},{"activitytime":"2018-10-02 11:53:50","activitytime_end":"2018-10-02 11:53:50","content":"1111","createtime":1538452488,"flag":"","flag_text":"","id":3,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","name":"会员区","price":665.83,"price_discount":0,"price_market":0,"price_member":555,"price_newmember":0,"price_second":0,"project_category_id":2,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"1","state_text":"State 1","treatment_count":"0","treatment_price":"55.00","views":0,"weigh":100},{"activitytime":"2018-10-02 21:38:44","activitytime_end":"2018-10-02 21:38:44","content":"55","createtime":1538487574,"flag":"","flag_text":"","id":4,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","name":"新人","price":55,"price_discount":0,"price_market":0,"price_member":0,"price_newmember":33,"price_second":0,"project_category_id":1,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"1","state_text":"State 1","treatment_count":"3","treatment_price":"44.00","views":0,"weigh":4}],"memberdata":[{"activitytime":"2018-10-02 11:53:50","activitytime_end":"2018-10-02 11:53:50","content":"1111","createtime":1538452488,"flag":"","flag_text":"","id":3,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","name":"会员区","price":665.83,"price_discount":0,"price_market":0,"price_member":555,"price_newmember":0,"price_second":0,"project_category_id":2,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"1","state_text":"State 1","treatment_count":"0","treatment_price":"55.00","views":0,"weigh":100}],"newmemberdata":[{"activitytime":"2018-10-02 21:38:44","activitytime_end":"2018-10-02 21:38:44","content":"55","createtime":1538487574,"flag":"","flag_text":"","id":4,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","name":"新人","price":55,"price_discount":0,"price_market":0,"price_member":0,"price_newmember":33,"price_second":0,"project_category_id":1,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"1","state_text":"State 1","treatment_count":"3","treatment_price":"44.00","views":0,"weigh":4}],"shop":[{"address":"2222","city":"北京/北京市/西城区","content":"2222","createtime":1537862188,"id":1,"image":"/uploads/20180925/29393d1005dc4ffabaee1736aaa2b6a0.jpg","images":"/uploads/20180925/29393d1005dc4ffabaee1736aaa2b6a0.jpg,/uploads/20180925/29393d1005dc4ffabaee1736aaa2b6a0.jpg","latitude":"2222","longitude":"2222","name":"西直门店","state":"1","state_text":"State 1","tel":"2222","user_id":1},{"address":"1111","city":"北京/北京市/西城区","content":"11111","createtime":1538567762,"id":2,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","latitude":"1111","longitude":"11111","name":"德胜门店","state":"1","state_text":"State 1","tel":"111111","user_id":1}],"specialdata":[{"activitytime":"2018-10-02 11:01:59","activitytime_end":"2018-10-02 11:01:59","content":"测试测试测试测试测试","createtime":1538449687,"flag":"","flag_text":"","id":1,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","images":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg,/uploads/20180925/29393d1005dc4ffabaee1736aaa2b6a0.jpg","name":"热门项目","price":150,"price_discount":0,"price_market":0,"price_member":0,"price_newmember":0,"price_second":0,"project_category_id":3,"quality":"","quality_text":"","redenvelopes_ids":"1","state":"2","state_text":"State 2","treatment_count":"0","treatment_price":"0.00","views":0,"weigh":100}]}
      * msg : 请求成功
-     * time : 1539072002
+     * time : 1539250598
      */
 
     private int code;
@@ -519,7 +519,7 @@ public class HomeBean {
             private String image;
             private String images;
             private String name;
-            private double price;
+            private int price;
             private int price_discount;
             private int price_market;
             private int price_member;
@@ -616,7 +616,7 @@ public class HomeBean {
                 this.name = name;
             }
 
-            public double getPrice() {
+            public int getPrice() {
                 return price;
             }
 
@@ -1051,7 +1051,7 @@ public class HomeBean {
             private String image;
             private String images;
             private String name;
-            private double price;
+            private int price;
             private int price_discount;
             private int price_market;
             private int price_member;
@@ -1148,7 +1148,7 @@ public class HomeBean {
                 this.name = name;
             }
 
-            public double getPrice() {
+            public int getPrice() {
                 return price;
             }
 
@@ -1463,7 +1463,7 @@ public class HomeBean {
             private String image;
             private String images;
             private String name;
-            private double price;
+            private int price;
             private int price_discount;
             private int price_market;
             private int price_member;
@@ -1560,7 +1560,7 @@ public class HomeBean {
                 this.name = name;
             }
 
-            public double getPrice() {
+            public int getPrice() {
                 return price;
             }
 

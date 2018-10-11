@@ -1,6 +1,7 @@
 package com.hualong.kekemei.fragment.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -111,6 +112,7 @@ public class OrderListAdapter extends BaseQuickAdapter<DataBean, BaseViewHolder>
                 break;
         }
     }
+
 }
 
 

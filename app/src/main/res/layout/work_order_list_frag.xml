@@ -45,6 +45,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true" />
+
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/rv_list2"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_alignParentTop="true" />-->
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <com.hualong.kekemei.Utills.MultipleStatusView

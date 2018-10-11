@@ -3,16 +3,18 @@ package com.hualong.kekemei.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hualong.kekemei.R;
@@ -22,6 +24,7 @@ import com.hualong.kekemei.activity.OrderListContract;
 import com.hualong.kekemei.activity.OrderListPresenter;
 import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;
+import com.hualong.kekemei.fragment.adapter.HotHuodongAdapter;
 import com.hualong.kekemei.fragment.adapter.OrderListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -45,6 +48,11 @@ public class MessageFragment
         extends Fragment implements OrderListContract.View, IndictorWithNumber.TabChangeListener {
 
     public static final String ARG_ORDER_STATUS = "orderStatus";
+    @BindView(R.id.rv_hot_huodong)
+    RecyclerView rvHotHuodong;
+    @BindView(R.id.ll_hot_huodong)
+    LinearLayout llHotHuodong;
+    Unbinder unbinder;
 
     private IndictorWithNumber jIndictorWithNumber;
     private RecyclerView jRecyclerView;
@@ -68,6 +76,7 @@ public class MessageFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.work_order_list_frag, null);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -124,7 +133,12 @@ public class MessageFragment
         }, jRecyclerView);
 
         jRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            View foot_view = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) jRecyclerView.getParent(), false);
+            jAdapter.addFooterView(foot_view);
+        }
 
+        //添加Header对应的点击事件
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -164,10 +178,15 @@ public class MessageFragment
 
         jRecyclerView.setAdapter(jAdapter);
 
-//        status = getArguments().getInt(ARG_ORDER_STATUS);
+        //        status = getArguments().getInt(ARG_ORDER_STATUS);
         new OrderListPresenter(this, status);
 
         jIndictorWithNumber.setTabChangeListener(this);
+
+
+        rvHotHuodong.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+        rvHotHuodong.setAdapter(new HotHuodongAdapter(getContext()));
 
     }
 
@@ -292,5 +311,6 @@ public class MessageFragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        unbinder.unbind();
     }
 }
