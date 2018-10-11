@@ -22,8 +22,8 @@ public class MessageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getActivity().startActivity(new Intent(getActivity(), OrderListActivity.class));
-        getActivity().finish();
+//        getActivity().startActivity(new Intent(getActivity(), OrderListActivity.class));
+//        getActivity().finish();
         return inflater.inflate(R.layout.fragment_message, container, false);
     }
 

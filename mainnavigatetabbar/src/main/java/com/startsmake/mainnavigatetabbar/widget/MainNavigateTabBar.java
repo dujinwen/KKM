@@ -1,12 +1,15 @@
 package com.startsmake.mainnavigatetabbar.widget;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -49,6 +52,8 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
     private int mDefaultSelectedTab = 0;
 
     private int mCurrentSelectedTab;
+    private Activity mainActivity;
+    private TabBarCallback tabBarCallback;
 
     public MainNavigateTabBar(Context context) {
         this(context, null);
@@ -70,7 +75,6 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         mMainContentLayoutId = typedArray.getResourceId(R.styleable.MainNavigateTabBar_containerId, 0);
 
         mNormalTextColor = (tabTextColor != null ? tabTextColor : context.getResources().getColorStateList(R.color.tab_text_normal));
-
 
         if (selectedTabTextColor != null) {
             mSelectedTextColor = selectedTabTextColor;
@@ -178,12 +182,21 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         Object object = v.getTag();
         if (object != null && object instanceof ViewHolder) {
             ViewHolder holder = (ViewHolder) v.getTag();
+            if (holder.tabIndex ==6 || holder.tabIndex == 2){
+                goToOrder();
+                return;
+            }
             showFragment(holder);
             if (mTabSelectListener != null) {
                 mTabSelectListener.onTabSelected(holder);
             }
         }
     }
+
+    private void goToOrder() {
+        tabBarCallback.goToOrder();
+    }
+
 
     /**
      * 显示 holder 对应的 fragment
@@ -305,6 +318,15 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
 
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(KEY_CURRENT_TAG, mCurrentTag);
+    }
+
+    public void setContext(Activity mainActivity) {
+
+        this.mainActivity = mainActivity;
+    }
+
+    public void setCallBack(TabBarCallback tabBarCallback) {
+        this.tabBarCallback = tabBarCallback;
     }
 
     private static class ViewHolder {
