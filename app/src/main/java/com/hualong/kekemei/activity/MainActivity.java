@@ -52,8 +52,6 @@ public class MainActivity extends BaseActivity {
 
     private void getIntentData(Intent intent) {
         if (intent != null) {
-            mNavigateTabBar.removeAllViews();
-            mNavigateTabBarAddTab();
             mCurrentTab = intent.getIntExtra(KEY_TAB, mCurrentTab);
             mNavigateTabBar.setCurrentSelectedTab(mCurrentTab);
         }
