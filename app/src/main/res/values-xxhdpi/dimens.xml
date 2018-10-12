@@ -687,4 +687,7 @@
     <dimen name="px_361">361px</dimen>
     <dimen name="px_53">53px</dimen>
     <dimen name="px_26">26px</dimen>
+
+    <!--帮助中心-->
+    <dimen name="help_center_page_custom_service_bottom_margin">122px</dimen>
 </resources>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.CircleImageView;
 import com.hualong.kekemei.Utills.NoScrollGridView;
+import com.hualong.kekemei.activity.SettingActivity;
 import com.hualong.kekemei.bean.UserBean;
 import com.hualong.kekemei.fragment.adapter.GridAdapter;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -37,10 +39,9 @@ public class PersonFragment extends Fragment {
     @BindView(R.id.ncgv)
     NoScrollGridView ncgv;
 
-
-    private String[] userForwardArray = {"我的订单", "我的钱包", "我的美容师", "我的收藏", "我的积分","客户服务"};
+    private String[] userForwardArray = {"我的订单", "我的钱包", "我的美容师", "我的收藏", "我的积分", "客户服务"};
     private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_qianbao_btn,
-            R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn, R.mipmap.user_dizhi_btn,R.mipmap.user_kefu_btn};
+            R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn, R.mipmap.user_dizhi_btn, R.mipmap.user_kefu_btn};
 
     @Nullable
     @Override
@@ -62,6 +63,15 @@ public class PersonFragment extends Fragment {
         }
         GridAdapter gridAdapter = new GridAdapter(getActivity(), list);
         ncgv.setAdapter(gridAdapter);
+    }
+
+    @OnClick({R.id.user_set_btn})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.user_set_btn:
+                SettingActivity.start(getActivity());
+                break;
+        }
     }
 
     @Override

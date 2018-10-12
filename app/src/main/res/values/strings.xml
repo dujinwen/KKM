@@ -20,4 +20,8 @@
     <string name="setting_page_about_us">关于克克美</string>
     <string name="setting_page_clean_memory">清除缓存</string>
     <string name="setting_page_version">版本</string>
+
+    <string name="help_center_page_section_one">1、克克美做什么？</string>
+    <string name="help_center_page_section_two">2、账号找不到怎么办？</string>
+    <string name="help_center_page_section_three">3、密码忘记怎么办？</string>
 </resources>

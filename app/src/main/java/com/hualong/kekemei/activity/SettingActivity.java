@@ -1,5 +1,7 @@
 package com.hualong.kekemei.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -31,6 +33,11 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.txtVersion)
     SectionRowView version;
 
+    public static void start(Context context) {
+        Intent intent = new Intent(context, SettingActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected View setTitleBar() {
         return toolbar;
@@ -44,7 +51,7 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-//        toolbar.setNavigationIcon(R.mipmap.comui_back);
+        toolbar.setNavigationIcon(R.mipmap.back);
         TextView tv_title = toolbar.findViewById(R.id.tv_title);
         tv_title.setText("设置");
 
@@ -55,6 +62,20 @@ public class SettingActivity extends BaseActivity {
             }
         });
 
-        version.setContentTxt("V" + AppUtil.getVersionCode(this));
+        version.setContentTxt("V" + AppUtil.getVersionName(this));
+
+        feedBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FeedBackActivity.start(SettingActivity.this);
+            }
+        });
+
+        helpCenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HelpCenterActivity.start(SettingActivity.this);
+            }
+        });
     }
 }

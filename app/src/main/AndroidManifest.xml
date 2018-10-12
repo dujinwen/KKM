@@ -33,6 +33,8 @@
 
         <activity android:name=".activity.SettingActivity"/>
         <activity android:name=".activity.OrderListActivity"/>
+        <activity android:name=".activity.HelpCenterActivity"/>
+        <activity android:name=".activity.FeedBackActivity"/>
     </application>
 
 </manifest>
