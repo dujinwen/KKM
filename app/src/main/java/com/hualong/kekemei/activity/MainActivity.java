@@ -23,9 +23,9 @@ public class MainActivity extends BaseActivity {
     private static final String KEY_TAB = "tab";
 
     private static final String TAG_PAGE_HOME = "首页";
-    private static final String TAG_PAGE_CITY = "附近";
+    private static final String TAG_PAGE_CITY = "发现";
     //    private static final String TAG_PAGE_PUBLISH = "预约";
-    private static final String TAG_PAGE_MESSAGE = "会员";
+    private static final String TAG_PAGE_MESSAGE = "订单";
     private static final String TAG_PAGE_PERSON = "我的";
 
     @BindView(R.id.mainTabBar)
