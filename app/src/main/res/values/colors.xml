@@ -111,4 +111,6 @@
     <color name="trade_info_url_color">#159BFF</color>
     <color name="return_msg_address_text">#8A8A8A</color>
     <color name="return_msg_agree_btn_text">#1199ff</color>
+
+    <color name="search_btn_text_color">#0077E5</color>
 </resources>

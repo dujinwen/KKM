@@ -51,4 +51,15 @@
         <item name="colorAccent">@color/c_1199FF</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="SearchXEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/search_edit_text_height</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">@dimen/search_edit_text_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">#999999</item>
+        <item name="android:maxLines">1</item>
+        <item name="x_clearDrawable">@mipmap/icon_clear_text</item>
+    </style>
 </resources>
