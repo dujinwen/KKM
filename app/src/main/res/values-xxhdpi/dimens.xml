@@ -681,4 +681,10 @@
     <dimen name="recommendation_et_width">729px</dimen>
     <dimen name="recommendation_et_height">96px</dimen>
     <dimen name="px_664">664px</dimen>
+    <dimen name="px_29">29px</dimen>
+    <dimen name="px_449">449px</dimen>
+    <dimen name="px_478">478px</dimen>
+    <dimen name="px_361">361px</dimen>
+    <dimen name="px_53">53px</dimen>
+    <dimen name="px_26">26px</dimen>
 </resources>

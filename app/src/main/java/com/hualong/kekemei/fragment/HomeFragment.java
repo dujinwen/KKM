@@ -3,6 +3,8 @@ package com.hualong.kekemei.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +50,24 @@ public class HomeFragment extends Fragment {
     LinearLayout idMsg;
     @BindView(R.id.xbanner)
     XBanner xbanner;
+    @BindView(R.id.rv_meirongshi)
+    RecyclerView rvMeirongshi;
+    @BindView(R.id.rv_davip_kkm)
+    RecyclerView rvDavipKkm;
+    @BindView(R.id.iv_xinrenzhuanqu)
+    ImageView ivXinrenzhuanqu;
+    @BindView(R.id.rv_xinren)
+    RecyclerView rvXinren;
+    @BindView(R.id.iv_huiyuanzhuanqu)
+    ImageView ivHuiyuanzhuanqu;
+    @BindView(R.id.rv_huiyuan)
+    RecyclerView rvHuiyuan;
+    @BindView(R.id.iv_zuixinxiangmu)
+    ImageView ivZuixinxiangmu;
+    @BindView(R.id.rv_zuixinxiangmu)
+    RecyclerView rvZuixinxiangmu;
+    @BindView(R.id.ll_home)
+    LinearLayout llHome;
     private Unbinder unbinder;
 
     @Nullable
@@ -71,13 +89,14 @@ public class HomeFragment extends Fragment {
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
                 HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
-                //                for (int i = 0; i < homeBean.getData().getBanneradv().size(); i++) {
-                //                    imgesUrl.add(URLs.BASE_URL + homeBean.getData().getBanneradv().get(i).getImage());
-                //                }
                 xbanner.setData(homeBean.getData().getBanneradv(), null);
                 initBanner();
+                rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+                rvXinren.setAdapter(new MyGridAdapter(getActivity().getBaseContext(),0));
             }
         });
+
+
     }
 
     @Override
@@ -116,7 +135,7 @@ public class HomeFragment extends Fragment {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
                 //                Glide.with(MainActivity.this).load(((AdvertiseEntity.OthersBean) model).getThumbnail()).placeholder(R.drawable.default_image).error(R.drawable.default_image).into((ImageView) view);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL +((HomeBean.DataBean.BanneradvBean) model).getImage(), (ImageView) view);
+                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((HomeBean.DataBean.BanneradvBean) model).getImage(), (ImageView) view);
             }
         });
     }
