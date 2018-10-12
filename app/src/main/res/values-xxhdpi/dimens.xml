@@ -144,27 +144,27 @@
     <dimen name="px_43">43px</dimen>
 
 
-    <dimen name="login_margin_left">80px</dimen>
-    <dimen name="login_margin_right">80px</dimen>
-    <dimen name="login_welcome_margin_top">120px</dimen>
-    <dimen name="login_welcome_height">120px</dimen>
-    <dimen name="login_account_margin_top">88px</dimen>
-    <dimen name="login_account_height">128px</dimen>
-    <dimen name="login_password_margin_top">44px</dimen>
-    <dimen name="login_password_height">128px</dimen>
-    <dimen name="login_code_margin_top">44px</dimen>
-    <dimen name="login_code_height">128px</dimen>
-    <dimen name="login_code_image_width">230px</dimen>
-    <dimen name="login_code_image_height">110px</dimen>
-    <dimen name="login_code_image_margin_left">45px</dimen>
-    <dimen name="login_forget_margin_top">44px</dimen>
-    <dimen name="login_bt_height">112px</dimen>
-    <dimen name="login_bt_width">920px</dimen>
-    <dimen name="login_bt_margin_top">96px</dimen>
-    <dimen name="login_bottom_width">920px</dimen>
-    <dimen name="login_bottom_margin_bottom">45px</dimen>
-    <dimen name="login_bt_radius">16px</dimen>
-    <dimen name="login_bottom_margin">28px</dimen>
+    <dimen name="search_margin_left">80px</dimen>
+    <dimen name="search_margin_right">80px</dimen>
+    <dimen name="search_welcome_margin_top">120px</dimen>
+    <dimen name="search_welcome_height">120px</dimen>
+    <dimen name="search_account_margin_top">88px</dimen>
+    <dimen name="search_account_height">128px</dimen>
+    <dimen name="search_password_margin_top">44px</dimen>
+    <dimen name="search_password_height">128px</dimen>
+    <dimen name="search_code_margin_top">44px</dimen>
+    <dimen name="search_code_height">128px</dimen>
+    <dimen name="search_code_image_width">230px</dimen>
+    <dimen name="search_code_image_height">110px</dimen>
+    <dimen name="search_code_image_margin_left">45px</dimen>
+    <dimen name="search_forget_margin_top">44px</dimen>
+    <dimen name="search_bt_height">112px</dimen>
+    <dimen name="search_bt_width">920px</dimen>
+    <dimen name="search_bt_margin_top">96px</dimen>
+    <dimen name="search_bottom_width">920px</dimen>
+    <dimen name="search_bottom_margin_bottom">45px</dimen>
+    <dimen name="search_bt_radius">16px</dimen>
+    <dimen name="search_bottom_margin">28px</dimen>
 
     <dimen name="lock_icon_width">200px</dimen>
     <dimen name="lock_icon_height">200px</dimen>
@@ -184,11 +184,11 @@
     <dimen name="lock_fingerprint_bg_radius">24px</dimen>
 
     <!--字体大小-->
-    <dimen name="login_welcome_size">58px</dimen>
-    <dimen name="login_account_size">40px</dimen>
-    <dimen name="login_forget_password_size">34px</dimen>
-    <dimen name="login_bt_size">44px</dimen>
-    <dimen name="login_bottom_text_size">28px</dimen>
+    <dimen name="search_welcome_size">58px</dimen>
+    <dimen name="search_account_size">40px</dimen>
+    <dimen name="search_forget_password_size">34px</dimen>
+    <dimen name="search_bt_size">44px</dimen>
+    <dimen name="search_bottom_text_size">28px</dimen>
 
     <dimen name="lock_hint_top_size">48px</dimen>
     <dimen name="lock_hint_bottom_size">36px</dimen>
@@ -650,13 +650,13 @@
     <dimen name="return_detail_text_size_14">42px</dimen>
     <dimen name="return_detail_text_size_12">36px</dimen>
     <dimen name="return_detail_text_size_11">33px</dimen>
-    <dimen name="pc_login_iv_padding_top">360px</dimen>
-    <dimen name="pc_login_tv_padding_top">150px</dimen>
-    <dimen name="pc_login_tv_size">42px</dimen>
-    <dimen name="pc_login_btn_width">960px</dimen>
-    <dimen name="pc_login_btn_height">132px</dimen>
-    <dimen name="pc_login_btn_agree_mb">30px</dimen>
-    <dimen name="pc_login_btn_no_mb">39px</dimen>
+    <dimen name="pc_search_iv_padding_top">360px</dimen>
+    <dimen name="pc_search_tv_padding_top">150px</dimen>
+    <dimen name="pc_search_tv_size">42px</dimen>
+    <dimen name="pc_search_btn_width">960px</dimen>
+    <dimen name="pc_search_btn_height">132px</dimen>
+    <dimen name="pc_search_btn_agree_mb">30px</dimen>
+    <dimen name="pc_search_btn_no_mb">39px</dimen>
     <dimen name="dialog_pop_right_or_lift">48px</dimen>
     <dimen name="dialog_pop_top_or_bottom">30px</dimen>
     <dimen name="ll_experience_width">564px</dimen>
@@ -687,6 +687,7 @@
     <dimen name="px_361">361px</dimen>
     <dimen name="px_53">53px</dimen>
     <dimen name="px_26">26px</dimen>
+
     <dimen name="px_19">19px</dimen>
     <dimen name="px_369">369px</dimen>
     <dimen name="px_455">455px</dimen>
@@ -713,4 +714,19 @@
     <dimen name="px_910">910px</dimen>
     <dimen name="px_832">832px</dimen>
     <dimen name="px_1007">1007px</dimen>
+
+
+    <!--帮助中心-->
+    <dimen name="help_center_page_custom_service_bottom_margin">122px</dimen>
+
+    <!--搜索-->
+    <dimen name="search_edit_text_text_size">37px</dimen>
+    <dimen name="search_edit_text_height">72px</dimen>
+    <dimen name="search_tool_bar_left_padding">43px</dimen>
+    <dimen name="search_tool_bar_right_padding">33px</dimen>
+    <dimen name="search_tool_bar_top_padding">24px</dimen>
+    <dimen name="search_tool_bar_bottom_padding">19px</dimen>
+    <dimen name="search_edit_text_clear_text_icon_size">18dp</dimen>
+    <dimen name="search_edit_text_eye_password_icon_size">22dp</dimen>
+
 </resources>

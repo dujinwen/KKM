@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.stx.xhb.xbanner.XBanner
+            android:id="@+id/xbanner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_549"
+            app:AutoPlayTime="3000"
+            app:isShowIndicatorOnlyOne="true"
+            app:pageChangeDuration="800"
+            app:pointNormal="@drawable/shape_noraml"
+            app:pointSelect="@drawable/shape_selected"
+            app:pointsPosition="RIGHT"
+            app:tipTextSize="12sp" />
+
+
+        <com.hualong.kekemei.Utills.IndictorWithNumber
+            android:id="@+id/rushHallTabs"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:pstsDividerColor="#00000000"
+            app:pstsIndicatorColor="#1199ff"
+            app:pstsIndicatorHeight="@dimen/work_order_list_indictor_hight"
+            app:pstsTabPaddingLeftRight="@dimen/work_order_list_indictor_padding_left"
+            app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
+            app:pstsUnderlineColor="#e5e6e8"
+            app:pstsUnderlineHeight="@dimen/work_order_list_under_line_hight" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/rushHallPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</RelativeLayout>

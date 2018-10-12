@@ -31,10 +31,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         //初始化沉浸式
         if (isImmersionBarEnabled())
             initImmersionBar();
-        //初始化数据
-        initData();
         //view与数据绑定
         initView(savedInstanceState);
+        //初始化数据
+        initData();
         //设置监听
         setListener();
     }

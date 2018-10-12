@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.fragment.adapter.DAVipAdapter;
 import com.hualong.kekemei.fragment.adapter.MeiRongShiAdapter;
@@ -85,6 +86,13 @@ public class HomeFragment extends Fragment {
         initData();
 
         unbinder = ButterKnife.bind(this, view);
+
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchActivity.start(getActivity(),"0");
+            }
+        });
         return view;
     }
 
