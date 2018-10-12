@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.HomeBean;
+import com.hualong.kekemei.fragment.adapter.DAVipAdapter;
+import com.hualong.kekemei.fragment.adapter.MeiRongShiAdapter;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -68,6 +71,10 @@ public class HomeFragment extends Fragment {
     RecyclerView rvZuixinxiangmu;
     @BindView(R.id.ll_home)
     LinearLayout llHome;
+    @BindView(R.id.iv_remenxiangmu)
+    ImageView ivRemenxiangmu;
+    @BindView(R.id.rv_remenxiangmu)
+    RecyclerView rvRemenxiangmu;
     private Unbinder unbinder;
 
     @Nullable
@@ -91,8 +98,46 @@ public class HomeFragment extends Fragment {
                 HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
                 xbanner.setData(homeBean.getData().getBanneradv(), null);
                 initBanner();
+
+
+                LinearLayoutManager layout_meirongshi = new LinearLayoutManager(getActivity().getBaseContext());
+                layout_meirongshi.setOrientation(LinearLayoutManager.HORIZONTAL);
+                rvMeirongshi.setLayoutManager(layout_meirongshi);
+                MeiRongShiAdapter adapter = new MeiRongShiAdapter(getActivity());
+                rvMeirongshi.setAdapter(adapter);
+                adapter.addData(homeBean.getData().getBeautician());
+
+                LinearLayoutManager layout_vip = new LinearLayoutManager(getActivity().getBaseContext());
+                layout_vip.setOrientation(LinearLayoutManager.HORIZONTAL);
+                rvDavipKkm.setLayoutManager(layout_vip);
+                DAVipAdapter adapter_vip = new DAVipAdapter(getActivity());
+                rvDavipKkm.setAdapter(adapter_vip);
+                adapter_vip.addData(homeBean.getData().getShop());
+
                 rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                rvXinren.setAdapter(new MyGridAdapter(getActivity().getBaseContext(),0));
+                MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), 0);
+                rvXinren.setAdapter(adapter1);
+                adapter1.addData(homeBean.getData().getNewmemberdata());
+
+
+                rvRemenxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+                MyGridAdapter adapter4 = new MyGridAdapter(getActivity().getBaseContext(), 1);
+                rvRemenxiangmu.setAdapter(adapter4);
+                adapter4.addData(homeBean.getData().getHotdata());
+
+
+                rvHuiyuan.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+                MyGridAdapter adapter2 = new MyGridAdapter(getActivity().getBaseContext(), 2);
+                rvHuiyuan.setAdapter(adapter2);
+                adapter2.addData(homeBean.getData().getMemberdata());
+
+
+                rvZuixinxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+                MyGridAdapter adapter3 = new MyGridAdapter(getActivity().getBaseContext(), 3);
+                rvZuixinxiangmu.setAdapter(adapter3);
+                adapter3.addData(homeBean.getData().getSpecialdata());
+
+
             }
         });
 

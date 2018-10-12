@@ -48,10 +48,7 @@ public class MessageFragment
         extends Fragment implements OrderListContract.View, IndictorWithNumber.TabChangeListener {
 
     public static final String ARG_ORDER_STATUS = "orderStatus";
-    @BindView(R.id.rv_hot_huodong)
-    RecyclerView rvHotHuodong;
-    @BindView(R.id.ll_hot_huodong)
-    LinearLayout llHotHuodong;
+
     Unbinder unbinder;
 
     private IndictorWithNumber jIndictorWithNumber;
@@ -63,6 +60,7 @@ public class MessageFragment
 
     private MultipleStatusView multipleStatusView;
     int status = OrderListBean.ORDER_STATUS_ALL;
+    private RecyclerView rv_hot_huodong;
 
     public static OrderListFragment newInstance(int orderStatus) {
         OrderListFragment fragment = new OrderListFragment();
@@ -136,6 +134,10 @@ public class MessageFragment
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             View foot_view = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) jRecyclerView.getParent(), false);
             jAdapter.addFooterView(foot_view);
+            rv_hot_huodong = (RecyclerView)foot_view.findViewById(R.id.rv_hot_huodong);
+            rv_hot_huodong.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+            rv_hot_huodong.setAdapter(new HotHuodongAdapter(getContext()));
         }
 
         //添加Header对应的点击事件
@@ -184,9 +186,7 @@ public class MessageFragment
         jIndictorWithNumber.setTabChangeListener(this);
 
 
-        rvHotHuodong.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-        rvHotHuodong.setAdapter(new HotHuodongAdapter(getContext()));
 
     }
 

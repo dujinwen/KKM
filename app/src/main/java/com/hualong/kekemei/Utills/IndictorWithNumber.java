@@ -79,7 +79,7 @@ public class IndictorWithNumber extends HorizontalScrollView {
     private Paint rectPaint;
     private Paint dividerPaint;
 
-    private int indicatorColor = 0xFF666666;
+    private int indicatorColor = 0xFF7AD2D2;
     private int underlineColor = 0x1A000000;
     private int dividerColor = 0x1A000000;
 
@@ -95,8 +95,8 @@ public class IndictorWithNumber extends HorizontalScrollView {
 
     private int tabTextSize = 12;
     private int tabNumTextSize = 10;
-    private int tabTextColor = 0xFF666666;
-    private int tabTextColorSel = 0xFF108EE9;
+    private int tabTextColor = 0xFFC1C1C1;
+    private int tabTextColorSel = 0xFF333333;
     private Typeface tabTypeface = null;
     private int tabTypefaceStyle = Typeface.BOLD;
 

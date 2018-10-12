@@ -123,7 +123,9 @@
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/px_27"
+                android:paddingTop="@dimen/px_32">
 
                 <LinearLayout
                     android:layout_width="1010px"
@@ -194,16 +196,35 @@
                             android:text="满1099立减100"
                             android:textSize="26px" />
                     </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/px_19">
+
+                    <ImageView
+                        android:layout_width="@dimen/px_540"
+                        android:layout_height="@dimen/px_369"
+                        android:background="@mipmap/home_guangao_xinren_pic" />
+
+                    <ImageView
+                        android:layout_width="@dimen/px_455"
+                        android:layout_height="@dimen/px_369"
+                        android:background="@mipmap/home_guangao_miaosha_pic" />
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/px_664"></LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px_613"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_48"
+                android:background="#FFF"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -229,10 +250,13 @@
                         android:src="@mipmap/title_more_btn" />
                 </LinearLayout>
 
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_meirongshi"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/px_59">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -240,7 +264,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px_868"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_43"
+                android:background="#fff"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -268,7 +294,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_davip_kkm"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/px_45">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -276,7 +304,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/px_38">
 
                 <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
@@ -303,12 +333,14 @@
                     android:id="@+id/iv_xinrenzhuanqu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/home_huiyuanzhuanqu_pic" />
+                    android:background="@mipmap/home_xinrenmiaosha_pic" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_xinren"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="@dimen/px_1007"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/px_30">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -316,7 +348,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/px_38">
 
 
                 <ImageView
@@ -327,8 +361,10 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_huiyuan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="@dimen/px_1007"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/px_30">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -336,7 +372,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/px_38">
 
                 <ImageView
                     android:id="@+id/iv_zuixinxiangmu"
@@ -346,12 +384,36 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_zuixinxiangmu"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="@dimen/px_1007"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/px_30">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/px_38">
+
+                <ImageView
+                    android:id="@+id/iv_remenxiangmu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/home_reminixiangmu_pic" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_remenxiangmu"
+                    android:layout_width="@dimen/px_1007"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/px_30">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
