@@ -72,8 +72,6 @@ public class PersonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         unbinder = ButterKnife.bind(this, view);
-
-
         initData();
         return view;
     }
