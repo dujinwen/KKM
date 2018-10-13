@@ -123,25 +123,25 @@ public class HomeFragment extends Fragment {
                 adapter_vip.addData(homeBean.getData().getShop());
 
                 rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), 0);
+                MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);
                 rvXinren.setAdapter(adapter1);
                 adapter1.addData(homeBean.getData().getNewmemberdata());
 
 
                 rvRemenxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter4 = new MyGridAdapter(getActivity().getBaseContext(), 1);
+                MyGridAdapter adapter4 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.HotdataBean);
                 rvRemenxiangmu.setAdapter(adapter4);
                 adapter4.addData(homeBean.getData().getHotdata());
 
 
                 rvHuiyuan.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter2 = new MyGridAdapter(getActivity().getBaseContext(), 2);
+                MyGridAdapter adapter2 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.MemberdataBean);
                 rvHuiyuan.setAdapter(adapter2);
                 adapter2.addData(homeBean.getData().getMemberdata());
 
 
                 rvZuixinxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter3 = new MyGridAdapter(getActivity().getBaseContext(), 3);
+                MyGridAdapter adapter3 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.SpecialdataBean);
                 rvZuixinxiangmu.setAdapter(adapter3);
                 adapter3.addData(homeBean.getData().getSpecialdata());
 

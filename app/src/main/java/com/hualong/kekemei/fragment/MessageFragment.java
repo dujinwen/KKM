@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hualong.kekemei.R;
@@ -24,7 +23,6 @@ import com.hualong.kekemei.activity.OrderListContract;
 import com.hualong.kekemei.activity.OrderListPresenter;
 import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;
-import com.hualong.kekemei.fragment.adapter.HotHuodongAdapter;
 import com.hualong.kekemei.fragment.adapter.OrderListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -33,7 +31,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -137,7 +134,10 @@ public class MessageFragment
             rv_hot_huodong = (RecyclerView)foot_view.findViewById(R.id.rv_hot_huodong);
             rv_hot_huodong.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-            rv_hot_huodong.setAdapter(new HotHuodongAdapter(getContext()));
+            MyGridAdapter adapter = new MyGridAdapter(getContext(), MyGridAdapter.ORDER_HOT_BEAN);
+            rv_hot_huodong.setAdapter(adapter);
+            //设置热门数据
+//            adapter.addData();
         }
 
         //添加Header对应的点击事件
