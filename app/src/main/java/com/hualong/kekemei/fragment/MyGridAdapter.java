@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.BaseBean;
+import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.bean.HomeBean;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
@@ -16,6 +17,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
  */
 
 class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
+    public static final int PERSON_TUI_JIAN = 5;
     private Context context;
     private int type;
 
@@ -78,6 +80,14 @@ class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
 //            helper.setText(R.id.tv_name, item4.getName());
 //            helper.setText(R.id.now_price, item4.getPrice() + "");
 //            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            return;
+        }
+        if (type == PERSON_TUI_JIAN){
+            ForYouBean.DataBean item4 = (ForYouBean.DataBean) item;
+            //                setData(item1);
+            helper.setText(R.id.tv_name, item4.getName());
+            helper.setText(R.id.now_price, item4.getPrice() + "");
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
 

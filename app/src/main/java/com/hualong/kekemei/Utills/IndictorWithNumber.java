@@ -42,11 +42,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.loading.FragmentPagerAdapter;
 
 import java.util.List;
 import java.util.Locale;
-import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.loading.FragmentPagerAdapter;
 
 public class IndictorWithNumber extends HorizontalScrollView {
 
@@ -363,8 +363,8 @@ public class IndictorWithNumber extends HorizontalScrollView {
 
         // draw indicator line
 
-        rectPaint.setColor(indicatorColor);
-
+//        rectPaint.setColor(indicatorColor);
+        rectPaint.setColor(0xFF7AD2D2);
         // default: line below current tab
         View currentTab = tabsContainer.getChildAt(currentPosition);
         float lineLeft = currentTab.getLeft();

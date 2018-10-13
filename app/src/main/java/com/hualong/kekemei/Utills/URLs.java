@@ -12,4 +12,6 @@ public class URLs {
     public static final String MY_ORDER = BASE_URL + "/api/order/myorder";
 
     public static final String MIAOSHA = BASE_URL + "/api/project/second";
+
+    public static final String WEINITUIJIAN = BASE_URL +"/api/project/foryou";
 }

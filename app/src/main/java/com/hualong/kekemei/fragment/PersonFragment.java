@@ -3,16 +3,26 @@ package com.hualong.kekemei.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.CircleImageView;
 import com.hualong.kekemei.Utills.NoScrollGridView;
+import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.activity.SettingActivity;
+import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.bean.UserBean;
 import com.hualong.kekemei.fragment.adapter.GridAdapter;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +48,20 @@ public class PersonFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.ncgv)
     NoScrollGridView ncgv;
+    @BindView(R.id.tiyan)
+    LinearLayout tiyan;
+    @BindView(R.id.daijinquan)
+    LinearLayout daijinquan;
+    @BindView(R.id.hongbao)
+    LinearLayout hongbao;
+    @BindView(R.id.ll_foryou)
+    LinearLayout llForyou;
+    @BindView(R.id.rv_tuijian)
+    RecyclerView rvTuijian;
+    @BindView(R.id.user_set_btn)
+    ImageView userSetBtn;
+    @BindView(R.id.user_message_btn)
+    ImageView userMessageBtn;
 
     private String[] userForwardArray = {"我的订单", "我的钱包", "我的美容师", "我的收藏", "我的积分", "客户服务"};
     private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_qianbao_btn,
@@ -63,6 +87,27 @@ public class PersonFragment extends Fragment {
         }
         GridAdapter gridAdapter = new GridAdapter(getActivity(), list);
         ncgv.setAdapter(gridAdapter);
+
+
+        OkGo.<String>get(URLs.WEINITUIJIAN).params("page", 1).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+                    llForyou.setVisibility(View.VISIBLE);
+                } else {
+                    llForyou.setVisibility(View.GONE);
+                    return;
+                }
+
+                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+                rvTuijian.setAdapter(adapter);
+                adapter.addData(forYouBean.getData());
+            }
+        });
     }
 
     @OnClick({R.id.user_set_btn})
