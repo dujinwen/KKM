@@ -34,4 +34,12 @@
     <string name="search_title_bar_btn_text">搜索</string>
     <string name="search_suggest_page_search_history">历史记录</string>
     <string name="search_suggest_page_search_hotword">热门搜索</string>
+
+    <!--个人资料-->
+    <string name="user_info_nick">昵称</string>
+    <string name="user_info_sex">性别</string>
+    <string name="user_info_birth">生日</string>
+    <string name="user_info_skin">肤质</string>
+    <string name="user_info_hobby">我的爱好</string>
+
 </resources>

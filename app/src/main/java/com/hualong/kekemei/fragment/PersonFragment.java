@@ -18,6 +18,7 @@ import com.hualong.kekemei.Utills.NoScrollGridView;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.activity.SettingActivity;
 import com.hualong.kekemei.bean.ForYouBean;
+import com.hualong.kekemei.activity.UserInfoActivity;
 import com.hualong.kekemei.bean.UserBean;
 import com.hualong.kekemei.fragment.adapter.GridAdapter;
 import com.lzy.okgo.OkGo;
@@ -108,11 +109,14 @@ public class PersonFragment extends Fragment {
         });
     }
 
-    @OnClick({R.id.user_set_btn})
+    @OnClick({R.id.user_set_btn, R.id.icon})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_set_btn:
                 SettingActivity.start(getActivity());
+                break;
+            case R.id.icon:
+                UserInfoActivity.start(getActivity());
                 break;
         }
     }
