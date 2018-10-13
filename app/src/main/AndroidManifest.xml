@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -19,11 +20,13 @@
         <meta-data
             android:name="com.jcloud.image_loader_module.MyGlideModule"
             android:value="GlideModule" />
-        <activity android:name=".activity.MainActivity"
+
+        <activity
+            android:name=".activity.MainActivity"
             android:clipToPadding="true"
+            android:fitsSystemWindows="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:fitsSystemWindows="true">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,11 +34,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.SettingActivity"/>
-        <activity android:name=".activity.OrderListActivity"/>
-        <activity android:name=".activity.HelpCenterActivity"/>
-        <activity android:name=".activity.FeedBackActivity"/>
-        <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.OrderListActivity" />
+        <activity android:name=".activity.HelpCenterActivity" />
+        <activity android:name=".activity.FeedBackActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.UserInfoActivity" />
     </application>
 
 </manifest>

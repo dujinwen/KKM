@@ -18,6 +18,7 @@ import com.hualong.kekemei.Utills.NoScrollGridView;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.activity.SettingActivity;
 import com.hualong.kekemei.bean.ForYouBean;
+import com.hualong.kekemei.activity.UserInfoActivity;
 import com.hualong.kekemei.bean.HongBao;
 import com.hualong.kekemei.bean.UserBean;
 import com.hualong.kekemei.bean.YouHuiQuan;
@@ -88,27 +89,7 @@ public class PersonFragment extends Fragment {
         GridAdapter gridAdapter = new GridAdapter(getActivity(), list);
         ncgv.setAdapter(gridAdapter);
 
-        //我的红包
-        OkGo.<String>get(URLs.HONGBAO).params("page", 1).params("user_id",1).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                HongBao forYouBean = gson.fromJson(response.body(), HongBao.class);
 
-            }
-        });
-
-        //我的优惠券
-        OkGo.<String>get(URLs.YOUHUIQUAN).params("page", 1).params("user_id",1).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                YouHuiQuan forYouBean = gson.fromJson(response.body(), YouHuiQuan.class);
-
-            }
-        });
-
-        //推荐数据
         OkGo.<String>get(URLs.WEINITUIJIAN).params("page", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -135,6 +116,9 @@ public class PersonFragment extends Fragment {
         switch (view.getId()) {
             case R.id.user_set_btn:
                 SettingActivity.start(getActivity());
+                break;
+            case R.id.icon:
+                UserInfoActivity.start(getActivity());
                 break;
         }
     }
