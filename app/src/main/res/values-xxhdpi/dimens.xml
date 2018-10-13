@@ -730,5 +730,14 @@
     <dimen name="search_edit_text_eye_password_icon_size">22dp</dimen>
     <dimen name="px_49">49px</dimen>
     <dimen name="px_94">94px</dimen>
+    <dimen name="px_171">171px</dimen>
+    <dimen name="px_63">63px</dimen>
+    <dimen name="px_230">230px</dimen>
+    <dimen name="px_969">969px</dimen>
+    <dimen name="px_392">392px</dimen>
+    <dimen name="px_971">971px</dimen>
+    <dimen name="px_680">680px</dimen>
+    <dimen name="px_1168">1168px</dimen>
+    <dimen name="px_81">81px</dimen>
 
 </resources>

@@ -13,5 +13,8 @@ public class URLs {
 
     public static final String MIAOSHA = BASE_URL + "/api/project/second";
 
-    public static final String WEINITUIJIAN = BASE_URL +"/api/project/foryou";
+    public static final String WEINITUIJIAN = BASE_URL + "/api/project/foryou";
+
+    public static final String HONGBAO = BASE_URL + "/api/user/myRedenvelopes";
+    public static final String YOUHUIQUAN = BASE_URL + "/api/user/mycoupon";
 }
