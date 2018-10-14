@@ -42,4 +42,11 @@
     <string name="user_info_skin">肤质</string>
     <string name="user_info_hobby">我的爱好</string>
 
+    <!--添加地址-->
+    <string name="my_address_detail_item_name">请输入收货人姓名</string>
+    <string name="my_address_detail_item_address">点击选择</string>
+    <string name="my_address_detail_item_address_detail_hint">请输入详细地址（5-120个字）</string>
+    <string name="my_address_detail_item_phone">请输入手机号</string>
+    <string name="my_address_detail_item_set_to_default">设置为默认地址</string>
+
 </resources>

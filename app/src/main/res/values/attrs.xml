@@ -78,8 +78,8 @@
         <attr name="pstsTabBackground" format="reference" />
         <attr name="pstsShouldExpand" format="boolean" />
         <attr name="pstsTextAllCaps" format="boolean" />
+        <attr name="pstsTextSelectedColor" format="color" />
     </declare-styleable>
-
 
     <declare-styleable name="MultipleTextViewGroup">
         <attr name="textColor" format="color" />
