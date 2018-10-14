@@ -1,14 +1,22 @@
 package com.hualong.kekemei.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.AppUtil;
+import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;
@@ -18,7 +26,7 @@ import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements AMapLocationListener {
     public static final int TAB_HOME = 0;
     private static final String KEY_TAB = "tab";
 
@@ -71,6 +79,19 @@ public class MainActivity extends BaseActivity {
             mCurrentTab = intent.getIntExtra(KEY_TAB, mCurrentTab);
             mNavigateTabBar.setCurrentSelectedTab(mCurrentTab);
         }
+    }
+
+    @Override
+    protected void initData() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
+            //开启定位权限,200是标识码
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+        } else {
+            AppUtil.getUserPoint(getApplicationContext(), this);
+            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -129,5 +150,31 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+                //定位成功回调信息，设置相关消息
+                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                double latitude = amapLocation.getLatitude();//获取纬度
+                double longitude = amapLocation.getLongitude();//获取经度
+//                mPoint = new DPoint(latitude,longitude);
+//                loadData();//后续操作
+                LogUtil.d("APPLOCALTION", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
+                Toast.makeText(MainActivity.this,"LATITUDE : " + latitude + " --  LONGITUDE : " + longitude,Toast.LENGTH_SHORT).show();
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                LogUtil.d("APPLOCALTION", "location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
+                Toast.makeText(MainActivity.this,"location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo(),Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
     }
 }

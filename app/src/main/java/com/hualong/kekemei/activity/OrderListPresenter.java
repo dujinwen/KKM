@@ -149,7 +149,7 @@ public class OrderListPresenter implements OrderListContract.Presenter, OrderLis
                 item.count = getTabNumber(item.status, orderListBean);
             }
         }
-        jView.showIndictor(tabModele);
+            jView.showIndictor(tabModele);
     }
 
 

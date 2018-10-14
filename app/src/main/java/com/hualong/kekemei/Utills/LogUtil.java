@@ -13,9 +13,9 @@ public class LogUtil {
     }
 
     public static void d(String TAG, String message) {
-        if (BuildConfig.DEBUG) {
+//        if (BuildConfig.DEBUG) {
             Log.d(TAG, message);
-        }
+//        }
     }
 
     public static void i(String TAG, String message) {

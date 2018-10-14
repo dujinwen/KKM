@@ -18,7 +18,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('../KKMkey.jks')
+            storeFile file('E:\\develop_project\\KKM\\KKMkey.jks')
             storePassword "s3EtsGCN"
             keyAlias "key0"
             keyPassword "s3EtsGCN"
@@ -57,5 +57,9 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5'//没有使用特殊Header，可以不加这行
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     implementation 'com.orhanobut:logger:2.1.1'
+
+    compile 'com.amap.api:location:latest.integration'
+
+    implementation 'pub.devrel:easypermissions:0.1.9'
 
 }

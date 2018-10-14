@@ -13,10 +13,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         init();
+
+
     }
 
     private void init() {
         OkHttpInit jOkHttpInit = new OkHttpInit();
         jOkHttpInit.initOkGo(this);
     }
+
+
 }
+
