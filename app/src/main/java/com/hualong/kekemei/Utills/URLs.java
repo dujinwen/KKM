@@ -17,4 +17,6 @@ public class URLs {
 
     public static final String HONGBAO = BASE_URL + "/api/user/myRedenvelopes";
     public static final String YOUHUIQUAN = BASE_URL + "/api/user/mycoupon";
+
+    public static final String SEARCH = BASE_URL +"/api/index/search";
 }

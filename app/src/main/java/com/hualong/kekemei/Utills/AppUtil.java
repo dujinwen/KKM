@@ -114,6 +114,16 @@ public class AppUtil {
     }
 
     /**
+     * 判断字符串是否为空，null、""、"null"，都为空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isEmptyString(String str) {
+        return (TextUtils.isEmpty(str) || "null".equals(str));
+    }
+
+    /**
      * base64转为bitmap
      *
      * @param base64Data

@@ -18,7 +18,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('E:\\develop_project\\KKM\\KKMkey.jks')
+            storeFile file('../KKMkey.jks')
             storePassword "s3EtsGCN"
             keyAlias "key0"
             keyPassword "s3EtsGCN"
@@ -61,5 +61,7 @@ dependencies {
     compile 'com.amap.api:location:latest.integration'
 
     implementation 'pub.devrel:easypermissions:0.1.9'
+
+    compile 'com.google.android:flexbox:0.2.3'
 
 }

@@ -7,18 +7,20 @@
 
     <include layout="@layout/layout_search_tool_bar" />
 
-    <com.hualong.kekemei.Utills.IndictorWithNumber
+    <com.hualong.kekemei.view.PagerSlidingTabStrip
         android:id="@+id/searchIndictor"
         android:layout_width="match_parent"
         android:layout_height="140px"
         android:background="@color/transparent"
-        android:textColor="@color/black"
+        android:textColor="#C1C1C1"
         android:textSize="13sp"
         app:pstsDividerColor="#00000000"
         app:pstsIndicatorColor="#1199ff"
         app:pstsIndicatorHeight="@dimen/work_order_list_indictor_hight"
         app:pstsShouldExpand="true"
         app:pstsTabPaddingLeftRight="@dimen/work_order_list_indictor_padding_left"
+        app:pstsTextAllCaps="false"
+        app:pstsTextSelectedColor="@color/black"
         app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
         app:pstsUnderlineColor="#e5e6e8"
         app:pstsUnderlineHeight="@dimen/work_order_list_under_line_hight" />
