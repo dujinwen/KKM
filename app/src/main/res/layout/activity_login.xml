@@ -156,7 +156,7 @@
             android:layout_height="@dimen/px_101"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:src="@mipmap/icon" />
+            android:src="@mipmap/umeng_socialize_wechat" />
 
         <ImageView
             android:id="@+id/qq_login"
@@ -164,7 +164,7 @@
             android:layout_height="@dimen/px_101"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:src="@mipmap/icon" />
+            android:src="@mipmap/umeng_socialize_qq" />
 
         <ImageView
             android:id="@+id/weibo_login"
@@ -172,6 +172,6 @@
             android:layout_height="@dimen/px_101"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:src="@mipmap/icon" />
+            android:src="@mipmap/umeng_socialize_sina" />
     </LinearLayout>
 </RelativeLayout>
