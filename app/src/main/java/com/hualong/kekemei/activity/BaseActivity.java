@@ -43,8 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.WRITE_SETTINGS,
-            Manifest.permission.CHANGE_CONFIGURATION
     };
 
     private static final int PERMISSON_REQUESTCODE = 0;
@@ -152,7 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      */
     private void showMissingPermissionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.notifyTitle);
         builder.setMessage(R.string.notifyMsg);
 
@@ -161,7 +159,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+//                        finish();
+
                     }
                 });
 

@@ -22,6 +22,7 @@ import com.lzy.okgo.convert.Converter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -69,27 +70,32 @@ public class JsonConvert<T> implements Converter<T> {
             return parseType(response, type);
         }
     }
-
-    private T parseClass(Response response, Class<?> rawType) throws Exception {
+    @SuppressWarnings("unchecked")
+    private T parseClass(Response response, Class<?> rawType) {
         if (rawType == null) return null;
         ResponseBody body = response.body();
         if (body == null) return null;
         JsonReader jsonReader = new JsonReader(body.charStream());
+        try {
+            if (rawType == String.class) {
+                //noinspection unchecked
+                return (T) body.string();
 
-        if (rawType == String.class) {
-            //noinspection unchecked
-            return (T) body.string();
-        } else if (rawType == JSONObject.class) {
-            //noinspection unchecked
-            return (T) new JSONObject(body.string());
-        } else if (rawType == JSONArray.class) {
-            //noinspection unchecked
-            return (T) new JSONArray(body.string());
-        } else {
-            T t = Convert.fromJson(jsonReader, rawType);
-            response.close();
-            return t;
+            } else if (rawType == JSONObject.class) {
+                //noinspection unchecked
+                return (T) new JSONObject(body.string());
+            } else if (rawType == JSONArray.class) {
+                //noinspection unchecked
+                return (T) new JSONArray(body.string());
+            } else {
+                T t = Convert.fromJson(jsonReader, rawType);
+                response.close();
+                return t;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     private T parseType(Response response, Type type) throws Exception {
@@ -104,6 +110,7 @@ public class JsonConvert<T> implements Converter<T> {
         return t;
     }
 
+    @SuppressWarnings("unchecked")
     private T parseParameterizedType(Response response, ParameterizedType type) throws Exception {
         if (type == null) return null;
         ResponseBody body = response.body();

@@ -29,6 +29,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -111,14 +112,17 @@ public class IndictorWithNumber extends HorizontalScrollView {
     private int numberPadding = 10;
     private int numberHight = 60;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public IndictorWithNumber(Context context) {
         this(context, null);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public IndictorWithNumber(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public IndictorWithNumber(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setFillViewport(true);
@@ -180,7 +184,8 @@ public class IndictorWithNumber extends HorizontalScrollView {
         expandedTabLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f);
 
         if (locale == null) {
-            locale = getResources().getConfiguration().locale;
+            locale = getResources().getConfiguration().getLocales().get(0);
+
         }
         tabNumTextSize = (int) (tabTextSize * 0.857f);
     }
@@ -195,7 +200,7 @@ public class IndictorWithNumber extends HorizontalScrollView {
 
         pager.setCurrentItem(tabModele.getCurrentItem());
 
-        pager.setOnPageChangeListener(pageListener);
+        pager.addOnPageChangeListener(pageListener);
 
         notifyDataSetChanged();
     }
@@ -363,7 +368,7 @@ public class IndictorWithNumber extends HorizontalScrollView {
 
         // draw indicator line
 
-//        rectPaint.setColor(indicatorColor);
+        //        rectPaint.setColor(indicatorColor);
         rectPaint.setColor(0xFF7AD2D2);
         // default: line below current tab
         View currentTab = tabsContainer.getChildAt(currentPosition);
@@ -430,8 +435,9 @@ public class IndictorWithNumber extends HorizontalScrollView {
         invalidate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setIndicatorColorResource(int resId) {
-        this.indicatorColor = getResources().getColor(resId);
+        this.indicatorColor = getResources().getColor(resId, null);
         invalidate();
     }
 
@@ -453,8 +459,10 @@ public class IndictorWithNumber extends HorizontalScrollView {
         invalidate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setUnderlineColorResource(int resId) {
-        this.underlineColor = getResources().getColor(resId);
+        this.underlineColor = getResources().getColor(resId, null);
+
         invalidate();
     }
 
@@ -467,8 +475,9 @@ public class IndictorWithNumber extends HorizontalScrollView {
         invalidate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDividerColorResource(int resId) {
-        this.dividerColor = getResources().getColor(resId);
+        this.dividerColor = getResources().getColor(resId, null);
         invalidate();
     }
 
@@ -534,8 +543,10 @@ public class IndictorWithNumber extends HorizontalScrollView {
         updateTabStyles();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setTextColorResource(int resId) {
-        this.tabTextColor = getResources().getColor(resId);
+        this.tabTextColor = getResources().getColor(resId, null);
+
         updateTabStyles();
     }
 

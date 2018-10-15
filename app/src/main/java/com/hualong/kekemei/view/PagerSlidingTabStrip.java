@@ -26,6 +26,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
@@ -123,6 +124,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         this(context, attrs, 0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public PagerSlidingTabStrip(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -184,7 +186,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         expandedTabLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1.0f);
 
         if (locale == null) {
-            locale = getResources().getConfiguration().locale;
+                locale = getResources().getConfiguration().getLocales().get(0);
+
         }
     }
 
@@ -195,7 +198,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
 
-        pager.setOnPageChangeListener(pageListener);
+        pager.addOnPageChangeListener(pageListener);
 
         notifyDataSetChanged();
     }
@@ -414,8 +417,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         invalidate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setIndicatorColorResource(int resId) {
-        this.indicatorColor = getResources().getColor(resId);
+        this.indicatorColor = getResources().getColor(resId,null);
         invalidate();
     }
 
@@ -441,8 +445,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         invalidate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setUnderlineColorResource(int resId) {
-        this.underlineColor = getResources().getColor(resId);
+        this.underlineColor = getResources().getColor(resId,null);
         invalidate();
     }
 
@@ -455,8 +460,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         invalidate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setDividerColorResource(int resId) {
-        this.dividerColor = getResources().getColor(resId);
+        this.dividerColor = getResources().getColor(resId,null);
         invalidate();
     }
 
@@ -522,8 +528,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         updateTabStyles();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setTextColorResource(int resId) {
-        this.tabTextColor = getResources().getColor(resId);
+        this.tabTextColor = getResources().getColor(resId,null);
         updateTabStyles();
     }
 

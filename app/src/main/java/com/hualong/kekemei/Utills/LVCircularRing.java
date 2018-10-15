@@ -8,6 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -50,13 +52,16 @@ public class LVCircularRing extends View {
         mPadding = 5;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         mPaint.setColor(Color.argb(66, 255, 255, 255));
         canvas.drawCircle(mWidth / 2, mWidth / 2, mWidth / 2 - mPadding, mPaint);
-        mPaint.setColor(getContext().getResources().getColor(R.color.c_1199FF));
+
+        mPaint.setColor(getContext().getResources().getColor(R.color.c_1199FF, null));
+
         RectF rectF = new RectF(mPadding, mPadding, mWidth - mPadding, mWidth - mPadding);
         canvas.drawArc(rectF, startAngle, 100
                 , false, mPaint);//第四个参数是否显示半径

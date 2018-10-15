@@ -1,5 +1,6 @@
 package com.startsmake.mainnavigatetabbar.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -63,6 +64,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         this(context, attrs, 0);
     }
 
+    @SuppressLint("NewApi")
     public MainNavigateTabBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -74,7 +76,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         mTabTextSize = typedArray.getDimensionPixelSize(R.styleable.MainNavigateTabBar_navigateTabTextSize, 0);
         mMainContentLayoutId = typedArray.getResourceId(R.styleable.MainNavigateTabBar_containerId, 0);
 
-        mNormalTextColor = (tabTextColor != null ? tabTextColor : context.getResources().getColorStateList(R.color.tab_text_normal));
+        mNormalTextColor = (tabTextColor != null ? tabTextColor : context.getResources().getColorStateList(R.color.tab_text_normal,null));
 
         if (selectedTabTextColor != null) {
             mSelectedTextColor = selectedTabTextColor;
@@ -82,7 +84,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
             ThemeUtils.checkAppCompatTheme(context);
             TypedValue typedValue = new TypedValue();
             context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
-            mSelectedTextColor = context.getResources().getColorStateList(typedValue.resourceId);
+            mSelectedTextColor = context.getResources().getColorStateList(typedValue.resourceId,null);
         }
 
         mViewHolderList = new ArrayList<>();
