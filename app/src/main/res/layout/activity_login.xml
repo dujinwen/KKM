@@ -5,13 +5,14 @@
     android:layout_centerVertical="true"
     android:background="#F2F8F9">
 
-    <include layout="@layout/layout_title_bar" />
 
     <View
         android:id="@+id/top_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_789"
         android:background="@mipmap/user_head_bg" />
+
+    <include layout="@layout/layout_title_bar" />
 
     <ImageView
         android:layout_width="@dimen/px_230"

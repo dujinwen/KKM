@@ -55,6 +55,7 @@ import java.util.Locale;
  */
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 
+
     public interface IconTabProvider {
         public int getPageIconResId(int position);
     }
@@ -104,6 +105,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int dividerWidth = 1;
 
     private int tabTextSize = 12;
+
     private int tabTextColor = 0xFF666666;
     private Typeface tabTypeface = null;
     private int tabTypefaceStyle = Typeface.NORMAL;
@@ -115,10 +117,17 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private Locale locale;
 
     private int currentTab = 0;
+    public PagerSlidingTabStrip(Context context) {
+        this(context,null);
+    }
+
+    public PagerSlidingTabStrip(Context context, AttributeSet attrs) {
+        this(context, attrs,0);
+    }
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     public PagerSlidingTabStrip(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 

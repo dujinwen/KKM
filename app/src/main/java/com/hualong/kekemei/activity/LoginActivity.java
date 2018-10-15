@@ -69,7 +69,7 @@ public class LoginActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        tvTitle.setText("设置");
+        tvTitle.setText("登录");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

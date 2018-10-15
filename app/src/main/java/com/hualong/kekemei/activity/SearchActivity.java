@@ -107,6 +107,7 @@ public class SearchActivity extends BaseActivity {
          */
         @Override
         public CharSequence getPageTitle(int position) {
+
             return titles[position];
         }
     }

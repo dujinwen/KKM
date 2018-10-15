@@ -14,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hualong.kekemei.R;
@@ -21,6 +23,7 @@ import com.hualong.kekemei.Utills.IndictorWithNumber;
 import com.hualong.kekemei.Utills.MultipleStatusView;
 import com.hualong.kekemei.activity.OrderListContract;
 import com.hualong.kekemei.activity.OrderListPresenter;
+import com.hualong.kekemei.activity.OrderListSearchActivity;
 import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;
 import com.hualong.kekemei.fragment.adapter.OrderListAdapter;
@@ -31,6 +34,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -42,11 +46,23 @@ import butterknife.Unbinder;
  */
 public class MessageFragment
 
-        extends Fragment implements OrderListContract.View, IndictorWithNumber.TabChangeListener {
+        extends Fragment implements OrderListContract.View, IndictorWithNumber.TabChangeListener, View.OnClickListener {
 
     public static final String ARG_ORDER_STATUS = "orderStatus";
 
     Unbinder unbinder;
+    @BindView(R.id.tv_dingdan)
+    TextView tvDingdan;
+    @BindView(R.id.iv_search)
+    ImageView ivSearch;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.indictor_tabs)
+    IndictorWithNumber indictorTabs;
+    @BindView(R.id.rv_list)
+    RecyclerView rvList;
+    @BindView(R.id.swipe_rfresh_layout)
+    SmartRefreshLayout swipeRfreshLayout;
 
     private IndictorWithNumber jIndictorWithNumber;
     private RecyclerView jRecyclerView;
@@ -177,6 +193,8 @@ public class MessageFragment
         jIndictorWithNumber.setTabChangeListener(this);
 
 
+
+        ivSearch.setOnClickListener(this);
     }
 
     private void addHotProject() {
@@ -325,5 +343,15 @@ public class MessageFragment
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.iv_search:{
+                Intent intent = new Intent(getActivity(),OrderListSearchActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 }
