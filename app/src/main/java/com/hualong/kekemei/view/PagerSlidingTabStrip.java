@@ -116,13 +116,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private int currentTab = 0;
 
-    public PagerSlidingTabStrip(Context context) {
-        this(context, null);
-    }
 
-    public PagerSlidingTabStrip(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public PagerSlidingTabStrip(Context context, AttributeSet attrs, int defStyle) {
@@ -186,7 +180,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         expandedTabLayoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, 1.0f);
 
         if (locale == null) {
-                locale = getResources().getConfiguration().getLocales().get(0);
+                locale = Locale.getDefault();
 
         }
     }

@@ -11,7 +11,7 @@ import com.hualong.kekemei.init.OkHttpInit;
  * Created by peiyangfan on 2018/10/9.
  */
 
-public class App extends MultiDexApplication {
+public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

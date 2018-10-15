@@ -184,7 +184,7 @@ public class IndictorWithNumber extends HorizontalScrollView {
         expandedTabLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f);
 
         if (locale == null) {
-            locale = getResources().getConfiguration().getLocales().get(0);
+            locale = Locale.getDefault();
 
         }
         tabNumTextSize = (int) (tabTextSize * 0.857f);

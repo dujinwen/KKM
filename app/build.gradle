@@ -76,5 +76,5 @@ dependencies {
     implementation 'pub.devrel:easypermissions:0.1.9'
     compile 'com.google.android:flexbox:0.2.3'
     implementation project(':mainnavigatetabbar')
-    implementation 'com.android.support:multidex:1.+'
+//    implementation 'com.android.support:multidex:1.+'
 }

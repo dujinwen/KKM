@@ -16,6 +16,7 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.CircleImageView;
 import com.hualong.kekemei.Utills.NoScrollGridView;
 import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.SettingActivity;
 import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.activity.UserInfoActivity;
@@ -115,7 +116,8 @@ public class PersonFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_set_btn:
-                SettingActivity.start(getActivity());
+//                SettingActivity.start(getActivity());
+                LoginActivity.start(getActivity());
                 break;
             case R.id.icon:
                 UserInfoActivity.start(getActivity());

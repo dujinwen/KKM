@@ -128,17 +128,8 @@ public class MessageFragment
         }, jRecyclerView);
 
         jRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            View foot_view = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) jRecyclerView.getParent(), false);
-            jAdapter.addFooterView(foot_view);
-            rv_hot_huodong = (RecyclerView)foot_view.findViewById(R.id.rv_hot_huodong);
-            rv_hot_huodong.setLayoutManager(new GridLayoutManager(getContext(),2));
-
-            MyGridAdapter adapter = new MyGridAdapter(getContext(), MyGridAdapter.ORDER_HOT_BEAN);
-            rv_hot_huodong.setAdapter(adapter);
-            //设置热门数据
-//            adapter.addData();
-        }
+        // TODO: 2018/10/15   判断是否有数据
+        addHotProject();
 
         //添加Header对应的点击事件
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -186,8 +177,30 @@ public class MessageFragment
         jIndictorWithNumber.setTabChangeListener(this);
 
 
+    }
 
+    private void addHotProject() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            View foot_view = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) jRecyclerView.getParent(), false);
+            jAdapter.addFooterView(foot_view);
+            rv_hot_huodong = (RecyclerView) foot_view.findViewById(R.id.rv_hot_huodong);
+            rv_hot_huodong.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
+            MyGridAdapter adapter = new MyGridAdapter(getContext(), MyGridAdapter.ORDER_HOT_BEAN);
+            rv_hot_huodong.setAdapter(adapter);
+            //设置热门数据
+            //            adapter.addData();
+        } else {
+            View foot_view = LayoutInflater.from(getContext()).inflate(R.layout.foot_view, (ViewGroup) jRecyclerView.getParent(), false);
+            jAdapter.addFooterView(foot_view);
+            rv_hot_huodong = (RecyclerView) foot_view.findViewById(R.id.rv_hot_huodong);
+            rv_hot_huodong.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+            MyGridAdapter adapter = new MyGridAdapter(getContext(), MyGridAdapter.ORDER_HOT_BEAN);
+            rv_hot_huodong.setAdapter(adapter);
+            //设置热门数据
+            //            adapter.addData();
+        }
     }
 
 

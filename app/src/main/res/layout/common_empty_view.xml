@@ -8,6 +8,7 @@
     android:background="#fff">
 
     <ImageView
+        android:id="@+id/iv_nodata"
         android:layout_width="@dimen/fail_image"
         android:layout_height="@dimen/fail_image"
         android:layout_marginBottom="@dimen/fail_image_marginBottom"
