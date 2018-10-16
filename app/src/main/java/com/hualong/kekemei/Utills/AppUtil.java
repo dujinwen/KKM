@@ -1,8 +1,6 @@
 package com.hualong.kekemei.Utills;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -30,6 +28,8 @@ import android.widget.Toast;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.CoordinateConverter;
+import com.amap.api.location.DPoint;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -611,5 +611,14 @@ public class AppUtil {
         // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
         //启动定位
         mLocationClient.startLocation();
+    }
+
+
+    public static float getDistance(double fromLatitude,double fromLongitude,double toLatitude,double toLongitude){
+        DPoint fromDPoint = new DPoint(fromLatitude, fromLongitude);
+        DPoint toDPoint = new DPoint(toLatitude, toLongitude);
+
+        float distance = CoordinateConverter.calculateLineDistance(fromDPoint, toDPoint);
+        return distance;
     }
 }

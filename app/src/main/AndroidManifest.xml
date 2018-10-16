@@ -117,6 +117,7 @@
         <activity android:name=".activity.OrderListSearchActivity"/>
         <activity android:name=".activity.ShopActivity"/>
         <activity android:name=".activity.MeiRongShiActivity"/>
+        <activity android:name=".activity.ShopListActivity"/>
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

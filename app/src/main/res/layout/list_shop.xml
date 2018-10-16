@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/px_1021"
-    android:layout_height="@dimen/px_374"
+    android:layout_height="@dimen/px_461"
     android:layout_marginBottom="@dimen/px_43"
     android:background="@drawable/btn_white_background"
     android:orientation="horizontal">
@@ -13,18 +13,20 @@
         android:paddingLeft="@dimen/px_66">
 
         <ImageView
-            android:layout_width="@dimen/px_217"
-            android:layout_height="@dimen/px_281"
-            android:layout_marginTop="@dimen/px_30"
-            android:background="@mipmap/beautician_detail_photo_pic" />
+            android:id="@+id/iv_shop_pic"
+            android:layout_width="@dimen/px_233"
+            android:layout_height="@dimen/px_228"
+            android:layout_marginTop="@dimen/px_50"
+            android:background="@mipmap/shop_detail_photo_pic" />
 
         <Button
-            android:layout_width="@dimen/px_217"
+            android:id="@+id/btn_buy_now"
+            android:layout_width="@dimen/px_233"
             android:layout_height="@dimen/px_69"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/px_36"
+            android:layout_marginBottom="@dimen/px_48"
             android:background="@drawable/refund_red_btn_background"
-            android:text="加好友"
+            android:text="立即购买"
             android:textColor="#FFFFFFFF"
             android:textSize="@dimen/px_37" />
     </RelativeLayout>
@@ -33,21 +35,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/px_86">
+        android:paddingLeft="@dimen/px_73">
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_35"
-            android:text="@string/a_name"
+            android:text="昌平回龙观东大街直营店"
             android:textColor="#FF333333"
             android:textSize="@dimen/px_46" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/px_15">
+            android:paddingTop="@dimen/px_28">
 
             <TextView
                 android:id="@+id/tv_num"
@@ -71,17 +73,53 @@
             android:id="@+id/ll_pingjia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:paddingTop="@dimen/px_16">
 
+            <ImageView
+                android:id="@+id/iv_reduce"
+                android:layout_width="@dimen/px_37"
+                android:layout_height="@dimen/px_37"
+                android:layout_marginRight="@dimen/px_7"
+                android:src="@mipmap/beautician_reduce_ic" />
 
+            <TextView
+                android:id="@+id/tv_reduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_blue_with_corners_background"
+                android:paddingLeft="@dimen/px_4"
+                android:paddingRight="@dimen/px_4"
+                android:text="领红包减"
+                android:textColor="#FF7AD2D2"
+                android:textSize="@dimen/px_29" />
+
+            <ImageView
+                android:id="@+id/iv_envelopes"
+                android:layout_width="@dimen/px_37"
+                android:layout_height="@dimen/px_37"
+                android:layout_marginLeft="@dimen/px_43"
+                android:layout_marginRight="@dimen/px_7"
+                android:src="@mipmap/beautician_envelopes_ic" />
+
+            <TextView
+                android:id="@+id/tv_envelopes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_blue_with_corners_background"
+                android:paddingLeft="@dimen/px_4"
+                android:paddingRight="@dimen/px_4"
+                android:text="满200减50"
+                android:textColor="#FF7AD2D2"
+                android:textSize="@dimen/px_29" />
         </LinearLayout>
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/px_37">
+            android:paddingTop="@dimen/px_28">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -144,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:text="满意度：97%"
                 android:textColor="#FF999999"
-                android:textSize="@dimen/px_37" />
+                android:textSize="@dimen/px_36" />
 
             <com.hualong.kekemei.view.StarBar
                 android:id="@+id/star_bar"
@@ -159,6 +197,55 @@
                 ratingbar:starSize="40px" />
 
 
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/px_35">
+
+            <ImageView
+                android:layout_width="@dimen/px_37"
+                android:layout_height="@dimen/px_37"
+                android:src="@mipmap/beautician_detail_address_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_17"
+                android:text="品质保障"
+                android:textColor="#FF5E5E5E"
+                android:textSize="@dimen/px_29" />
+
+            <ImageView
+                android:layout_width="@dimen/px_37"
+                android:layout_height="@dimen/px_37"
+                android:layout_marginLeft="@dimen/px_50"
+                android:src="@mipmap/beautician_detail_address_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_17"
+                android:text="随时调换"
+                android:textColor="#FF5E5E5E"
+                android:textSize="@dimen/px_29" />
+
+            <ImageView
+                android:layout_width="@dimen/px_37"
+                android:layout_height="@dimen/px_37"
+                android:layout_marginLeft="@dimen/px_50"
+                android:src="@mipmap/beautician_detail_address_ic" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_17"
+                android:text="7天退款"
+                android:textColor="#FF5E5E5E"
+                android:textSize="@dimen/px_29" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

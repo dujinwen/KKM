@@ -20,4 +20,5 @@ public class URLs {
 
     public static final String SEARCH = BASE_URL + "/api/index/search";
     public static final String MEIRONGSHILIST = BASE_URL + "/api/beautician/nearbyBeautician";
+    public static final String SHOP_LIST = BASE_URL + "/api/shop/nearbyShop";
 }

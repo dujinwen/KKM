@@ -27,10 +27,9 @@ import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.SPUtils;
 import com.hualong.kekemei.Utills.URLs;
-import com.hualong.kekemei.activity.MainActivity;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.activity.SearchActivity;
-import com.hualong.kekemei.activity.ShopActivity;
+import com.hualong.kekemei.activity.ShopListActivity;
 import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.fragment.adapter.DAVipAdapter;
 import com.hualong.kekemei.fragment.adapter.MeiRongShiAdapter;
@@ -245,7 +244,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
                 SearchActivity.start(getActivity(), "0");
                 break;
             case R.id.fujin_dianpu:
-                ShopActivity.start(getActivity(),"克克美-西直门店");
+//                ShopActivity.start(getActivity(),"克克美-西直门店");
+                ShopListActivity.start(getActivity());
                 break;
             case R.id.fujin_meirongshi:
                 MeiRongShiActivity.start(getActivity());
@@ -264,8 +264,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
                 amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 double latitude = amapLocation.getLatitude();//获取纬度
                 double longitude = amapLocation.getLongitude();//获取经度
-//                SPUtils.putDouble(this, "latitude", latitude);
-//                SPUtils.putDouble(this, "longitude", longitude);
+                SPUtils.putString(getActivity(), "latitude", latitude+"");
+                SPUtils.putString(getActivity(), "longitude", longitude+"");
                 //                mPoint = new DPoint(latitude,longitude);
                 //                loadData();//后续操作
 
