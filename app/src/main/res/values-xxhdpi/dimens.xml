@@ -756,5 +756,9 @@
     <dimen name="px_245">245px</dimen>
     <dimen name="px_60">60px</dimen>
     <dimen name="px_57">57px</dimen>
+    <dimen name="px_750">750px</dimen>
+    <dimen name="px_556">556px</dimen>
+    <dimen name="px_44">44px</dimen>
+    <dimen name="px_12">12px</dimen>
 
 </resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="451px"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/px_42"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="您的专属福利"
+            android:textColor="#FFFF6C70"
+            android:textSize="@dimen/px_40" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/px_19"
+            android:paddingTop="@dimen/px_19"
+            android:text="首次登录可领取新人体验卡"
+            android:textColor="#FF999999"
+            android:textSize="@dimen/px_32" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_coupons"
+            android:layout_width="343px"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/home_hongbao_lingqu_btn" />
+    </RelativeLayout>
+</RelativeLayout>

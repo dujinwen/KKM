@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
     private int mCurrentTab = TAB_HOME;
     private boolean hasTitle = false;
+    private boolean hasCoupons = false;
 
     public static void start(Context context, int tab) {
 
@@ -58,13 +59,13 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         return R.layout.activity_main;
     }
 
-//    @Override
-//    protected View setTitleBar() {
-//        if (hasTitle)
-//            return toolbar;
-//        else
-//            return super.setTitleBar();
-//    }
+    //    @Override
+    //    protected View setTitleBar() {
+    //        if (hasTitle)
+    //            return toolbar;
+    //        else
+    //            return super.setTitleBar();
+    //    }
 
 
     @Override
@@ -91,7 +92,13 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
             AppUtil.getUserPoint(getApplicationContext(), this);
             Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
         }
+        if (hasCoupons)
+            initCouponsView();
 
+    }
+
+    private void initCouponsView() {
+        startActivity(new Intent(MainActivity.this,CouponsActivity.class));
     }
 
     @Override
@@ -114,17 +121,17 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         //        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
         mNavigateTabBar.addTab(MessageFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_dingdan_btn_n, R.mipmap.home_dingdan_btn_d, TAG_PAGE_MESSAGE));
         mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_wode_btn_n, R.mipmap.home_wode_btn_d, TAG_PAGE_PERSON));
-//        mNavigateTabBar.setTabSelectListener(new MainNavigateTabBar.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(MainNavigateTabBar.ViewHolder holder) {
-//                if (holder.tabIndex == 2 || holder.tabIndex == 6) {
-//                    hasTitle = true;
-//                    tvTitle.setText("订单");
-//                } else {
-//                    hasTitle = false;
-//                }
-//            }
-//        });
+        //        mNavigateTabBar.setTabSelectListener(new MainNavigateTabBar.OnTabSelectedListener() {
+        //            @Override
+        //            public void onTabSelected(MainNavigateTabBar.ViewHolder holder) {
+        //                if (holder.tabIndex == 2 || holder.tabIndex == 6) {
+        //                    hasTitle = true;
+        //                    tvTitle.setText("订单");
+        //                } else {
+        //                    hasTitle = false;
+        //                }
+        //            }
+        //        });
     }
 
     @Override
@@ -154,18 +161,18 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
                 amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 double latitude = amapLocation.getLatitude();//获取纬度
                 double longitude = amapLocation.getLongitude();//获取经度
-//                mPoint = new DPoint(latitude,longitude);
-//                loadData();//后续操作
+                //                mPoint = new DPoint(latitude,longitude);
+                //                loadData();//后续操作
                 LogUtil.d("APPLOCALTION", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
-                Toast.makeText(MainActivity.this,"LATITUDE : " + latitude + " --  LONGITUDE : " + longitude,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude, Toast.LENGTH_SHORT).show();
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 LogUtil.d("APPLOCALTION", "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
                         + amapLocation.getErrorInfo());
-                Toast.makeText(MainActivity.this,"location Error, ErrCode:"
+                Toast.makeText(MainActivity.this, "location Error, ErrCode:"
                         + amapLocation.getErrorCode() + ", errInfo:"
-                        + amapLocation.getErrorInfo(),Toast.LENGTH_SHORT).show();
+                        + amapLocation.getErrorInfo(), Toast.LENGTH_SHORT).show();
 
             }
         }
