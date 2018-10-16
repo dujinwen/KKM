@@ -30,6 +30,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -537,8 +539,6 @@ public class AppUtil {
 //            return false;
 //        }
 //    }
-
-
     public static boolean checkPasswordRegex(String password) {
         if (password == null || password.isEmpty() || password.length() == 0) return false;
 
@@ -586,7 +586,6 @@ public class AppUtil {
 //        }
 //        return result;
 //    }
-
     public static void getUserPoint(Context context, AMapLocationListener locationListener) {
         //声明mLocationOption对象
         mLocationClient = new AMapLocationClient(context);
@@ -614,11 +613,25 @@ public class AppUtil {
     }
 
 
-    public static float getDistance(double fromLatitude,double fromLongitude,double toLatitude,double toLongitude){
+    public static float getDistance(double fromLatitude, double fromLongitude, double toLatitude, double toLongitude) {
         DPoint fromDPoint = new DPoint(fromLatitude, fromLongitude);
         DPoint toDPoint = new DPoint(toLatitude, toLongitude);
 
         float distance = CoordinateConverter.calculateLineDistance(fromDPoint, toDPoint);
         return distance;
+    }
+
+
+    public static void sendYanZhengMa(String mobile, String event, StringCallback stringCallback) {
+        OkGo.<String>get(URLs.SEND).params("mobile", mobile)
+                .params("event", event).execute(stringCallback);
+    }
+
+    public static void checkCaptcha(String mobile, String event, String captcha, StringCallback stringCallback) {
+        OkGo.<String>get(URLs.CHECK)
+                .params("mobile", mobile)
+                .params("event", event)
+                .params("captcha", captcha)
+                .execute(stringCallback);
     }
 }

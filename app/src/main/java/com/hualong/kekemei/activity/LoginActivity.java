@@ -14,6 +14,10 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.ToastUtil;
+import com.hualong.kekemei.Utills.URLs;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -90,8 +94,10 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_yanzhengma:
+                sendYanZhengMa();
                 break;
             case R.id.btn_login:
+                login();
                 break;
             case R.id.weibo_login:
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, authListener);
@@ -107,6 +113,42 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    private void sendYanZhengMa() {
+
+        String phoneNum = etPhoneNum.getText().toString().trim();
+        if (phoneNum.isEmpty()) {
+            ToastUtil.showToastMsg(LoginActivity.this, "请输入手机号");
+            return;
+        }
+        AppUtil.sendYanZhengMa(phoneNum, "login", new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+
+            }
+        });
+    }
+
+    private void login() {
+//        AppUtil.checkCaptcha(etPhoneNum.getText().toString().trim(),
+//                etYanzhengma.getText().toString().trim(),
+//                "login",
+//                new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//
+//                    }
+//                });
+        OkGo.<String>get(URLs.MOBILE_LOGIN)
+                .params("mobile", etPhoneNum.getText().toString().trim())
+                .params("event", "login")
+                .params("captcha", etYanzhengma.getText().toString().trim())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
+    }
 
 
     UMAuthListener authListener = new UMAuthListener() {
@@ -118,7 +160,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             if (data == null && action == 1) {
-                LogUtil.d("LoginActivity",platform + "取消授权成功");
+                LogUtil.d("LoginActivity", platform + "取消授权成功");
                 return;
             }
             if (data != null) {
@@ -126,7 +168,7 @@ public class LoginActivity extends BaseActivity {
                 for (String key : data.keySet()) {
                     temp = temp + key + " : " + data.get(key) + "\n";
                 }
-                LogUtil.d("LoginActivity",temp);
+                LogUtil.d("LoginActivity", temp);
 //                if (platform == SHARE_MEDIA.QQ) {
 //                    verifyBind("1", data.get("unionid"));
 //                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "qq");
@@ -151,7 +193,7 @@ public class LoginActivity extends BaseActivity {
                 }
             }
             ToastUtil.showToastMsg(LoginActivity.this, "错误" + t.getMessage());
-            LogUtil.e("LoginActivity",t.getMessage());
+            LogUtil.e("LoginActivity", t.getMessage());
         }
 
         @Override

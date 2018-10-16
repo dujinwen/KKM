@@ -57,7 +57,7 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopListBean.DataBean, Bas
 //            view.setVisibility(View.GONE);
 //        }
 
-
+        helper.addOnClickListener(R.id.ll_shop_list_item);
         StarBar star_bar = helper.getView(R.id.star_bar);
         star_bar.setStarMark(2.5f);
     }

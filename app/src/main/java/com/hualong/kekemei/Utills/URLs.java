@@ -21,4 +21,17 @@ public class URLs {
     public static final String SEARCH = BASE_URL + "/api/index/search";
     public static final String MEIRONGSHILIST = BASE_URL + "/api/beautician/nearbyBeautician";
     public static final String SHOP_LIST = BASE_URL + "/api/shop/nearbyShop";
+
+
+    //检测验证码
+    public static final String CHECK = BASE_URL + "api/sns/check";
+    //发送个人信息
+    public static final String USER_PROFILE = BASE_URL + "/api/user/profile";
+    //发送验证码
+    public static final String SEND = BASE_URL + "/api/sms/send";
+    //手机验证码登陆
+    public static final String MOBILE_LOGIN = BASE_URL + "/api/user/mobilelogin";
+
+    //手机验证码注册
+    public static final String REGISTER = BASE_URL + "/api/user/register";
 }
