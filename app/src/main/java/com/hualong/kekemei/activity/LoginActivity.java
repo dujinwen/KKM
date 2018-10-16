@@ -11,6 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.AppUtil;
+import com.hualong.kekemei.Utills.LogUtil;
+import com.hualong.kekemei.Utills.ToastUtil;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,13 +94,69 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 break;
             case R.id.weibo_login:
+                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, authListener);
                 break;
             case R.id.weixin_login:
+                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, authListener);
                 break;
             case R.id.qq_login:
+                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);
                 break;
 
 
         }
     }
+
+
+
+    UMAuthListener authListener = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            if (data == null && action == 1) {
+                LogUtil.d("LoginActivity",platform + "取消授权成功");
+                return;
+            }
+            if (data != null) {
+                String temp = "";
+                for (String key : data.keySet()) {
+                    temp = temp + key + " : " + data.get(key) + "\n";
+                }
+                LogUtil.d("LoginActivity",temp);
+//                if (platform == SHARE_MEDIA.QQ) {
+//                    verifyBind("1", data.get("unionid"));
+//                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "qq");
+//                } else if (platform == SHARE_MEDIA.WEIXIN) {
+//                    verifyBind("2", data.get("openid"));
+//                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "weixin");
+//                }
+            }
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            if (platform == SHARE_MEDIA.WEIXIN) {
+                if (!UMShareAPI.get(LoginActivity.this).isInstall(LoginActivity.this, SHARE_MEDIA.WEIXIN)) {
+                    ToastUtil.showToastMsg(LoginActivity.this, "请安装微信客户端");
+                    return;
+                }
+            } else if (platform == SHARE_MEDIA.QQ) {
+                if (!UMShareAPI.get(LoginActivity.this).isInstall(LoginActivity.this, SHARE_MEDIA.QQ)) {
+                    ToastUtil.showToastMsg(LoginActivity.this, "请安装腾讯QQ客户端");
+                    return;
+                }
+            }
+            ToastUtil.showToastMsg(LoginActivity.this, "错误" + t.getMessage());
+            LogUtil.e("LoginActivity",t.getMessage());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            ToastUtil.showToastMsg(LoginActivity.this, "授权取消");
+        }
+    };
 }

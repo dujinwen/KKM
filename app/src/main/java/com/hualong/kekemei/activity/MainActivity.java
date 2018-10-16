@@ -114,12 +114,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         //        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
         mNavigateTabBar.addTab(MessageFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_dingdan_btn_n, R.mipmap.home_dingdan_btn_d, TAG_PAGE_MESSAGE));
         mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_wode_btn_n, R.mipmap.home_wode_btn_d, TAG_PAGE_PERSON));
-        //        mNavigateTabBar.setCallBack(new TabBarCallback() {
-        //            @Override
-        //            public void goToOrder() {
-        //                startActivity(new Intent(MainActivity.this, OrderListActivity.class));
-        //            }
-        //        });
 //        mNavigateTabBar.setTabSelectListener(new MainNavigateTabBar.OnTabSelectedListener() {
 //            @Override
 //            public void onTabSelected(MainNavigateTabBar.ViewHolder holder) {

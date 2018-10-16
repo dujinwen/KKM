@@ -16,7 +16,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
  * Created by peiyangfan on 2018/10/12.
  */
 
-class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
+public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
     public static final int PERSON_TUI_JIAN = 5;
     private Context context;
     private int type;
