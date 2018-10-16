@@ -16,6 +16,7 @@ import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.bean.MeiRongShiListBean;
+import com.hualong.kekemei.view.StarBar;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<MeiRongShiListBean.D
             for (int i = 0; i < size; i++) {
                 TextView textView = new TextView(mContext);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,0,AppUtil.px2dip(mContext,30),0);
+                params.setMargins(0,AppUtil.px2dip(mContext,27),AppUtil.px2dip(mContext,30),0);
                 textView.setLayoutParams(params);
                 textView.setText(item.getTag_text().get(i));
                 textView.setTextSize(AppUtil.px2dip(mContext,29));
@@ -54,5 +55,9 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<MeiRongShiListBean.D
         } else {
             view.setVisibility(View.GONE);
         }
+
+
+        StarBar star_bar = helper.getView(R.id.star_bar);
+        star_bar.setStarMark(2.5f);
     }
 }
