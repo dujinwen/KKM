@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
                 SearchActivity.start(getActivity(), "0");
                 break;
             case R.id.fujin_dianpu:
-                ShopActivity.start(getActivity());
+                ShopActivity.start(getActivity(),"克克美-西直门店");
                 break;
             case R.id.fujin_meirongshi:
                 MeiRongShiActivity.start(getActivity());

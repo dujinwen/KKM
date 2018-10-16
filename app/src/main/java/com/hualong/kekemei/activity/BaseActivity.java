@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.LogUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     /**
      * 需要进行检测的权限数组
@@ -278,5 +279,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         if ((localView != null) && (this.imm != null)) {
             this.imm.hideSoftInputFromWindow(localView.getWindowToken(), 2);
         }
+    }
+
+    // 从Intent获取String extra的方法，这里增加了catch Exception的代码
+    protected final String getStringExtraSecure(String key) {
+        try {
+            Intent intent = getIntent();
+            if (intent != null) {
+                return intent.getStringExtra(key);
+            }
+        } catch (Exception e) {
+            LogUtil.e(TAG, "exception getStringExtraSecure", e);
+        }
+        return null;
     }
 }

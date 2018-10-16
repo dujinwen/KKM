@@ -6,4 +6,10 @@
         <item>店&#160;&#160;&#160;&#160;面</item>
         <item>美容师</item>
     </string-array>
+
+    <string-array name="shop_tabs">
+        <item>店铺首页</item>
+        <item>热门项目</item>
+        <item>客户评价</item>
+    </string-array>
 </resources>
