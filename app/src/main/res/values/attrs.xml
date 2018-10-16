@@ -79,6 +79,7 @@
         <attr name="pstsShouldExpand" format="boolean" />
         <attr name="pstsTextAllCaps" format="boolean" />
         <attr name="pstsTextSelectedColor" format="color" />
+        <attr name="pstsIndicatorFixedWidth" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MultipleTextViewGroup">
@@ -105,6 +106,22 @@
         <attr name="x_hidePwdDrawable" format="reference"/>
         <attr name="x_disableEmoji" format="boolean"/>
         <attr name="x_disableTogglePwdDrawable" format="boolean"/>
+    </declare-styleable>
+
+    <!--评分条-->
+    <declare-styleable name="RatingBar">
+        <!--星星间距-->
+        <attr format="dimension" name="starDistance"/>
+        <!--星星大小-->
+        <attr format="dimension" name="starSize"/>
+        <!--星星个数-->
+        <attr format="integer" name="starCount"/>
+        <!--星星空图-->
+        <attr format="reference" name="starEmpty"/>
+        <!--星星满图-->
+        <attr format="reference" name="starFill"/>
+        <!--能否改变星星数量-->
+        <attr format="boolean" name="changeEnable"/>
     </declare-styleable>
 
 
