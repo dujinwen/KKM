@@ -34,9 +34,6 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.searchPage)
     ViewPager searchPager;
 
-
-    private String[] titleArray = {"全  部", "项  目", "店  面", "美容师"};
-
     public static void start(Context context, String keyWord) {
         Intent intent = new Intent(context, SearchActivity.class);
         intent.putExtra(EXTRA_KEY_KEYWORD, keyWord);
@@ -64,7 +61,7 @@ public class SearchActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        SearchPagerAdapter searchPagerAdapter = new SearchPagerAdapter(getSupportFragmentManager(), titleArray);
+        SearchPagerAdapter searchPagerAdapter = new SearchPagerAdapter(this, getSupportFragmentManager());
         searchPagerAdapter.addFragment(SearchAllFragment.newInstance());
         searchPagerAdapter.addFragment(SearchProjectFragment.newInstance());
         searchPagerAdapter.addFragment(SearchBeauticianFragment.newInstance());
@@ -79,9 +76,9 @@ public class SearchActivity extends BaseActivity {
         private String[] titles;
 
 
-        public SearchPagerAdapter(FragmentManager fm, String[] titleArray) {
+        public SearchPagerAdapter(Context context, FragmentManager fm) {
             super(fm);
-            titles = titleArray;
+            titles = context.getResources().getStringArray(R.array.search_tabs);
         }
 
         public void addFragment(Fragment fragment) {

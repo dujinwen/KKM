@@ -79,6 +79,7 @@
         <attr name="pstsShouldExpand" format="boolean" />
         <attr name="pstsTextAllCaps" format="boolean" />
         <attr name="pstsTextSelectedColor" format="color" />
+        <attr name="pstsIndicatorFixedWidth" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="MultipleTextViewGroup">
