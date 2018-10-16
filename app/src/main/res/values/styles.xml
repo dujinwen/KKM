@@ -62,4 +62,12 @@
         <item name="android:maxLines">1</item>
         <item name="x_clearDrawable">@mipmap/icon_clear_text</item>
     </style>
+
+
+    <!--RatingBar颜色-->
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#FFFFFFFF</item>
+        <item name="colorControlActivated">#FFF9BC1A</item>
+    </style>
+
 </resources>

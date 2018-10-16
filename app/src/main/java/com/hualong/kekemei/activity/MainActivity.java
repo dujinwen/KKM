@@ -17,6 +17,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.LogUtil;
+import com.hualong.kekemei.Utills.SPUtils;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;
@@ -84,21 +85,21 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
     @Override
     protected void initData() {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
-            //开启定位权限,200是标识码
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-        } else {
-            AppUtil.getUserPoint(getApplicationContext(), this);
-            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
-        }
-        if (hasCoupons)
-            initCouponsView();
+//        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
+//            //开启定位权限,200是标识码
+//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+//        } else {
+//            AppUtil.getUserPoint(getApplicationContext(), this);
+//            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
+//        }
+//        if (hasCoupons)
+//            initCouponsView();
 
     }
 
     private void initCouponsView() {
-        startActivity(new Intent(MainActivity.this,CouponsActivity.class));
+        startActivity(new Intent(MainActivity.this, CouponsActivity.class));
     }
 
     @Override
@@ -155,27 +156,31 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
-        if (amapLocation != null) {
-            if (amapLocation.getErrorCode() == 0) {
-                //定位成功回调信息，设置相关消息
-                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                double latitude = amapLocation.getLatitude();//获取纬度
-                double longitude = amapLocation.getLongitude();//获取经度
-                //                mPoint = new DPoint(latitude,longitude);
-                //                loadData();//后续操作
-                LogUtil.d("APPLOCALTION", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
-                Toast.makeText(MainActivity.this, "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude, Toast.LENGTH_SHORT).show();
-            } else {
-                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-                LogUtil.d("APPLOCALTION", "location Error, ErrCode:"
-                        + amapLocation.getErrorCode() + ", errInfo:"
-                        + amapLocation.getErrorInfo());
-                Toast.makeText(MainActivity.this, "location Error, ErrCode:"
-                        + amapLocation.getErrorCode() + ", errInfo:"
-                        + amapLocation.getErrorInfo(), Toast.LENGTH_SHORT).show();
+//        if (amapLocation != null) {
+//            if (amapLocation.getErrorCode() == 0) {
+//                //定位成功回调信息，设置相关消息
+//                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+//                double latitude = amapLocation.getLatitude();//获取纬度
+//                double longitude = amapLocation.getLongitude();//获取经度
+//                SPUtils.putDouble(this, "latitude", latitude);
+//                SPUtils.putDouble(this, "longitude", longitude);
+//                //                mPoint = new DPoint(latitude,longitude);
+//                //                loadData();//后续操作
+//
+//                LogUtil.d("APPLOCALTION", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
+//            } else {
+//                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+//                LogUtil.d("APPLOCALTION", "location Error, ErrCode:"
+//                        + amapLocation.getErrorCode() + ", errInfo:"
+//                        + amapLocation.getErrorInfo());
+//
+//            }
+//        }
 
-            }
-        }
+    }
 
+
+    public interface setLocation {
+        void setLocation(double latitude, double longitude);
     }
 }

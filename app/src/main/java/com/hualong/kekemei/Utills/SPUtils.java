@@ -64,4 +64,12 @@ public class SPUtils {
         return getSp(context).getString(key, defaultValue);
     }
 
+    public static boolean putDouble(Context context, String key, double value) {
+        return getSpEdit(context).putLong(key, Double.doubleToRawLongBits(value)).commit();
+    }
+
+    public static double getDouble(Context context, String key) {
+        return Double.longBitsToDouble(getSp(context).getLong(key, 0));
+    }
+
 }

@@ -760,5 +760,12 @@
     <dimen name="px_556">556px</dimen>
     <dimen name="px_44">44px</dimen>
     <dimen name="px_12">12px</dimen>
+    <dimen name="px_1021">1021px</dimen>
+    <dimen name="px_374">374px</dimen>
+    <dimen name="px_281">281px</dimen>
+    <dimen name="px_308" tools:ignore="MissingDefaultResource">308px</dimen>
+    <dimen name="px_66">66px</dimen>
+    <dimen name="px_33">33px</dimen>
+    <dimen name="px_39">39px</dimen>
 
 </resources>

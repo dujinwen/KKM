@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/px_1021"
+    android:layout_height="@dimen/px_374"
+    android:orientation="horizontal"
+    android:background="#FFF">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/px_66">
+
+        <ImageView
+            android:layout_width="@dimen/px_217"
+            android:layout_height="@dimen/px_281"
+            android:layout_marginTop="@dimen/px_30"
+            android:background="@mipmap/beautician_detail_photo_pic" />
+
+        <Button
+            android:layout_width="@dimen/px_217"
+            android:layout_height="@dimen/px_69"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/px_36"
+            android:background="@drawable/refund_red_btn_background"
+            android:text="加好友"
+            android:textColor="#FFFFFFFF"
+            android:textSize="@dimen/px_37" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px_86">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_37"
+            android:text="@string/a_name"
+            android:textColor="#FF333333"
+            android:textSize="@dimen/px_46" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/px_17">
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="638人预约"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+
+            <TextView
+                android:id="@+id/tv_juli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_33"
+                android:text="@string/a_name"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_pingjia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/px_37"
+            android:visibility="gone">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/px_39">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已评论"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+
+            <TextView
+                android:id="@+id/tv_pinglun_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="638"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人"
+                android:textColor="#FFFF6C70"
+                android:textSize="@dimen/px_37" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_46"
+                android:text="已服务"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+
+            <TextView
+                android:id="@+id/tv_fuwu_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="222"
+                android:textColor="#FFFF6C70"
+                android:textSize="@dimen/px_37" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/px_22">
+
+
+            <TextView
+                android:id="@+id/tv_manyidu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="满意度：97%"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_37" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="1.5"
+                android:theme="@style/RatingBar" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,8 +1,12 @@
 package com.hualong.kekemei.fragment;
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +17,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.AppUtil;
+import com.hualong.kekemei.Utills.LogUtil;
+import com.hualong.kekemei.Utills.SPUtils;
 import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.activity.MainActivity;
+import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.activity.SearchActivity;
+import com.hualong.kekemei.activity.ShopActivity;
 import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.fragment.adapter.DAVipAdapter;
 import com.hualong.kekemei.fragment.adapter.MeiRongShiAdapter;
@@ -37,7 +50,7 @@ import butterknife.Unbinder;
  * Date:2015-10-20
  * Description:
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener ,AMapLocationListener {
 
 
     @BindView(R.id.iv_place)
@@ -76,32 +89,57 @@ public class HomeFragment extends Fragment {
     ImageView ivRemenxiangmu;
     @BindView(R.id.rv_remenxiangmu)
     RecyclerView rvRemenxiangmu;
+    @BindView(R.id.fujin_meirongshi)
+    LinearLayout fujinMeirongshi;
+    @BindView(R.id.fujin_dianpu)
+    LinearLayout fujinDianpu;
     private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        initData();
+//        try {
+//            Thread.sleep(5000);
+//            initData("", "");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         unbinder = ButterKnife.bind(this, view);
 
-        llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SearchActivity.start(getActivity(),"0");
-            }
-        });
+        //        llSearch.setOnClickListener(new View.OnClickListener() {
+        //            @Override
+        //            public void onClick(View v) {
+        //
+        //            }
+        //        });
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
+            //开启定位权限,200是标识码
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+        } else {
+            AppUtil.getUserPoint(getActivity(), this);
+            Toast.makeText(getActivity(), "已开启定位权限", Toast.LENGTH_LONG).show();
+        }
+        initListener();
         return view;
     }
 
+    private void initListener() {
+        llSearch.setOnClickListener(this);
+        fujinDianpu.setOnClickListener(this);
+        fujinMeirongshi.setOnClickListener(this);
+    }
 
-    private void initData() {
-        OkGo.<String>post(URLs.HOME_URL).params("longitude", "116.4072154982")
-                .params("latitude", "39.9047253699").execute(new StringCallback() {
+
+    private void initData(String latitude, String longitude) {
+        OkGo.<String>post(URLs.HOME_URL).params("longitude", 116.4072154982)
+                .params("latitude", 39.9047253699).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                LogUtil.d("APPLOCALTION", response.toString());
                 Gson gson = new Gson();
                 HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
                 xbanner.setData(homeBean.getData().getBanneradv(), null);
@@ -147,7 +185,14 @@ public class HomeFragment extends Fragment {
 
 
             }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                LogUtil.d("APPLOCALTION", response.toString());
+            }
         });
+
 
 
     }
@@ -191,5 +236,49 @@ public class HomeFragment extends Fragment {
                 ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((HomeBean.DataBean.BanneradvBean) model).getImage(), (ImageView) view);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_search:
+                SearchActivity.start(getActivity(), "0");
+                break;
+            case R.id.fujin_dianpu:
+                ShopActivity.start(getActivity());
+                break;
+            case R.id.fujin_meirongshi:
+                MeiRongShiActivity.start(getActivity());
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation amapLocation) {
+        if (amapLocation != null) {
+            if (amapLocation.getErrorCode() == 0) {
+                //定位成功回调信息，设置相关消息
+                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                double latitude = amapLocation.getLatitude();//获取纬度
+                double longitude = amapLocation.getLongitude();//获取经度
+//                SPUtils.putDouble(this, "latitude", latitude);
+//                SPUtils.putDouble(this, "longitude", longitude);
+                //                mPoint = new DPoint(latitude,longitude);
+                //                loadData();//后续操作
+
+                initData("39.9047253699","116.4072154982");
+                LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
+            } else {
+                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                LogUtil.d("APPLOCALTION  HomeFragment", "location Error, ErrCode:"
+                        + amapLocation.getErrorCode() + ", errInfo:"
+                        + amapLocation.getErrorInfo());
+
+            }
+        }
+
     }
 }

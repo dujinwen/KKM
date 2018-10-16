@@ -228,6 +228,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/fujin_meirongshi"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/px_160"
                     android:background="#fff"
@@ -270,6 +271,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/fujin_dianpu"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/px_160"
                     android:gravity="center"
