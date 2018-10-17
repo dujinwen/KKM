@@ -18,6 +18,10 @@ import butterknife.BindView;
 public class UserInfoActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.tv_submit)
+    TextView tv_submit;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, UserInfoActivity.class);
@@ -39,9 +43,7 @@ public class UserInfoActivity extends BaseActivity {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
-        TextView tv_title = toolbar.findViewById(R.id.tv_title);
         tv_title.setText("个人资料修改");
-        TextView tv_submit = toolbar.findViewById(R.id.tv_submit);
         tv_submit.setVisibility(View.VISIBLE);
     }
 }

@@ -29,6 +29,8 @@ public class ShopActivity extends BaseActivity {
     private static final String EXTRA_KEY_SHOP_NAME = "shopName";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.pageIndictor)
     PagerSlidingTabStrip pageIndictor;
     @BindView(R.id.pager)
@@ -54,7 +56,6 @@ public class ShopActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        TextView tv_title = toolbar.findViewById(R.id.tv_title);
         String shopName = super.getStringExtraSecure(EXTRA_KEY_SHOP_NAME);
         tv_title.setText(shopName);
 

@@ -17,6 +17,8 @@ import butterknife.BindView;
 public class HelpCenterActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
 
     @Override
     protected View setTitleBar() {
@@ -37,7 +39,6 @@ public class HelpCenterActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        TextView tv_title = toolbar.findViewById(R.id.tv_title);
         tv_title.setText("帮助中心");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
