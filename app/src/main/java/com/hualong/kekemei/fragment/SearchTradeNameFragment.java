@@ -12,16 +12,21 @@ import com.hualong.kekemei.R;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.hualong.kekemei.activity.SearchActivity.EXTRA_KEY_KEYWORD;
+
 
 /**
  * 搜索-店名
  */
-public class SearchTradeNameFragment extends Fragment {
+public class SearchTradeNameFragment extends Fragment implements SearchIPage {
 
     private Unbinder unbinder;
 
-    public static SearchTradeNameFragment newInstance() {
+    public static SearchTradeNameFragment newInstance(String keyWord) {
         SearchTradeNameFragment fragment = new SearchTradeNameFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_KEY_KEYWORD, keyWord);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -37,5 +42,15 @@ public class SearchTradeNameFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onEnter(String keyWord) {
+
+    }
+
+    @Override
+    public void onLeave() {
+
     }
 }
