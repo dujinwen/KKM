@@ -20,6 +20,8 @@ public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.txtSafely)
     SectionRowView safelySetting;
     @BindView(R.id.txtFeedBack)
@@ -52,7 +54,6 @@ public class SettingActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        TextView tv_title = toolbar.findViewById(R.id.tv_title);
         tv_title.setText("设置");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

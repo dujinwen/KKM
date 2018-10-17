@@ -14,6 +14,8 @@ import butterknife.BindView;
 public class FeedBackActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, FeedBackActivity.class);
@@ -34,7 +36,6 @@ public class FeedBackActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        TextView tv_title = toolbar.findViewById(R.id.tv_title);
         tv_title.setText("用户反馈");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -16,7 +16,8 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.MultipleStatusView;
 import com.hualong.kekemei.Utills.URLs;
-import com.hualong.kekemei.bean.DataBean;
+import com.hualong.kekemei.bean.HotdataBean;
+import com.hualong.kekemei.bean.SearchResultBean;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -34,11 +35,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.hualong.kekemei.activity.SearchActivity.EXTRA_KEY_KEYWORD;
+
 
 /**
  * 搜索-项目
  */
-public class SearchProjectFragment extends Fragment {
+public class SearchProjectFragment extends Fragment implements SearchIPage {
 
     @BindView(R.id.swipe_rfresh_layout)
     SmartRefreshLayout refresh_layout;
@@ -56,10 +59,24 @@ public class SearchProjectFragment extends Fragment {
 
     private Unbinder unbinder;
 
-    public static SearchProjectFragment newInstance() {
+    private String keyWord = "";
+
+    private boolean isOnEnter = false, isViewCreate = false;
+
+    public static SearchProjectFragment newInstance(String keyWord) {
         SearchProjectFragment fragment = new SearchProjectFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_KEY_KEYWORD, keyWord);
+        fragment.setArguments(bundle);
         return fragment;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        keyWord = getArguments().getString(EXTRA_KEY_KEYWORD);
+    }
+
 
     @Nullable
     @Override
@@ -95,22 +112,25 @@ public class SearchProjectFragment extends Fragment {
             }
         }, rv_list);
 
+        isViewCreate = true;
+
         return view;
     }
 
     private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
         isLoadMore = false;
         if (isRefresh) {
             jPageNum = 1;
             showRefreshLoading(isRefresh);
         }
-        getData("", jPageNum);
+        getData(keyWord, jPageNum);
     }
 
     public void loadMoreData() {
         isLoadMore = true;
         isRefresh = false;
-        getData("", jPageNum);
+        getData(keyWord, jPageNum);
     }
 
     public void getData(final String keyword, int pageNum) {
@@ -135,9 +155,8 @@ public class SearchProjectFragment extends Fragment {
                             e.printStackTrace();
                         }
                         Gson gson = new Gson();
-//                        OrderListBean orderListBean = gson.fromJson(response.body(), OrderListBean.class);
-//                        onResult(orderListBean);
-//                        listAdapter.addData(homeBean.getData().getHotdata());
+                        SearchResultBean searchResultBean = gson.fromJson(response.body(), SearchResultBean.class);
+                        onResult(searchResultBean);
                     }
 
                     @Override
@@ -160,27 +179,29 @@ public class SearchProjectFragment extends Fragment {
         if (!isLoadMore) {
             jPageNum++;
 
-            /*if (null == response || null == orderListBean.getData() || orderListBean.getData().size() == 0) {
+            SearchResultBean searchResultBean = (SearchResultBean) response;
+
+            if (null == response || null == searchResultBean.getData() || searchResultBean.getData().getProject().size() == 0) {
                 showEmpty();
             } else {
                 if (isRefresh)
                     showRefreshLoading(false);
-                showData(orderListBean.getData());
+                showData(searchResultBean.getData().getProject());
             }
 
-            if (null != response && jPageNum > orderListBean.getData().size())
+            if (null != response && jPageNum > searchResultBean.getData().getProject().size())
                 showLoadMoreEnd();
             else
-                showLoadMoreComplete();*/
+                showLoadMoreComplete();
         } else {
             jPageNum++;
-            /*OrderListBean orderListBean = (OrderListBean) response;
-            loadMoreSuccess(orderListBean.getData());
-            if (jPageNum > orderListBean.getData().size()) {
+            SearchResultBean searchResultBean = (SearchResultBean) response;
+            loadMoreSuccess(searchResultBean.getData().getProject());
+            if (jPageNum > searchResultBean.getData().getProject().size()) {
                 showLoadMoreEnd();
             } else {
                 showLoadMoreComplete();
-            }*/
+            }
         }
     }
 
@@ -205,8 +226,8 @@ public class SearchProjectFragment extends Fragment {
         listAdapter.loadMoreFail();
     }
 
-    public void loadMoreSuccess(List<DataBean> dataList) {
-//        listAdapter.addData(dataList);
+    public void loadMoreSuccess(List<HotdataBean> dataList) {
+        listAdapter.addData(dataList);
     }
 
     public void showLoadMoreEnd() {
@@ -217,11 +238,11 @@ public class SearchProjectFragment extends Fragment {
         listAdapter.loadMoreComplete();
     }
 
-    public void showData(List<DataBean> dataList) {
+    public void showData(List<HotdataBean> dataList) {
         if (isOnDestory)
             return;
         multipleStatusView.showOutContentView(refresh_layout);
-//        listAdapter.setNewData(dataList);
+        listAdapter.replaceData(dataList);
         rv_list.scrollToPosition(0);
     }
 
@@ -233,5 +254,23 @@ public class SearchProjectFragment extends Fragment {
         isOnDestory = true;
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onEnter(String keyWord) {
+        this.keyWord = keyWord;
+        if (!isOnEnter) {
+            isOnEnter = true;
+            if (isViewCreate) {
+                loadData(true);
+            }
+        }
+    }
+
+    @Override
+    public void onLeave() {
+        if (isOnEnter) {
+            isOnEnter = false;
+        }
     }
 }

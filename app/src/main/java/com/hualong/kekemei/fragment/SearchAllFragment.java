@@ -21,11 +21,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.hualong.kekemei.activity.SearchActivity.EXTRA_KEY_KEYWORD;
+
 
 /**
  * 搜索-全部
  */
-public class SearchAllFragment extends Fragment {
+public class SearchAllFragment extends Fragment implements SearchIPage {
 
     @BindView(R.id.layoutHistoryFlowLayout)
     FlexboxLayout layoutHistoryFlowLayout;
@@ -37,9 +39,20 @@ public class SearchAllFragment extends Fragment {
     private SearchHistoryManager searchHistoryManager;
     private static final int historyMax = 10;
 
-    public static SearchAllFragment newInstance() {
+    private String keyWord = "";
+
+    public static SearchAllFragment newInstance(String keyWord) {
         SearchAllFragment fragment = new SearchAllFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_KEY_KEYWORD, keyWord);
+        fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        keyWord = getArguments().getString(EXTRA_KEY_KEYWORD);
     }
 
     @Nullable
@@ -97,5 +110,15 @@ public class SearchAllFragment extends Fragment {
         super.onDestroyView();
         searchHistoryManager.setOnSearchListener(null);
         unbinder.unbind();
+    }
+
+    @Override
+    public void onEnter(String keyWord) {
+
+    }
+
+    @Override
+    public void onLeave() {
+
     }
 }
