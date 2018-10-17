@@ -776,5 +776,10 @@
     <dimen name="px_7">7px</dimen>
     <dimen name="px_4">4px</dimen>
     <dimen name="px_16">16px</dimen>
+    <dimen name="px_508">508px</dimen>
+    <dimen name="px_451">451px</dimen>
+    <dimen name="px_343">343px</dimen>
+    <dimen name="px_380">380px</dimen>
+    <dimen name="px_137">137px</dimen>
 
 </resources>

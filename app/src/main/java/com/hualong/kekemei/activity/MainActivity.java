@@ -93,8 +93,8 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 //            AppUtil.getUserPoint(getApplicationContext(), this);
 //            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
 //        }
-//        if (hasCoupons)
-//            initCouponsView();
+        if (hasCoupons)
+            initCouponsView();
 
     }
 
