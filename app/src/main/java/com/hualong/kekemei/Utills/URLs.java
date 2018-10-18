@@ -22,6 +22,9 @@ public class URLs {
     public static final String MEIRONGSHILIST = BASE_URL + "/api/beautician/nearbyBeautician";
     public static final String SHOP_LIST = BASE_URL + "/api/shop/nearbyShop";
 
+    public static final String SHOP_DETAIL = BASE_URL + "/api/shop/details";
+
+    public static final String PROJECT_LIST = BASE_URL + "/api/project/projectList";
 
     //检测验证码
     public static final String CHECK = BASE_URL + "api/sns/check";

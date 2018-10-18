@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="58px"
+        android:background="@color/common_background" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/title_more_btn"
+        android:paddingBottom="56px"
+        android:paddingLeft="33px"
+        android:paddingRight="43px"
+        android:paddingTop="58px"
+        android:text="热门项目"
+        android:textColor="#7AD2D2"
+        android:textSize="52px" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/sectionRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="33px"
+        android:paddingRight="43px" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="115px"
+        android:background="#ECF9F9"
+        android:gravity="center"
+        android:text="查看更多"
+        android:textColor="#7AD2D2"
+        android:textSize="43px" />
+
+</LinearLayout>

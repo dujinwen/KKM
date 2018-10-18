@@ -101,7 +101,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         searchPager.setAdapter(searchPagerAdapter);
         searchIndictor.setViewPager(searchPager);
 
-        searchPager.setOffscreenPageLimit(searchPagerAdapter.getCount());
+        searchPager.setOffscreenPageLimit(searchPagerAdapter.getCount() - 1);
 
         searchPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

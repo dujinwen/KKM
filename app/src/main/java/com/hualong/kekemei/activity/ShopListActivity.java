@@ -82,7 +82,7 @@ public class ShopListActivity extends BaseActivity {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.ll_shop_list_item:
-                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getName());
+                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId());
                                 break;
                         }
                     }

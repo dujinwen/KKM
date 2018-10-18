@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="29px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务商圈"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="49px"
+            android:src="@mipmap/beautician_detail_satisfaction_ic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58px"
+            android:layout_marginRight="43px"
+            android:drawableRight="@mipmap/title_more_btn"
+            android:text="望京SOHO"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/CommonLine.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="29px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="29px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可约时间"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="49px"
+            android:src="@mipmap/beautician_detail_date_ic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58px"
+            android:layout_marginRight="43px"
+            android:drawableRight="@mipmap/title_more_btn"
+            android:text="望京SOHO"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="145px"
+        android:background="#ECF9F9"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="29px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京市大兴区胜利镇马头街22号"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="170px"
+            android:layout_marginRight="43px"
+            android:text="离我2.2km"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="29px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优         惠"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <ImageView
+            android:layout_width="202px"
+            android:layout_height="72px"
+            android:layout_marginLeft="43px"
+            android:background="@mipmap/beautician_details_preferential_coupon_ic" />
+
+        <ImageView
+            android:layout_width="202px"
+            android:layout_height="72px"
+            android:layout_marginLeft="105px"
+            android:background="@mipmap/beautician_details_preferential_subtract_ic" />
+
+        <ImageView
+            android:layout_width="202px"
+            android:layout_height="72px"
+            android:layout_marginLeft="105px"
+            android:background="@mipmap/beautician_details_preferential_money_ic" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/CommonLine.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="29px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160px"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="29px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="优         惠"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52px"
+            android:drawableLeft="@mipmap/shop_for_ic"
+            android:drawablePadding="14px"
+            android:text="品质保障"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="33px"
+            android:drawableLeft="@mipmap/shop_for_ic"
+            android:drawablePadding="14px"
+            android:text="随时调换"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="33px"
+            android:drawableLeft="@mipmap/shop_for_ic"
+            android:drawablePadding="14px"
+            android:text="7天退款"
+            android:textColor="#383838"
+            android:textSize="40px" />
+
+    </LinearLayout>
+</LinearLayout>
