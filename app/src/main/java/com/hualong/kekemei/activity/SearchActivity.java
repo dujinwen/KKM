@@ -95,8 +95,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         SearchPagerAdapter searchPagerAdapter = new SearchPagerAdapter(this, getSupportFragmentManager());
         searchPagerAdapter.addFragment(SearchAllFragment.newInstance(keyWord));
         searchPagerAdapter.addFragment(SearchProjectFragment.newInstance(keyWord));
-        searchPagerAdapter.addFragment(SearchBeauticianFragment.newInstance(keyWord));
         searchPagerAdapter.addFragment(SearchTradeNameFragment.newInstance(keyWord));
+        searchPagerAdapter.addFragment(SearchBeauticianFragment.newInstance(keyWord));
 
         searchPager.setAdapter(searchPagerAdapter);
         searchIndictor.setViewPager(searchPager);

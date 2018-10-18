@@ -82,7 +82,7 @@ public class SearchProjectFragment extends Fragment implements SearchIPage {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_project, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {

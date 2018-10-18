@@ -1,6 +1,7 @@
 package com.hualong.kekemei.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
@@ -10,24 +11,23 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.SPUtils;
 import com.hualong.kekemei.Utills.URLs;
-import com.hualong.kekemei.activity.ShopListActivity;
-import com.hualong.kekemei.bean.ShopListBean;
+import com.hualong.kekemei.bean.ShopBean;
 import com.hualong.kekemei.view.StarBar;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 import java.util.List;
 
-public class ShopListAdapter extends BaseQuickAdapter<ShopListBean.DataBean, BaseViewHolder> {
-    private ShopListActivity mContext;
+public class ShopListAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> {
+    private Context mContext;
 
-    public ShopListAdapter(ShopListActivity shopListActivity, int layoutResId, @Nullable List<ShopListBean.DataBean> data) {
+    public ShopListAdapter(Context mContext, int layoutResId, @Nullable List<ShopBean> data) {
         super(layoutResId, data);
-        this.mContext = shopListActivity;
+        this.mContext = mContext;
     }
 
     @SuppressLint("NewApi")
     @Override
-    protected void convert(BaseViewHolder helper, ShopListBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, ShopBean item) {
         helper.setText(R.id.tv_name, item.getName());
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_shop_pic));
         helper.setText(R.id.tv_juli,
