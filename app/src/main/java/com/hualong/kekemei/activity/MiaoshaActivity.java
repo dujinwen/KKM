@@ -15,10 +15,8 @@ import com.hualong.kekemei.Utills.CollectionUtils;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.adapter.MiaoshaPagerAdapter;
-import com.hualong.kekemei.bean.BannerBean;
+import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.bean.MiaoshaBean;
-import com.hualong.kekemei.fragment.IPage;
-import com.hualong.kekemei.fragment.MiaoshaFragment;
 import com.hualong.kekemei.view.PagerSlidingTabStrip;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
@@ -124,7 +122,7 @@ public class MiaoshaActivity extends BaseActivity {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
                 //                Glide.with(MainActivity.this).load(((AdvertiseEntity.OthersBean) model).getThumbnail()).placeholder(R.drawable.default_image).error(R.drawable.default_image).into((ImageView) view);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((HomeBean.DataBean.BanneradvBean) model).getImage(), (ImageView) view);
+//                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((HomeBean.DataBean.BanneradvBean) model).getImage(), (ImageView) view);
             }
         });
     }
