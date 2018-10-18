@@ -1,4 +1,4 @@
-package com.hualong.kekemei.fragment.adapter;
+package com.hualong.kekemei.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

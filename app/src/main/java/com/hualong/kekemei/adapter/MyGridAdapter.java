@@ -1,4 +1,4 @@
-package com.hualong.kekemei.fragment;
+package com.hualong.kekemei.adapter;
 
 import android.content.Context;
 import android.widget.ImageView;

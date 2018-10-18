@@ -16,7 +16,7 @@ import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.MeiRongShiListBean;
-import com.hualong.kekemei.fragment.adapter.MeiRongShiListAdapter;
+import com.hualong.kekemei.adapter.MeiRongShiListAdapter;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;

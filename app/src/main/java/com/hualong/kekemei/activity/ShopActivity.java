@@ -18,7 +18,7 @@ import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
-import com.hualong.kekemei.fragment.MyGridAdapter;
+import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.view.StarBar;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;

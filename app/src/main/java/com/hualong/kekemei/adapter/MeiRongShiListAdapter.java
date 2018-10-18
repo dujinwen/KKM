@@ -1,4 +1,4 @@
-package com.hualong.kekemei.fragment.adapter;
+package com.hualong.kekemei.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;

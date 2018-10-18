@@ -16,6 +16,7 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.MultipleStatusView;
 import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.HotdataBean;
 import com.hualong.kekemei.bean.SearchResultBean;
 import com.lzy.okgo.OkGo;
