@@ -5,8 +5,6 @@
     android:background="@color/transparent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_title_bar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,24 +23,29 @@
             app:tipTextSize="12sp" />
 
 
-        <com.hualong.kekemei.Utills.IndictorWithNumber
-            android:id="@+id/rushHallTabs"
+        <com.hualong.kekemei.view.PagerSlidingTabStrip
+            android:id="@+id/miaoshaTabs"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:textColor="@color/black"
+            android:layout_height="144px"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:textColor="#C1C1C1"
             android:textSize="13sp"
             app:pstsDividerColor="#00000000"
-            app:pstsIndicatorColor="#1199ff"
-            app:pstsIndicatorHeight="@dimen/work_order_list_indictor_hight"
-            app:pstsTabPaddingLeftRight="@dimen/work_order_list_indictor_padding_left"
+            app:pstsIndicatorColor="@color/transparent"
+            app:pstsShouldExpand="true"
+            app:pstsTabBackground="@mipmap/seckill_tab_btn"
+            app:pstsTabPaddingLeftRight="0dp"
+            app:pstsTextAllCaps="false"
+            app:pstsTextSelectedColor="@color/white"
             app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
-            app:pstsUnderlineColor="#e5e6e8"
-            app:pstsUnderlineHeight="@dimen/work_order_list_under_line_hight" />
+            app:pstsUnderlineHeight="0px" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/rushHallPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
+
+    <include layout="@layout/layout_title_bar" />
 </RelativeLayout>

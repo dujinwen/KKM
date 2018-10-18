@@ -16,6 +16,7 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.MultipleStatusView;
 import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.HotdataBean;
 import com.hualong.kekemei.bean.SearchResultBean;
 import com.lzy.okgo.OkGo;
@@ -81,7 +82,7 @@ public class SearchProjectFragment extends Fragment implements SearchIPage {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_project, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {

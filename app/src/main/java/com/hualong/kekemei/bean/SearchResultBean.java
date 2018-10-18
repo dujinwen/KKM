@@ -50,8 +50,8 @@ public class SearchResultBean {
 
     public static class DataBean {
         private List<HotdataBean> project;
-        private List<?> shop;
-        private List<?> beautician;
+        private List<ShopBean> shop;
+        private List<BeauticianBean> beautician;
 
         public List<HotdataBean> getProject() {
             return project;
@@ -61,19 +61,19 @@ public class SearchResultBean {
             this.project = project;
         }
 
-        public List<?> getShop() {
+        public List<ShopBean> getShop() {
             return shop;
         }
 
-        public void setShop(List<?> shop) {
+        public void setShop(List<ShopBean> shop) {
             this.shop = shop;
         }
 
-        public List<?> getBeautician() {
+        public List<BeauticianBean> getBeautician() {
             return beautician;
         }
 
-        public void setBeautician(List<?> beautician) {
+        public void setBeautician(List<BeauticianBean> beautician) {
             this.beautician = beautician;
         }
     }

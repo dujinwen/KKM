@@ -1,18 +1,13 @@
 package com.hualong.kekemei.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hualong.kekemei.R;
@@ -22,8 +17,7 @@ import com.hualong.kekemei.Utills.MultipleStatusView;
 import com.hualong.kekemei.activity.OrderListContract;
 import com.hualong.kekemei.activity.OrderListPresenter;
 import com.hualong.kekemei.bean.DataBean;
-import com.hualong.kekemei.bean.OrderListBean;
-import com.hualong.kekemei.fragment.adapter.OrderListAdapter;
+import com.hualong.kekemei.adapter.OrderListAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;

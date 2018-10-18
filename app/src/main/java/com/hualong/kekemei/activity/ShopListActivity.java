@@ -16,9 +16,8 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.BannerBean;
-import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.bean.ShopListBean;
-import com.hualong.kekemei.fragment.adapter.ShopListAdapter;
+import com.hualong.kekemei.adapter.ShopListAdapter;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -82,7 +81,7 @@ public class ShopListActivity extends BaseActivity {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.ll_shop_list_item:
-                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getName());
+                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId());
                                 break;
                         }
                     }

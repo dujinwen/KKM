@@ -137,6 +137,7 @@
         <activity android:name=".activity.ShopActivity" />
         <activity android:name=".activity.MeiRongShiActivity" />
         <activity android:name=".activity.ShopListActivity" />
+        <activity android:name=".activity.MiaoshaActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
