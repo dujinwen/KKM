@@ -148,6 +148,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
 
                 LinearLayoutManager layout_meirongshi = new LinearLayoutManager(getActivity().getBaseContext());
                 layout_meirongshi.setOrientation(LinearLayoutManager.HORIZONTAL);
+                rvMeirongshi.setHasFixedSize(true);
+                rvMeirongshi.setNestedScrollingEnabled(false);
                 rvMeirongshi.setLayoutManager(layout_meirongshi);
                 MeiRongShiAdapter adapter = new MeiRongShiAdapter(getActivity());
                 rvMeirongshi.setAdapter(adapter);
@@ -155,6 +157,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
 
                 LinearLayoutManager layout_vip = new LinearLayoutManager(getActivity().getBaseContext());
                 layout_vip.setOrientation(LinearLayoutManager.HORIZONTAL);
+                rvDavipKkm.setHasFixedSize(true);
+                rvDavipKkm.setNestedScrollingEnabled(false);
                 rvDavipKkm.setLayoutManager(layout_vip);
                 DAVipAdapter adapter_vip = new DAVipAdapter(getActivity());
                 rvDavipKkm.setAdapter(adapter_vip);
@@ -162,24 +166,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
 
                 rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);
+                rvXinren.setHasFixedSize(true);
+                rvXinren.setNestedScrollingEnabled(false);
                 rvXinren.setAdapter(adapter1);
                 adapter1.addData(homeBean.getData().getNewmemberdata());
 
 
                 rvRemenxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter4 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.HotdataBean);
+                rvRemenxiangmu.setHasFixedSize(true);
+                rvRemenxiangmu.setNestedScrollingEnabled(false);
                 rvRemenxiangmu.setAdapter(adapter4);
                 adapter4.addData(homeBean.getData().getHotdata());
 
 
                 rvHuiyuan.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter2 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.MemberdataBean);
+                rvHuiyuan.setHasFixedSize(true);
+                rvHuiyuan.setNestedScrollingEnabled(false);
                 rvHuiyuan.setAdapter(adapter2);
                 adapter2.addData(homeBean.getData().getMemberdata());
 
 
                 rvZuixinxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter3 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.SpecialdataBean);
+                rvZuixinxiangmu.setHasFixedSize(true);
+                rvZuixinxiangmu.setNestedScrollingEnabled(false);
                 rvZuixinxiangmu.setAdapter(adapter3);
                 adapter3.addData(homeBean.getData().getSpecialdata());
 
