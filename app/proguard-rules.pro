@@ -47,3 +47,6 @@
    # 导航
     -keep class com.amap.api.navi.**{*;}
     -keep class com.autonavi.**{*;}
+    # 环信
+    -keep class com.hyphenate.** {*;}
+    -dontwarn  com.hyphenate.**

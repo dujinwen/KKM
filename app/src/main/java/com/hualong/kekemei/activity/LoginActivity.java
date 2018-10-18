@@ -9,12 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.LogUtil;
 import com.hualong.kekemei.Utills.ToastUtil;
 import com.hualong.kekemei.Utills.URLs;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.exceptions.HyphenateException;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -94,10 +100,18 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_yanzhengma:
-                sendYanZhengMa();
+//                sendYanZhengMa();
+                chatLogin();
                 break;
             case R.id.btn_login:
-                login();
+                // 跳转到聊天界面，开始聊天
+                Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
+                // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
+                intent.putExtra("userId", "hjdudu");
+                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
+                startActivity(intent);
+
+//                login();
                 break;
             case R.id.weibo_login:
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, authListener);
@@ -129,15 +143,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login() {
-//        AppUtil.checkCaptcha(etPhoneNum.getText().toString().trim(),
-//                etYanzhengma.getText().toString().trim(),
-//                "login",
-//                new StringCallback() {
-//                    @Override
-//                    public void onSuccess(Response<String> response) {
-//
-//                    }
-//                });
+        //        AppUtil.checkCaptcha(etPhoneNum.getText().toString().trim(),
+        //                etYanzhengma.getText().toString().trim(),
+        //                "login",
+        //                new StringCallback() {
+        //                    @Override
+        //                    public void onSuccess(Response<String> response) {
+        //
+        //                    }
+        //                });
         OkGo.<String>get(URLs.MOBILE_LOGIN)
                 .params("mobile", etPhoneNum.getText().toString().trim())
                 .params("event", "login")
@@ -148,6 +162,8 @@ public class LoginActivity extends BaseActivity {
 
                     }
                 });
+
+
     }
 
 
@@ -169,13 +185,13 @@ public class LoginActivity extends BaseActivity {
                     temp = temp + key + " : " + data.get(key) + "\n";
                 }
                 LogUtil.d("LoginActivity", temp);
-//                if (platform == SHARE_MEDIA.QQ) {
-//                    verifyBind("1", data.get("unionid"));
-//                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "qq");
-//                } else if (platform == SHARE_MEDIA.WEIXIN) {
-//                    verifyBind("2", data.get("openid"));
-//                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "weixin");
-//                }
+                //                if (platform == SHARE_MEDIA.QQ) {
+                //                    verifyBind("1", data.get("unionid"));
+                //                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "qq");
+                //                } else if (platform == SHARE_MEDIA.WEIXIN) {
+                //                    verifyBind("2", data.get("openid"));
+                //                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "weixin");
+                //                }
             }
         }
 
@@ -201,4 +217,146 @@ public class LoginActivity extends BaseActivity {
             ToastUtil.showToastMsg(LoginActivity.this, "授权取消");
         }
     };
+
+    public void chatLogin() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EMClient.getInstance().login("pyf", "111111", new EMCallBack() {//回调
+                    @Override
+                    public void onSuccess() {
+                        EMClient.getInstance().groupManager().loadAllGroups();
+                        EMClient.getInstance().chatManager().loadAllConversations();
+                        LogUtil.d("main", "pyf 登录聊天服务器成功！");
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        LogUtil.d("main", "登录聊天服务器失败！");
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    public void chatLoginOut() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EMClient.getInstance().logout(true, new EMCallBack() {
+
+                    @Override
+                    public void onSuccess() {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+            }
+
+        }).start();
+    }
+
+//    private ProgressDialog mDialog;
+
+    public void createAccount() {
+
+//        mDialog = new ProgressDialog(this);
+//        mDialog.setMessage("注册中，请稍后...");
+//        mDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    EMClient.getInstance().createAccount("", "");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!LoginActivity.this.isFinishing()) {
+//                                mDialog.dismiss();
+                            }
+                            Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } catch (final HyphenateException e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!LoginActivity.this.isFinishing()) {
+//                                mDialog.dismiss();
+                            }
+                            /**
+                             * 关于错误码可以参考官方api详细说明
+                             * http://www.easemob.com/apidoc/android/chat3.0/classcom_1_1hyphenate_1_1_e_m_error.html
+                             */
+                            int errorCode = e.getErrorCode();
+                            String message = e.getMessage();
+                            LogUtil.d("lzan13",
+                                    String.format("sign up - errorCode:%d, errorMsg:%s", errorCode,
+                                            e.getMessage()));
+                            switch (errorCode) {
+                                // 网络错误
+                                case EMError.NETWORK_ERROR:
+                                    Toast.makeText(LoginActivity.this,
+                                            "网络错误 code: " + errorCode + ", message:" + message,
+                                            Toast.LENGTH_LONG).show();
+                                    break;
+                                // 用户已存在
+                                case EMError.USER_ALREADY_EXIST:
+                                    Toast.makeText(LoginActivity.this,
+                                            "用户已存在 code: " + errorCode + ", message:" + message,
+                                            Toast.LENGTH_LONG).show();
+                                    break;
+                                // 参数不合法，一般情况是username 使用了uuid导致，不能使用uuid注册
+                                case EMError.USER_ILLEGAL_ARGUMENT:
+                                    Toast.makeText(LoginActivity.this,
+                                            "参数不合法，一般情况是username 使用了uuid导致，不能使用uuid注册 code: "
+                                                    + errorCode
+                                                    + ", message:"
+                                                    + message, Toast.LENGTH_LONG).show();
+                                    break;
+                                // 服务器未知错误
+                                case EMError.SERVER_UNKNOWN_ERROR:
+                                    Toast.makeText(LoginActivity.this,
+                                            "服务器未知错误 code: " + errorCode + ", message:" + message,
+                                            Toast.LENGTH_LONG).show();
+                                    break;
+                                case EMError.USER_REG_FAILED:
+                                    Toast.makeText(LoginActivity.this,
+                                            "账户注册失败 code: " + errorCode + ", message:" + message,
+                                            Toast.LENGTH_LONG).show();
+                                    break;
+                                default:
+                                    Toast.makeText(LoginActivity.this,
+                                            "ml_sign_up_failed code: " + errorCode + ", message:" + message,
+                                            Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }

@@ -38,6 +38,9 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+
+    useLibrary 'org.apache.http.legacy'
 }
 
 
@@ -80,4 +83,12 @@ dependencies {
 
     //https://blog.csdn.net/DDK837239693/article/details/53520162?utm_source=blogxgwz6
     implementation 'com.daidingkang:flowlayouttag:1.0.0'
+
+
+
+//环信
+    //Optional compile for GCM (Google Cloud Messaging).
+    compile 'com.google.android.gms:play-services-base:11.4.0'
+//    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
+    implementation project(':easeui')
 }
