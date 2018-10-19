@@ -41,54 +41,51 @@ android {
 
 
     useLibrary 'org.apache.http.legacy'
-}
 
 
-allprojects {
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    allprojects {
+        gradle.projectsEvaluated {
+            tasks.withType(JavaCompile) {
+                options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+            }
         }
     }
-}
 
 
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    //    implementation "com.android.support:design:28.0.0"
-    //    compile project(':mainnavigatetabbar')
-    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    //轮播图
-    implementation 'com.hejunlin.superindicatorlibray:superindicatorlibray:1.0.3'
-    //状态栏
-    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
-    implementation 'com.lzy.net:okgo:3.0.4'
-    implementation project(':image_loader_module')
-    implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.xhb:xbanner:1.4.1'
-    //注解
-    implementation 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-    implementation 'com.orhanobut:logger:2.1.1'
-    //    compile 'com.amap.api:location:latest.integration'
-    implementation 'pub.devrel:easypermissions:0.1.9'
-    compile 'com.google.android:flexbox:0.2.3'
-    implementation project(':mainnavigatetabbar')
-//    implementation 'com.android.support:multidex:1.+'
-
-    //https://blog.csdn.net/DDK837239693/article/details/53520162?utm_source=blogxgwz6
-    implementation 'com.daidingkang:flowlayouttag:1.0.0'
-
-
+    dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation 'com.android.support:appcompat-v7:27.1.1'
+        implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+        implementation 'com.android.support:recyclerview-v7:27.1.1'
+        //    implementation "com.android.support:design:28.0.0"
+        //    compile project(':mainnavigatetabbar')
+        implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+        //轮播图
+        implementation 'com.hejunlin.superindicatorlibray:superindicatorlibray:1.0.3'
+        //状态栏
+        implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta01'
+        implementation 'com.lzy.net:okgo:3.0.4'
+        implementation project(':image_loader_module')
+        implementation 'com.google.code.gson:gson:2.8.0'
+        implementation 'com.xhb:xbanner:1.4.1'
+        //注解
+        implementation 'com.jakewharton:butterknife:8.5.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+        implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
+        implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+        implementation 'com.orhanobut:logger:2.1.1'
+        //    compile 'com.amap.api:location:latest.integration'
+        implementation 'pub.devrel:easypermissions:0.1.9'
+        compile 'com.google.android:flexbox:0.2.3'
+        implementation project(':mainnavigatetabbar')
+        //    implementation 'com.android.support:multidex:1.+'
+        //https://blog.csdn.net/DDK837239693/article/details/53520162?utm_source=blogxgwz6
+        //implementation 'com.daidingkang:flowlayouttag:1.0.0'去掉这个依赖，避免出现两个启动图标
 
 //环信
-    //Optional compile for GCM (Google Cloud Messaging).
-    compile 'com.google.android.gms:play-services-base:11.4.0'
+        //Optional compile for GCM (Google Cloud Messaging).
+        compile 'com.google.android.gms:play-services-base:11.4.0'
 //    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
-    implementation project(':easeui')
+        implementation project(':easeui')
+    }
 }
