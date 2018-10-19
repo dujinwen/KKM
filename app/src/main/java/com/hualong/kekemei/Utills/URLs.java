@@ -19,6 +19,7 @@ public class URLs {
     public static final String YOUHUIQUAN = BASE_URL + "/api/user/mycoupon";
 
     public static final String SEARCH = BASE_URL + "/api/index/search";
+    public static final String HOT_SEARCH = BASE_URL + "/api/index/hotsearch";
     public static final String MEIRONGSHILIST = BASE_URL + "/api/beautician/nearbyBeautician";
     public static final String SHOP_LIST = BASE_URL + "/api/shop/nearbyShop";
 

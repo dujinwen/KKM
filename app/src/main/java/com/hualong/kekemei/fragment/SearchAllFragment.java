@@ -9,13 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.CollectionUtils;
-import com.hualong.kekemei.bean.SearchHistoryBean;
-import com.hualong.kekemei.manager.SearchHistoryManager;
+import com.hualong.kekemei.Utills.LogUtil;
+import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.bean.HotSearchBean;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,13 +39,13 @@ public class SearchAllFragment extends Fragment implements SearchIPage {
 
     @BindView(R.id.layoutHistoryFlowLayout)
     FlexboxLayout layoutHistoryFlowLayout;
+    @BindView(R.id.historyEmpty)
+    TextView historyEmpty;
 
     @BindView(R.id.layoutHotSearchFlowLayout)
     FlexboxLayout layoutHotSearchFlowLayout;
 
     private Unbinder unbinder;
-    private SearchHistoryManager searchHistoryManager;
-    private static final int historyMax = 10;
 
     private String keyWord = "";
 
@@ -60,44 +68,74 @@ public class SearchAllFragment extends Fragment implements SearchIPage {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_all, container, false);
         unbinder = ButterKnife.bind(this, view);
-        initSearchHistoryArea();
+        initData();
         return view;
     }
 
-    /**
-     * 初始化历史搜索区域
-     */
-    @SuppressWarnings("ConstantConditions")
-    private void initSearchHistoryArea() {
-        searchHistoryManager = SearchHistoryManager.getInstance(getActivity(), historyMax);
-        searchHistoryManager.setOnSearchListener(new SearchHistoryManager.OnSearchListener() {
-            @Override
-            public void onSortSuccess(ArrayList<SearchHistoryBean> results) {
-                fillHistoryWordArea(results);
+    private void initData() {
+        OkGo.<String>post(URLs.HOT_SEARCH)
+                .tag(this)
+                .params("user_id", "1")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.e("Search", "body:" + response.body());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                onResult(null);
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new Gson();
+                        HotSearchBean hotSearchBean = gson.fromJson(response.body(), HotSearchBean.class);
+                        onResult(hotSearchBean);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        LogUtil.e("TAG", response.message());
+                        onResult(null);
+                    }
+                });
+    }
+
+    private void onResult(Object response) {
+        HotSearchBean hotSearchBean = (HotSearchBean) response;
+        if (null == response || null == hotSearchBean.getData()) {
+            historyEmpty.setVisibility(View.VISIBLE);
+        } else {
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHistory())) {
+                fillHistoryWordArea(hotSearchBean.getData().getHistory());
+            } else {
+                historyEmpty.setVisibility(View.VISIBLE);
             }
-        });
-        searchHistoryManager.sortHistory();
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHost())) {
+                fillHotWordArea(hotSearchBean.getData().getHost());
+            } else {
+            }
+        }
     }
 
     /**
      * 填充历史搜索区域
-     *
-     * @param result 本地保存的历史搜索内容
      */
-    private void fillHistoryWordArea(final ArrayList<SearchHistoryBean> result) {
+    private void fillHistoryWordArea(final List<String> result) {
         if (CollectionUtils.isEmpty(result)) {
             return;
         }
         layoutHistoryFlowLayout.removeAllViews();
         for (int i = 0; i < result.size(); i++) {
             final TextView txt = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_search_history_item, layoutHistoryFlowLayout, false);
-            if (!AppUtil.isEmptyString(result.get(i).getContent())) {
-                txt.setText(result.get(i).getContent());
+            if (!AppUtil.isEmptyString(result.get(i))) {
+                txt.setText(result.get(i));
                 txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String content = txt.getText().toString();
-                        searchHistoryManager.save(content);
                     }
                 });
                 layoutHistoryFlowLayout.addView(txt);
@@ -105,10 +143,32 @@ public class SearchAllFragment extends Fragment implements SearchIPage {
         }
     }
 
+    /**
+     * 填充热门搜索区域
+     */
+    private void fillHotWordArea(final List<String> result) {
+        if (CollectionUtils.isEmpty(result)) {
+            return;
+        }
+        layoutHotSearchFlowLayout.removeAllViews();
+        for (int i = 0; i < result.size(); i++) {
+            final TextView txt = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_search_history_item, layoutHotSearchFlowLayout, false);
+            if (!AppUtil.isEmptyString(result.get(i))) {
+                txt.setText(result.get(i));
+                txt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String content = txt.getText().toString();
+                    }
+                });
+                layoutHotSearchFlowLayout.addView(txt);
+            }
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        searchHistoryManager.setOnSearchListener(null);
         unbinder.unbind();
     }
 

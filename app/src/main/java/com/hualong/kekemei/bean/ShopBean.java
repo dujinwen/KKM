@@ -39,7 +39,7 @@ public class ShopBean {
     private int createtime;
     private int user_id;
     private int order_count;
-    private double $satisfaction;
+    private String $satisfaction;
     private String distance;
     private int start;
     private String state_text;
@@ -156,11 +156,11 @@ public class ShopBean {
         this.order_count = order_count;
     }
 
-    public double get$satisfaction() {
+    public String getSatisfaction() {
         return $satisfaction;
     }
 
-    public void set$satisfaction(double $satisfaction) {
+    public void setSatisfaction(String $satisfaction) {
         this.$satisfaction = $satisfaction;
     }
 

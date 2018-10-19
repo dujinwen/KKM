@@ -15,15 +15,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_42"
             android:layout_marginTop="60px"
-            android:text="搜索历史" />
+            android:text="历史搜索"
+            android:textSize="29px" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/layoutHistoryFlowLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="100px"
+            android:layout_marginRight="100px"
+            android:layout_marginTop="57px"
             app:alignContent="flex_start"
             app:flexDirection="row"
             app:flexWrap="wrap" />
+
+        <TextView
+            android:id="@+id/historyEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:gravity="center"
+            android:text="暂无搜索历史"
+            android:textColor="#999999"
+            android:textSize="29px"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,12 +50,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_42"
             android:layout_marginTop="85px"
-            android:text="热门搜索" />
+            android:text="热门搜索"
+            android:textSize="29px" />
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/layoutHotSearchFlowLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="100px"
+            android:layout_marginRight="100px"
+            android:layout_marginTop="57px"
             app:alignContent="flex_start"
             app:flexDirection="row"
             app:flexWrap="wrap" />

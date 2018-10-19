@@ -18,12 +18,11 @@ import com.hualong.kekemei.Utills.NoScrollGridView;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.SettingActivity;
-import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.activity.UserInfoActivity;
-import com.hualong.kekemei.bean.HongBao;
+import com.hualong.kekemei.adapter.GridAdapter;
+import com.hualong.kekemei.adapter.MyGridAdapter;
+import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.bean.UserBean;
-import com.hualong.kekemei.bean.YouHuiQuan;
-import com.hualong.kekemei.fragment.adapter.GridAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -103,7 +102,7 @@ public class PersonFragment extends Fragment {
                     return;
                 }
 
-                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
                 MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
                 rvTuijian.setAdapter(adapter);
@@ -112,14 +111,17 @@ public class PersonFragment extends Fragment {
         });
     }
 
-    @OnClick({R.id.user_set_btn})
+    @OnClick({R.id.user_set_btn, R.id.userName, R.id.icon})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_set_btn:
-//                SettingActivity.start(getActivity());
-                LoginActivity.start(getActivity());
+                SettingActivity.start(getActivity());
+//                MiaoshaActivity.start(getActivity());
                 break;
             case R.id.icon:
+                LoginActivity.start(getActivity());
+                break;
+            case R.id.userName:
                 UserInfoActivity.start(getActivity());
                 break;
         }
