@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/work_order_list_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="210px"
+            android:layout_height="179px"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="40px"
+            android:src="@mipmap/user_icon_default" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="81px"
+            android:layout_marginTop="58px"
+            android:layout_toRightOf="@id/icon"
+            android:text="【爆款】肩颈+腰部+背部+足底+全身放松..."
+            android:textColor="@color/black"
+            android:textSize="37px" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="81px"
+            android:layout_marginTop="86px"
+            android:layout_toRightOf="@id/icon"
+            android:text="超出预期"
+            android:textColor="@color/c_ccc"
+            android:textSize="40px" />
+
+        <TextView
+            android:layout_width="213px"
+            android:layout_height="72px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40px"
+            android:layout_marginTop="143px"
+            android:background="@drawable/shape_blue_evaluate_item_for_order_detail"
+            android:gravity="center"
+            android:text="订单详情"
+            android:textColor="@color/white"
+            android:textSize="40px" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/commentContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36px"
+        android:layout_marginTop="71px"
+        android:text="整体来说还是不错的"
+        android:textColor="@color/common_text_dark"
+        android:textSize="40px" />
+
+    <com.hualong.kekemei.view.NoScrollGridView
+        android:id="@+id/ncgv"
+        android:layout_width="match_parent"
+        android:layout_height="168px"
+        android:layout_marginLeft="36px"
+        android:layout_marginRight="36px"
+        android:layout_marginTop="22px"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="4"
+        android:scrollbars="none" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40px">
+
+        <com.hualong.kekemei.view.StarBar
+            android:id="@+id/star_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36px"
+            ratingbar:changeEnable="false"
+            ratingbar:starCount="5"
+            ratingbar:starDistance="10dp"
+            ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+            ratingbar:starFill="@mipmap/beautician_score_full_ic"
+            ratingbar:starSize="42px" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40px"
+            android:text="2018-5-18"
+            android:textColor="@color/c_ccc"
+            android:textSize="40px" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/replyContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="71px"
+        android:layout_marginLeft="36px"
+        android:layout_marginRight="36px"
+        android:layout_marginTop="35px"
+        android:background="#ECF9F9"
+        android:paddingBottom="16px"
+        android:paddingLeft="9px"
+        android:paddingRight="9px"
+        android:paddingTop="10px"
+        android:text="谢谢您，我们会继续努力的谢谢您，我们会继续努力的谢谢您，我们会继续努力的"
+        android:textColor="@color/common_text_dark"
+        android:textSize="40px" />
+
+    <View style="@style/CommonLine.Horizontal" />
+
+</LinearLayout>

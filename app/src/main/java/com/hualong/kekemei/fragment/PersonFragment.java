@@ -118,7 +118,7 @@ public class PersonFragment extends Fragment {
             case R.id.user_set_btn:
                 SettingActivity.start(getActivity());
 //                MiaoshaActivity.start(getActivity());
-//                UserEvaluateActivity.start(getActivity());
+//                UserEvaluateActivity.start(getActivity(), true);
                 break;
             case R.id.icon:
                 LoginActivity.start(getActivity());

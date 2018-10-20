@@ -71,8 +71,11 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
     public static final int EVALUATE_STATUS_BASICALLY_SATISFACTION = 2; //基本满意
     public static final int EVALUATE_STATUS_DISSATISFIED = 3;      //不满意
 
-    public static void start(Context context) {
+    private boolean isMyComment;//是否是我的评价
+
+    public static void start(Context context, boolean isMyComment) {
         Intent intent = new Intent(context, UserEvaluateActivity.class);
+        intent.putExtra("isMyComment", isMyComment);
         context.startActivity(intent);
     }
 
@@ -89,8 +92,9 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        isMyComment = getIntent().getBooleanExtra("isMyComment", false);
         toolbar.setNavigationIcon(R.mipmap.back);
-        tv_title.setText("客户评价");
+        tv_title.setText(isMyComment ? "我的评价" : "客户评价");
 
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +113,7 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
         jSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
         jSwipeRefreshLayout.setEnableLoadMore(false);
 
-        jAdapter = new EvaluateListAdapter(this);
+        jAdapter = new EvaluateListAdapter(this, isMyComment);
         jAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
