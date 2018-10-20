@@ -27,6 +27,8 @@ public class URLs {
 
     public static final String PROJECT_LIST = BASE_URL + "/api/project/projectList";
 
+    public static final String COMMENT_LIST = BASE_URL + "/api/comment/commentlist";
+
     //检测验证码
     public static final String CHECK = BASE_URL + "api/sns/check";
     //发送个人信息

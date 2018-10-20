@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hualong.kekemei.Utills;
+package com.hualong.kekemei.view;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -44,7 +44,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.loading.FragmentPagerAdapter;
+import com.hualong.kekemei.Utills.SuperAwesomeCardFragment;
+import com.hualong.kekemei.view.loading.FragmentPagerAdapter;
 
 import java.util.List;
 import java.util.Locale;

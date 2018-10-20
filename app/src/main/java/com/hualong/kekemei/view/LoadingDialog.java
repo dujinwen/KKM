@@ -1,4 +1,4 @@
-package com.hualong.kekemei.Utills;
+package com.hualong.kekemei.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.view.LVCircularRing;
 
 
 /**

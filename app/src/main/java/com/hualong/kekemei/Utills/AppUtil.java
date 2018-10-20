@@ -41,7 +41,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -633,5 +635,24 @@ public class AppUtil {
                 .params("event", event)
                 .params("captcha", captcha)
                 .execute(stringCallback);
+    }
+
+    /**
+     * @param time 传入毫秒，如果是1437538047，即10位，则应该乘以1000
+     * @return
+     */
+    public static String getFormatTime(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date(time));
+    }
+
+    public static String getFormatTime1(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        return sdf.format(new Date(time));
+    }
+
+    public static String getFormatTime2(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(new Date(time));
     }
 }

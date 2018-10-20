@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/work_order_list_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.hualong.kekemei.view.CircleImageView
+            android:id="@+id/icon"
+            android:layout_width="122px"
+            android:layout_height="122px"
+            android:layout_marginLeft="37px"
+            android:layout_marginTop="71px"
+            android:src="@mipmap/user_icon_default" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17px"
+            android:layout_marginTop="88px"
+            android:layout_toRightOf="@id/icon"
+            android:text="不露声色"
+            android:textColor="@color/common_text_dark"
+            android:textSize="46px" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="17px"
+            android:layout_marginTop="23px"
+            android:layout_toRightOf="@id/icon"
+            android:text="不露声色"
+            android:textColor="@color/c_ccc"
+            android:textSize="40px" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/commentContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="183px"
+        android:layout_marginTop="58px"
+        android:text="整体来说还是不错的"
+        android:textColor="@color/common_text_dark"
+        android:textSize="40px" />
+
+    <com.hualong.kekemei.view.NoScrollGridView
+        android:id="@+id/ncgv"
+        android:layout_width="match_parent"
+        android:layout_height="168px"
+        android:layout_marginLeft="176px"
+        android:layout_marginRight="107px"
+        android:layout_marginTop="56px"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="4"
+        android:scrollbars="none" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40px">
+
+        <com.hualong.kekemei.view.StarBar
+            android:id="@+id/star_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="176px"
+            ratingbar:changeEnable="false"
+            ratingbar:starCount="5"
+            ratingbar:starDistance="10dp"
+            ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+            ratingbar:starFill="@mipmap/beautician_score_full_ic"
+            ratingbar:starSize="42px" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="121px"
+            android:text="2018-5-18"
+            android:textColor="@color/c_ccc"
+            android:textSize="40px" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/replyContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68px"
+        android:layout_marginLeft="176px"
+        android:layout_marginRight="37px"
+        android:layout_marginTop="39px"
+        android:background="#ECF9F9"
+        android:paddingBottom="16px"
+        android:paddingLeft="9px"
+        android:paddingRight="9px"
+        android:paddingTop="10px"
+        android:text="谢谢您，我们会继续努力的谢谢您，我们会继续努力的谢谢您，我们会继续努力的"
+        android:textColor="@color/common_text_dark"
+        android:textSize="40px" />
+
+    <View style="@style/CommonLine.Horizontal" />
+
+</LinearLayout>

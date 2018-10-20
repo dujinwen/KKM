@@ -1,4 +1,4 @@
-package com.hualong.kekemei.Utills.loading;
+package com.hualong.kekemei.view.loading;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.loading.indicators.BallSpinFadeLoaderIndicator;
+import com.hualong.kekemei.view.loading.indicators.BallSpinFadeLoaderIndicator;
 
 
 //https://github.com/81813780/AVLoadingIndicatorView/tree/master/library/src/main/res/values

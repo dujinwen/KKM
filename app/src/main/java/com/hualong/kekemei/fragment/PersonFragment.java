@@ -13,16 +13,17 @@ import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.CircleImageView;
-import com.hualong.kekemei.Utills.NoScrollGridView;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.SettingActivity;
+import com.hualong.kekemei.activity.UserEvaluateActivity;
 import com.hualong.kekemei.activity.UserInfoActivity;
 import com.hualong.kekemei.adapter.GridAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.bean.UserBean;
+import com.hualong.kekemei.view.CircleImageView;
+import com.hualong.kekemei.view.NoScrollGridView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -117,6 +118,7 @@ public class PersonFragment extends Fragment {
             case R.id.user_set_btn:
                 SettingActivity.start(getActivity());
 //                MiaoshaActivity.start(getActivity());
+//                UserEvaluateActivity.start(getActivity());
                 break;
             case R.id.icon:
                 LoginActivity.start(getActivity());

@@ -27,7 +27,7 @@
                 android:paddingLeft="56px"
                 android:paddingTop="189px">
 
-                <com.hualong.kekemei.Utills.CircleImageView
+                <com.hualong.kekemei.view.CircleImageView
                     android:id="@+id/icon"
                     android:layout_width="@dimen/px_171"
                     android:layout_height="@dimen/px_171"
@@ -156,7 +156,7 @@
                 android:background="@drawable/btn_white_background"
                 android:orientation="horizontal">
 
-                <com.hualong.kekemei.Utills.NoScrollGridView
+                <com.hualong.kekemei.view.NoScrollGridView
                     android:id="@+id/ncgv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

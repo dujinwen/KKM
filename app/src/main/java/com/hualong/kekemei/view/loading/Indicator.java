@@ -1,4 +1,4 @@
-package com.hualong.kekemei.Utills.loading;
+package com.hualong.kekemei.view.loading;
 
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;

@@ -1,7 +1,7 @@
 package com.hualong.kekemei.activity;
 
 
-import com.hualong.kekemei.Utills.IndictorWithNumber;
+import com.hualong.kekemei.view.IndictorWithNumber;
 import com.hualong.kekemei.bean.OrderListBean;
 
 import java.util.ArrayList;

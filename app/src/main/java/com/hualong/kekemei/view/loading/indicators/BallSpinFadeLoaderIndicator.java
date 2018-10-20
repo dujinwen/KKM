@@ -1,11 +1,11 @@
-package com.hualong.kekemei.Utills.loading.indicators;
+package com.hualong.kekemei.view.loading.indicators;
 
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 
-import com.hualong.kekemei.Utills.loading.Indicator;
+import com.hualong.kekemei.view.loading.Indicator;
 
 import java.util.ArrayList;
 

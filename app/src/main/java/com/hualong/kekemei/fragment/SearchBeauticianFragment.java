@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.MultipleStatusView;
+import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.adapter.MeiRongShiListAdapter;
 import com.hualong.kekemei.bean.BeauticianBean;

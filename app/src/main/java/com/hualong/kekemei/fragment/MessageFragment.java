@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.IndictorWithNumber;
-import com.hualong.kekemei.Utills.MultipleStatusView;
+import com.hualong.kekemei.view.IndictorWithNumber;
+import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.activity.OrderListContract;
 import com.hualong.kekemei.activity.OrderListPresenter;
 import com.hualong.kekemei.activity.OrderListSearchActivity;

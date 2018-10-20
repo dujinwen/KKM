@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.hualong.kekemei.Utills.loading;
+package com.hualong.kekemei.view.loading;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Parcelable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;

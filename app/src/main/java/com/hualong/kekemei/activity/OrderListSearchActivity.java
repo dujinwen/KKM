@@ -15,7 +15,7 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.Utills.AppUtil;
 import com.hualong.kekemei.Utills.CollectionUtils;
 import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.MultipleStatusView;
+import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;

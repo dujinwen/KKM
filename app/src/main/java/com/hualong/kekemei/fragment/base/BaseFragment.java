@@ -1,4 +1,4 @@
-package com.hualong.kekemei.Utills;
+package com.hualong.kekemei.fragment.base;
 
 import android.app.Fragment;
 import android.os.Build;
@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.hualong.kekemei.view.LoadingDialog;
 
 
 /**

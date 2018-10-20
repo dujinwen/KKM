@@ -12,7 +12,7 @@
         android:layout_height="560px"
         android:background="@mipmap/user_head_bg" />
 
-    <com.hualong.kekemei.Utills.CircleImageView
+    <com.hualong.kekemei.view.CircleImageView
         android:id="@+id/icon"
         android:layout_width="240px"
         android:layout_height="240px"
