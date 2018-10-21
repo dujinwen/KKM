@@ -29,6 +29,12 @@ public class URLs {
 
     public static final String COMMENT_LIST = BASE_URL + "/api/comment/commentlist";
 
+    public static final String ADD_COMMENT = BASE_URL + "/api/comment/addcomment";
+
+    public static final String UPLOAD_IMAGE = BASE_URL + "/api/common/upload";
+
+    public static final String COMMENT_TAG = BASE_URL + "/api/comment/commenttag";
+
     //检测验证码
     public static final String CHECK = BASE_URL + "api/sns/check";
     //发送个人信息
