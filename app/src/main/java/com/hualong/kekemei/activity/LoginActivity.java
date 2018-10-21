@@ -19,7 +19,6 @@ import com.hualong.kekemei.Utills.URLs;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.exceptions.HyphenateException;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -105,13 +104,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn_login:
                 // 跳转到聊天界面，开始聊天
-                Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
-                // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
-                intent.putExtra("userId", "hjdudu");
-                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
-                startActivity(intent);
-
-//                login();
+                login();
                 break;
             case R.id.weibo_login:
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, authListener);

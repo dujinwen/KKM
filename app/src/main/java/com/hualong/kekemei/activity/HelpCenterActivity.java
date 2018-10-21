@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hyphenate.easeui.EaseConstant;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 帮助中心页面
@@ -19,6 +22,16 @@ public class HelpCenterActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.txtSectionOne)
+    TextView txtSectionOne;
+    @BindView(R.id.txtSectionTwo)
+    TextView txtSectionTwo;
+    @BindView(R.id.txtSectionThree)
+    TextView txtSectionThree;
+    @BindView(R.id.txtContactService)
+    TextView txtContactService;
 
     @Override
     protected View setTitleBar() {
@@ -48,5 +61,25 @@ public class HelpCenterActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.txtContactService)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.txtContactService:
+                Intent intent = new Intent(HelpCenterActivity.this, ChatActivity.class);
+                // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
+                intent.putExtra("userId", "hjdudu");
+                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
+                startActivity(intent);
+                break;
+        }
     }
 }
