@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e5e6e8"
@@ -32,17 +33,19 @@
                 android:layout_width="@dimen/px_1005"
                 android:layout_height="@dimen/px_275"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/px_45"
                 android:layout_marginTop="@dimen/px_45"
+                android:layout_marginBottom="@dimen/px_45"
                 android:background="@drawable/btn_white_background"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/ll_meirong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:onClick="onClick"
                     android:orientation="vertical">
 
                     <ImageView
@@ -58,6 +61,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_meiti"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -78,6 +82,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_yangsheng"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -98,6 +103,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_qita"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -124,8 +130,8 @@
                 android:background="#fff"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/px_27"
-                android:paddingTop="@dimen/px_32">
+                android:paddingTop="@dimen/px_32"
+                android:paddingBottom="@dimen/px_27">
 
                 <LinearLayout
                     android:layout_width="1010px"
@@ -306,10 +312,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="vertical"
                 android:layout_gravity="center"
+                android:background="#fff"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingTop="@dimen/px_86">
 
                 <!--<LinearLayout-->
@@ -352,11 +358,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/px_86"
                 android:layout_gravity="center"
-                android:gravity="center">
+                android:background="#fff"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/px_86">
 
 
                 <ImageView
@@ -378,10 +384,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="vertical"
                 android:layout_gravity="center"
+                android:background="#fff"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingTop="@dimen/px_86">
 
                 <ImageView
@@ -403,10 +409,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:orientation="vertical"
                 android:layout_gravity="center"
+                android:background="#fff"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:paddingTop="@dimen/px_86">
 
                 <ImageView
@@ -424,10 +430,193 @@
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_43"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/kehupingjia"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px_166"
+                    android:background="#fff"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/px_30"
+                        android:paddingTop="@dimen/px_58"
+                        android:text="客户评价"
+                        android:textColor="#5DBFB2"
+                        android:textSize="@dimen/px_52" />
+
+                    <TextView
+                        android:id="@+id/pingji_num"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/px_43"
+                        android:paddingTop="@dimen/px_75"
+                        android:text="（40）"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/px_33" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/px_64"
+                        android:paddingRight="@dimen/px_27"
+                        android:src="@mipmap/title_more_btn" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/px_864"
+                    android:layout_height="@dimen/px_3"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/px_34"
+                    android:background="#7AD2D2" />
+
+                <LinearLayout
+                    android:layout_width="@dimen/px_864"
+                    android:layout_height="@dimen/px_86"
+                    android:layout_gravity="center"
+
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/px_3"
+                        android:layout_height="match_parent"
+                        android:background="#7AD2D2" />
+
+                    <Button
+                        android:id="@+id/btn_all"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#7AD2D2"
+                        android:text="全部"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/px_40" />
+
+                    <View
+                        android:layout_width="@dimen/px_3"
+                        android:layout_height="match_parent"
+                        android:background="#7AD2D2" />
+
+                    <Button
+                        android:id="@+id/btn_new"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:text="最新"
+                        android:textColor="#7AD2D2"
+                        android:textSize="@dimen/px_40" />
+
+                    <View
+                        android:layout_width="@dimen/px_3"
+                        android:layout_height="match_parent"
+                        android:background="#7AD2D2" />
+
+                    <Button
+                        android:id="@+id/btn_image"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#ffffff"
+                        android:text="晒图评价"
+                        android:textColor="#7AD2D2"
+                        android:textSize="@dimen/px_40" />
+
+                    <View
+                        android:layout_width="@dimen/px_3"
+                        android:layout_height="match_parent"
+                        android:background="#7AD2D2" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/px_864"
+                    android:layout_height="@dimen/px_3"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#7AD2D2" />
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/px_32"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/px_144"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/px_130"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.9"
+                        android:textColor="#fbc914"
+                        android:textSize="65px" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px_50"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="综合评分"
+                            android:textColor="#222222"
+                            android:textSize="@dimen/px_40" />
+
+                        <com.hualong.kekemei.view.StarBar
+                            android:id="@+id/star_bar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            ratingbar:changeEnable="false"
+                            ratingbar:starCount="5"
+                            ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+                            ratingbar:starFill="@mipmap/beautician_score_full_ic"
+                            ratingbar:starDistance="@dimen/px_13"
+                            ratingbar:starSize="40px" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="@dimen/px_3"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/px_43"
+                        android:layout_marginRight="@dimen/px_49"
+                        android:background="#CCCCCC" />
+
+                    <TextView
+                        android:layout_marginRight="@dimen/px_145"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="高于99%的同行 好评率95%"
+                        android:textColor="#999999"
+                        android:textSize="@dimen/px_40" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_pingjia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
-
 
 
     <include

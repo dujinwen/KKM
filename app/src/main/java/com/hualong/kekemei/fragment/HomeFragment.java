@@ -3,6 +3,7 @@ package com.hualong.kekemei.fragment;
 import android.Manifest;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -13,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,11 +32,11 @@ import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.activity.ShopListActivity;
+import com.hualong.kekemei.adapter.DAVipAdapter;
+import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.HomeBean;
-import com.hualong.kekemei.adapter.DAVipAdapter;
-import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -43,6 +45,7 @@ import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -51,7 +54,7 @@ import butterknife.Unbinder;
  * Date:2015-10-20
  * Description:
  */
-public class HomeFragment extends Fragment implements View.OnClickListener ,AMapLocationListener {
+public class HomeFragment extends Fragment implements AMapLocationListener {
 
 
     @BindView(R.id.iv_place)
@@ -94,6 +97,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
     LinearLayout fujinMeirongshi;
     @BindView(R.id.fujin_dianpu)
     LinearLayout fujinDianpu;
+    @BindView(R.id.ll_meirong)
+    LinearLayout llMeirong;
+    @BindView(R.id.ll_meiti)
+    LinearLayout llMeiti;
+    @BindView(R.id.ll_yangsheng)
+    LinearLayout llYangsheng;
+    @BindView(R.id.ll_qita)
+    LinearLayout llQita;
+    @BindView(R.id.pingji_num)
+    TextView pingjiNum;
+    @BindView(R.id.kehupingjia)
+    LinearLayout kehupingjia;
+    @BindView(R.id.btn_all)
+    Button btnAll;
+    @BindView(R.id.btn_new)
+    Button btnNew;
+    @BindView(R.id.btn_image)
+    Button btnImage;
     private Unbinder unbinder;
 
     @Nullable
@@ -124,14 +145,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
             AppUtil.getUserPoint(getActivity(), this);
             Toast.makeText(getActivity(), "已开启定位权限", Toast.LENGTH_LONG).show();
         }
-        initListener();
         return view;
-    }
-
-    private void initListener() {
-        llSearch.setOnClickListener(this);
-        fujinDianpu.setOnClickListener(this);
-        fujinMeirongshi.setOnClickListener(this);
     }
 
 
@@ -207,7 +221,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
         });
 
 
-
     }
 
     @Override
@@ -252,25 +265,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_search:
-                SearchActivity.start(getActivity());
-                break;
-            case R.id.fujin_dianpu:
-//                ShopActivity.start(getActivity(),"克克美-西直门店");
-                ShopListActivity.start(getActivity());
-                break;
-            case R.id.fujin_meirongshi:
-                MeiRongShiActivity.start(getActivity());
-                break;
-            default:
-
-                break;
-        }
-    }
-
-    @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
@@ -278,12 +272,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
                 amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 double latitude = amapLocation.getLatitude();//获取纬度
                 double longitude = amapLocation.getLongitude();//获取经度
-                SPUtils.putString(getActivity(), "latitude", latitude+"");
-                SPUtils.putString(getActivity(), "longitude", longitude+"");
+                SPUtils.putString(getActivity(), "latitude", latitude + "");
+                SPUtils.putString(getActivity(), "longitude", longitude + "");
                 //                mPoint = new DPoint(latitude,longitude);
                 //                loadData();//后续操作
 
-                initData("39.9047253699","116.4072154982");
+                initData("39.9047253699", "116.4072154982");
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -295,4 +289,64 @@ public class HomeFragment extends Fragment implements View.OnClickListener ,AMap
         }
 
     }
+
+    @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.btn_all,
+            R.id.btn_new, R.id.btn_image, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_meirong:
+                break;
+            case R.id.ll_meiti:
+                break;
+            case R.id.ll_yangsheng:
+                break;
+            case R.id.ll_qita:
+                break;
+            case R.id.btn_all:
+                btnAll.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
+                btnAll.setTextColor(Color.WHITE);
+                btnNew.setBackgroundColor(Color.WHITE);
+                btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                btnImage.setBackgroundColor(Color.WHITE);
+                btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+
+                setPingJiaData(1);
+                break;
+            case R.id.btn_new:
+                btnNew.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
+                btnNew.setTextColor(Color.WHITE);
+                btnAll.setBackgroundColor(Color.WHITE);
+                btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                btnImage.setBackgroundColor(Color.WHITE);
+                btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+
+                setPingJiaData(2);
+                break;
+            case R.id.btn_image:
+                btnImage.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
+                btnImage.setTextColor(Color.WHITE);
+                btnNew.setBackgroundColor(Color.WHITE);
+                btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                btnAll.setBackgroundColor(Color.WHITE);
+                btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+
+                setPingJiaData(3);
+                break;
+            case R.id.ll_search:
+                SearchActivity.start(getActivity());
+                break;
+            case R.id.fujin_dianpu:
+//                ShopActivity.start(getActivity(),"克克美-西直门店");
+                ShopListActivity.start(getActivity());
+                break;
+            case R.id.fujin_meirongshi:
+                MeiRongShiActivity.start(getActivity());
+                break;
+        }
+    }
+
+    private void setPingJiaData(int i) {
+
+    }
+
 }
