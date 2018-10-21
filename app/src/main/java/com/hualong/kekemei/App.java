@@ -1,14 +1,18 @@
 package com.hualong.kekemei;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.amap.api.location.AMapLocationClient;
+import com.hualong.kekemei.Utills.AppCompatUtils;
 import com.hualong.kekemei.init.OkHttpInit;
+import com.hualong.kekemei.manager.AppFolderManager;
+import com.hualong.kekemei.view.ImagePickerLoader;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.socialize.PlatformConfig;
 
 /**
@@ -18,20 +22,45 @@ import com.umeng.socialize.PlatformConfig;
 public class App extends MultiDexApplication {
 
     private Context mContext;
+    private static App instance = null;
     // 记录是否已经初始化
     private boolean isInit = false;
+
     {
         PlatformConfig.setWeixin(ApplicationConstant.WX_APP_ID, ApplicationConstant.WX_APP_SECRET);
         PlatformConfig.setQQZone(ApplicationConstant.QQ_APP_ID, ApplicationConstant.QQ_APP_SECRET);
     }
+
+    public static App getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         mContext = this;
+        AppCompatUtils.init(this);
         init();
+        initImagePicker();
         // 初始化环信SDK
         initEasemob();
 
+    }
+
+    private void initImagePicker() {
+        AppFolderManager.getInstance().init(this);
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new ImagePickerLoader());   //设置图片加载器
+        imagePicker.setShowCamera(true);  //显示拍照按钮
+        imagePicker.setCrop(true);        //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true); //是否按矩形区域保存
+        imagePicker.setSelectLimit(9);    //选中数量限制
+        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
     }
 
     private void init() {
@@ -48,6 +77,7 @@ public class App extends MultiDexApplication {
 //         */
 //        UMConfigure.setLogEnabled(true);
     }
+
     /**
      * 初始化环信SDK
      */
