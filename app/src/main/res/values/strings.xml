@@ -53,4 +53,8 @@
     <string name="my_address_detail_item_phone">请输入手机号</string>
     <string name="my_address_detail_item_set_to_default">设置为默认地址</string>
 
+    <!--首页评价-->
+    <string name="home_comment_title_text">客户评价</string>
+    <string name="home_comment_num_format">(%1$d)</string>
+
 </resources>

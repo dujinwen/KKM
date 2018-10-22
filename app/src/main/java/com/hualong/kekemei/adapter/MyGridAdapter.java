@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.bean.HotdataBean;
 import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.bean.HomeBean;
@@ -50,7 +51,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
 
         if (type == HotdataBean) {
 
-            HomeBean.DataBean.HotdataBean item2 = (HomeBean.DataBean.HotdataBean) item;
+            HotdataBean item2 = (HotdataBean) item;
             //                setData(item1);
             helper.setText(R.id.tv_name, item2.getName());
             helper.setText(R.id.now_price, item2.getPrice() + "");
