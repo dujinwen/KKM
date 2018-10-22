@@ -33,6 +33,7 @@
         android:textSize="@dimen/px_46" />
 
     <Button
+        android:id="@+id/btn_guanzhu"
         android:layout_width="@dimen/px_156"
         android:layout_height="@dimen/px_52"
         android:layout_marginTop="@dimen/px_30"

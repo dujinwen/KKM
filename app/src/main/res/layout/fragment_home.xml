@@ -350,7 +350,8 @@
                     android:layout_width="@dimen/px_1007"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/px_30">
+                    android:layout_marginTop="@dimen/px_30"
+                    android:layout_marginBottom="@dimen/px_46">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -376,7 +377,8 @@
                     android:layout_width="@dimen/px_1007"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/px_30">
+                    android:layout_marginTop="@dimen/px_30"
+                    android:layout_marginBottom="@dimen/px_46">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -401,7 +403,8 @@
                     android:layout_width="@dimen/px_1007"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/px_30">
+                    android:layout_marginTop="@dimen/px_30"
+                    android:layout_marginBottom="@dimen/px_46">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -426,7 +429,8 @@
                     android:layout_width="@dimen/px_1007"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/px_30">
+                    android:layout_marginTop="@dimen/px_30"
+                    android:layout_marginBottom="@dimen/px_46">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>

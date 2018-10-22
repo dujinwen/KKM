@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.Utills.URLs;
+import com.lzy.okgo.OkGo;
 import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
@@ -51,7 +53,7 @@ public class CityFragment extends Fragment {
     }
 
     private void initData() {
-
+//        OkGo.<String>get(URLs.FAXIAN_URL)
     }
 
     @Override

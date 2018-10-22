@@ -10,7 +10,6 @@ import com.hualong.kekemei.Utills.URLs;
 import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.ForYouBean;
 import com.hualong.kekemei.bean.HomeBean;
-import com.hualong.kekemei.bean.HotdataBean;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 /**
@@ -51,7 +50,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
 
         if (type == HotdataBean) {
 
-            HotdataBean item2 = (HotdataBean) item;
+            HomeBean.DataBean.HotdataBean item2 = (HomeBean.DataBean.HotdataBean) item;
             //                setData(item1);
             helper.setText(R.id.tv_name, item2.getName());
             helper.setText(R.id.now_price, item2.getPrice() + "");

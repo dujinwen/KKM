@@ -13,13 +13,14 @@
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="@dimen/px_361"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/px_81"
         android:layout_marginBottom="@dimen/px_26"
         android:layout_marginTop="@dimen/px_53"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textColor="#FF000000"
         android:text="【爆款】肩颈+腰部+背部+足底+全身放松..."
-        android:textSize="@dimen/px_37" />
+        android:textSize="@dimen/px_35" />
 
     <LinearLayout
         android:layout_width="match_parent"
