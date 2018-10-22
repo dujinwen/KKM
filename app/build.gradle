@@ -19,7 +19,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('D:/JD_PROJECT/KKM/KKMkey.jks')
+            storeFile file('../KKMkey.jks')
             storePassword "s3EtsGCN"
             keyAlias "key0"
             keyPassword "s3EtsGCN"
@@ -50,7 +50,19 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a' //select ABIs to build APKs for
+            universalApk true //generate an additional APK that contains all the ABIs
+        }
+    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -81,11 +93,10 @@ dependencies {
     //    implementation 'com.android.support:multidex:1.+'
     //https://blog.csdn.net/DDK837239693/article/details/53520162?utm_source=blogxgwz6
     //implementation 'com.daidingkang:flowlayouttag:1.0.0'去掉这个依赖，避免出现两个启动图标
-
-//环信
+    //环信
     //Optional compile for GCM (Google Cloud Messaging).
     compile 'com.google.android.gms:play-services-base:11.4.0'
-//    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
+    //    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
     implementation project(':easeui')
     compile 'com.lzy.widget:imagepicker:0.6.1'
 }

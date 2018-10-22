@@ -70,7 +70,7 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
         int itemWidth = (int) (length * density);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                4, LinearLayout.LayoutParams.FILL_PARENT);
+                4, LinearLayout.LayoutParams.MATCH_PARENT);
         gridView.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         gridView.setColumnWidth(itemWidth); // 设置列表项宽
         gridView.setHorizontalSpacing(5); // 设置列表项水平间距
