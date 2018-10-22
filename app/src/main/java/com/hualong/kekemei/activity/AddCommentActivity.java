@@ -18,12 +18,12 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.AppUtil;
-import com.hualong.kekemei.Utills.CollectionUtils;
-import com.hualong.kekemei.Utills.ImageCompressUtil;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.ToastUtil;
-import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.utills.AppUtil;
+import com.hualong.kekemei.utills.CollectionUtils;
+import com.hualong.kekemei.utills.ImageCompressUtil;
+import com.hualong.kekemei.utills.LogUtil;
+import com.hualong.kekemei.utills.ToastUtil;
+import com.hualong.kekemei.utills.URLs;
 import com.hualong.kekemei.adapter.GridImageAdapter;
 import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.manager.AppFolderManager;
@@ -83,7 +83,7 @@ public class AddCommentActivity extends BaseActivity {
     private Thread compressThread;
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
+    private Handler mHandlers = new Handler() {
         @SuppressWarnings("unchecked")
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -353,7 +353,7 @@ public class AddCommentActivity extends BaseActivity {
                 Message message = new Message();
                 message.obj = uploadImages;
                 message.what = UPLOAD_IMAGE_COMPRESS_FINISH;
-                mHandler.sendMessage(message);
+                mHandlers.sendMessage(message);
             }
         });
         compressThread.start();

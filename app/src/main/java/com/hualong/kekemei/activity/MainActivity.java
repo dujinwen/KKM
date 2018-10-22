@@ -1,12 +1,8 @@
 package com.hualong.kekemei.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -15,9 +11,6 @@ import android.widget.Toast;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.AppUtil;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.SPUtils;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;

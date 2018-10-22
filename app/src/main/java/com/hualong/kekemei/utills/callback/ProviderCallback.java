@@ -1,4 +1,4 @@
-package com.hualong.kekemei.Utills.callback;
+package com.hualong.kekemei.utills.callback;
 
 public interface ProviderCallback {
 

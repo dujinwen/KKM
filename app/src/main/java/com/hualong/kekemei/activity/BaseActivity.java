@@ -19,7 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.LogUtil;
+import com.hualong.kekemei.utills.LogUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

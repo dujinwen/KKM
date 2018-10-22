@@ -4,7 +4,8 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.amap.api.location.AMapLocationClient;
-import com.hualong.kekemei.Utills.AppCompatUtils;
+import com.hualong.kekemei.utills.AppCompatUtils;
+import com.hualong.kekemei.utills.Common;
 import com.hualong.kekemei.init.OkHttpInit;
 import com.hualong.kekemei.manager.AppFolderManager;
 import com.hualong.kekemei.view.ImagePickerLoader;
@@ -27,8 +28,8 @@ public class App extends MultiDexApplication {
     private boolean isInit = false;
 
     {
-        PlatformConfig.setWeixin(ApplicationConstant.WX_APP_ID, ApplicationConstant.WX_APP_SECRET);
-        PlatformConfig.setQQZone(ApplicationConstant.QQ_APP_ID, ApplicationConstant.QQ_APP_SECRET);
+        PlatformConfig.setWeixin(Common.WX_APP_ID, Common.WX_APP_SECRET);
+        PlatformConfig.setQQZone(Common.QQ_APP_ID, Common.QQ_APP_SECRET);
     }
 
     public static App getInstance() {
@@ -67,7 +68,7 @@ public class App extends MultiDexApplication {
         OkHttpInit jOkHttpInit = new OkHttpInit();
         jOkHttpInit.initOkGo(this);
 
-        AMapLocationClient.setApiKey("6159adc2dcc7373849ef0633357a7f62");
+        AMapLocationClient.setApiKey("8a8682f033516bb9029983628bb51899");
 
 
 //

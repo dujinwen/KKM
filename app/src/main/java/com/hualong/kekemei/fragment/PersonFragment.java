@@ -13,10 +13,9 @@ import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.utills.URLs;
 import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.SettingActivity;
-import com.hualong.kekemei.activity.UserEvaluateActivity;
 import com.hualong.kekemei.activity.UserInfoActivity;
 import com.hualong.kekemei.adapter.GridAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;

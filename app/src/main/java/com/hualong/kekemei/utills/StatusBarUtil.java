@@ -1,4 +1,4 @@
-package com.hualong.kekemei.Utills;
+package com.hualong.kekemei.utills;
 
 import android.content.Context;
 import android.os.Build;

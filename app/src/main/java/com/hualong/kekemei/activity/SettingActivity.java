@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.AppUtil;
+import com.hualong.kekemei.utills.AppUtil;
 import com.hualong.kekemei.view.SectionRowView;
 
 import butterknife.BindView;

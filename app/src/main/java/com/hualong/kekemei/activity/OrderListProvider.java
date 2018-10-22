@@ -1,16 +1,12 @@
 package com.hualong.kekemei.activity;
 
 import com.google.gson.Gson;
-import com.hualong.kekemei.App;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.TResponse;
-import com.hualong.kekemei.Utills.URLs;
-import com.hualong.kekemei.Utills.callback.JsonCallback;
+import com.hualong.kekemei.utills.LogUtil;
+import com.hualong.kekemei.utills.URLs;
 import com.hualong.kekemei.bean.OrderListBean;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;

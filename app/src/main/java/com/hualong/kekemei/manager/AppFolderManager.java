@@ -3,8 +3,8 @@ package com.hualong.kekemei.manager;
 import android.content.Context;
 
 import com.hualong.kekemei.BuildConfig;
-import com.hualong.kekemei.Utills.FileUtil;
-import com.hualong.kekemei.Utills.LogUtil;
+import com.hualong.kekemei.utills.FileUtil;
+import com.hualong.kekemei.utills.LogUtil;
 
 import java.io.File;
 

@@ -108,10 +108,14 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="6159adc2dcc7373849ef0633357a7f62" />
+            android:value="8a8682f033516bb9029983628bb51899" />
 
         <service android:name="com.amap.api.location.APSService"></service>
 
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="yLSiCAjMBWswyF6aPzjAGAFyLmEZFflO" />
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
 
         <activity
             android:name=".activity.MainActivity"
@@ -143,6 +147,7 @@
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+        <!-- 微信 start -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -150,6 +155,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+
+        <!-- 微信 end -->
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -163,7 +174,8 @@
             android:name="com.hyphenate.chat.EMJobService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"/>
+
+        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
@@ -176,6 +188,7 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

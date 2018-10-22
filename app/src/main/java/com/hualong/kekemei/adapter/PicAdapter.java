@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.utills.URLs;
 import com.hualong.kekemei.bean.HomeBean;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 

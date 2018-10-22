@@ -5,7 +5,7 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.AppUtil;
+import com.hualong.kekemei.utills.AppUtil;
 import com.hualong.kekemei.bean.EvaluateBean;
 import com.hualong.kekemei.view.StarBar;
 

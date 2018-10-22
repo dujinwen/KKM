@@ -6,25 +6,18 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.CollectionUtils;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.utills.URLs;
 import com.hualong.kekemei.adapter.MiaoshaPagerAdapter;
-import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.bean.MiaoshaBean;
 import com.hualong.kekemei.view.PagerSlidingTabStrip;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
-
-import java.util.List;
 
 import butterknife.BindView;
 

@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hualong.kekemei.Utills.callback;
-
-import com.hualong.kekemei.Utills.TResponse;
+package com.hualong.kekemei.utills;
 
 import java.io.Serializable;
 
-public class SimpleResponse implements Serializable {
 
-    private static final long serialVersionUID = -1477609349345966116L;
+public class TResponse<T> implements Serializable {
+
+    private static final long serialVersionUID = 5213230387175987834L;
 
     public String code;
     public String msg;
+    public String time;
+    public T data;
 
-    public TResponse toLzyResponse() {
-        TResponse lzyResponse = new TResponse();
-        lzyResponse.code = code;
-        lzyResponse.msg = msg;
-        return lzyResponse;
+    @Override
+    public String toString() {
+        return "LzyResponse{\n" +//
+               "\tcode=" + code + "\n" +//
+               "\tmsg='" + msg + "\'\n" +//
+                "\ttime='" + msg + "\'\n" +//
+               "\tdata=" + data + "\n" +//
+               '}';
     }
 }

@@ -19,8 +19,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.StringUtils;
+import com.hualong.kekemei.utills.LogUtil;
+import com.hualong.kekemei.utills.StringUtils;
 import com.hualong.kekemei.fragment.SearchAllFragment;
 import com.hualong.kekemei.fragment.SearchBeauticianFragment;
 import com.hualong.kekemei.fragment.SearchIPage;

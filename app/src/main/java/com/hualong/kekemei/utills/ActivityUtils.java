@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hualong.kekemei.Utills;
+package com.hualong.kekemei.utills;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

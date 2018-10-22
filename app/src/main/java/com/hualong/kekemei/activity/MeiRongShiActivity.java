@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.utills.LogUtil;
+import com.hualong.kekemei.utills.URLs;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.MeiRongShiListBean;
 import com.hualong.kekemei.adapter.MeiRongShiListAdapter;

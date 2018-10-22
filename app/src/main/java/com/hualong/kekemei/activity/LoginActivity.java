@@ -12,10 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.AppUtil;
-import com.hualong.kekemei.Utills.LogUtil;
-import com.hualong.kekemei.Utills.ToastUtil;
-import com.hualong.kekemei.Utills.URLs;
+import com.hualong.kekemei.utills.AppUtil;
+import com.hualong.kekemei.utills.LogUtil;
+import com.hualong.kekemei.utills.ToastUtil;
+import com.hualong.kekemei.utills.URLs;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;

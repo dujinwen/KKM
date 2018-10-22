@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.AppUtil;
+import com.hualong.kekemei.utills.AppUtil;
 
 
 /**

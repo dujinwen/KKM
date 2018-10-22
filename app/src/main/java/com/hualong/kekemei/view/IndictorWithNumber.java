@@ -44,7 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.Utills.SuperAwesomeCardFragment;
+import com.hualong.kekemei.utills.SuperAwesomeCardFragment;
 import com.hualong.kekemei.view.loading.FragmentPagerAdapter;
 
 import java.util.List;
