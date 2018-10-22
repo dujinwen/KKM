@@ -10,15 +10,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utils.LogUtil;
-import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
-import com.hualong.kekemei.adapter.MyGridAdapter;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.view.StarBar;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
@@ -37,6 +38,9 @@ public class ShopActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
+
+    @BindView(R.id.scrollLayout)
+    ScrollView scrollLayout;
 
     @BindView(R.id.shop_detail_icon)
     ImageView shop_detail_icon;
@@ -126,6 +130,7 @@ public class ShopActivity extends BaseActivity {
                 indicatorShopHome.setVisibility(View.GONE);
                 indicatorHotProject.setVisibility(View.VISIBLE);
                 indicatorEvaluate.setVisibility(View.GONE);
+                scrollTo(contentView.getChildAt(1));
                 break;
             case R.id.userEvaluate:
                 indicatorShopHome.setVisibility(View.GONE);
@@ -133,6 +138,25 @@ public class ShopActivity extends BaseActivity {
                 indicatorEvaluate.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+
+    private void scrollTo(final View view) {
+        LogUtil.e("ShopActivity", "scrollTo");
+        scrollLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                //To change body of implemented methods use File | Settings | File Templates.
+//                    mRootScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                int[] location = new int[2];
+                view.getLocationOnScreen(location);
+                int offset = location[1] - view.getMeasuredHeight();
+                LogUtil.e("ShopActivity", "scrollTo:" + offset);
+                if (offset < 0) {
+                    offset = -offset;
+                }
+                scrollLayout.smoothScrollTo(0, offset);
+            }
+        });
     }
 
     @Override
