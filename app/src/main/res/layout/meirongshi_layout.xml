@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
+    <com.hualong.kekemei.view.XCRoundImageView
         android:id="@+id/icon_pic"
         android:layout_width="@dimen/px_124"
         android:layout_height="@dimen/px_124"

@@ -287,7 +287,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
                 transaction.hide(fragment);
             }
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     public void setSelectedTabTextColor(ColorStateList selectedTextColor) {

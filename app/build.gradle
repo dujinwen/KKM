@@ -19,7 +19,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('../KKMkey.jks')
+            storeFile file('E:/develop_project/KKM/KKMkey.jks')
             storePassword "s3EtsGCN"
             keyAlias "key0"
             keyPassword "s3EtsGCN"
