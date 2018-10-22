@@ -792,5 +792,11 @@
     <dimen name="px_130">130px</dimen>
     <dimen name="px_145">145px</dimen>
     <dimen name="px_13">13px</dimen>
+    <dimen name="px_382">382</dimen>
+    <dimen name="px_462">462px</dimen>
+    <dimen name="px_288">288px</dimen>
+    <dimen name="px_195">195px</dimen>
+    <dimen name="px_590">590px</dimen>
+    <dimen name="px_114">114px</dimen>
 
 </resources>
