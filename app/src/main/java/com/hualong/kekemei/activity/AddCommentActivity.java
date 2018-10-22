@@ -27,6 +27,9 @@ import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.adapter.GridImageAdapter;
 import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.manager.AppFolderManager;
+import com.hualong.kekemei.adapter.GridImageAdapter;
+import com.hualong.kekemei.bean.CommentTagsBean;
+import com.hualong.kekemei.manager.AppFolderManager;
 import com.hualong.kekemei.view.LoadingDialog;
 import com.hualong.kekemei.view.NoScrollGridView;
 import com.lzy.imagepicker.ImagePicker;
@@ -54,7 +57,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- *评价
+ * 评价
  */
 public class AddCommentActivity extends BaseActivity {
     private static final String TAG = AddCommentActivity.class.getSimpleName();
@@ -278,7 +281,7 @@ public class AddCommentActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             if (data != null && requestCode == REQUEST_ALBUM) {
-                ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                ArrayList<ImageItem> images = data.getParcelableArrayListExtra(ImagePicker.EXTRA_RESULT_ITEMS);
                 if (CollectionUtils.isNotEmpty(images)) {
                     compressImage(images);
                 }

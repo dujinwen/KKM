@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:layout_above="@+id/layoutBottomBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -11,6 +12,7 @@
         <include layout="@layout/layout_title_bar" />
 
         <ScrollView
+            android:id="@+id/scrollLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -34,6 +36,8 @@
         </ScrollView>
     </LinearLayout>
 
-    <include layout="@layout/section_detail_bottom_bar_layout" />
+    <include
+        android:id="@+id/layoutBottomBar"
+        layout="@layout/section_detail_bottom_bar_layout" />
 
 </RelativeLayout>
