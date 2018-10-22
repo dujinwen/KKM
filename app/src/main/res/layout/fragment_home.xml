@@ -604,11 +604,7 @@
                          android:textSize="@dimen/px_40" />
                           </LinearLayout>
                  </LinearLayout>-->
-            <include
-                layout="@layout/layout_comment_top_head"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/px_43" />
+            <include layout="@layout/layout_comment_top_head" />
         </LinearLayout>
 
     </ScrollView>

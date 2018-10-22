@@ -7,6 +7,11 @@
     android:background="#fff"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_43"
+        android:background="@color/common_background" />
+
     <RelativeLayout
         android:id="@+id/layoutUserComment"
         android:layout_width="match_parent"
