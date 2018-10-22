@@ -1,8 +1,8 @@
 package com.hualong.kekemei.activity;
 
 import com.google.gson.Gson;
-import com.hualong.kekemei.utills.LogUtil;
-import com.hualong.kekemei.utills.URLs;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.bean.OrderListBean;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;

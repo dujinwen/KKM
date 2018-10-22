@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utills.AppUtil;
+import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.bean.BeauticianBean;
 import com.hualong.kekemei.view.StarBar;
 

@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utills.URLs;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.bean.DataBean;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 

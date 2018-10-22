@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utills.StringUtils;
+import com.hualong.kekemei.utils.StringUtils;
 
 /**
  * 自定义行view

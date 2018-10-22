@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -25,10 +26,10 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utills.AppUtil;
-import com.hualong.kekemei.utills.LogUtil;
-import com.hualong.kekemei.utills.SPUtils;
-import com.hualong.kekemei.utills.URLs;
+import com.hualong.kekemei.utils.AppUtil;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.SPUtils;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.activity.ShopListActivity;
@@ -120,12 +121,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        try {
-//            Thread.sleep(5000);
-//            initData("", "");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        //        try {
+        //            Thread.sleep(5000);
+        //            initData("", "");
+        //        } catch (InterruptedException e) {
+        //            e.printStackTrace();
+        //        }
 
         unbinder = ButterKnife.bind(this, view);
 
@@ -302,40 +303,67 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             case R.id.ll_qita:
                 break;
             case R.id.btn_all:
-                btnAll.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
-                btnAll.setTextColor(Color.WHITE);
-                btnNew.setBackgroundColor(Color.WHITE);
-                btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2));
-                btnImage.setBackgroundColor(Color.WHITE);
-                btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    btnAll.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnAll.setTextColor(Color.WHITE);
+                    btnNew.setBackgroundColor(Color.WHITE);
+                    btnImage.setBackgroundColor(Color.WHITE);
+                } else {
+                    btnAll.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnAll.setTextColor(Color.WHITE);
+                    btnNew.setBackgroundColor(Color.WHITE);
+                    btnImage.setBackgroundColor(Color.WHITE);
+                }
+
 
                 setPingJiaData(1);
                 break;
             case R.id.btn_new:
-                btnNew.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
-                btnNew.setTextColor(Color.WHITE);
-                btnAll.setBackgroundColor(Color.WHITE);
-                btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2));
-                btnImage.setBackgroundColor(Color.WHITE);
-                btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    btnNew.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnNew.setTextColor(Color.WHITE);
+                    btnAll.setBackgroundColor(Color.WHITE);
+                    btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnImage.setBackgroundColor(Color.WHITE);
+                    btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2, null));
+                } else {
+                    btnNew.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnNew.setTextColor(Color.WHITE);
+                    btnAll.setBackgroundColor(Color.WHITE);
+                    btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnImage.setBackgroundColor(Color.WHITE);
+                    btnImage.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                }
 
                 setPingJiaData(2);
                 break;
             case R.id.btn_image:
-                btnImage.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
-                btnImage.setTextColor(Color.WHITE);
-                btnNew.setBackgroundColor(Color.WHITE);
-                btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2));
-                btnAll.setBackgroundColor(Color.WHITE);
-                btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2));
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    btnImage.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnImage.setTextColor(Color.WHITE);
+                    btnAll.setBackgroundColor(Color.WHITE);
+                    btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2, null));
+                    btnNew.setBackgroundColor(Color.WHITE);
+                    btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2, null));
+                } else {
+                    btnImage.setBackgroundColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnImage.setTextColor(Color.WHITE);
+                    btnNew.setBackgroundColor(Color.WHITE);
+                    btnNew.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                    btnAll.setBackgroundColor(Color.WHITE);
+                    btnAll.setTextColor(getResources().getColor(R.color.FF7AD2D2));
+                }
                 setPingJiaData(3);
                 break;
             case R.id.ll_search:
                 SearchActivity.start(getActivity());
                 break;
             case R.id.fujin_dianpu:
-//                ShopActivity.start(getActivity(),"克克美-西直门店");
+                //                ShopActivity.start(getActivity(),"克克美-西直门店");
                 ShopListActivity.start(getActivity());
                 break;
             case R.id.fujin_meirongshi:

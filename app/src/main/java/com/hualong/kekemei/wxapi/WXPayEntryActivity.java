@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.hualong.kekemei.utills.Common;
-import com.hualong.kekemei.utills.LogUtil;
+import com.hualong.kekemei.utils.Common;
+import com.hualong.kekemei.utils.LogUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

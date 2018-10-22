@@ -41,7 +41,7 @@ public class ShopBean {
     private int order_count;
     private String $satisfaction;
     private String distance;
-    private int start;
+    private float start;
     private String state_text;
 
     public int getId() {
@@ -172,11 +172,11 @@ public class ShopBean {
         this.distance = distance;
     }
 
-    public int getStart() {
+    public float getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(float start) {
         this.start = start;
     }
 

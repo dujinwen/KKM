@@ -3,8 +3,8 @@ package com.hualong.kekemei.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.hualong.kekemei.utills.LogUtil;
-import com.hualong.kekemei.utills.StringUtils;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.StringUtils;
 import com.hualong.kekemei.bean.SearchHistoryBean;
 
 import java.util.ArrayList;

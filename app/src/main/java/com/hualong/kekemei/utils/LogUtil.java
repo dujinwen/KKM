@@ -1,4 +1,4 @@
-package com.hualong.kekemei.utills;
+package com.hualong.kekemei.utils;
 
 
 import android.util.Log;

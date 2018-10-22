@@ -1,4 +1,4 @@
-package com.hualong.kekemei.utills;
+package com.hualong.kekemei.utils;
 
 /**
  * Created by peiyangfan on 2018/10/16.

@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utills.LogUtil;
-import com.hualong.kekemei.utills.URLs;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.ShopListBean;
 import com.hualong.kekemei.adapter.ShopListAdapter;
@@ -64,7 +64,7 @@ public class ShopListActivity extends BaseActivity {
                 LogUtil.d("ShopListActivity", response.body());
 
                 Gson gson = new Gson();
-                final ShopListBean shopListBean = gson.fromJson(response.body   (), ShopListBean.class);
+                final ShopListBean shopListBean = gson.fromJson(response.body(), ShopListBean.class);
 
 //                xbanner.setData(meiRongShiListBean.getData().getBanneradv(), null);
                 initBanner();

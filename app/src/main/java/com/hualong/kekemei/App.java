@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.amap.api.location.AMapLocationClient;
-import com.hualong.kekemei.utills.AppCompatUtils;
-import com.hualong.kekemei.utills.Common;
+import com.hualong.kekemei.utils.AppCompatUtils;
+import com.hualong.kekemei.utils.Common;
 import com.hualong.kekemei.init.OkHttpInit;
 import com.hualong.kekemei.manager.AppFolderManager;
 import com.hualong.kekemei.view.ImagePickerLoader;
