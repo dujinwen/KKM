@@ -806,5 +806,15 @@
     <dimen name="px_109">109px</dimen>
     <dimen name="px_649">649px</dimen>
     <dimen name="px_418">418px</dimen>
+    <dimen name="px_317">317px</dimen>
+    <dimen name="px_269">269px</dimen>
+    <dimen name="px_72">72px</dimen>
+    <dimen name="px_104">104px</dimen>
+    <dimen name="px_70">70px</dimen>
+    <dimen name="px_74">74px</dimen>
+    <dimen name="px_546">546px</dimen>
+    <dimen name="px_98">98px</dimen>
+    <dimen name="px_111">111px</dimen>
+    <dimen name="px_350">350px</dimen>
 
 </resources>

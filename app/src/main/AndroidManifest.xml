@@ -177,6 +177,8 @@
 
         <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
         <activity android:name=".activity.MeiRongShiJieShaoActivity" />
+        <activity android:name=".activity.PushOrderActivity" />
+        <activity android:name=".activity.PayActivity" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>

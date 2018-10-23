@@ -2,6 +2,7 @@ package com.hualong.kekemei.fragment;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
+import com.hualong.kekemei.activity.PayActivity;
 import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.activity.ShopListActivity;
 import com.hualong.kekemei.adapter.DAVipAdapter;
@@ -368,6 +370,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meirong:
+
                 break;
             case R.id.ll_meiti:
                 break;

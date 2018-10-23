@@ -13,11 +13,11 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utils.LogUtil;
-import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.adapter.ShopListAdapter;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.ShopListBean;
-import com.hualong.kekemei.adapter.ShopListAdapter;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -26,6 +26,7 @@ import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ShopListActivity extends BaseActivity {
 
@@ -66,7 +67,7 @@ public class ShopListActivity extends BaseActivity {
                 Gson gson = new Gson();
                 final ShopListBean shopListBean = gson.fromJson(response.body(), ShopListBean.class);
 
-//                xbanner.setData(meiRongShiListBean.getData().getBanneradv(), null);
+                //                xbanner.setData(meiRongShiListBean.getData().getBanneradv(), null);
                 initBanner();
 
 
@@ -120,5 +121,10 @@ public class ShopListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.fenlei)
+    public void onViewClicked() {
+        startActivity(new Intent(this, PayActivity.class));
     }
 }
