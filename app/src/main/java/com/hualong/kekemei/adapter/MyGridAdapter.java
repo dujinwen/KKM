@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.bean.HotdataBean;
 import com.hualong.kekemei.bean.BaseBean;
@@ -76,11 +77,11 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             return;
         }
         if (type == ORDER_HOT_BEAN) {
-//            HomeBean.DataBean.SpecialdataBean item4 = (HomeBean.DataBean.SpecialdataBean) item;
-//            //                setData(item1);
-//            helper.setText(R.id.tv_name, item4.getName());
-//            helper.setText(R.id.now_price, item4.getPrice() + "");
-//            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            DataBean item4 = (DataBean) item;
+            //                setData(item1);
+            helper.setText(R.id.tv_name, item4.getName());
+            helper.setText(R.id.now_price, item4.getPrice() + "");
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
         if (type == PERSON_TUI_JIAN){

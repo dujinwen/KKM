@@ -117,4 +117,8 @@
 
     <color name="address_detail_text_color">#B3B3B3</color>
     <color name="FF7AD2D2">#FF7AD2D2</color>
+
+    <color name="text1">#1199FF</color>
+    <color name="text2">#333333</color>
+    <color name="background">#ffffff</color>
 </resources>

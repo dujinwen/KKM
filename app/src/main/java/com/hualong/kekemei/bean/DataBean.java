@@ -11,7 +11,7 @@ import static com.hualong.kekemei.bean.OrderListBean.ORDER_STATUS_TO_BE_DELIVERE
 import static com.hualong.kekemei.bean.OrderListBean.ORDER_STATUS_TO_BE_PAID;
 import static com.hualong.kekemei.bean.OrderListBean.ORDER_STATUS_TO_RECEIVE_GOODS;
 
-public class DataBean implements Serializable, MultiItemEntity {
+public class DataBean extends BaseBean implements Serializable, MultiItemEntity {
 
     @Override
     public int getItemType() {
