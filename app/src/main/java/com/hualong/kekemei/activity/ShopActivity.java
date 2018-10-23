@@ -87,6 +87,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView commentTabAll;
     private TextView commentTabNew;
     private TextView commentTabPhoto;
+    private LinearLayout markLayout;
     private FlexboxLayout commentTagFlowLayout;
     private RecyclerView rvCommentList;
 
@@ -135,6 +136,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         commentTabAll = commentSectionView.findViewById(R.id.commentTabAll);
         commentTabNew = commentSectionView.findViewById(R.id.commentTabNew);
         commentTabPhoto = commentSectionView.findViewById(R.id.commentTabPhoto);
+        markLayout = commentSectionView.findViewById(R.id.markLayout);
+        markLayout.setVisibility(View.VISIBLE);
         commentTagFlowLayout = commentSectionView.findViewById(R.id.commentTagFlowLayout);
         rvCommentList = commentSectionView.findViewById(R.id.rvCommentList);
         commentTabAll.setSelected(true);

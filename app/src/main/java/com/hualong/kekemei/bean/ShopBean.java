@@ -23,6 +23,10 @@ public class ShopBean {
      * distance :
      * start : 3
      * state_text : 正常
+     * comment_count : 1
+     * starts : 3
+     * minimum : 88
+     * tag : 真棒
      */
 
     private int id;
@@ -43,6 +47,9 @@ public class ShopBean {
     private String distance;
     private float start;
     private String state_text;
+    private float starts;
+    private int minimum;
+    private String tag;
 
     public int getId() {
         return id;
@@ -186,5 +193,29 @@ public class ShopBean {
 
     public void setState_text(String state_text) {
         this.state_text = state_text;
+    }
+
+    public float getStarts() {
+        return starts;
+    }
+
+    public void setStarts(float starts) {
+        this.starts = starts;
+    }
+
+    public int getMinimum() {
+        return minimum;
+    }
+
+    public void setMinimum(int minimum) {
+        this.minimum = minimum;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

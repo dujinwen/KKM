@@ -6,15 +6,15 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.BeauticianBean;
 import com.hualong.kekemei.utils.URLs;
-import com.hualong.kekemei.bean.HomeBean;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 /**
  * Created by peiyangfan on 2018/10/12.
  */
 
-public class MeiRongShiAdapter extends BaseQuickAdapter<HomeBean.DataBean.BeauticianBean, BaseViewHolder> {
+public class MeiRongShiAdapter extends BaseQuickAdapter<BeauticianBean, BaseViewHolder> {
     private Context context;
 
     public MeiRongShiAdapter(Context context) {
@@ -23,7 +23,7 @@ public class MeiRongShiAdapter extends BaseQuickAdapter<HomeBean.DataBean.Beauti
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HomeBean.DataBean.BeauticianBean item) {
+    protected void convert(BaseViewHolder helper, BeauticianBean item) {
         helper.setText(R.id.name, item.getName());
         helper.setText(R.id.num, item.getContent());
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.icon_pic));

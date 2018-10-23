@@ -99,13 +99,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/markLayout"
         android:layout_width="match_parent"
         android:layout_height="144px"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="32px"
         android:orientation="horizontal"
         android:paddingLeft="130px"
-        android:paddingRight="130px">
+        android:paddingRight="130px"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"

@@ -28,6 +28,8 @@ public class HotdataBean extends BaseBean {
      * treatment_price : 0.00
      * views : 0
      * weigh : 100
+     * coupon_ids : 1
+     * like_count : 0
      */
 
     private String activitytime;
@@ -56,6 +58,8 @@ public class HotdataBean extends BaseBean {
     private String treatment_price;
     private int views;
     private int weigh;
+    private String coupon_ids;
+    private int like_count;
 
     public String getActivitytime() {
         return activitytime;
@@ -263,5 +267,21 @@ public class HotdataBean extends BaseBean {
 
     public void setWeigh(int weigh) {
         this.weigh = weigh;
+    }
+
+    public int getLike_count() {
+        return like_count;
+    }
+
+    public void setLike_count(int like_count) {
+        this.like_count = like_count;
+    }
+
+    public String getCoupon_ids() {
+        return coupon_ids;
+    }
+
+    public void setCoupon_ids(String coupon_ids) {
+        this.coupon_ids = coupon_ids;
     }
 }

@@ -2,20 +2,21 @@ package com.hualong.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BannerBean {  /**
- * id : 3
- * title : 杀Banner广告
- * adv_pos_id : 10344
- * content : 杀Banner广告
- * views : 0
- * image : /uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg
- * starttime : 2018-10-16 21:01:31
- * endtime : 2018-10-16 21:01:31
- * createtime : 1539694959
- * switch : 1
- */
+public class BannerBean {
+    /**
+     * id : 3
+     * title : 杀Banner广告
+     * adv_pos_id : 10344
+     * content : 杀Banner广告
+     * views : 0
+     * image : /uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg
+     * starttime : 2018-10-16 21:01:31
+     * endtime : 2018-10-16 21:01:31
+     * createtime : 1539694959
+     * switch : 1
+     */
 
-private int id;
+    private int id;
     private String title;
     private int adv_pos_id;
     private String content;

@@ -22,6 +22,8 @@ public class BeauticianBean {
      * tag_text : ["干净卫生","技师专业"]
      * user_id : 1
      * user_nickname : admin
+     * image : /uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg
+     * images : /uploads/20181022/2c5d84349965e653baa9870a5311d15d.jpg,/uploads/20181022/0847d20fcb22b348e29a61e333a363b4.jpg,/uploads/20181022/d92905316745b7ce3c0e3d6ddc382c98.jpg
      */
 
     private String content;
@@ -39,6 +41,8 @@ public class BeauticianBean {
     private List<String> shops;
     private List<String> tag;
     private List<String> tag_text;
+    private String image;
+    private String images;
 
     public String getContent() {
         return content;
@@ -158,5 +162,21 @@ public class BeauticianBean {
 
     public void setTag_text(List<String> tag_text) {
         this.tag_text = tag_text;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
     }
 }

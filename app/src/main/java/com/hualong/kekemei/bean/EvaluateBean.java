@@ -7,21 +7,29 @@ public class EvaluateBean extends BaseBean {
      * id : 1
      * user_id : 1
      * project_id : 3
+     * project_project_id : 3
      * shop_id : 1
      * beautician_id : 1
      * comment_tag_ids : 5,3
      * order_id : 0
      * content : 很好
+     * images :
+     * type : 1
      * start : 3
      * state : 1
      * createtime : 1538469581
      * satisfaction : 2
      * switch : 1
+     * type_text : Type 1
      * start_text : Start 3
      * state_text : State 1
      * satisfaction_text : Satisfaction 2
      */
 
+    private int project_project_id;
+    private String images;
+    private String type;
+    private String type_text;
     private int id;
     private int user_id;
     private int project_id;
@@ -166,5 +174,37 @@ public class EvaluateBean extends BaseBean {
 
     public void setSatisfaction_text(String satisfaction_text) {
         this.satisfaction_text = satisfaction_text;
+    }
+
+    public int getProject_project_id() {
+        return project_project_id;
+    }
+
+    public void setProject_project_id(int project_project_id) {
+        this.project_project_id = project_project_id;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType_text() {
+        return type_text;
+    }
+
+    public void setType_text(String type_text) {
+        this.type_text = type_text;
     }
 }

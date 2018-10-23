@@ -33,6 +33,7 @@ import com.hualong.kekemei.adapter.DAVipAdapter;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
+import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.utils.AppUtil;
@@ -123,6 +124,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     TextView commentTabNew;
     @BindView(R.id.commentTabPhoto)
     TextView commentTabPhoto;
+    private HomeBean.DataBean.CommentdataBean commentdata;
+    private EvaluateListAdapter commentAdapter;
+
     @BindView(R.id.commentTagFlowLayout)
     FlexboxLayout commentTagFlowLayout;
     @BindView(R.id.rvCommentList)
@@ -225,12 +229,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 adapter3.addData(homeBean.getData().getSpecialdata());
 
                 rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                EvaluateListAdapter commentAdapter = new EvaluateListAdapter(getActivity(), false);
+                commentAdapter = new EvaluateListAdapter(getActivity(), false);
                 rvCommentList.setHasFixedSize(true);
                 rvCommentList.setNestedScrollingEnabled(false);
                 rvCommentList.setAdapter(commentAdapter);
-                userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().size()));
-                commentAdapter.addData(homeBean.getData().getCommentdata());
+                userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size() + homeBean.getData().getCommentdata().getHot().size()));
+                commentdata = homeBean.getData().getCommentdata();
+                LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
+                commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
 
             }
 
@@ -334,7 +340,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
                 //                Glide.with(MainActivity.this).load(((AdvertiseEntity.OthersBean) model).getThumbnail()).placeholder(R.drawable.default_image).error(R.drawable.default_image).into((ImageView) view);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((HomeBean.DataBean.BanneradvBean) model).getImage(), (ImageView) view);
+                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((BannerBean) model).getImage(), (ImageView) view);
             }
         });
     }
@@ -382,22 +388,25 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 commentTabAll.setSelected(true);
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(false);
-
-                setPingJiaData(1);
+                if (commentdata != null) {
+                    commentAdapter.replaceData(commentdata.getAll());
+                }
                 break;
             case R.id.commentTabNew:
                 commentTabAll.setSelected(false);
                 commentTabNew.setSelected(true);
                 commentTabPhoto.setSelected(false);
-
-                setPingJiaData(2);
+                if (commentdata != null) {
+                    commentAdapter.replaceData(commentdata.getHot());
+                }
                 break;
             case R.id.commentTabPhoto:
                 commentTabAll.setSelected(false);
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(true);
-
-                setPingJiaData(3);
+                if (commentdata != null) {
+                    commentAdapter.replaceData(commentdata.getAll());
+                }
                 break;
             case R.id.ll_search:
                 SearchActivity.start(getActivity());
@@ -410,10 +419,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 MeiRongShiActivity.start(getActivity());
                 break;
         }
-    }
-
-    private void setPingJiaData(int i) {
-
     }
 
 }
