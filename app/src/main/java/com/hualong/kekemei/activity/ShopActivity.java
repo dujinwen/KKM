@@ -175,6 +175,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 indicatorShopHome.setVisibility(View.VISIBLE);
                 indicatorHotProject.setVisibility(View.GONE);
                 indicatorEvaluate.setVisibility(View.GONE);
+                scrollTo(contentView.getChildAt(0));
                 break;
             case R.id.hotProject:
                 indicatorShopHome.setVisibility(View.GONE);
@@ -207,20 +208,19 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void scrollTo(final View view) {
-        LogUtil.e("ShopActivity", "scrollTo");
+        if (view == null) {
+            return;
+        }
         scrollLayout.post(new Runnable() {
             @Override
             public void run() {
                 //To change body of implemented methods use File | Settings | File Templates.
-//                    mRootScrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                int[] location = new int[2];
-                view.getLocationOnScreen(location);
-                int offset = location[1] - view.getMeasuredHeight();
-                LogUtil.e("ShopActivity", "scrollTo:" + offset);
-                if (offset < 0) {
-                    offset = -offset;
+                //mRootScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                int top = view.getTop();
+                if (top < 0) {
+                    top = 0;
                 }
-                scrollLayout.smoothScrollTo(0, offset);
+                scrollLayout.smoothScrollTo(0, top);
             }
         });
     }
