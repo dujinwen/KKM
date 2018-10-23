@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e5e6e8">
+
+    <include layout="@layout/layout_title_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,9 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/layout_title_bar" />
 
             <LinearLayout
+                android:id="@+id/ll_jieshao"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/px_677"
@@ -174,10 +177,10 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginLeft="@dimen/px_36"
-                        android:layout_marginTop="@dimen/px_55"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px_36"
+                        android:layout_marginTop="@dimen/px_55"
                         android:text="工作照片"
                         android:textColor="#FF7AD2D2"
                         android:textSize="@dimen/px_39" />
@@ -185,12 +188,12 @@
                     <HorizontalScrollView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/px_43" >
+                        android:layout_margin="@dimen/px_43">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="fill_parent"
-                            android:layout_margin="@dimen/px_58" >
+                            android:layout_margin="@dimen/px_58">
 
                             <GridView
                                 android:id="@+id/grid"
@@ -198,12 +201,97 @@
                                 android:layout_height="fill_parent"
                                 android:gravity="center"
                                 android:numColumns="auto_fit"
-                                android:stretchMode="spacingWidthUniform" >
-                            </GridView>
+                                android:stretchMode="spacingWidthUniform"></GridView>
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/px_1005"
+                android:layout_height="@dimen/px_488"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/px_281"
+                android:background="#fff"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/px_504">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px_76"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="美容师"
+                        android:textColor="#FF333333"
+                        android:textSize="@dimen/px_45" />
+
+                    <Button
+                        android:layout_width="@dimen/px_147"
+                        android:layout_height="@dimen/px_82"
+                        android:layout_marginRight="@dimen/px_27"
+                        android:background="@mipmap/orderform_determine_btn"
+                        android:text="关注"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/px_39" />
+                </LinearLayout>
+
+                <com.hualong.kekemei.view.StarBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px_40"
+                    ratingbar:changeEnable="false"
+                    ratingbar:starCount="5"
+                    ratingbar:starDistance="4dp"
+                    ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+                    ratingbar:starFill="@mipmap/beautician_score_full_ic"
+                    ratingbar:starSize="40px" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px_40"
+                    android:text="服务人数: 39"
+                    android:textColor="#ff999999"
+                    android:textSize="@dimen/px_39" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/px_22"
+                    android:text="粉丝数：555"
+                    android:textColor="#ff999999"
+                    android:textSize="@dimen/px_39" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px_109"
+                android:layout_marginTop="@dimen/px_232"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/px_382"
+                    android:layout_height="@dimen/px_462"
+                    android:background="@mipmap/beautician_detail_photo_pic" />
+
+                <Button
+                    android:layout_width="@dimen/px_275"
+                    android:layout_height="@dimen/px_82"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/px_418"
+                    android:background="@drawable/refund_red_btn_background"
+                    android:text="95%满意度"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="@dimen/px_37" />
+            </RelativeLayout>
         </RelativeLayout>
 
     </ScrollView>

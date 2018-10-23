@@ -792,11 +792,19 @@
     <dimen name="px_130">130px</dimen>
     <dimen name="px_145">145px</dimen>
     <dimen name="px_13">13px</dimen>
-    <dimen name="px_382">382</dimen>
+    <dimen name="px_382">382px</dimen>
     <dimen name="px_462">462px</dimen>
     <dimen name="px_288">288px</dimen>
     <dimen name="px_195">195px</dimen>
     <dimen name="px_590">590px</dimen>
     <dimen name="px_114">114px</dimen>
+    <dimen name="px_488">488px</dimen>
+    <dimen name="px_504">504px</dimen>
+    <dimen name="px_76">76px</dimen>
+    <dimen name="px_147">147px</dimen>
+    <dimen name="px_232">232px</dimen>
+    <dimen name="px_109">109px</dimen>
+    <dimen name="px_649">649px</dimen>
+    <dimen name="px_418">418px</dimen>
 
 </resources>
