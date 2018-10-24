@@ -52,6 +52,7 @@ public class CityFragment extends Fragment {
 
     private void initData() {
 //        OkGo.<String>get(URLs.FAXIAN_URL)
+
     }
 
     @Override
