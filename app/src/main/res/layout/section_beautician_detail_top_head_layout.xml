@@ -3,105 +3,93 @@
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/px_37"
-    android:layout_marginRight="@dimen/px_37"
-    android:background="@drawable/btn_white_background"
+    android:background="#e3e6e8"
     android:elevation="10dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="488px"
-        android:layout_marginLeft="@dimen/px_30"
-        android:layout_marginRight="@dimen/px_30"
-        android:layout_marginTop="@dimen/px_94"
-        android:background="@drawable/btn_white_background">
+    <LinearLayout
+        android:layout_width="@dimen/px_1005"
+        android:layout_height="@dimen/px_488"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/px_98"
+        android:background="@drawable/btn_white_background2"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/px_504">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="504px"
-            android:layout_marginRight="20px"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/px_59"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shopName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="美容师"
-                    android:textColor="#1A1A1A"
-                    android:textSize="46px" />
-
-                <TextView
-                    android:layout_width="@dimen/px_147"
-                    android:layout_height="@dimen/px_82"
-                    android:layout_marginRight="@dimen/px_27"
-                    android:background="@mipmap/orderform_determine_btn"
-                    android:gravity="center"
-                    android:text="关注"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/px_39" />
-            </LinearLayout>
-
-            <com.hualong.kekemei.view.StarBar
-                android:id="@+id/shopStar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="35px"
-                ratingbar:changeEnable="false"
-                ratingbar:starCount="5"
-                ratingbar:starDistance="10dp"
-                ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
-                ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                ratingbar:starSize="40px" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_76"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32px"
-                android:text="服务人数：33"
-                android:textColor="#999999"
-                android:textSize="40px" />
+                android:layout_weight="1"
+                android:text="美容师"
+                android:textColor="#FF333333"
+                android:textSize="@dimen/px_45" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="19px"
-                android:text="粉丝数：555"
-                android:textColor="#999999"
-                android:textSize="40px" />
+            <Button
+                android:layout_width="@dimen/px_147"
+                android:layout_height="@dimen/px_82"
+                android:layout_marginRight="@dimen/px_27"
+                android:background="@mipmap/orderform_determine_btn"
+                android:text="关注"
+                android:textColor="#fff"
+                android:textSize="@dimen/px_39" />
         </LinearLayout>
 
+        <com.hualong.kekemei.view.StarBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_40"
+            ratingbar:changeEnable="false"
+            ratingbar:starCount="5"
+            ratingbar:starDistance="4dp"
+            ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+            ratingbar:starFill="@mipmap/beautician_score_full_ic"
+            ratingbar:starSize="40px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_40"
+            android:text="服务人数: 39"
+            android:textColor="#ff999999"
+            android:textSize="@dimen/px_39" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/px_22"
+            android:text="粉丝数：555"
+            android:textColor="#ff999999"
+            android:textSize="@dimen/px_39" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_109"
+        android:layout_marginTop="@dimen/px_48"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/px_382"
+            android:layout_height="@dimen/px_462"
+            android:background="@mipmap/beautician_detail_photo_pic" />
+
+        <Button
+            android:layout_width="@dimen/px_275"
+            android:layout_height="@dimen/px_82"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/px_418"
+            android:background="@drawable/refund_red_btn_background"
+            android:text="95%满意度"
+            android:textColor="#FFFFFFFF"
+            android:textSize="@dimen/px_37" />
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/shop_detail_icon"
-        android:layout_width="382px"
-        android:layout_height="462px"
-        android:layout_marginLeft="72px"
-        android:layout_marginTop="27px"
-        android:src="@mipmap/beautician_detail_photo_pic" />
-
-    <TextView
-        android:layout_width="275px"
-        android:layout_height="82px"
-        android:layout_marginLeft="125px"
-        android:layout_marginTop="465px"
-        android:background="@drawable/shape_grey_shop_detail"
-        android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
-        android:gravity="center_vertical"
-        android:paddingLeft="29px"
-        android:text="10%满意度"
-        android:textColor="#333333"
-        android:textSize="35px" />
 
 </RelativeLayout>

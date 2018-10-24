@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:background="#e3e6e8">
 
+    <include layout="@layout/layout_title_bar" />
+
     <LinearLayout
-        android:layout_above="@+id/layoutBottomBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/layoutBottomBar"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_title_bar" />
 
         <ScrollView
             android:id="@+id/scrollLayout"
@@ -18,22 +19,18 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_184">
+
+                <include layout="@layout/section_detail_content_layout" />
+
+                <include layout="@layout/section_beautician_detail_top_head_layout" />
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <include layout="@layout/section_detail_content_layout" />
-
-                    <include layout="@layout/section_beautician_detail_top_head_layout" />
-
-                </RelativeLayout>
-            </LinearLayout>
+            </RelativeLayout>
         </ScrollView>
     </LinearLayout>
 
