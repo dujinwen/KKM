@@ -8,8 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.view.PagerSlidingTabStrip;
-import com.hualong.kekemei.view.TextAndLineView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +18,8 @@ import butterknife.OnClick;
  */
 
 public class ClassifyActivity extends BaseActivity {
+
+
     @BindView(R.id.fanhui)
     ImageView fanhui;
     @BindView(R.id.text_msg)
@@ -28,22 +28,36 @@ public class ClassifyActivity extends BaseActivity {
     LinearLayout llSearch;
     @BindView(R.id.fenlei)
     ImageView fenlei;
-    @BindView(R.id.searchIndictor)
-    PagerSlidingTabStrip searchIndictor;
+    @BindView(R.id.tv_meirong)
+    TextView tvMeirong;
+    @BindView(R.id.v_meirong)
+    View vMeirong;
+    @BindView(R.id.tal_meirong)
+    LinearLayout talMeirong;
+    @BindView(R.id.tv_meiti)
+    TextView tvMeiti;
+    @BindView(R.id.v_meiti)
+    View vMeiti;
+    @BindView(R.id.tal_meiti)
+    LinearLayout talMeiti;
+    @BindView(R.id.tv_yangsheng)
+    TextView tvYangsheng;
+    @BindView(R.id.v_yangsheng)
+    View vYangsheng;
+    @BindView(R.id.tal_yangsheng)
+    LinearLayout talYangsheng;
+    @BindView(R.id.tv_qita)
+    TextView tvQita;
+    @BindView(R.id.v_qita)
+    View vQita;
+    @BindView(R.id.tal_qita)
+    LinearLayout talQita;
     @BindView(R.id.tv_shaixuan)
     TextView tvShaixuan;
     @BindView(R.id.iv_shaixuan)
     ImageView ivShaixuan;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
-    @BindView(R.id.tal_meirong)
-    TextAndLineView talMeirong;
-    @BindView(R.id.tal_meiti)
-    TextAndLineView talMeiti;
-    @BindView(R.id.tal_yangsheng)
-    TextAndLineView talYangsheng;
-    @BindView(R.id.tal_qita)
-    TextAndLineView talQita;
 
     @Override
     protected int setLayoutId() {
@@ -77,9 +91,16 @@ public class ClassifyActivity extends BaseActivity {
     }
 
     private void setSelect(int id) {
-        talMeirong.setSelect(id == R.id.tal_meirong);
-        talMeiti.setSelect(id == R.id.tal_meiti);
-        talYangsheng.setSelect(id == R.id.tal_yangsheng);
-        talQita.setSelect(id == R.id.tal_qita);
+        tvMeirong.setSelected(id == R.id.tal_meirong);
+        vMeirong.setVisibility(id == R.id.tal_meirong ? View.VISIBLE : View.INVISIBLE);
+
+        tvMeiti.setSelected(id == R.id.tal_meiti);
+        vMeiti.setVisibility(id == R.id.tal_meiti ? View.VISIBLE : View.INVISIBLE);
+
+        tvYangsheng.setSelected(id == R.id.tal_yangsheng);
+        vYangsheng.setVisibility(id == R.id.tal_yangsheng ? View.VISIBLE : View.INVISIBLE);
+
+        tvQita.setSelected(id == R.id.tal_qita);
+        vQita.setVisibility(id == R.id.tal_qita ? View.VISIBLE : View.INVISIBLE);
     }
 }

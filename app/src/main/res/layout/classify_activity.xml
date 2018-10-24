@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E3E6E8"
     android:orientation="vertical">
 
     <include layout="@layout/faxian_title_layout" />
@@ -10,49 +11,113 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_173"
+        android:background="#FFF"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.hualong.kekemei.view.TextAndLineView
+        <LinearLayout
             android:id="@+id/tal_meirong"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:TextAndLineTitleText="美  容"
-            app:TextAndLineTitleTextSize="@dimen/px_45"
-            app:TextAndLineViewSelect="true">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/px_24">
 
-        </com.hualong.kekemei.view.TextAndLineView>
+            <TextView
+                android:id="@+id/tv_meirong"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="美  容"
+                android:textColor="@drawable/selector_comment_find_tab"
+                android:textSize="@dimen/px_45" />
 
-        <com.hualong.kekemei.view.TextAndLineView
+            <View
+                android:id="@+id/v_meirong"
+                android:layout_width="@dimen/px_121"
+                android:layout_height="@dimen/px_16"
+                android:background="#FF7AD2D2"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/tal_meiti"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:TextAndLineTitleText="美  体"
-            app:TextAndLineTitleTextSize="@dimen/px_45">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/px_24">
 
-        </com.hualong.kekemei.view.TextAndLineView>
+            <TextView
+                android:id="@+id/tv_meiti"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="美  体"
+                android:textColor="@drawable/selector_comment_find_tab" />
 
-        <com.hualong.kekemei.view.TextAndLineView
+            <View
+                android:id="@+id/v_meiti"
+                android:layout_width="@dimen/px_121"
+                android:layout_height="@dimen/px_16"
+                android:background="#FF7AD2D2"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/tal_yangsheng"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:TextAndLineTitleText="养  生"
-            app:TextAndLineTitleTextSize="@dimen/px_45">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/px_24">
 
-        </com.hualong.kekemei.view.TextAndLineView>
+            <TextView
+                android:id="@+id/tv_yangsheng"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="养  生"
+                android:textColor="@drawable/selector_comment_find_tab" />
 
-        <com.hualong.kekemei.view.TextAndLineView
+            <View
+                android:id="@+id/v_yangsheng"
+                android:layout_width="@dimen/px_121"
+                android:layout_height="@dimen/px_16"
+                android:background="#FF7AD2D2"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/tal_qita"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:TextAndLineTitleText="其  他"
-            app:TextAndLineTitleTextSize="@dimen/px_45">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/px_24">
 
-        </com.hualong.kekemei.view.TextAndLineView>
+            <TextView
+                android:id="@+id/tv_qita"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="其  他"
+                android:textColor="@drawable/selector_comment_find_tab" />
+
+            <View
+                android:id="@+id/v_qita"
+                android:layout_width="@dimen/px_121"
+                android:layout_height="@dimen/px_16"
+                android:background="#FF7AD2D2" />
+        </LinearLayout>
 
         <View
             android:layout_width="1px"
@@ -81,7 +146,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/px_29"
+        android:background="#FFF">
 
     </android.support.v7.widget.RecyclerView>
 
