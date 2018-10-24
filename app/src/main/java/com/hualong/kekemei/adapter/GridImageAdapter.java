@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.AddCommentActivity;
 import com.hualong.kekemei.adapter.base.BaseListViewAdapter;
+import com.hualong.kekemei.utils.URLs;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 /**
@@ -41,7 +42,7 @@ public class GridImageAdapter extends BaseListViewAdapter {
         } else {
             ivDelete.setVisibility(View.VISIBLE);
             String item = (String) getItem(position);
-            ImageLoaderUtil.getInstance().loadImage(item, evaluate_pic);
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item, evaluate_pic);
         }
         ivDelete.setOnClickListener(new View.OnClickListener() {
             @Override
