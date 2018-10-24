@@ -10,7 +10,7 @@ import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.util.EasyUtils;
 
 /**
- * Created by peiyangfan on 2018/10/18.
+ * Created "聊天" by peiyangfan on 2018/10/18.
  */
 
 public class ChatActivity extends AppCompatActivity {

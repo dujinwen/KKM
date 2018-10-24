@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by peiyangfan on 2018/10/23.
+ * Created 支付页面 by peiyangfan on 2018/10/23.
  */
 
 public class PayActivity extends BaseActivity {

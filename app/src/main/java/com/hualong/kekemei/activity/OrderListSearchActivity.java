@@ -37,6 +37,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 订单搜索
+ */
 public class OrderListSearchActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.editTextSearch)
     XEditText editTextSearch;
@@ -190,6 +193,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
                 .tag(this)
                 .params("keyword", keyword)
                 .params("page", pageNum)
+                .params("user_id",1)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

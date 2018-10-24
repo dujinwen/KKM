@@ -11,6 +11,9 @@ import com.hualong.kekemei.R;
 
 import butterknife.BindView;
 
+/**
+ * 用户反馈
+ */
 public class FeedBackActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;

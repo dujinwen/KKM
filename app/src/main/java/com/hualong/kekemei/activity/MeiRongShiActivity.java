@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by peiyangfan on 2018/10/16.
+ * Created 美容师 by peiyangfan on 2018/10/16.
  */
 
 public class MeiRongShiActivity extends BaseActivity {

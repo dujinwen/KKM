@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by peiyangfan on 2018/10/15.
+ * Created 登录 by peiyangfan on 2018/10/15.
  */
 
 public class LoginActivity extends BaseActivity {
