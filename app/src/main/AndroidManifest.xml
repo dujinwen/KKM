@@ -179,6 +179,7 @@
         <activity android:name=".activity.MeiRongShiJieShaoActivity" />
         <activity android:name=".activity.PushOrderActivity" />
         <activity android:name=".activity.PayActivity" />
+        <activity android:name=".activity.ClassifyActivity" />
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>

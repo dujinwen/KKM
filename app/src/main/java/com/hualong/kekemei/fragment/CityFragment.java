@@ -1,6 +1,7 @@
 package com.hualong.kekemei.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.activity.ClassifyActivity;
 import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -39,6 +42,8 @@ public class CityFragment extends Fragment {
     @BindView(R.id.fenlei)
     ImageView fenlei;
     Unbinder unbinder;
+    @BindView(R.id.fanhui)
+    ImageView fanhui;
 
     @Nullable
     @Override
@@ -51,7 +56,7 @@ public class CityFragment extends Fragment {
     }
 
     private void initData() {
-//        OkGo.<String>get(URLs.FAXIAN_URL)
+        //        OkGo.<String>get(URLs.FAXIAN_URL)
 
     }
 
@@ -59,5 +64,10 @@ public class CityFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.fenlei)
+    public void onViewClicked() {
+        startActivity(new Intent(getActivity(), ClassifyActivity.class));
     }
 }

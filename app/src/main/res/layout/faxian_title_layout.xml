@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/px_184"
     android:background="#FF7AD2D2"
     android:gravity="bottom"
     android:paddingBottom="@dimen/px_20">

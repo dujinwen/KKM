@@ -39,7 +39,5 @@
 
 
     <include
-        layout="@layout/faxian_title_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_184" />
+        layout="@layout/faxian_title_layout"/>
 </RelativeLayout>

@@ -412,7 +412,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 SearchActivity.start(getActivity());
                 break;
             case R.id.fujin_dianpu:
-//                ShopActivity.start(getActivity(),"克克美-西直门店");
                 ShopListActivity.start(getActivity());
                 break;
             case R.id.fujin_meirongshi:

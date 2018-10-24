@@ -21,12 +21,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_549"
                 app:AutoPlayTime="3000"
-                app:isShowIndicatorOnlyOne="true"
+                app:isShowIndicatorOnlyOne="false"
                 app:pageChangeDuration="800"
                 app:pointNormal="@drawable/shape_noraml"
                 app:pointSelect="@drawable/shape_selected"
-                app:pointsPosition="RIGHT"
-                app:tipTextSize="12sp" />
+                app:pointsPosition="RIGHT"/>
 
             <LinearLayout
                 android:layout_width="@dimen/px_1005"
@@ -316,28 +315,6 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/px_86">
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/px_160"-->
-                <!--android:gravity="center"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:paddingLeft="@dimen/px_30"-->
-                <!--android:text="会员专区"-->
-                <!--android:textColor="#5DBFB2"-->
-                <!--android:textSize="@dimen/px_46" />-->
-
-                <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingRight="@dimen/px_27"-->
-                <!--android:src="@mipmap/title_more_btn" />-->
-                <!--</LinearLayout>-->
                 <ImageView
                     android:id="@+id/iv_xinrenzhuanqu"
                     android:layout_width="match_parent"

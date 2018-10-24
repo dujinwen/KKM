@@ -12,4 +12,12 @@
         <item>热门项目</item>
         <item>客户评价</item>
     </string-array>
+
+
+    <string-array name="find_tabs">
+        <item>美&#160;&#160;容</item>
+        <item>美&#160;&#160;体</item>
+        <item>养&#160;&#160;生</item>
+        <item>其&#160;&#160;他</item>
+    </string-array>
 </resources>

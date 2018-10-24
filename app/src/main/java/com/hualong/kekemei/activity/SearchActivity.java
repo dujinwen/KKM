@@ -19,6 +19,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.adapter.base.BasePagerAdapter;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.StringUtils;
 import com.hualong.kekemei.fragment.SearchAllFragment;
@@ -92,16 +93,16 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                 return false;
             }
         });
-        SearchPagerAdapter searchPagerAdapter = new SearchPagerAdapter(this, getSupportFragmentManager());
-        searchPagerAdapter.addFragment(SearchAllFragment.newInstance(keyWord));
-        searchPagerAdapter.addFragment(SearchProjectFragment.newInstance(keyWord));
-        searchPagerAdapter.addFragment(SearchTradeNameFragment.newInstance(keyWord));
-        searchPagerAdapter.addFragment(SearchBeauticianFragment.newInstance(keyWord));
+        BasePagerAdapter BasePagerAdapter = new BasePagerAdapter(this, getSupportFragmentManager(),R.array.search_tabs);
+        BasePagerAdapter.addFragment(SearchAllFragment.newInstance(keyWord));
+        BasePagerAdapter.addFragment(SearchProjectFragment.newInstance(keyWord));
+        BasePagerAdapter.addFragment(SearchTradeNameFragment.newInstance(keyWord));
+        BasePagerAdapter.addFragment(SearchBeauticianFragment.newInstance(keyWord));
 
-        searchPager.setAdapter(searchPagerAdapter);
+        searchPager.setAdapter(BasePagerAdapter);
         searchIndictor.setViewPager(searchPager);
 
-        searchPager.setOffscreenPageLimit(searchPagerAdapter.getCount() - 1);
+        searchPager.setOffscreenPageLimit(BasePagerAdapter.getCount() - 1);
 
         searchPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -147,42 +148,6 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
 
     }
 
-    private class SearchPagerAdapter extends FragmentPagerAdapter {
-        private List<Fragment> fragments = new ArrayList<>();
-        private String[] titles;
-
-
-        public SearchPagerAdapter(Context context, FragmentManager fm) {
-            super(fm);
-            titles = context.getResources().getStringArray(R.array.search_tabs);
-        }
-
-        public void addFragment(Fragment fragment) {
-            fragments.add(fragment);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragments == null || fragments.size() == 0
-                    ? null
-                    : fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments == null
-                    ? 0
-                    : fragments.size();
-        }
-
-        /**
-         * 必须重写，否则PagerSlidingTabStrip报错
-         */
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-    }
 
     private void moveEditCursor() {
         CharSequence s = editTextSearch.getText();
@@ -224,7 +189,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
             if (searchPager == null || searchPager.getAdapter() == null) {
                 return null;
             }
-            SearchPagerAdapter searchAdapter = (SearchPagerAdapter) searchPager.getAdapter();
+            BasePagerAdapter searchAdapter = (BasePagerAdapter) searchPager.getAdapter();
             return searchAdapter.getItem(position);
         } catch (Exception e) {
             LogUtil.e(TAG, e.getMessage(), e);
