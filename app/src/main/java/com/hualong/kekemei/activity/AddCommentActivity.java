@@ -18,18 +18,15 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.adapter.GridImageAdapter;
+import com.hualong.kekemei.bean.CommentTagsBean;
+import com.hualong.kekemei.manager.AppFolderManager;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.ImageCompressUtil;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.ToastUtil;
 import com.hualong.kekemei.utils.URLs;
-import com.hualong.kekemei.adapter.GridImageAdapter;
-import com.hualong.kekemei.bean.CommentTagsBean;
-import com.hualong.kekemei.manager.AppFolderManager;
-import com.hualong.kekemei.adapter.GridImageAdapter;
-import com.hualong.kekemei.bean.CommentTagsBean;
-import com.hualong.kekemei.manager.AppFolderManager;
 import com.hualong.kekemei.view.LoadingDialog;
 import com.hualong.kekemei.view.NoScrollGridView;
 import com.lzy.imagepicker.ImagePicker;
@@ -38,7 +35,6 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.PostRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +88,9 @@ public class AddCommentActivity extends BaseActivity {
             switch (msg.what) {
                 case UPLOAD_IMAGE_COMPRESS_FINISH:
                     ArrayList<String> imageUrls = (ArrayList<String>) msg.obj;
-                    uploadImage(imageUrls);//上传图片
+                    for (String imageUrl : imageUrls) {
+                        uploadImage(imageUrl);//上传图片
+                    }
                     break;
             }
         }
@@ -160,6 +158,7 @@ public class AddCommentActivity extends BaseActivity {
 
     /**
      * 打开大图
+     *
      * @param imgUrl
      */
     private void openLargeImage(String imgUrl) {
@@ -210,6 +209,7 @@ public class AddCommentActivity extends BaseActivity {
 
     /**
      * 填充评价标识
+     *
      * @param result
      */
     private void fillTags(final List<String> result) {
@@ -292,12 +292,13 @@ public class AddCommentActivity extends BaseActivity {
 
     /**
      * 压缩图片
+     *
      * @param resultImagePath
      */
     private void compressImage(final ArrayList<ImageItem> resultImagePath) {
         if (compressImagesProgressDialog == null) {
-            compressImagesProgressDialog = new LoadingDialog(AddCommentActivity.this, "正在上传...", false);
-            /*compressImagesProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            compressImagesProgressDialog = new LoadingDialog(AddCommentActivity.this, "压缩中...", false);
+           /* compressImagesProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     LogUtil.d(TAG, "dialog isCanceled");
@@ -320,10 +321,12 @@ public class AddCommentActivity extends BaseActivity {
                     taskExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            LogUtil.d(TAG, "url is " + originalImageClone + ", thread id is " + Thread.currentThread().getId());
+                            LogUtil.d(TAG, "url is " + originalImageClone.path + ", thread id is " + Thread.currentThread().getId() + ",mimeType:" + originalImageClone.mimeType);
                             String compressedFileDirectory = AppFolderManager.getInstance().getImageCompressFolder();
+                            String[] split = originalImageClone.mimeType.split("/");
+                            LogUtil.d(TAG, "split mimeType:" + split[1]);
                             //避免因文件名相同导致的图片重复的问题
-                            String compressedFileName = timeStamp + "_" + resultImagePath.indexOf(originalImageClone);
+                            String compressedFileName = timeStamp + "_" + resultImagePath.indexOf(originalImageClone) + "." + split[1];
                             File compressedFile = new File(compressedFileDirectory, compressedFileName);
                             boolean compressResult = ImageCompressUtil.handle(originalImageClone.path, compressedFile.getPath());
                             LogUtil.d(TAG, "compress image result is " + compressResult);
@@ -340,7 +343,10 @@ public class AddCommentActivity extends BaseActivity {
                 } catch (InterruptedException e) {
                     LogUtil.e(TAG, "interrupted", e);
                 }
-                compressImagesProgressDialog.close();
+                if (null != compressImagesProgressDialog) {
+                    compressImagesProgressDialog.close();
+                    compressImagesProgressDialog = null;
+                }
                 LogUtil.d(TAG, "complete " + synchronizedMap.size());
 
                 if (synchronizedMap.size() == 0) {
@@ -368,13 +374,10 @@ public class AddCommentActivity extends BaseActivity {
      *
      * @param uploadImagePath 选择的图片路径
      */
-    public void uploadImage(ArrayList<String> uploadImagePath) {
+    public void uploadImage(String uploadImagePath) {
         ToastUtil.showToastMsg(this, "正在上传图片");
-        PostRequest<String> request = OkGo.<String>post(URLs.UPLOAD_IMAGE).tag(this);
-        for (String url : uploadImagePath) {
-            request.params("file", url);
-        }
-        request.execute(new StringCallback() {
+        File file = new File(uploadImagePath);
+        OkGo.<String>post(URLs.UPLOAD_IMAGE).tag(this).params("file", file).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("comment", "body:" + response.body());
@@ -388,8 +391,8 @@ public class AddCommentActivity extends BaseActivity {
                     JSONObject data = jsonObject.optJSONObject("data");
                     if (data != null) {
                         String url = jsonObject.optString("url");
-                        /* evaluateSkuList.get(position).getUploadUrl().addAll(imageUrls);
-                        fillData();*/
+                        adapter.addItem(url);
+                        adapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
