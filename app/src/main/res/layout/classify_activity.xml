@@ -18,9 +18,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:titleTxt="美  容"
-            app:titleTxtSize="@dimen/px_45"
-            >
+            app:TextAndLineTitleText="美  容"
+            app:TextAndLineTitleTextSize="@dimen/px_45"
+            app:TextAndLineViewSelect="true">
 
         </com.hualong.kekemei.view.TextAndLineView>
 
@@ -29,8 +29,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:titleTxt="美  体"
-            app:titleTxtSize="@dimen/px_45">
+            app:TextAndLineTitleText="美  体"
+            app:TextAndLineTitleTextSize="@dimen/px_45">
 
         </com.hualong.kekemei.view.TextAndLineView>
 
@@ -39,8 +39,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:titleTxt="养  生"
-            app:titleTxtSize="@dimen/px_45">
+            app:TextAndLineTitleText="养  生"
+            app:TextAndLineTitleTextSize="@dimen/px_45">
 
         </com.hualong.kekemei.view.TextAndLineView>
 
@@ -49,8 +49,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:titleTxt="其  他"
-            app:titleTxtSize="@dimen/px_45">
+            app:TextAndLineTitleText="其  他"
+            app:TextAndLineTitleTextSize="@dimen/px_45">
 
         </com.hualong.kekemei.view.TextAndLineView>
 
