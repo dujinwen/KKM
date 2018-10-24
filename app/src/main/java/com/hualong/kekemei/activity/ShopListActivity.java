@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.ShopListAdapter;
 import com.hualong.kekemei.bean.BannerBean;
+import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.ShopListBean;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.URLs;
@@ -82,7 +83,8 @@ public class ShopListActivity extends BaseActivity {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.ll_shop_list_item:
-                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId());
+                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId(), DetailEnum.BEAUTICIAN);
+//                                ProjectDetailActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId());
                                 break;
                         }
                     }

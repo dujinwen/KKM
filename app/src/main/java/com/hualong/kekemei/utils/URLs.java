@@ -35,6 +35,8 @@ public class URLs {
 
     public static final String COMMENT_TAG = BASE_URL + "/api/comment/commenttag";
 
+    public static final String PROJECT_DETAIL = BASE_URL + "/api/project/details";
+
     //检测验证码
     public static final String CHECK = BASE_URL + "api/sns/check";
     //发送个人信息

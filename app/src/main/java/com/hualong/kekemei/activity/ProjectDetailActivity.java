@@ -3,7 +3,6 @@ package com.hualong.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,7 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.CommentTagsBean;
-import com.hualong.kekemei.bean.DetailEnum;
+import com.hualong.kekemei.bean.EvaluateBean;
 import com.hualong.kekemei.bean.EvaluateListBean;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
@@ -31,8 +30,6 @@ import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.URLs;
-import com.hualong.kekemei.view.StarBar;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -40,17 +37,17 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 店铺和美容师主页页面
+ * 项目详情页面
  */
-public class ShopActivity extends BaseActivity implements View.OnClickListener {
+public class ProjectDetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
-    private static final String EXTRA_KEY_ENUM_ID = "type";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -65,18 +62,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.shopName)
     TextView shopName;
 
-    @BindView(R.id.shopStar)
-    StarBar shopStar;
-
-    @BindView(R.id.shopHome)
-    RelativeLayout shopHome;
-    @BindView(R.id.indicatorShopHome)
-    ImageView indicatorShopHome;
-
-    @BindView(R.id.hotProject)
-    RelativeLayout hotProject;
-    @BindView(R.id.indicatorHotProject)
-    ImageView indicatorHotProject;
+    @BindView(R.id.projectDetail)
+    RelativeLayout projectDetail;
+    @BindView(R.id.indicatorProjectDetail)
+    ImageView indicatorProjectDetail;
 
     @BindView(R.id.userEvaluate)
     RelativeLayout userEvaluate;
@@ -98,12 +87,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private String beauticianId;
     private MyGridAdapter contentSectionAdapter;
     private EvaluateListAdapter commentAdapter;
-    private DetailEnum detailEnum;
 
-    public static void start(Context context, int beauticianId, DetailEnum detailEnum) {
-        Intent intent = new Intent(context, ShopActivity.class);
+    public static void start(Context context, int beauticianId) {
+        Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
-        intent.putExtra(EXTRA_KEY_ENUM_ID, detailEnum);
         context.startActivity(intent);
     }
 
@@ -114,18 +101,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected int setLayoutId() {
-        if (detailEnum == DetailEnum.SHOP) {
-            return R.layout.activity_shop;
-        } else if (detailEnum == DetailEnum.BEAUTICIAN) {
-            return R.layout.activity_beautician;
-        }
-        return R.layout.activity_shop;
-    }
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        detailEnum = (DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_ENUM_ID);
-        super.onCreate(savedInstanceState);
+        return R.layout.activity_project_detail;
     }
 
     @Override
@@ -140,13 +116,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-        indicatorShopHome.setVisibility(View.VISIBLE);
+        indicatorProjectDetail.setVisibility(View.VISIBLE);
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
 
-        View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
-
         View commentSectionView = View.inflate(this, R.layout.layout_comment_top_head, null);
+
+        View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
 
         userCommentNum = commentSectionView.findViewById(R.id.userCommentNum);
         commentTabAll = commentSectionView.findViewById(R.id.commentTabAll);
@@ -175,7 +151,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         lookMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserEvaluateActivity.start(ShopActivity.this, false);
+                UserEvaluateActivity.start(ProjectDetailActivity.this, false);
             }
         });
 
@@ -187,30 +163,22 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         hotProjectRv.setAdapter(contentSectionAdapter);
 
         contentView.addView(contentHead);
-        contentView.addView(contentSectionView);
         contentView.addView(commentSectionView);
+        contentView.addView(contentSectionView);
     }
 
-    @OnClick({R.id.shopHome, R.id.hotProject, R.id.userEvaluate})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.shopHome:
-                indicatorShopHome.setVisibility(View.VISIBLE);
-                indicatorHotProject.setVisibility(View.GONE);
+            case R.id.projectDetail:
+                indicatorProjectDetail.setVisibility(View.VISIBLE);
                 indicatorEvaluate.setVisibility(View.GONE);
                 scrollTo(contentView.getChildAt(0));
                 break;
-            case R.id.hotProject:
-                indicatorShopHome.setVisibility(View.GONE);
-                indicatorHotProject.setVisibility(View.VISIBLE);
-                indicatorEvaluate.setVisibility(View.GONE);
-                scrollTo(contentView.getChildAt(1));
-                break;
             case R.id.userEvaluate:
-                indicatorShopHome.setVisibility(View.GONE);
-                indicatorHotProject.setVisibility(View.GONE);
+                indicatorProjectDetail.setVisibility(View.GONE);
                 indicatorEvaluate.setVisibility(View.VISIBLE);
-                scrollTo(contentView.getChildAt(2));
+                scrollTo(contentView.getChildAt(1));
                 break;
             case R.id.commentTabAll:
                 commentTabAll.setSelected(true);
@@ -251,16 +219,15 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.SHOP_DETAIL).params("id", beauticianId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.PROJECT_DETAIL).params("id", beauticianId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", response.body());
+                LogUtil.e("ProjectDetailActivity", response.body());
                 Gson gson = new Gson();
                 ShopDetailBean shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
+                /*ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
                 tv_title.setText("克克美-" + shopDetailBean.getData().getName());
-                shopName.setText(shopDetailBean.getData().getName());
-                shopStar.setStarMark(shopDetailBean.getData().getStart());
+                shopName.setText(shopDetailBean.getData().getName());*/
             }
         });
 
@@ -284,7 +251,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 EvaluateListBean evaluateListBean = gson.fromJson(response.body(), EvaluateListBean.class);
                 userCommentNum.setText(getString(R.string.home_comment_num_format, evaluateListBean.getData().size()));
-                commentAdapter.replaceData(evaluateListBean.getData());
+                List<EvaluateBean> list = new ArrayList<>();
+                for (int i = 0; i < 2; i++) {
+                    list.add(evaluateListBean.getData().get(i));
+                }
+                commentAdapter.replaceData(list);
             }
         });
     }

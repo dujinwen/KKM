@@ -25,7 +25,7 @@
 
                 <include layout="@layout/section_detail_content_layout" />
 
-                <include layout="@layout/section_shop_detail_top_head_layout"/>
+                <include layout="@layout/section_beautician_detail_top_head_layout"/>
 
             </RelativeLayout>
         </ScrollView>
@@ -33,6 +33,6 @@
 
     <include
         android:id="@+id/layoutBottomBar"
-        layout="@layout/section_shop_detail_bottom_bar_layout" />
+        layout="@layout/section_beautician_detail_bottom_bar_layout" />
 
 </RelativeLayout>

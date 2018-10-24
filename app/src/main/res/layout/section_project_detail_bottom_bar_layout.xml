@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140px"
+    android:layout_alignParentBottom="true"
+    android:elevation="3dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:drawablePadding="10px"
+        android:drawableTop="@mipmap/beautician_detail_chat_btn"
+        android:gravity="center"
+        android:text="进店看看"
+        android:textColor="#666666"
+        android:textSize="32px" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:drawablePadding="10px"
+        android:drawableTop="@mipmap/beautician_detail_beautician_btn"
+        android:gravity="center"
+        android:text="在线沟通"
+        android:textColor="#666666"
+        android:textSize="32px" />
+
+    <TextView
+        android:layout_width="379px"
+        android:layout_height="match_parent"
+        android:background="#7AD2D2"
+        android:drawablePadding="10px"
+        android:gravity="center"
+        android:text="立即购买"
+        android:textColor="@color/white"
+        android:textSize="46px" />
+
+</LinearLayout>

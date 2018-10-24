@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/shop_detail_icon"
+        android:layout_width="match_parent"
+        android:layout_height="1175px"
+        android:background="@mipmap/beautician_detail_photo_pic" />
+
+    <TextView
+        android:id="@+id/shopName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="35px"
+        android:paddingRight="35px"
+        android:paddingTop="29px"
+        android:text="【爆款】肩颈+腰部+背部+足底+全身放松肩颈+腰部+背部+足底+全身放松"
+        android:textColor="#000000"
+        android:textSize="46px" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="35px"
+        android:paddingRight="35px"
+        android:paddingTop="22px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥288"
+            android:textColor="#FF6C70"
+            android:textSize="69px" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="29px"
+            android:layout_weight="1"
+            android:text="￥288"
+            android:textColor="#8D8D8D"
+            android:textSize="32px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
+            android:drawablePadding="29px"
+            android:text="收藏"
+            android:textColor="#666666"
+            android:textSize="32px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="13px"
+        android:paddingLeft="35px"
+        android:paddingRight="35px"
+        android:paddingTop="30px">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/beautician_envelopes_ic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7px"
+            android:text="￥288"
+            android:textColor="#8D8D8D"
+            android:textSize="32px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14px"
+            android:src="@mipmap/beautician_reduce_ic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7px"
+            android:text="￥288"
+            android:textColor="#8D8D8D"
+            android:textSize="32px" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="29px"
+            android:gravity="right"
+            android:text="内容已有1300人关注"
+            android:textColor="#c1c1c1"
+            android:textSize="35px" />
+    </LinearLayout>
+
+</LinearLayout>
+
