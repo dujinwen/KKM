@@ -124,7 +124,8 @@
             android:layout_height="@dimen/px_58"
             android:layout_marginLeft="@dimen/px_55"
             android:layout_marginRight="@dimen/px_55"
-            android:background="#FFC1C1C1" />
+            android:background="#FFC1C1C1"
+            android:layout_marginBottom="@dimen/px_24"/>
 
         <TextView
             android:id="@+id/tv_shaixuan"
@@ -132,9 +133,11 @@
             android:layout_height="wrap_content"
             android:text="筛选"
             android:textColor="#FFC1C1C1"
-            android:textSize="@dimen/px_45" />
+            android:textSize="@dimen/px_45"
+            android:layout_marginBottom="@dimen/px_24"/>
 
         <ImageView
+            android:layout_marginBottom="@dimen/px_24"
             android:id="@+id/iv_shaixuan"
             android:layout_width="@dimen/px_43"
             android:layout_height="@dimen/px_43"
