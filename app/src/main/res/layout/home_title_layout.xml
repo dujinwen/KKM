@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="horizontal"
-    android:background="@color/transparent"
+    android:background="#97222222"
     android:paddingBottom="@dimen/px_20">
 
     <RelativeLayout
