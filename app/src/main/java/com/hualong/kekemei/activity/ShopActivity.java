@@ -21,10 +21,12 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
+import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.EvaluateListBean;
+import com.hualong.kekemei.bean.MeiRongShiListBean;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
 import com.hualong.kekemei.utils.AppUtil;
@@ -55,6 +57,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.iv_share)
+    ImageView iv_share;
 
     @BindView(R.id.scrollLayout)
     ScrollView scrollLayout;
@@ -100,6 +104,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private EvaluateListAdapter commentAdapter;
     private DetailEnum detailEnum;
 
+    private MeiRongShiAdapter meiRongShiAdapter;
+
     public static void start(Context context, int beauticianId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
@@ -139,6 +145,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 finish();
             }
         });
+        iv_share.setVisibility(View.VISIBLE);
 
         indicatorShopHome.setVisibility(View.VISIBLE);
 
@@ -146,16 +153,56 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
 
+        View nearbySectionView = View.inflate(this, R.layout.section_layout_nearby_beautician, null);
+
+        initNearbyView(nearbySectionView);
+
         View commentSectionView = View.inflate(this, R.layout.layout_comment_top_head, null);
 
-        userCommentNum = commentSectionView.findViewById(R.id.userCommentNum);
-        commentTabAll = commentSectionView.findViewById(R.id.commentTabAll);
-        commentTabNew = commentSectionView.findViewById(R.id.commentTabNew);
-        commentTabPhoto = commentSectionView.findViewById(R.id.commentTabPhoto);
-        markLayout = commentSectionView.findViewById(R.id.markLayout);
+        initCommentView(commentSectionView);
+
+        hotProjectRv = contentSectionView.findViewById(R.id.sectionRv);
+        hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
+        hotProjectRv.setHasFixedSize(true);
+        hotProjectRv.setNestedScrollingEnabled(false);
+        contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
+        hotProjectRv.setAdapter(contentSectionAdapter);
+
+        contentView.addView(contentHead);
+        contentView.addView(contentSectionView);
+        if (detailEnum == DetailEnum.SHOP) {
+            contentView.addView(nearbySectionView);
+        }
+        contentView.addView(commentSectionView);
+    }
+
+    private void initNearbyView(View view) {
+        TextView fujinMeirongshi = view.findViewById(R.id.fujin_meirongshi);
+        RecyclerView rvMeirongshi = view.findViewById(R.id.rv_meirongshi);
+        fujinMeirongshi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MeiRongShiActivity.start(ShopActivity.this);
+            }
+        });
+        LinearLayoutManager layout_meirongshi = new LinearLayoutManager(this);
+        layout_meirongshi.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvMeirongshi.setHasFixedSize(true);
+        rvMeirongshi.setNestedScrollingEnabled(false);
+        rvMeirongshi.setLayoutManager(layout_meirongshi);
+        meiRongShiAdapter = new MeiRongShiAdapter(this);
+        rvMeirongshi.setAdapter(meiRongShiAdapter);
+    }
+
+    private void initCommentView(View view) {
+        userCommentNum = view.findViewById(R.id.userCommentNum);
+        commentTabAll = view.findViewById(R.id.commentTabAll);
+        commentTabNew = view.findViewById(R.id.commentTabNew);
+        commentTabPhoto = view.findViewById(R.id.commentTabPhoto);
+        markLayout = view.findViewById(R.id.markLayout);
         markLayout.setVisibility(View.VISIBLE);
-        commentTagFlowLayout = commentSectionView.findViewById(R.id.commentTagFlowLayout);
-        rvCommentList = commentSectionView.findViewById(R.id.rvCommentList);
+        commentTagFlowLayout = view.findViewById(R.id.commentTagFlowLayout);
+        rvCommentList = view.findViewById(R.id.rvCommentList);
         commentTabAll.setSelected(true);
         commentTabAll.setOnClickListener(this);
         commentTabNew.setOnClickListener(this);
@@ -171,24 +218,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         rvCommentList.setAdapter(commentAdapter);
-        TextView lookMore = commentSectionView.findViewById(R.id.lookMore);
+        TextView lookMore = view.findViewById(R.id.lookMore);
         lookMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserEvaluateActivity.start(ShopActivity.this, false);
             }
         });
-
-        hotProjectRv = contentSectionView.findViewById(R.id.sectionRv);
-        hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
-        hotProjectRv.setHasFixedSize(true);
-        hotProjectRv.setNestedScrollingEnabled(false);
-        contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
-        hotProjectRv.setAdapter(contentSectionAdapter);
-
-        contentView.addView(contentHead);
-        contentView.addView(contentSectionView);
-        contentView.addView(commentSectionView);
     }
 
     @OnClick({R.id.shopHome, R.id.hotProject, R.id.userEvaluate})
@@ -210,7 +246,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 indicatorShopHome.setVisibility(View.GONE);
                 indicatorHotProject.setVisibility(View.GONE);
                 indicatorEvaluate.setVisibility(View.VISIBLE);
-                scrollTo(contentView.getChildAt(2));
+                if (detailEnum == DetailEnum.SHOP) {
+                    scrollTo(contentView.getChildAt(3));
+                } else if (detailEnum == DetailEnum.BEAUTICIAN) {
+                    scrollTo(contentView.getChildAt(2));
+                }
                 break;
             case R.id.commentTabAll:
                 commentTabAll.setSelected(true);
@@ -274,6 +314,19 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 contentSectionAdapter.replaceData(projectListBean.getData());
             }
         });
+
+        if (detailEnum == DetailEnum.SHOP) {
+            OkGo.<String>get(URLs.MEIRONGSHILIST).params("longitude", 116.4072154982)
+                    .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    LogUtil.d("MeiRongShiActivity", response.body());
+                    Gson gson = new Gson();
+                    MeiRongShiListBean meiRongShiListBean = gson.fromJson(response.body(), MeiRongShiListBean.class);
+                    meiRongShiAdapter.addData(meiRongShiListBean.getData());
+                }
+            });
+        }
 
         initCommentTags();
 

@@ -52,6 +52,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.iv_share)
+    ImageView iv_share;
 
     @BindView(R.id.scrollLayout)
     ScrollView scrollLayout;
@@ -115,6 +117,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
             }
         });
+        iv_share.setVisibility(View.VISIBLE);
 
         indicatorProjectDetail.setVisibility(View.VISIBLE);
 

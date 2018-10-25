@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @BindView(R.id.rv_remenxiangmu)
     RecyclerView rvRemenxiangmu;
     @BindView(R.id.fujin_meirongshi)
-    LinearLayout fujinMeirongshi;
+    TextView fujinMeirongshi;
     @BindView(R.id.fujin_dianpu)
     LinearLayout fujinDianpu;
     @BindView(R.id.ll_meirong)
