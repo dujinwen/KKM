@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -70,6 +71,8 @@ public class ClassifyActivity extends BaseActivity {
     RecyclerView rvPinglunbiaoqian;
     @BindView(R.id.ll_pop)
     LinearLayout llPop;
+    @BindView(R.id.btn_queren)
+    Button btnQueren;
     private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
     private ArrayList<String> objects;
 
@@ -90,7 +93,8 @@ public class ClassifyActivity extends BaseActivity {
         getPingLunBiaoQian();
     }
 
-    @OnClick({R.id.fanhui, R.id.tal_meirong, R.id.tal_meiti, R.id.tal_yangsheng, R.id.tal_qita, R.id.tv_shaixuan, R.id.iv_shaixuan})
+    @OnClick({R.id.fanhui, R.id.tal_meirong, R.id.tal_meiti, R.id.tal_yangsheng, R.id.tal_qita, R.id.tv_shaixuan,
+            R.id.iv_shaixuan, R.id.btn_queren})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fanhui:
@@ -110,6 +114,8 @@ public class ClassifyActivity extends BaseActivity {
 
                 tvShaixuan.setSelected(tvShaixuan.isSelected() ? false : true);
                 llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                break;
+            case R.id.btn_queren:
                 break;
         }
     }
@@ -156,6 +162,7 @@ public class ClassifyActivity extends BaseActivity {
         pingLunBiaoQianGridViewAdapter = new PingLunBiaoQianGridViewAdapter();
         rvPinglunbiaoqian.setAdapter(pingLunBiaoQianGridViewAdapter);
     }
+
 
     private class PingLunBiaoQianGridViewAdapter extends RecyclerView.Adapter<PingLunBiaoQianGridViewAdapter.MyViewHolder> {
         private boolean isClick = false;

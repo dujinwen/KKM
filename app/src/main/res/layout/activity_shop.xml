@@ -24,8 +24,9 @@
                 android:layout_height="wrap_content">
 
                 <include layout="@layout/section_detail_content_layout" />
-
                 <include layout="@layout/section_shop_detail_top_head_layout"/>
+                <include layout="@layout/section_detail_select_time_layout"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
         </ScrollView>
