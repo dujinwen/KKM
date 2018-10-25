@@ -116,7 +116,8 @@
                 android:id="@+id/v_qita"
                 android:layout_width="@dimen/px_121"
                 android:layout_height="@dimen/px_16"
-                android:background="#FF7AD2D2" />
+                android:background="#FF7AD2D2"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <View

@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by peiyangfan on 2018/10/24.
+ * Created 分类 by peiyangfan on 2018/10/24.
  */
 
 public class ClassifyActivity extends BaseActivity {
@@ -58,6 +58,8 @@ public class ClassifyActivity extends BaseActivity {
     ImageView ivShaixuan;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
+    @BindView(R.id.ll_fanhui)
+    LinearLayout llFanhui;
 
     @Override
     protected int setLayoutId() {
@@ -69,8 +71,8 @@ public class ClassifyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        llFanhui.setVisibility(View.VISIBLE);
 
-        fanhui.setVisibility(View.VISIBLE);
     }
 
     @OnClick({R.id.fanhui, R.id.tal_meirong, R.id.tal_meiti, R.id.tal_yangsheng, R.id.tal_qita, R.id.tv_shaixuan, R.id.iv_shaixuan})
@@ -102,5 +104,16 @@ public class ClassifyActivity extends BaseActivity {
 
         tvQita.setSelected(id == R.id.tal_qita);
         vQita.setVisibility(id == R.id.tal_qita ? View.VISIBLE : View.INVISIBLE);
+    }
+
+
+    @Override
+    protected void initData() {
+        super.initData();
+
+
+        //        rvList.setAdapter(new ClassifyAdater());
+
+        setSelect(R.id.tal_meirong);
     }
 }
