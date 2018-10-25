@@ -1,13 +1,19 @@
 package com.hualong.kekemei.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +66,15 @@ public class ClassifyActivity extends BaseActivity {
     RecyclerView rvList;
     @BindView(R.id.ll_fanhui)
     LinearLayout llFanhui;
+    @BindView(R.id.rv_pinglunbiaoqian)
+    RecyclerView rvPinglunbiaoqian;
+    @BindView(R.id.ll_pop)
+    LinearLayout llPop;
+    private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
+    private ArrayList<String> objects;
+
+
+    private static ArrayList<Integer> positionArrayList = new ArrayList();
 
     @Override
     protected int setLayoutId() {
@@ -72,7 +87,7 @@ public class ClassifyActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
         llFanhui.setVisibility(View.VISIBLE);
-
+        getPingLunBiaoQian();
     }
 
     @OnClick({R.id.fanhui, R.id.tal_meirong, R.id.tal_meiti, R.id.tal_yangsheng, R.id.tal_qita, R.id.tv_shaixuan, R.id.iv_shaixuan})
@@ -85,11 +100,31 @@ public class ClassifyActivity extends BaseActivity {
             case R.id.tal_yangsheng:
             case R.id.tal_qita:
                 setSelect(view.getId());
+                tvShaixuan.setSelected(false);
+                llPop.setVisibility(View.GONE);
                 break;
             case R.id.tv_shaixuan:
             case R.id.iv_shaixuan:
+
+                setSelect(view.getId());
+
+                tvShaixuan.setSelected(tvShaixuan.isSelected() ? false : true);
+                llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 break;
         }
+    }
+
+    private void getPingLunBiaoQian() {
+        //        OkGo.<String>get(URLs.COMMENT_TAG_URL)
+        objects = new ArrayList<>();
+        objects.add("距离最近");
+        objects.add("满意度高");
+        objects.add("距离最近");
+        objects.add("评论最高");
+        objects.add("评星最高");
+        objects.add("收藏组多");
+
+        //        pingLunBiaoQianGridViewAdapter.notifyDataSetChanged();
     }
 
     private void setSelect(int id) {
@@ -115,5 +150,67 @@ public class ClassifyActivity extends BaseActivity {
         //        rvList.setAdapter(new ClassifyAdater());
 
         setSelect(R.id.tal_meirong);
+
+
+        rvPinglunbiaoqian.setLayoutManager(new GridLayoutManager(ClassifyActivity.this, 3));
+        pingLunBiaoQianGridViewAdapter = new PingLunBiaoQianGridViewAdapter();
+        rvPinglunbiaoqian.setAdapter(pingLunBiaoQianGridViewAdapter);
+    }
+
+    private class PingLunBiaoQianGridViewAdapter extends RecyclerView.Adapter<PingLunBiaoQianGridViewAdapter.MyViewHolder> {
+        private boolean isClick = false;
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(ClassifyActivity.this).inflate(R.layout.item_pinglun, parent, false);
+            MyViewHolder holder = new MyViewHolder(view);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+            holder.tv.setText(objects.get(position));
+            holder.tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isClick) {
+                        holder.tv.setBackgroundResource(R.drawable.btn_line_background);
+                        holder.tv.setTextColor(0xFF999999);
+                    } else {
+                        holder.tv.setBackgroundResource(R.mipmap.classification_shaixuan_xuanze_btn_s);
+                        holder.tv.setTextColor(0xFF7AD2D2);
+                    }
+
+                    savePosition(position);
+                    isClick = !isClick;
+                }
+            });
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return objects.size();
+        }
+
+        class MyViewHolder extends RecyclerView.ViewHolder {
+
+            public TextView tv;
+
+            public MyViewHolder(View view) {
+                super(view);
+                tv = (TextView) view.findViewById(R.id.btn_pingjia);
+            }
+
+        }
+    }
+
+    private void savePosition(int position) {
+        if (positionArrayList.contains(position)) {
+            positionArrayList.remove(position);
+        } else {
+            positionArrayList.add(position);
+        }
     }
 }

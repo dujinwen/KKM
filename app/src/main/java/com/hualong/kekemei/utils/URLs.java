@@ -49,4 +49,7 @@ public class URLs {
     //手机验证码注册
     public static final String REGISTER = BASE_URL + "/api/user/register";
     public static final String FAXIAN_URL = BASE_URL + "";
+
+
+    public static final String COMMENT_TAG_URL = BASE_URL +"/api/comment/commenttag";
 }

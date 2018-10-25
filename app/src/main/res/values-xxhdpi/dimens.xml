@@ -818,5 +818,7 @@
     <dimen name="px_350">350px</dimen>
     <dimen name="px_121">121px</dimen>
     <dimen name="px_24">24px</dimen>
+    <dimen name="px_906">906px</dimen>
+    <dimen name="px_905">905px</dimen>
 
 </resources>

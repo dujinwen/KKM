@@ -9,6 +9,7 @@
     <include layout="@layout/faxian_title_layout" />
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_173"
         android:background="#FFF"
@@ -117,43 +118,83 @@
                 android:layout_width="@dimen/px_121"
                 android:layout_height="@dimen/px_16"
                 android:background="#FF7AD2D2"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </LinearLayout>
 
         <View
             android:layout_width="1px"
             android:layout_height="@dimen/px_58"
+            android:layout_marginBottom="@dimen/px_24"
             android:layout_marginLeft="@dimen/px_55"
             android:layout_marginRight="@dimen/px_55"
-            android:background="#FFC1C1C1"
-            android:layout_marginBottom="@dimen/px_24"/>
+            android:background="#FFC1C1C1" />
 
         <TextView
             android:id="@+id/tv_shaixuan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/px_24"
             android:text="筛选"
-            android:textColor="#FFC1C1C1"
-            android:textSize="@dimen/px_45"
-            android:layout_marginBottom="@dimen/px_24"/>
+            android:textColor="@drawable/selector_comment_find_tab"
+            android:textSize="@dimen/px_45" />
 
         <ImageView
-            android:layout_marginBottom="@dimen/px_24"
             android:id="@+id/iv_shaixuan"
             android:layout_width="@dimen/px_43"
             android:layout_height="@dimen/px_43"
+            android:layout_marginBottom="@dimen/px_24"
             android:layout_marginLeft="@dimen/px_18"
             android:layout_marginRight="@dimen/px_45"
             android:src="@mipmap/shaixuan" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/px_29"
-        android:background="#FFF">
+        android:layout_marginTop="@dimen/px_29">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF">
 
+        </android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/ll_pop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7f222222"
+            android:requiresFadingEdge="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_pinglunbiaoqian"
+                    android:layout_width="@dimen/px_905"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <Button
+                    android:id="@+id/btn_queren"
+                    android:layout_width="@dimen/px_906"
+                    android:layout_height="@dimen/px_86"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/px_43"
+                    android:layout_marginTop="@dimen/px_101"
+                    android:background="#FF7AD2D2"
+                    android:text="确定"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/px_30" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
