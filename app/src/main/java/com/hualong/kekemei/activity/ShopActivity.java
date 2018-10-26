@@ -46,6 +46,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * 店铺和美容师主页页面
@@ -90,6 +91,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.contentView)
     LinearLayout contentView;
 
+
+
     private TextView userCommentNum;
     private TextView commentTabAll;
     private TextView commentTabNew;
@@ -105,6 +108,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private DetailEnum detailEnum;
 
     private MeiRongShiAdapter meiRongShiAdapter;
+    @Nullable
+    private LinearLayout ll_yuyue;
+    private LinearLayout llSelectTime;
 
     public static void start(Context context, int beauticianId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -146,7 +152,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         iv_share.setVisibility(View.VISIBLE);
-
+        llSelectTime = (LinearLayout) findViewById(R.id.ll_select_time);
         indicatorShopHome.setVisibility(View.VISIBLE);
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
@@ -162,6 +168,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         initCommentView(commentSectionView);
 
         hotProjectRv = contentSectionView.findViewById(R.id.sectionRv);
+        ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
+        ll_yuyue.setOnClickListener(this);
         hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
         hotProjectRv.setHasFixedSize(true);
         hotProjectRv.setNestedScrollingEnabled(false);
@@ -227,7 +235,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
-    @OnClick({R.id.shopHome, R.id.hotProject, R.id.userEvaluate})
+    @Optional
+    @OnClick({R.id.shopHome, R.id.hotProject, R.id.userEvaluate,
+            R.id.commentTabAll,R.id.commentTabNew,
+            R.id.commentTabPhoto,R.id.ll_yuyue})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.shopHome:
@@ -267,6 +278,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(true);
                 break;
+            case R.id.ll_yuyue:
+                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                break;
         }
     }
 
@@ -291,7 +305,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.SHOP_DETAIL).params("id", beauticianId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ShopActivity", response.body());
@@ -316,7 +330,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         });
 
         if (detailEnum == DetailEnum.SHOP) {
-            OkGo.<String>get(URLs.MEIRONGSHILIST).params("longitude", 116.4072154982)
+            OkGo.<String>get(URLs.BEAUTICIAN_NEAR).params("longitude", 116.4072154982)
                     .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
@@ -394,4 +408,5 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
+
 }

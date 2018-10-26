@@ -86,7 +86,7 @@ public class MiaoshaActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.MIAOSHA).params("longitude", "116.4072154982")
+        OkGo.<String>post(URLs.SECOND).params("longitude", "116.4072154982")
                 .params("latitude", "39.9047253699").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

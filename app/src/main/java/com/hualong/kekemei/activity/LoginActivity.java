@@ -99,8 +99,7 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_yanzhengma:
-//                sendYanZhengMa();
-                chatLogin();
+                sendYanZhengMa();
                 break;
             case R.id.btn_login:
                 // 跳转到聊天界面，开始聊天

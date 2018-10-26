@@ -42,7 +42,7 @@
         android:layout_marginLeft="48px"
         android:layout_marginRight="20px"
         android:layout_marginTop="53px"
-        android:layout_toRightOf="@+id/rlIconLayout"
+        android:layout_toRightOf="@id/rlIconLayout"
         android:orientation="vertical">
 
         <TextView

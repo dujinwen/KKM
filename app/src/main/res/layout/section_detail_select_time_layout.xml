@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_select_time"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="482px"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="gone">
+
 
     <LinearLayout
-        android:layout_marginTop="@dimen/px_127"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_144"
+        android:layout_marginTop="@dimen/px_127"
         android:orientation="horizontal">
 
         <HorizontalScrollView

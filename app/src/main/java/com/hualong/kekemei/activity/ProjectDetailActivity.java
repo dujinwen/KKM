@@ -222,7 +222,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.PROJECT_DETAIL).params("id", beauticianId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.PROJECT_DETAILS).params("id", beauticianId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ProjectDetailActivity", response.body());

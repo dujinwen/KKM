@@ -45,6 +45,7 @@
         android:layout_marginLeft="29px" />
 
     <LinearLayout
+        android:id="@+id/ll_yuyue"
         android:layout_width="match_parent"
         android:layout_height="160px"
         android:background="@color/white"

@@ -60,7 +60,7 @@ public class MeiRongShiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        OkGo.<String>get(URLs.MEIRONGSHILIST).params("longitude", 116.4072154982)
+        OkGo.<String>get(URLs.BEAUTICIAN_NEAR).params("longitude", 116.4072154982)
                 .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

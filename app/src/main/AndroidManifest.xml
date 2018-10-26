@@ -124,11 +124,7 @@
             android:fitsSystemWindows="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".activity.SettingActivity" />
@@ -182,6 +178,18 @@
         <activity android:name=".activity.PushOrderActivity" />
         <activity android:name=".activity.PayActivity" />
         <activity android:name=".activity.ClassifyActivity" />
+        <activity
+            android:name=".activity.splash.SplashActivity"
+            android:allowTaskReparenting="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme_sp"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>

@@ -3,12 +3,10 @@ package com.hualong.kekemei.bean;
 import com.google.gson.annotations.SerializedName;
 
 public class HongBao {
-
-
     /**
      * code : 1
      * msg : 请求成功
-     * time : 1538895183
+     * time : 1540534418
      * data : {"0":{"id":1,"redenvelopes_id":1,"user_id":1,"project_project_id":3,"state":"1","createtime":1538894951,"redenvelopes":{"id":1,"name":"111111","price_satisfy":0,"price_reduction":0,"image":"/assets/img/qrcode.png","state":"1","activitytime":"2018-09-25 11:04:11","activitytime_end":"2018-09-25 11:04:11","createtime":1537844659,"state_text":"State 1"},"state_text":"State 1"},"redenvelopes_name":"111111"}
      */
 

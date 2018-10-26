@@ -29,7 +29,7 @@ public class DAVipAdapter
     protected void convert(BaseViewHolder helper, ShopBean item) {
         helper.setText(R.id.dianpuname, item.getName());
         helper.setText(R.id.pinglunnum, item.getContent()+"条评论");
-        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item.getImage(),R.mipmap.shop_detail_photo_pic,(ImageView) helper.getView(R.id.iv_shop_pic));
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item.getImage(),(ImageView) helper.getView(R.id.iv_shop_pic));
     }
 
 }

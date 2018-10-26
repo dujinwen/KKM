@@ -65,10 +65,13 @@ public class AppUtil {
         String Result = "";
 
         try {
-            InputStreamReader inputReader = new InputStreamReader(
-                    ct.getResources().getAssets().open(fileName));
-            BufferedReader bufReader = new BufferedReader(inputReader);
-            String line = "";
+            BufferedReader bufReader;
+            String line;
+            try (InputStreamReader inputReader = new InputStreamReader(
+                    ct.getResources().getAssets().open(fileName))) {
+                bufReader = new BufferedReader(inputReader);
+            }
+            line = "";
 
             while ((line = bufReader.readLine()) != null) {
                 Result += line;
@@ -630,7 +633,7 @@ public class AppUtil {
     }
 
     public static void checkCaptcha(String mobile, String event, String captcha, StringCallback stringCallback) {
-        OkGo.<String>get(URLs.CHECK)
+        OkGo.<String>get(URLs.SNS_CHECK)
                 .params("mobile", mobile)
                 .params("event", event)
                 .params("captcha", captcha)

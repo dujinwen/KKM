@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.HongBao;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.SettingActivity;
@@ -90,7 +91,7 @@ public class PersonFragment extends Fragment {
         ncgv.setAdapter(gridAdapter);
 
 
-        OkGo.<String>get(URLs.WEINITUIJIAN).params("page", 1).execute(new StringCallback() {
+        OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -107,6 +108,47 @@ public class PersonFragment extends Fragment {
                 MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
                 rvTuijian.setAdapter(adapter);
                 adapter.addData(forYouBean.getData());
+            }
+        });
+
+
+        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id",1).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+//                Gson gson = new Gson();
+//                HongBao hongBao = gson.fromJson(response.body(), HongBao.class);
+//                if (hongBao.getCode() == 1 && forYouBean.getData().size() != 0) {
+//                    llForyou.setVisibility(View.VISIBLE);
+//                } else {
+//                    llForyou.setVisibility(View.GONE);
+//                    return;
+//                }
+//
+//                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//
+//                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+//                rvTuijian.setAdapter(adapter);
+//                adapter.addData(forYouBean.getData());
+            }
+        });
+
+        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+//                Gson gson = new Gson();
+//                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+//                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+//                    llForyou.setVisibility(View.VISIBLE);
+//                } else {
+//                    llForyou.setVisibility(View.GONE);
+//                    return;
+//                }
+//
+//                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//
+//                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+//                rvTuijian.setAdapter(adapter);
+//                adapter.addData(forYouBean.getData());
             }
         });
     }

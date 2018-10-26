@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
 
     private void initData(String latitude, String longitude) {
-        OkGo.<String>post(URLs.HOME_URL).params("longitude", 116.4072154982)
+        OkGo.<String>post(URLs.INDEX).params("longitude", 116.4072154982)
                 .params("latitude", 39.9047253699).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

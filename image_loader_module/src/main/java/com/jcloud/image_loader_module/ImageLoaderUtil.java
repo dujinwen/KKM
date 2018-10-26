@@ -32,13 +32,12 @@ public class ImageLoaderUtil {
     }
 
     //单例模式，节省资源
-    public static ImageLoaderUtil getInstance() {
+    public synchronized static ImageLoaderUtil getInstance() {
         if (mInstance == null) {
-            synchronized (ImageLoaderUtil.class) {
-                if (mInstance == null) {
-                    mInstance = new ImageLoaderUtil();
-                    return mInstance;
-                }
+            if (mInstance == null) {
+                mInstance = new ImageLoaderUtil();
+                return mInstance;
+
             }
         }
         return mInstance;
@@ -59,9 +58,11 @@ public class ImageLoaderUtil {
     public void loadGifImage(String url, int placeholder, ImageView imageView) {
         mStrategy.loadGifImage(url, placeholder, imageView);
     }
+
     public void loadGifImage(int urlId, int placeholder, ImageView imageView) {
         mStrategy.loadGifImage(urlId, placeholder, imageView);
     }
+
     public void loadImage(String url, ImageView imageView) {
         mStrategy.loadImage(url, imageView);
     }

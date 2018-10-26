@@ -44,7 +44,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             //                setData(item1);
             helper.setText(R.id.tv_name, item1.getName());
             helper.setText(R.id.now_price, item1.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item1.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item1.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             //        helper.setText(R.id.tv_renshu,item1.getPrice()+"");
             return;
         }
@@ -56,7 +56,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             //                setData(item1);
             helper.setText(R.id.tv_name, item2.getName());
             helper.setText(R.id.now_price, item2.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item2.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item2.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
 
             return;
         }
@@ -65,7 +65,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             //                setData(item1);
             helper.setText(R.id.tv_name, item3.getName());
             helper.setText(R.id.now_price, item3.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item3.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item3.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
         if (type == SpecialdataBean) {
@@ -73,7 +73,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             //                setData(item1);
             helper.setText(R.id.tv_name, item4.getName());
             helper.setText(R.id.now_price, item4.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
         if (type == ORDER_HOT_BEAN) {
@@ -81,7 +81,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             //                setData(item1);
             helper.setText(R.id.tv_name, item4.getName());
             helper.setText(R.id.now_price, item4.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
         if (type == PERSON_TUI_JIAN){
@@ -89,7 +89,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             //                setData(item1);
             helper.setText(R.id.tv_name, item4.getName());
             helper.setText(R.id.now_price, item4.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), R.mipmap.beautician_photo, (ImageView) helper.getView(R.id.iv_beautician_photo));
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
 
