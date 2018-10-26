@@ -193,7 +193,7 @@
 
 
         <activity
-            android:name="com.tencent.tauth.AuthActivity"
+            android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true" >
 
@@ -207,7 +207,7 @@
         </activity>
 
         <activity
-            android:name="com.tencent.connect.common.AssistActivity"
+            android:name="com.umeng.qq.tencent.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
