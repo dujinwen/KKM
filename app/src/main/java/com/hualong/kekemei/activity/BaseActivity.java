@@ -41,9 +41,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected String[] needPermissions = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.ACCESS_FINE_LOCATION,
+//            Manifest.permission.CALL_PHONE,
+//            Manifest.permission.READ_LOGS,
+//            Manifest.permission.READ_PHONE_STATE,
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.SET_DEBUG_APP,
+//            Manifest.permission.SYSTEM_ALERT_WINDOW,
+//            Manifest.permission.GET_ACCOUNTS,
+//            Manifest.permission.WRITE_APN_SETTINGS
     };
 
     private static final int PERMISSON_REQUESTCODE = 0;
@@ -65,10 +72,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param permissions
      * @since 2.5.0
-     *
      */
     private void checkPermissions(String... permissions) {
         try {
@@ -94,19 +99,18 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param permissions
      * @return
      * @since 2.5.0
-     *
      */
     private List<String> findDeniedPermissions(String[] permissions) {
         List<String> needRequestPermissonList = new ArrayList<String>();
         if (Build.VERSION.SDK_INT >= 23
-                && getApplicationInfo().targetSdkVersion >= 23){
+                && getApplicationInfo().targetSdkVersion >= 23) {
             try {
                 for (String perm : permissions) {
                     Method checkSelfMethod = getClass().getMethod("checkSelfPermission", String.class);
                     Method shouldShowRequestPermissionRationaleMethod = getClass().getMethod("shouldShowRequestPermissionRationale",
                             String.class);
-                    if ((Integer)checkSelfMethod.invoke(this, perm) != PackageManager.PERMISSION_GRANTED
-                            || (Boolean)shouldShowRequestPermissionRationaleMethod.invoke(this, perm)) {
+                    if ((Integer) checkSelfMethod.invoke(this, perm) != PackageManager.PERMISSION_GRANTED
+                            || (Boolean) shouldShowRequestPermissionRationaleMethod.invoke(this, perm)) {
                         needRequestPermissonList.add(perm);
                     }
                 }
@@ -119,10 +123,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 检测是否所有的权限都已经授权
+     *
      * @param grantResults
      * @return
      * @since 2.5.0
-     *
      */
     private boolean verifyPermissions(int[] grantResults) {
         for (int result : grantResults) {
@@ -139,7 +143,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (requestCode == PERMISSON_REQUESTCODE) {
             if (!verifyPermissions(paramArrayOfInt)) {
                 showMissingPermissionDialog();
-                isNeedCheck = false;
+                isNeedCheck = true;
             }
         }
     }
@@ -148,7 +152,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 显示提示信息
      *
      * @since 2.5.0
-     *
      */
     private void showMissingPermissionDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -160,7 +163,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        finish();
+                        //                        finish();
 
                     }
                 });
@@ -179,10 +182,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     *  启动应用的设置
+     * 启动应用的设置
      *
      * @since 2.5.0
-     *
      */
     private void startAppSettings() {
         Intent intent = new Intent(
@@ -193,7 +195,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             this.finish();
             return true;
         }
@@ -208,7 +210,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(setLayoutId());
+        if (setLayoutId() != 0)
+            setContentView(setLayoutId());
         //绑定控件
         unbinder = ButterKnife.bind(this);
         //初始化沉浸式

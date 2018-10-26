@@ -137,12 +137,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        try {
-//            Thread.sleep(5000);
-//            initData("", "");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        //        try {
+        //            Thread.sleep(5000);
+        //            initData("", "");
+        //        } catch (InterruptedException e) {
+        //            e.printStackTrace();
+        //        }
 
         unbinder = ButterKnife.bind(this, view);
 
@@ -152,15 +152,15 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         //
         //            }
         //        });
+        String latitude = SPUtils.getString(getActivity(), "latitude", "");
+        String longitude = SPUtils.getString(getActivity(), "longitude", "");
 
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
-            //开启定位权限,200是标识码
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+        if (latitude != "" && "" != longitude) {
+            initData(latitude, longitude);
         } else {
             AppUtil.getUserPoint(getActivity(), this);
-            Toast.makeText(getActivity(), "已开启定位权限", Toast.LENGTH_LONG).show();
         }
+
         commentTabAll.setSelected(true);
         initCommentTags();
         return view;
@@ -358,7 +358,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 //                mPoint = new DPoint(latitude,longitude);
                 //                loadData();//后续操作
 
-                initData("39.9047253699", "116.4072154982");
+                initData(latitude + "", longitude + "");
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。

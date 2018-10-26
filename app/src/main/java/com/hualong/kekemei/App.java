@@ -43,6 +43,7 @@ public class App extends MultiDexApplication {
         mContext = this;
         AppCompatUtils.init(this);
         init();
+
         initImagePicker();
         // 初始化环信SDK
         initEasemob();

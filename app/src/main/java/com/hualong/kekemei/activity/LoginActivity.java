@@ -1,8 +1,11 @@
 package com.hualong.kekemei.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +63,10 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.weibo_login)
     ImageView weiboLogin;
 
+    private int thirdType = -1;
+    private String openId = "";
+    private String eventType = "";
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_login;
@@ -75,6 +82,11 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
     }
 
     @Override
@@ -103,7 +115,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.btn_login:
                 // 跳转到聊天界面，开始聊天
-                login();
+                login(etPhoneNum.getText().toString().trim(), eventType, etYanzhengma.getText().toString().trim());
                 break;
             case R.id.weibo_login:
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, authListener);
@@ -114,48 +126,53 @@ public class LoginActivity extends BaseActivity {
             case R.id.qq_login:
                 UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);
                 break;
-
-
         }
     }
 
     private void sendYanZhengMa() {
-
+        if (thirdType != -1) {
+            eventType = "register";
+        } else {
+            eventType = "login";
+        }
         String phoneNum = etPhoneNum.getText().toString().trim();
         if (phoneNum.isEmpty()) {
             ToastUtil.showToastMsg(LoginActivity.this, "请输入手机号");
             return;
         }
-        AppUtil.sendYanZhengMa(phoneNum, "login", new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-
-            }
-        });
+        AppUtil.sendYanZhengMa(phoneNum, eventType);
     }
 
-    private void login() {
-        //        AppUtil.checkCaptcha(etPhoneNum.getText().toString().trim(),
-        //                etYanzhengma.getText().toString().trim(),
-        //                "login",
-        //                new StringCallback() {
-        //                    @Override
-        //                    public void onSuccess(Response<String> response) {
-        //
-        //                    }
-        //                });
-        OkGo.<String>get(URLs.MOBILE_LOGIN)
-                .params("mobile", etPhoneNum.getText().toString().trim())
-                .params("event", "login")
-                .params("captcha", etYanzhengma.getText().toString().trim())
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
+    private void login(final String moblie, String eventType, final String captcha) {
+        if (thirdType != -1) {
+            this.eventType = "register";
+            eventType = this.eventType;
+            AppUtil.checkCaptcha(moblie,
+                    eventType,
+                    captcha,
+                    new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            verifyBind(thirdType, openId, moblie, captcha);
+                        }
+                    });
+        } else {
+            this.eventType = "login";
+            eventType = this.eventType;
 
-                    }
-                });
+            OkGo.<String>get(URLs.MOBILE_LOGIN)
+                    .params("mobile", moblie)
+                    .params("event", eventType)
+                    .params("captcha", captcha)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            ToastUtil.showToastMsg(getBaseContext(), "跳转主页");
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        }
+                    });
 
-
+        }
     }
 
 
@@ -177,13 +194,20 @@ public class LoginActivity extends BaseActivity {
                     temp = temp + key + " : " + data.get(key) + "\n";
                 }
                 LogUtil.d("LoginActivity", temp);
-                //                if (platform == SHARE_MEDIA.QQ) {
-                //                    verifyBind("1", data.get("unionid"));
-                //                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "qq");
-                //                } else if (platform == SHARE_MEDIA.WEIXIN) {
-                //                    verifyBind("2", data.get("openid"));
-                //                    UMAnalytics.getInstance().sendPoint(UMConstants.THIRD_PARTY_LOGIN, data.get("unionid"), "weixin");
-                //                }
+
+                if (platform == SHARE_MEDIA.WEIXIN) {
+                    thirdType = 1;
+                    openId = data.get("openid");
+                } else if (platform == SHARE_MEDIA.QQ) {
+                    thirdType = 2;
+                    openId = data.get("unionid");
+                } else if (platform == SHARE_MEDIA.SINA) {
+                    thirdType = 3;
+                    openId = data.get("unionid");
+                }
+
+
+                thirdLogin(openId, thirdType);
             }
         }
 
@@ -199,6 +223,11 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showToastMsg(LoginActivity.this, "请安装腾讯QQ客户端");
                     return;
                 }
+            } else if (platform == SHARE_MEDIA.SINA) {
+                if (!UMShareAPI.get(LoginActivity.this).isInstall(LoginActivity.this, SHARE_MEDIA.QQ)) {
+                    ToastUtil.showToastMsg(LoginActivity.this, "请安装微博客户端");
+                    return;
+                }
             }
             ToastUtil.showToastMsg(LoginActivity.this, "错误" + t.getMessage());
             LogUtil.e("LoginActivity", t.getMessage());
@@ -210,7 +239,32 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-    public void chatLogin() {
+    private void thirdLogin(String openId, int thirdType) {
+        OkGo.<String>get(URLs.APP_THIRD).params("type", thirdType)
+                .params("openid", openId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        toolbar.setTitle("绑定手机");
+                        ToastUtil.showToastMsg(LoginActivity.this, "三方登录成功");
+                    }
+                });
+    }
+
+    private void verifyBind(int type, String openId, String mobile, String captcha) {
+        OkGo.<String>get(URLs.USER_BINDING).params("type", type)
+                .params("openid", openId)
+                .params("mobile", mobile)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        ToastUtil.showToastMsg(LoginActivity.this, "绑定用户成功");
+                        //                        login(etPhoneNum.getText().toString().trim(), "login", etYanzhengma.getText().toString().trim());
+                    }
+                });
+    }
+
+    public void chatLogin(String nickName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -266,13 +320,13 @@ public class LoginActivity extends BaseActivity {
         }).start();
     }
 
-//    private ProgressDialog mDialog;
+    //    private ProgressDialog mDialog;
 
     public void createAccount() {
 
-//        mDialog = new ProgressDialog(this);
-//        mDialog.setMessage("注册中，请稍后...");
-//        mDialog.show();
+        //        mDialog = new ProgressDialog(this);
+        //        mDialog.setMessage("注册中，请稍后...");
+        //        mDialog.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -283,7 +337,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void run() {
                             if (!LoginActivity.this.isFinishing()) {
-//                                mDialog.dismiss();
+                                //                                mDialog.dismiss();
                             }
                             Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
                         }
@@ -294,7 +348,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void run() {
                             if (!LoginActivity.this.isFinishing()) {
-//                                mDialog.dismiss();
+                                //                                mDialog.dismiss();
                             }
                             /**
                              * 关于错误码可以参考官方api详细说明

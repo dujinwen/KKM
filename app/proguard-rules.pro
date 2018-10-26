@@ -22,6 +22,12 @@
 
 #友盟
     -keep class com.umeng.** {*;}
+
+    -keep class com.newrelic.** { *; }
+    -dontwarn com.newrelic.**
+    -keepattributes Exceptions, Signature, InnerClasses
+
+
  #3D 地图 V5.0.0之前：
     -keep   class com.amap.api.maps.**{*;}
     -keep   class com.autonavi.amap.mapcore.*{*;}

@@ -78,8 +78,6 @@ public class CheckBoxSample extends View implements Checkable {
         borderPaint.setStrokeWidth(dp(1));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             checkDrawable = context.getResources().getDrawable(R.mipmap.orderform_choose_btn_d,null);
-        }else {
-            checkDrawable = context.getResources().getDrawable(R.mipmap.orderform_choose_btn_d);
         }
         setVisibility(VISIBLE);
         ta.recycle();

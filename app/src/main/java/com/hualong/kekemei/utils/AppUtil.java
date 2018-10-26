@@ -627,13 +627,17 @@ public class AppUtil {
     }
 
 
-    public static void sendYanZhengMa(String mobile, String event, StringCallback stringCallback) {
-        OkGo.<String>get(URLs.SEND).params("mobile", mobile)
-                .params("event", event).execute(stringCallback);
+    public static void sendYanZhengMa(String mobile, String event) {
+        try {
+            OkGo.<String>get(URLs.SEND).params("mobile", mobile)
+                    .params("event", event).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void checkCaptcha(String mobile, String event, String captcha, StringCallback stringCallback) {
-        OkGo.<String>get(URLs.SNS_CHECK)
+        OkGo.<String>get(URLs.SMS_CHECK)
                 .params("mobile", mobile)
                 .params("event", event)
                 .params("captcha", captcha)
@@ -658,4 +662,6 @@ public class AppUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date(time));
     }
+
+
 }

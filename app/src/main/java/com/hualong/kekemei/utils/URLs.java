@@ -97,7 +97,7 @@ public class URLs {
     //第三方登陆
     public static final String APP_THIRD = " http://kekemei.ecooth.com/api/user/appThird";
     //检测验证码
-    public static final String SNS_CHECK = "http://kekemei.ecooth.com/api/sns/check";
+    public static final String SMS_CHECK = "http://kekemei.ecooth.com/api/sns/check";
     //手机验证码登陆
     public static final String MOBILE_LOGIN = "http://kekemei.ecooth.com/api/user/mobilelogin";
     //手机号注册

@@ -1,7 +1,7 @@
 package com.hualong.kekemei.wxapi;
 
 
-import com.umeng.weixin.callback.WXCallbackActivity;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 /**
  * Created by lenovo on 2017/5/27.

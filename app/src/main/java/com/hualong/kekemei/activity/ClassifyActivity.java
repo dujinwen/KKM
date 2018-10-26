@@ -78,7 +78,7 @@ public class ClassifyActivity extends BaseActivity {
     private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
     private ArrayList<String> objects;
 
-
+    @SuppressWarnings("unchecked")
     private static ArrayList<Integer> positionArrayList = new ArrayList();
 
     @Override
