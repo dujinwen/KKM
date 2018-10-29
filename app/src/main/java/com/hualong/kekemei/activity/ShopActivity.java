@@ -52,7 +52,9 @@ import butterknife.Optional;
  * 店铺和美容师主页页面
  */
 public class ShopActivity extends BaseActivity implements View.OnClickListener {
+    public static final String TAG = ShopActivity.class.getSimpleName();
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
+    private static final String EXTRA_KEY_USER_ID = "userId";
     private static final String EXTRA_KEY_ENUM_ID = "type";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -69,6 +71,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.shopName)
     TextView shopName;
+
+    @BindView(R.id.tvFollow)
+    TextView tvFollow;
 
     @BindView(R.id.shopStar)
     StarBar shopStar;
@@ -92,7 +97,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout contentView;
 
 
-
     private TextView userCommentNum;
     private TextView commentTabAll;
     private TextView commentTabNew;
@@ -102,7 +106,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private RecyclerView rvCommentList;
 
     private RecyclerView hotProjectRv;
-    private String beauticianId;
+    private String beauticianId, userId;
     private MyGridAdapter contentSectionAdapter;
     private EvaluateListAdapter commentAdapter;
     private DetailEnum detailEnum;
@@ -112,9 +116,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_yuyue;
     private LinearLayout llSelectTime;
 
-    public static void start(Context context, int beauticianId, DetailEnum detailEnum) {
+    public static void start(Context context, int beauticianId, int userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
+        intent.putExtra(EXTRA_KEY_USER_ID, String.valueOf(userId));
         intent.putExtra(EXTRA_KEY_ENUM_ID, detailEnum);
         context.startActivity(intent);
     }
@@ -145,6 +150,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
         beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        userId = super.getStringExtraSecure(EXTRA_KEY_USER_ID);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +158,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         });
         iv_share.setVisibility(View.VISIBLE);
-        llSelectTime = (LinearLayout) findViewById(R.id.ll_select_time);
+        llSelectTime = findViewById(R.id.ll_select_time);
         indicatorShopHome.setVisibility(View.VISIBLE);
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
@@ -237,10 +243,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     @Optional
     @OnClick({R.id.shopHome, R.id.hotProject, R.id.userEvaluate,
-            R.id.commentTabAll,R.id.commentTabNew,
-            R.id.commentTabPhoto,R.id.ll_yuyue})
+            R.id.commentTabAll, R.id.commentTabNew, R.id.tvFollow,
+            R.id.commentTabPhoto, R.id.ll_yuyue})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tvFollow:
+                follow();
+                break;
             case R.id.shopHome:
                 indicatorShopHome.setVisibility(View.VISIBLE);
                 indicatorHotProject.setVisibility(View.GONE);
@@ -284,6 +293,24 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * 关注
+     */
+    private void follow() {
+        OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "follow beautician:" + response.body());
+                Gson gson = new Gson();
+                   /* ShopDetailBean shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
+                    tv_title.setText("克克美-" + shopDetailBean.getData().getName());
+                    shopName.setText(shopDetailBean.getData().getName());
+                    shopStar.setStarMark(shopDetailBean.getData().getStart());*/
+            }
+        });
+    }
+
     private void scrollTo(final View view) {
         if (view == null) {
             return;
@@ -305,24 +332,39 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", response.body());
-                Gson gson = new Gson();
-                ShopDetailBean shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
-                tv_title.setText("克克美-" + shopDetailBean.getData().getName());
-                shopName.setText(shopDetailBean.getData().getName());
-                shopStar.setStarMark(shopDetailBean.getData().getStart());
-            }
-        });
+        if (detailEnum == DetailEnum.SHOP) {
+            OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    LogUtil.e(TAG, "shop detail:" + response.body());
+                    Gson gson = new Gson();
+                    ShopDetailBean shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
+                    tv_title.setText("克克美-" + shopDetailBean.getData().getName());
+                    shopName.setText(shopDetailBean.getData().getName());
+                    shopStar.setStarMark(shopDetailBean.getData().getStart());
+                }
+            });
+        } else {
+            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    LogUtil.e(TAG, "beautician detail:" + response.body());
+                    Gson gson = new Gson();
+                   /* ShopDetailBean shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
+                    tv_title.setText("克克美-" + shopDetailBean.getData().getName());
+                    shopName.setText(shopDetailBean.getData().getName());
+                    shopStar.setStarMark(shopDetailBean.getData().getStart());*/
+                }
+            });
+        }
 
 
         OkGo.<String>post(URLs.PROJECT_LIST).params("page", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
+                LogUtil.e(TAG, "project list:" + response.body());
                 Gson gson = new Gson();
                 ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
                 contentSectionAdapter.replaceData(projectListBean.getData());
@@ -334,7 +376,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-                    LogUtil.d("MeiRongShiActivity", response.body());
+                    LogUtil.d(TAG, "shop detail - beautician list:" + response.body());
                     Gson gson = new Gson();
                     MeiRongShiListBean meiRongShiListBean = gson.fromJson(response.body(), MeiRongShiListBean.class);
                     meiRongShiAdapter.addData(meiRongShiListBean.getData());
@@ -347,7 +389,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         OkGo.<String>post(URLs.COMMENT_LIST).params("page", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
+                LogUtil.e(TAG, "comment list:" + response.body());
                 Gson gson = new Gson();
                 EvaluateListBean evaluateListBean = gson.fromJson(response.body(), EvaluateListBean.class);
                 userCommentNum.setText(getString(R.string.home_comment_num_format, evaluateListBean.getData().size()));
@@ -360,7 +402,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         OkGo.<String>post(URLs.COMMENT_TAG).params("type", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e("comment", "body:" + response.body());
+                LogUtil.e(TAG, "comment tag:" + response.body());
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");

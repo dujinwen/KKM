@@ -67,6 +67,8 @@ public class URLs {
      */
     //美容师主页
     public static final String BEAUTICIAN_DETAILS = "http://kekemei.ecooth.com/api/beautician/details";
+    //关注
+    public static final String FOLLOW_BEAUTICIAN = "http://kekemei.ecooth.com/api/beautician/follow";
     //附近的美容师
     public static final String BEAUTICIAN_NEAR = "http://kekemei.ecooth.com/api/beautician/nearbyBeautician";
 
