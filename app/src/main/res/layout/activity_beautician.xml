@@ -27,6 +27,8 @@
 
                 <include layout="@layout/section_beautician_detail_top_head_layout"/>
 
+                <include layout="@layout/section_detail_select_time_layout"/>
+
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>
