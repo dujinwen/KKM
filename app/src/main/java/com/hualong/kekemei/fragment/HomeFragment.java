@@ -1,13 +1,8 @@
 package com.hualong.kekemei.fragment;
 
-import android.Manifest;
 import android.app.Fragment;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -26,7 +20,6 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
-import com.hualong.kekemei.activity.PayActivity;
 import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.activity.ShopListActivity;
 import com.hualong.kekemei.adapter.DAVipAdapter;
@@ -114,10 +107,10 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     LinearLayout llYangsheng;
     @BindView(R.id.ll_qita)
     LinearLayout llQita;
+    @BindView(R.id.commentLayout)
+    LinearLayout commentLayout;
     @BindView(R.id.userCommentNum)
     TextView userCommentNum;
-    /*@BindView(R.id.kehupingjia)
-    LinearLayout kehupingjia;*/
     @BindView(R.id.commentTabAll)
     TextView commentTabAll;
     @BindView(R.id.commentTabNew)
@@ -172,7 +165,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 .params("latitude", 39.9047253699).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.d("APPLOCALTION", response.toString());
+                LogUtil.d("APPLOCALTION", response.body().toString());
                 Gson gson = new Gson();
                 HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
                 xbanner.setData(homeBean.getData().getBanneradv(), null);
@@ -228,15 +221,21 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvZuixinxiangmu.setAdapter(adapter3);
                 adapter3.addData(homeBean.getData().getSpecialdata());
 
-//                rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                commentAdapter = new EvaluateListAdapter(getActivity(), false);
-//                rvCommentList.setHasFixedSize(true);
-//                rvCommentList.setNestedScrollingEnabled(false);
-//                rvCommentList.setAdapter(commentAdapter);
-//                userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size() + homeBean.getData().getCommentdata().getHot().size()));
-//                commentdata = homeBean.getData().getCommentdata();
-//                LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
-//                commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
+                rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
+                commentAdapter = new EvaluateListAdapter(getActivity(), false);
+                rvCommentList.setHasFixedSize(true);
+                rvCommentList.setNestedScrollingEnabled(false);
+                rvCommentList.setAdapter(commentAdapter);
+                if (homeBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getAll())) {
+                    commentLayout.setVisibility(View.VISIBLE);
+                    userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size()
+                            + homeBean.getData().getCommentdata().getNewX().size() + homeBean.getData().getCommentdata().getHaveimg().size()));
+                    commentdata = homeBean.getData().getCommentdata();
+                    LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
+                    commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
+                } else {
+                    commentLayout.setVisibility(View.GONE);
+                }
 
             }
 
@@ -397,7 +396,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 commentTabNew.setSelected(true);
                 commentTabPhoto.setSelected(false);
                 if (commentdata != null) {
-                    commentAdapter.replaceData(commentdata.getHot());
+                    commentAdapter.replaceData(commentdata.getNewX());
                 }
                 break;
             case R.id.commentTabPhoto:
@@ -405,7 +404,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(true);
                 if (commentdata != null) {
-                    commentAdapter.replaceData(commentdata.getAll());
+                    commentAdapter.replaceData(commentdata.getHaveimg());
                 }
                 break;
             case R.id.ll_search:

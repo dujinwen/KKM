@@ -1,5 +1,7 @@
 package com.hualong.kekemei.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -140,7 +142,9 @@ public class HomeBean {
 
         public static class CommentdataBean {
             private List<EvaluateBean> all;
-            private List<EvaluateBean> hot;
+            @SerializedName("new")
+            private List<EvaluateBean> newX;
+            private List<EvaluateBean> haveimg;
 
             public List<EvaluateBean> getAll() {
                 return all;
@@ -150,12 +154,20 @@ public class HomeBean {
                 this.all = all;
             }
 
-            public List<EvaluateBean> getHot() {
-                return hot;
+            public List<EvaluateBean> getNewX() {
+                return newX;
             }
 
-            public void setHot(List<EvaluateBean> hot) {
-                this.hot = hot;
+            public void setNewX(List<EvaluateBean> newX) {
+                this.newX = newX;
+            }
+
+            public List<EvaluateBean> getHaveimg() {
+                return haveimg;
+            }
+
+            public void setHaveimg(List<EvaluateBean> haveimg) {
+                this.haveimg = haveimg;
             }
         }
 

@@ -5,9 +5,13 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.bean.EvaluateBean;
+import com.hualong.kekemei.utils.AppUtil;
+import com.hualong.kekemei.utils.StringUtils;
+import com.hualong.kekemei.view.NoScrollGridView;
 import com.hualong.kekemei.view.StarBar;
+
+import java.util.Arrays;
 
 
 public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseViewHolder> {
@@ -29,6 +33,13 @@ public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseView
             /*helper.setText(R.id.name, "222");
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.get(), (ImageView) helper.getView(R.id.icon));
             helper.setText(R.id.content, item.getName());*/
+        }
+        if (StringUtils.isNotEmpty(item.getImages())) {
+            String[] split = item.getImages().split(",");
+            NoScrollGridView noScrollGridView = helper.getView(R.id.ncgv);
+            CommentGridAdapter gridAdapter = new CommentGridAdapter(jContext, Arrays.asList(split));
+            noScrollGridView.setAdapter(gridAdapter);
+//            gridAdapter.replaceData(Arrays.asList(split));
         }
         helper.setText(R.id.commentContent, item.getContent());
         helper.setText(R.id.date, AppUtil.getFormatTime2(item.getCreatetime()));
