@@ -10,20 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.bean.HongBao;
-import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.SettingActivity;
 import com.hualong.kekemei.activity.UserInfoActivity;
 import com.hualong.kekemei.adapter.GridAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.ForYouBean;
+import com.hualong.kekemei.bean.HongBao;
 import com.hualong.kekemei.bean.UserBean;
+import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.utils.UserHelp;
 import com.hualong.kekemei.view.CircleImageView;
 import com.hualong.kekemei.view.NoScrollGridView;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -66,6 +69,8 @@ public class PersonFragment extends Fragment {
     ImageView userSetBtn;
     @BindView(R.id.user_message_btn)
     ImageView userMessageBtn;
+    @BindView(R.id.userName)
+    TextView userName;
 
     private String[] userForwardArray = {"我的订单", "我的钱包", "我的美容师", "我的收藏", "我的积分", "客户服务"};
     private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_qianbao_btn,
@@ -76,9 +81,16 @@ public class PersonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         unbinder = ButterKnife.bind(this, view);
+        initView();
         initData();
         return view;
     }
+
+    private void initView() {
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(getActivity()), icon);
+        userName.setText(UserHelp.getUserName(getActivity()));
+    }
+
 
     private void initData() {
         List<UserBean> list = new ArrayList<>();
@@ -112,43 +124,43 @@ public class PersonFragment extends Fragment {
         });
 
 
-        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id",1).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-//                Gson gson = new Gson();
-//                HongBao hongBao = gson.fromJson(response.body(), HongBao.class);
-//                if (hongBao.getCode() == 1 && forYouBean.getData().size() != 0) {
-//                    llForyou.setVisibility(View.VISIBLE);
-//                } else {
-//                    llForyou.setVisibility(View.GONE);
-//                    return;
-//                }
+//                                Gson gson = new Gson();
+//                                HongBao hongBao = gson.fromJson(response.body(), HongBao.class);
+//                                if (hongBao.getCode() == 1 && forYouBean.getData().size() != 0) {
+//                                    llForyou.setVisibility(View.VISIBLE);
+//                                } else {
+//                                    llForyou.setVisibility(View.GONE);
+//                                    return;
+//                                }
 //
-//                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//                                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 //
-//                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
-//                rvTuijian.setAdapter(adapter);
-//                adapter.addData(forYouBean.getData());
+//                                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+//                                rvTuijian.setAdapter(adapter);
+//                                adapter.addData(forYouBean.getData());
             }
         });
 
         OkGo.<String>get(URLs.MY_COUPON).params("page", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-//                Gson gson = new Gson();
-//                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-//                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
-//                    llForyou.setVisibility(View.VISIBLE);
-//                } else {
-//                    llForyou.setVisibility(View.GONE);
-//                    return;
-//                }
-//
-//                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-//
-//                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
-//                rvTuijian.setAdapter(adapter);
-//                adapter.addData(forYouBean.getData());
+                //                Gson gson = new Gson();
+                //                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+                //                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+                //                    llForyou.setVisibility(View.VISIBLE);
+                //                } else {
+                //                    llForyou.setVisibility(View.GONE);
+                //                    return;
+                //                }
+                //
+                //                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                //
+                //                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+                //                rvTuijian.setAdapter(adapter);
+                //                adapter.addData(forYouBean.getData());
             }
         });
     }
@@ -158,8 +170,8 @@ public class PersonFragment extends Fragment {
         switch (view.getId()) {
             case R.id.user_set_btn:
                 SettingActivity.start(getActivity());
-//                MiaoshaActivity.start(getActivity());
-//                UserEvaluateActivity.start(getActivity(), true);
+                //                MiaoshaActivity.start(getActivity());
+                //                UserEvaluateActivity.start(getActivity(), true);
                 break;
             case R.id.icon:
                 LoginActivity.start(getActivity());

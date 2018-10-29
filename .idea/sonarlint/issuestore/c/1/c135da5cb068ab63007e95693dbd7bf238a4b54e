@@ -1,7 +1,8 @@
 
-jsquid:CommentedOutCodeLineê"<This block of commented-out lines of code should be removed.(•î© 8∏ÃÒÎÎ,
-Vsquid:S1135¢"2Complete the task associated to this TODO comment.(◊õ£⁄˘ˇˇˇˇ8∏ÃÒÎÎ,
-§squid:S1186\"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¯¥ù¥¯ˇˇˇˇ8∏ÃÒÎÎ,
-§squid:S1186j"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôŒ´ç˛ˇˇˇˇ8∏ÃÒÎÎ,
-]squid:S11614":Add the "@Override" annotation above this method signature(Æ‚ä°˘ˇˇˇˇ8∏ÃÒÎÎ,
-ksquid:MaximumInheritanceDepth!"<This class has 8 parents which is greater than 5 authorized.(Ü˚ú8∏ÃÒÎÎ,
+Vsquid:S1135£"2Complete the task associated to this TODO comment.(◊õ£⁄˘ˇˇˇˇ8∏ÃÒÎÎ,
+]squid:S11615":Add the "@Override" annotation above this method signature(Æ‚ä°˘ˇˇˇˇ8∏ÃÒÎÎ,
+jsquid:CommentedOutCodeLineë"<This block of commented-out lines of code should be removed.(•î© 8∏ÃÒÎÎ,
+§squid:S1186]"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¯¥ù¥¯ˇˇˇˇ8∏ÃÒÎÎ,
+ksquid:MaximumInheritanceDepth""<This class has 8 parents which is greater than 5 authorized.(Ü˚ú8∏ÃÒÎÎ,
+§squid:S1186k"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôŒ´ç˛ˇˇˇˇ8∏ÃÒÎÎ,
+vsquid:UselessImportCheck"FRemove this unused import 'com.hualong.kekemei.activity.MainActivity'.(™»Êå˘ˇˇˇˇ8¥ÃÍÛÎ,

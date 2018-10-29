@@ -1,30 +1,31 @@
 
-Ksquid:S1185X"(Remove this method to simply inherit it.(Πτ΄·ωÿÿÿÿ8•Ίκωκ,
-]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦ψοϊÿÿÿÿ8φΠΆύκ,
-jsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(»8³Ε ύκ,
-Vsquid:S1135®"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8³Ε ύκ,
-jsquid:CommentedOutCodeLineί"<This block of commented-out lines of code should be removed.(Η¬ύ›8³Ε ύκ,
-Nsquid:S1066γ"/Merge this if statement with the enclosing one.(±ΣΏ±8³Ε ύκ,
-Vsquid:S1135Ί"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8³Ε ύκ,
-csquid:S3398ς"?Move this method into the anonymous class declared at line 179.(¤…Ήώÿÿÿÿ8³Ε ύκ,
-Vsquid:S1135΄"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8³Ε ύκ,
-rsquid:UselessImportCheck"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Δόώÿÿÿÿ8φΠΆύκ,
-msquid:S1192Ό"NDefine a constant instead of duplicating this literal "LoginActivity" 3 times.(–™Λθ8³Ε ύκ,
-jsquid:CommentedOutCodeLineΓ"<This block of commented-out lines of code should be removed.(„έ¤μ8³Ε ύκ,
-Gsquid:S1148“"#Use a logger to log this exception.(€ΙΤ…ύÿÿÿÿ8³Ε ύκ,
-jsquid:S1226΅"FIntroduce a new variable instead of reusing the parameter "eventType".(θε­όÿÿÿÿ8³Ε ύκ,
-¥squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Δπϊµωÿÿÿÿ8³Ε ύκ,
-Usquid:S1135S"2Complete the task associated to this TODO comment.(Χ›£Ϊωÿÿÿÿ8’ΫϊΟι,
- squid:S1186µ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Υτ°8³Ε ύκ,
-Gsquid:S1148Ϊ"#Use a logger to log this exception.(€ΙΤ…ύÿÿÿÿ8³Ε ύκ,
-;squid:S1643Β"Use a StringBuilder instead.(κΠ£λ8³Ε ύκ,
-Lsquid:S1172ώ".Remove this unused method parameter "captcha".(¤”ª\8³Ε ύκ,
-lsquid:MaximumInheritanceDepth*"<This class has 8 parents which is greater than 5 authorized.(ώΰΘν8—­ψκ,
-jsquid:CommentedOutCodeLineΤ"<This block of commented-out lines of code should be removed.(Η¬ύ›8³Ε ύκ,
-\"squid:SwitchLastCaseIsDefaultCheckp""Add a default case to this switch.(Χ“Ύρωÿÿÿÿ8’ΫϊΟι,
-jsquid:CommentedOutCodeLineΗ"<This block of commented-out lines of code should be removed.(ο•ώΌ8³Ε ύκ,
-osquid:S1192ξ"KDefine a constant instead of duplicating this literal ", message:" 6 times.(ΖΈυ£ύÿÿÿÿ8³Ε ύκ,
-Ssquid:S2864Α"4Iterate over the "entrySet" instead of the "keySet".(α«ϋΐ8³Ε ύκ,
-jsquid:S1226•"FIntroduce a new variable instead of reusing the parameter "eventType".(θε­όÿÿÿÿ8³Ε ύκ,
+Usquid:S1135Y"2Complete the task associated to this TODO comment.(Χ›£Ϊωÿÿÿÿ8’ΫϊΟι,
+\"squid:SwitchLastCaseIsDefaultCheckw""Add a default case to this switch.(Χ“Ύρωÿÿÿÿ8’ΫϊΟι,
+rsquid:UselessImportCheck	"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Δόώÿÿÿÿ8φΠΆύκ,
+lsquid:MaximumInheritanceDepth/"<This class has 8 parents which is greater than 5 authorized.(ώΰΘν8—­ψκ,
+Ssquid:S2864ή"4Iterate over the "entrySet" instead of the "keySet".(α«ϋΐ8³Ε ύκ,
+jsquid:CommentedOutCodeLineδ"<This block of commented-out lines of code should be removed.(ο•ώΌ8³Ε ύκ,
+Gsquid:S1148°"#Use a logger to log this exception.(€ΙΤ…ύÿÿÿÿ8³Ε ύκ,
+csquid:S3398"?Move this method into the anonymous class declared at line 208.(¤…Ήώÿÿÿÿ8³Ε ύκ,
 ]squid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(γΗ¤Ϊύÿÿÿÿ8φΠΆύκ,
-ksquid:S1192Θ"GDefine a constant instead of duplicating this literal "openid" 3 times.(™΄Η¥ωÿÿÿÿ8³Ε ύκ,
+ squid:S1186Ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Υτ°8³Ε ύκ,
+msquid:S1192Ω"NDefine a constant instead of duplicating this literal "LoginActivity" 3 times.(–™Λθ8³Ε ύκ,
+`squid:S1226©"BIntroduce a new variable instead of reusing the parameter "eType".(ΆκΨ!8»–Υσλ,
+ksquid:S1192ε"GDefine a constant instead of duplicating this literal "openid" 3 times.(™΄Η¥ωÿÿÿÿ8³Ε ύκ,
+Ksquid:S1185_"(Remove this method to simply inherit it.(Πτ΄·ωÿÿÿÿ8•Ίκωκ,
+Vsquid:S1135Λ"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8³Ε ύκ,
+`squid:S1226µ"BIntroduce a new variable instead of reusing the parameter "eType".(ΆκΨ!8»–Υσλ,
+Vsquid:S1135Χ"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8³Ε ύκ,
+]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦ψοϊÿÿÿÿ8φΠΆύκ,
+jsquid:CommentedOutCodeLineό"<This block of commented-out lines of code should be removed.(Η¬ύ›8³Ε ύκ,
+jsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(»8³Ε ύκ,
+¥squid:S1186µ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Δπϊµωÿÿÿÿ8³Ε ύκ,
+Nsquid:S1066€"/Merge this if statement with the enclosing one.(±ΣΏ±8³Ε ύκ,
+jsquid:CommentedOutCodeLineΰ"<This block of commented-out lines of code should be removed.(„έ¤μ8³Ε ύκ,
+isquid:UselessImportCheck">Remove this unused import 'com.hualong.kekemei.utils.SPUtils'.(³ϋθΧ8›ρ²τλ,
+jsquid:CommentedOutCodeLineρ"<This block of commented-out lines of code should be removed.(Η¬ύ›8³Ε ύκ,
+Gsquid:S1148χ"#Use a logger to log this exception.(€ΙΤ…ύÿÿÿÿ8³Ε ύκ,
+Vsquid:S1135Ρ"2Complete the task associated to this TODO comment.(» ζÿÿÿÿÿ8³Ε ύκ,
+;squid:S1643ί"Use a StringBuilder instead.(κΠ£λ8³Ε ύκ,
+osquid:S1192‹"KDefine a constant instead of duplicating this literal ", message:" 6 times.(ΖΈυ£ύÿÿÿÿ8³Ε ύκ,
+Lsquid:S1172›".Remove this unused method parameter "captcha".(¤”ª\8³Ε ύκ,

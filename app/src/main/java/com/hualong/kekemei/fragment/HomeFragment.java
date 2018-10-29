@@ -228,15 +228,15 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvZuixinxiangmu.setAdapter(adapter3);
                 adapter3.addData(homeBean.getData().getSpecialdata());
 
-                rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                commentAdapter = new EvaluateListAdapter(getActivity(), false);
-                rvCommentList.setHasFixedSize(true);
-                rvCommentList.setNestedScrollingEnabled(false);
-                rvCommentList.setAdapter(commentAdapter);
-                userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size() + homeBean.getData().getCommentdata().getHot().size()));
-                commentdata = homeBean.getData().getCommentdata();
-                LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
-                commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
+//                rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                commentAdapter = new EvaluateListAdapter(getActivity(), false);
+//                rvCommentList.setHasFixedSize(true);
+//                rvCommentList.setNestedScrollingEnabled(false);
+//                rvCommentList.setAdapter(commentAdapter);
+//                userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size() + homeBean.getData().getCommentdata().getHot().size()));
+//                commentdata = homeBean.getData().getCommentdata();
+//                LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
+//                commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
 
             }
 

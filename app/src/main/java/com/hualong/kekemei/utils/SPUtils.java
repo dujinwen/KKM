@@ -10,7 +10,23 @@ public class SPUtils {
 
 
     private static final String name = "SharedPreferences";//表名
-
+    public static final String ISFIRST_OPEN = "isfirst_open";  //是否第一次启动
+    public static final String ISFIRST_LOGIN = "isfirst_login";  //是否第一次登录
+    public static final String IS_LOGIN = "is_login";  //是否已经登录
+    public static final String LOGIN_ERROR_TIME = "login_error_time";  //登录错误次数
+    public static final String USER_INFO = "user_info";//用户信息
+    public static final String USER_ID = "user_id";//用户id  long类型
+    public static final String USER_NAME = "user_name";//用户id  long类型
+    public static final String COOKIE = "cookie";//cookie
+    public static final String SHOP_ID = "shop_id";//店铺id long类型
+    public static final String SHOP_NAME = "shop_name";//店铺名称
+    public static final String ACCOUNT = "account";//登录名
+    public static final String PSW = "psw";//密码
+    public static final String BASE_URL = "base_url";//主域名
+    public static final String MOBILE = "mobile";
+    public static final String TOKEN = "token";
+    public static final String NICK_NAME = "nick_name";
+    public static final String AVATAR = "avatar";
 
     private static SharedPreferences getSp(Context context) {
         SharedPreferences sp = context.getSharedPreferences(name,

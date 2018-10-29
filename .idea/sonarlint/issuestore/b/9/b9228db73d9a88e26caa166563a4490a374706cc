@@ -1,14 +1,14 @@
 
+Fsquid:S00108\")Either remove or fill this block of code.(‡˜ÚÚøÿÿÿÿ
 Wsquid:S1161":Add the "@Override" annotation above this method signature(şèçúÿÿÿÿ
 Asquid:S1181\"%Catch Exception instead of Throwable.(‡˜ÚÚøÿÿÿÿ
+hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(Àµ®ãüÿÿÿÿ
+]squid:S3878V"ADisambiguate this call by either casting as "Class" or "Class[]".(×Ó„õúÿÿÿÿ
+Fsquid:S00108u")Either remove or fill this block of code.(‡˜ÚÚøÿÿÿÿ
 esquid:MaximumInheritanceDepth#"<This class has 7 parents which is greater than 5 authorized.(õµóï
-Ksquid:S1066D"/Merge this if statement with the enclosing one.(ÕÉª‘ıÿÿÿÿ
+Zsquid:S1155T">Use isEmpty() to check whether the collection is empty or not.(ö¹ÿ°úÿÿÿÿ
 Gsquid:S1066"/Merge this if statement with the enclosing one.(Ä‘â†
 Asquid:S1181u"%Catch Exception instead of Throwable.(‡˜ÚÚøÿÿÿÿ
-hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(Àµ®ãüÿÿÿÿ
+Ksquid:S1066D"/Merge this if statement with the enclosing one.(ÕÉª‘ıÿÿÿÿ
 usquid:S2293h"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚·üÿÿÿÿ
-Fsquid:S00108\")Either remove or fill this block of code.(‡˜ÚÚøÿÿÿÿ
-Zsquid:S1155T">Use isEmpty() to check whether the collection is empty or not.(ö¹ÿ°úÿÿÿÿ
 Nsquid:S2589S"7Remove this expression which always evaluates to "true"(Ş©Ã…
-Fsquid:S00108u")Either remove or fill this block of code.(‡˜ÚÚøÿÿÿÿ
-]squid:S3878V"ADisambiguate this call by either casting as "Class" or "Class[]".(×Ó„õúÿÿÿÿ

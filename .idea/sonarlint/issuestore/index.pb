@@ -223,3 +223,11 @@ F
 app/proguard-rules.pro,9\e\9e08934d811afe28fbc77aaa3c0d747b94348db9
 n
 >app/src/main/java/com/hualong/kekemei/view/CheckBoxSample.java,3\6\363f966eb1f367a386a570511250a0e8ed743612
+S
+#app/src/main/res/values/strings.xml,d\2\d2281fbb3027de2722081a53408dd77628bf080e
+i
+9app/src/main/java/com/hualong/kekemei/bean/LoginBean.java,4\3\433c8ca3f386c1d9027906df1e544444cb423b86
+i
+9app/src/main/java/com/hualong/kekemei/utils/UserHelp.java,3\f\3f7be5f65177bfe3b236b441629e26fa4052cc96
+l
+<app/src/main/java/com/hualong/kekemei/bean/EvaluateBean.java,a\e\aead247fb36043196b645829aacdbfce897fc03a

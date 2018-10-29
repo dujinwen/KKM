@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,11 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.LoginBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.SPUtils;
 import com.hualong.kekemei.utils.ToastUtil;
 import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.utils.UserHelp;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -66,6 +71,7 @@ public class LoginActivity extends BaseActivity {
     private int thirdType = -1;
     private String openId = "";
     private String eventType = "";
+    private Context baseContext;
 
     @Override
     protected int setLayoutId() {
@@ -82,6 +88,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        baseContext = getBaseContext();
     }
 
     @Override
@@ -140,15 +147,28 @@ public class LoginActivity extends BaseActivity {
             ToastUtil.showToastMsg(LoginActivity.this, "请输入手机号");
             return;
         }
-        AppUtil.sendYanZhengMa(phoneNum, eventType);
+        AppUtil.sendYanZhengMa(phoneNum, eventType, new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                restart();
+            }
+        });
     }
 
-    private void login(final String moblie, String eventType, final String captcha) {
+    private void login(final String moblie, String eType, final String captcha) {
+        if (moblie.isEmpty()) {
+            ToastUtil.showToastMsg(LoginActivity.this, "请输入手机号");
+            return;
+        }
+        if (captcha.isEmpty()) {
+            ToastUtil.showToastMsg(LoginActivity.this, "请输入验证码");
+            return;
+        }
         if (thirdType != -1) {
-            this.eventType = "register";
-            eventType = this.eventType;
+            eventType = "register";
+            eType = eventType;
             AppUtil.checkCaptcha(moblie,
-                    eventType,
+                    eType,
                     captcha,
                     new StringCallback() {
                         @Override
@@ -157,17 +177,18 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
         } else {
-            this.eventType = "login";
-            eventType = this.eventType;
+            eventType = "login";
+            eType = eventType;
 
             OkGo.<String>get(URLs.MOBILE_LOGIN)
                     .params("mobile", moblie)
-                    .params("event", eventType)
+                    .params("event", eType)
                     .params("captcha", captcha)
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            ToastUtil.showToastMsg(getBaseContext(), "跳转主页");
+                            LogUtil.d(LoginActivity.this.getLocalClassName(),response.body());
+                            saveUserInfo(response);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                     });
@@ -245,10 +266,25 @@ public class LoginActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        LogUtil.d(LoginActivity.this.getLocalClassName(),response.body());
+                        saveUserInfo(response);
                         toolbar.setTitle("绑定手机");
                         ToastUtil.showToastMsg(LoginActivity.this, "三方登录成功");
                     }
                 });
+    }
+
+    private void saveUserInfo(Response<String> response) {
+        Gson gson = new Gson();
+        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+        UserHelp.setLogin(getBaseContext(),true);
+        LoginBean.DataBean.UserinfoBean userinfo = loginBean.getData().getUserinfo();
+        UserHelp.setMobile(baseContext, userinfo.getMobile());
+        UserHelp.setUserName(baseContext, userinfo.getUsername());
+        UserHelp.setNickName(baseContext, userinfo.getNickname());
+        UserHelp.setToken(baseContext,userinfo.getToken());
+        UserHelp.setAvatar(baseContext,userinfo.getAvatar());
+        UserHelp.setUserId(baseContext,userinfo.getUser_id());
     }
 
     private void verifyBind(int type, String openId, String mobile, String captcha) {
@@ -259,7 +295,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         ToastUtil.showToastMsg(LoginActivity.this, "绑定用户成功");
-                        //                        login(etPhoneNum.getText().toString().trim(), "login", etYanzhengma.getText().toString().trim());
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 });
     }
@@ -405,4 +441,35 @@ public class LoginActivity extends BaseActivity {
             }
         }).start();
     }
+
+
+    /**
+     * 取消倒计时
+     *
+     */
+    public void oncancel() {
+        timer.cancel();
+    }
+
+    /**
+     * 开始倒计时
+     *
+     */
+    public void restart() {
+        timer.start();
+    }
+
+    private CountDownTimer timer = new CountDownTimer(120000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            btnYanzhengma.setText((millisUntilFinished / 1000) + "秒后可重发");
+        }
+
+        @Override
+        public void onFinish() {
+            btnYanzhengma.setEnabled(true);
+            btnYanzhengma.setText("获取验证码");
+        }
+    };
 }

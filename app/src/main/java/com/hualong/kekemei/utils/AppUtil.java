@@ -32,6 +32,7 @@ import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -627,13 +628,9 @@ public class AppUtil {
     }
 
 
-    public static void sendYanZhengMa(String mobile, String event) {
-        try {
+    public static void sendYanZhengMa(String mobile, String event,StringCallback stringCallback) {
             OkGo.<String>get(URLs.SEND).params("mobile", mobile)
-                    .params("event", event).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    .params("event", event).execute(stringCallback);
     }
 
     public static void checkCaptcha(String mobile, String event, String captcha, StringCallback stringCallback) {

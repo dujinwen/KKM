@@ -1,27 +1,28 @@
 
+Zsquid:S1854«";Remove this useless assignment to local variable "content".(¬Ô¾İ8ºÁûê,
+osquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8¨Ê™Õé,
+jsquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(¥”©Ê8ºÁûê,
+X"squid:SwitchLastCaseIsDefaultCheckù""Add a default case to this switch.(ºÖ8ºÁûê,
+qsquid:S00117Ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§í¬ƒ8ºÁûê,
+gsquid:S2259‡"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8ºÁûê,
+Ksquid:S1481«",Remove this unused "content" local variable.(¬Ô¾İ8ºÁûê,
+]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïúÿÿÿÿ8ŠÁûê,
+jsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(®ƒ÷8¨Ê™Õé,
+jsquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(¨Æç8ºÁûê,
+vsquid:S00117¿"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üùÿÿÿÿ8ºÁûê,
+osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ8¨Ê™Õé,
+Esquid:S1172ª"&Remove these unused method parameters.(¿öß¥8ºÁûê,
+nsquid:S1192œ"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜöåúÿÿÿÿ8Å§½ûê,
+hsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(³íº8å¦šùê,
+osquid:CommentedOutCodeLine•"<This block of commented-out lines of code should be removed.(ÛƒÒ—ıÿÿÿÿ8¨Ê™Õé,
+nsquid:UselessImportCheck">Remove this unused import 'android.content.pm.PackageManager'.(€®¥õÿÿÿÿÿ8ŠÁûê,
 psquid:UselessImportCheck
 "ERemove this unused import 'android.support.v4.content.ContextCompat'.(¹†Ç8ŠÁûê,
-osquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8¨Ê™Õé,
-X"squid:SwitchLastCaseIsDefaultCheckù""Add a default case to this switch.(ºÖ8ºÁûê,
-osquid:CommentedOutCodeLine•"<This block of commented-out lines of code should be removed.(ÛƒÒ—ıÿÿÿÿ8¨Ê™Õé,
-jsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(®ƒ÷8¨Ê™Õé,
 rsquid:UselessImportCheck	"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Äüşÿÿÿÿ8ŠÁûê,
-Esquid:S1172ª"&Remove these unused method parameters.(¿öß¥8ºÁûê,
-vsquid:S00117¿"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üùÿÿÿÿ8ºÁûê,
 ]squid:UselessImportCheck"3Remove this unused import 'android.content.Intent'.(³ğ‹G8å¦šùê,
+hsquid:S1192›"IDefine a constant instead of duplicating this literal "latitude" 3 times.(çœî8Å§½ûê,
 osquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ8ºÁûê,
 usquid:UselessImportCheck"ERemove this unused import 'com.hualong.kekemei.activity.PayActivity'.(à¾ˆùüÿÿÿÿ8å¦šùê,
-jsquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(¨Æç8ºÁûê,
-Zsquid:S1854«";Remove this useless assignment to local variable "content".(¬Ô¾İ8ºÁûê,
-gsquid:S2259‡"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8ºÁûê,
-nsquid:UselessImportCheck">Remove this unused import 'android.content.pm.PackageManager'.(€®¥õÿÿÿÿÿ8ŠÁûê,
-hsquid:S1192›"IDefine a constant instead of duplicating this literal "latitude" 3 times.(çœî8Å§½ûê,
-hsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(³íº8å¦šùê,
-gsquid:S2259•"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8ºÁûê,
-nsquid:S1192œ"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜöåúÿÿÿÿ8Å§½ûê,
 qsquid:S00117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èµÆ8ºÁûê,
-osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ8¨Ê™Õé,
-jsquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(¥”©Ê8ºÁûê,
-]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïúÿÿÿÿ8ŠÁûê,
-qsquid:S00117Ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§í¬ƒ8ºÁûê,
-Ksquid:S1481«",Remove this unused "content" local variable.(¬Ô¾İ8ºÁûê,
+gsquid:S2259•"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8ºÁûê,
+jsquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(Ûô¹8±¨èôë,

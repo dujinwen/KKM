@@ -18,10 +18,12 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.BaseActivity;
+import com.hualong.kekemei.activity.LoginActivity;
 import com.hualong.kekemei.activity.MainActivity;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.SPUtils;
+import com.hualong.kekemei.utils.UserHelp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +81,12 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
 
     @OnClick(R.id.btn_home)
     public void onViewClicked() {
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        if (UserHelp.getLogin(getBaseContext(),false)) {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        } else {
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        }
+
     }
 
     private void initViewPager() {
