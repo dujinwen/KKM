@@ -1,0 +1,9 @@
+
+Xsquid:S1854S"<Remove this useless assignment to local variable "textView".(•µ“ïøÿÿÿÿ
+Asquid:S1068)"+Remove this unused "TextIds" private field.(è –7
+isquid:S00116!"QRename this field "ResIds" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Éá
+isquid:S00116)"RRename this field "TextIds" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è –7
+Asquid:S1068!"*Remove this unused "ResIds" private field.(¨Éá
+Isquid:S1481S"-Remove this unused "textView" local variable.(•µ“ïøÿÿÿÿ
+bsquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(á¨­¨
+Lsquid:S1068 "0Remove this unused "mImageCorner" private field.(Û†ÑŒşÿÿÿÿ

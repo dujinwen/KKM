@@ -1,0 +1,11 @@
+
+V"squid:SwitchLastCaseIsDefaultCheck˜""Add a default case to this switch.( ‘ýÙÿÿÿÿÿ
+Csquid:S2185…"&Remove this silly call to "Math.round"(¨Å‘­þÿÿÿÿ
+Vsquid:S3400»"9Remove this method and declare a constant for this value.(Ë‡¸¨þÿÿÿÿ
+Qsquid:S1118":Add a private constructor to hide the implicit public one.(Œ“¡ù
+^squid:S2184†"ACast one of the operands of this division operation to a "float".(ìÌæÐüÿÿÿÿ
+^squid:S2184…"ACast one of the operands of this division operation to a "float".(¨Å‘­þÿÿÿÿ
+Fsquid:S2093H"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+?squid:S11489"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+?squid:S1148s"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Csquid:S2185†"&Remove this silly call to "Math.round"(ìÌæÐüÿÿÿÿ

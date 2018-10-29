@@ -1,0 +1,12 @@
+
+Tsquid:S3398ß"7Move this method into "PingLunBiaoQianGridViewAdapter".(¦ÜàĞúÿÿÿÿ
+‚"squid:ClassVariableVisibilityCheckÕ"NMake tv a static final constant or non-public and provide accessors if needed.(¶Ìêşÿÿÿÿ
+@squid:S1125z")Remove the literal "false" boolean value.(üì
+P"squid:SwitchLastCaseIsDefaultCheckj""Add a default case to this switch.(ºÖ
+hsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(úÑÑöûÿÿÿÿ
+jsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(ê½İÏÿÿÿÿÿ
+vsquid:S1488µ"^Immediately return this expression instead of assigning it to the temporary variable "holder".(¿óîÒ
+hsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ÍÓ¯—úÿÿÿÿ
+Nsquid:S1135\"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ
+„squid:S1450N"mRemove the "pingLunBiaoQianGridViewAdapter" field and declare it as a local variable in the relevant methods.(‹—Âš
+?squid:S1185c"(Remove this method to simply inherit it.(€‡İ¸

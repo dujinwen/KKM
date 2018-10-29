@@ -1,0 +1,7 @@
+
+¤squid:S11863"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ÿ… íıÿÿÿÿ8¤ë÷ê,
+=squid:S1068"&Remove this unused "iv" private field.(“¿”¾
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(±øÄ®
+squid:S1186)"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„êŞÚıÿÿÿÿ
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‘÷Î£úÿÿÿÿ
+lsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(ë²ÅÖ8Ø½Î÷ê,

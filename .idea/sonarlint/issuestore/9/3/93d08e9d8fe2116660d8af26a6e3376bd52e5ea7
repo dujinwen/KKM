@@ -1,0 +1,13 @@
+
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Œœéúÿÿÿÿ8³áÚé,
+isquid:CommentedOutCodeLine#"<This block of commented-out lines of code should be removed.(«¤³ö8°ÀÚé,
+isquid:CommentedOutCodeLine4"<This block of commented-out lines of code should be removed.(°ò‚Ô8»þÚé,
+Xsquid:S18540":Remove this useless assignment to local variable "tvCity".(Ëè°8»þÚé,
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¥µÐúúÿÿÿÿ8³áÚé,
+Nsquid:S14811"+Remove this unused "tvCode" local variable.(Øç²ãûÿÿÿÿ8»þÚé,
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(•ÿÓ´ÿÿÿÿÿ8§ñ“Úé,
+nsquid:CommentedOutCodeLine2"<This block of commented-out lines of code should be removed.(ÑŽá“ýÿÿÿÿ8»þÚé,
+Isquid:S14810"+Remove this unused "tvCity" local variable.(Ëè°8»þÚé,
+ksquid:S1226/"HIntroduce a new variable instead of reusing the parameter "convertView".(‡ª«òýÿÿÿÿ8¥âÚé,
+]squid:S18541":Remove this useless assignment to local variable "tvCode".(Øç²ãûÿÿÿÿ8»þÚé,
+usquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡Ûð€ÿÿÿÿÿ8¥âÚé,

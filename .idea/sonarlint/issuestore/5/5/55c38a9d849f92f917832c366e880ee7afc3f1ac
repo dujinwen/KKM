@@ -1,0 +1,7 @@
+
+osquid:S3776³"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ì–¹ıÿÿÿÿ
+qsquid:S001160"YRename this field "refresh_layout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿ·û
+jsquid:S001163"RRename this field "rv_list" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ü¯Ìâ
+]squid:S1155¹">Use isEmpty() to check whether the collection is empty or not.(÷ÃÈ™8ğç¡ùê,
+Nsquid:S1172Ñ"/Remove this unused method parameter "response".(™©üà8ğç¡ùê,
+Fsquid:S1659A"*Declare "isViewCreate" on a separate line.( Ó«Şüÿÿÿÿ

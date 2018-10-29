@@ -1,0 +1,10 @@
+
+ %squid:RedundantThrowsDeclarationCheck$"jRemove the declaration of thrown exception 'com.google.gson.JsonIOException' which is a runtime exception.(ÚÁ©Şúÿÿÿÿ
+Qsquid:S1118":Add a private constructor to hide the implicit public one.(å·”
+ %squid:RedundantThrowsDeclarationCheck4"jRemove the declaration of thrown exception 'com.google.gson.JsonIOException' which is a runtime exception.(ÑœÏÖıÿÿÿÿ
+¤%squid:RedundantThrowsDeclarationCheck$"nRemove the declaration of thrown exception 'com.google.gson.JsonSyntaxException' which is a runtime exception.(ÚÁ©Şúÿÿÿÿ
+¤%squid:RedundantThrowsDeclarationCheck4"nRemove the declaration of thrown exception 'com.google.gson.JsonSyntaxException' which is a runtime exception.(ÑœÏÖıÿÿÿÿ
+Ÿ%squid:RedundantThrowsDeclarationCheck,"nRemove the declaration of thrown exception 'com.google.gson.JsonSyntaxException' which is a runtime exception.(Ÿª½
+ %squid:RedundantThrowsDeclarationCheck0"jRemove the declaration of thrown exception 'com.google.gson.JsonIOException' which is a runtime exception.(ğ´øüÿÿÿÿ
+¤%squid:RedundantThrowsDeclarationCheck0"nRemove the declaration of thrown exception 'com.google.gson.JsonSyntaxException' which is a runtime exception.(ğ´øüÿÿÿÿ
+›%squid:RedundantThrowsDeclarationCheck,"jRemove the declaration of thrown exception 'com.google.gson.JsonIOException' which is a runtime exception.(Ÿª½

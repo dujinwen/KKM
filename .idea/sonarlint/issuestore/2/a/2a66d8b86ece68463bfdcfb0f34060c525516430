@@ -1,0 +1,22 @@
+
+Nsquid:S1066ˆ"/Merge this if statement with the enclosing one.(×²›™8Â—Ğé,
+Ssquid:S1066­"/Merge this if statement with the enclosing one.(Â—çÆûÿÿÿÿ8Â—Ğé,
+Nsquid:S1066¸"/Merge this if statement with the enclosing one.(õš¿ä8Â—Ğé,
+jsquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(ù®º¶8Â—Ğé,
+Vsquid:S1135®"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8Â—Ğé,
+vsquid:S3776«"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(îÔ˜÷ùÿÿÿÿ8Â—Ğé,
+psquid:S3776§"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(©ÑÉ8Â—Ğé,
+vsquid:S3776î"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(ˆîÛıûÿÿÿÿ8Â—Ğé,
+vsquid:S3776³"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(ÉÎÍïıÿÿÿÿ8Â—Ğé,
+Xsquid:S1172‘"9Remove this unused method parameter "savedInstanceState".(ñœœÇ8Â—Ğé,
+Ysquid:S1854½":Remove this useless assignment to local variable "cursor".(õÓ„Ä8Â—Ğé,
+qsquid:S00117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ØË¡Ï8Â—Ğé,
+qsquid:S00117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â„§µ8Â—Ğé,
+qsquid:S00117Ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕëÃÓ8Â—Ğé,
+Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Â—Ğé,
+Gsquid:S1148¡"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Â—Ğé,
+]squid:S1155ù">Use isEmpty() to check whether the collection is empty or not.(È¦ó÷8Â—Ğé,
+]squid:S1155‰">Use isEmpty() to check whether the collection is empty or not.(È¦ó÷8Â—Ğé,
+]squid:S1155ù">Use isEmpty() to check whether the collection is empty or not.(¡ßƒ‚8Â—Ğé,
+]squid:S1155ÿ">Use isEmpty() to check whether the collection is empty or not.(¦ïšÁ8Â—Ğé,
+]squid:S1155Ÿ">Use isEmpty() to check whether the collection is empty or not.(©ö÷¾8Â—Ğé,

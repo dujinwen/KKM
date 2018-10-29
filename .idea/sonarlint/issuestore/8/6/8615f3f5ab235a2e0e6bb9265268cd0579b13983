@@ -1,0 +1,30 @@
+
+ksquid:S2259±"L"NullPointerException" will be thrown when invoking method "showFragment()".(Ñ²¥8î”¥Öé,
+ysquid:S14506"[Remove the "mainActivity" field and declare it as a local variable in the relevant methods.(›‡Ü¶8î”¥Öé,
+ksquid:S00112›"FDefine and throw a dedicated exception instead of using a generic one.(øí™ùÿÿÿÿ8î”¥Öé,
+jsquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(é°½8î”¥Öé,
+[squid:UnusedPrivateMethodÄ".Remove this unused private "goToOrder" method.(ÍØµ8î”¥Öé,
+"squid:ClassVariableVisibilityCheckÎ"UMake pageParam a static final constant or non-public and provide accessors if needed.(°ıûïûÿÿÿÿ8î”¥Öé,
+•"squid:ClassVariableVisibilityCheckÚ"ZMake titleStringRes a static final constant or non-public and provide accessors if needed.(ùâ‘ıÿÿÿÿ8î”¥Öé,
+“"squid:ClassVariableVisibilityCheckÙ"]Make iconSelectedResId a static final constant or non-public and provide accessors if needed.(ÍªÀ8î”¥Öé,
+Š"squid:ClassVariableVisibilityCheckØ"UMake iconResId a static final constant or non-public and provide accessors if needed.(Šúá8î”¥Öé,
+”"squid:ClassVariableVisibilityCheckÑ"YMake fragmentClass a static final constant or non-public and provide accessors if needed.(„Š©ûÿÿÿÿ8î”¥Öé,
+‡"squid:ClassVariableVisibilityCheckÜ"QMake title a static final constant or non-public and provide accessors if needed.(Å¬õ8î”¥Öé,
+dsquid:S2147"ECombine this catch with the one at line 265, which has the same body.(ıàÑÎ8î”¥Öé,
+]squid:S1155—">Use isEmpty() to check whether the collection is empty or not.(øïÒÕ8î”¥Öé,
+osquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(ŠšÂúÿÿÿÿ8î”¥Öé,
+dsquid:S2147‹"ECombine this catch with the one at line 265, which has the same body.(Å¡ß8î”¥Öé,
+Š"squid:ClassVariableVisibilityCheckĞ"TMake tabTitle a static final constant or non-public and provide accessors if needed.(ì½ÒŸ8î”¥Öé,
+Gsquid:S1148Š"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8î”¥Öé,
+Nsquid:S10686"0Remove this unused "mainActivity" private field.(›‡Ü¶8î”¥Öé,
+fsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(øÓöÑ8î”¥Öé,
+‰"squid:ClassVariableVisibilityCheckÏ"SMake tabIcon a static final constant or non-public and provide accessors if needed.(—ƒü8î”¥Öé,
+]squid:S1155š">Use isEmpty() to check whether the collection is empty or not.(ÌÜï8î”¥Öé,
+msquid:S4201·"IRemove this unnecessary null check; "instanceof" returns false for nulls.(ÇÇËïøÿÿÿÿ8î”¥Öé,
+nsquid:CommentedOutCodeLine^"<This block of commented-out lines of code should be removed.( ÕÉÅøÿÿÿÿ8î”¥Öé,
+Š"squid:ClassVariableVisibilityCheckÒ"TMake tabIndex a static final constant or non-public and provide accessors if needed.(Ö½Ü±8î”¥Öé,
+Š"squid:ClassVariableVisibilityCheckÍ"OMake tag a static final constant or non-public and provide accessors if needed.(ğè„¨úÿÿÿÿ8î”¥Öé,
+fsquid:S00112˜"FDefine and throw a dedicated exception instead of using a generic one.(Ü…«Ş8î”¥Öé,
+Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8î”¥Öé,
+Gsquid:S1148Œ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8î”¥Öé,
+–"squid:ClassVariableVisibilityCheck×"[Make backgroundColor a static final constant or non-public and provide accessors if needed.(ˆëó´şÿÿÿÿ8î”¥Öé,

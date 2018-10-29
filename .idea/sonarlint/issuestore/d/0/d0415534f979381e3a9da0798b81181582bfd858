@@ -1,0 +1,44 @@
+
+Vsquid:S1118;":Add a private constructor to hide the implicit public one.(ÖÜ–Šúÿÿÿÿ
+Gsquid:S00108©")Either remove or fill this block of code.(•”ø¾øÿÿÿÿ
+csquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(ÞÎÂÚ
+@squid:S1148Ý"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+csquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(²ÃÍ
+csquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(Ê¾Óû
+usquid:S1450="^Remove the "mLocationClient" field and declare it as a local variable in the relevant methods.(‚«ýä
+Fsquid:S2093`"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+^squid:S1126–"AReplace this if-then-else statement by a single return statement.(Ãò‚úÿÿÿÿ
+?squid:S1148t"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+hsquid:CommentedOutCodeLineÏ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+csquid:CommentedOutCodeLine¾"<This block of commented-out lines of code should be removed.(£ñ
+:squid:S1643M"Use a StringBuilder instead.(¢†…Õ8Í»ùê,
+Gsquid:S00108´")Either remove or fill this block of code.(•”ø¾øÿÿÿÿ
+@squid:S1148ç"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+hsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(ŸöÌŽúÿÿÿÿ
+usquid:S1450>"^Remove the "mLocationOption" field and declare it as a local variable in the relevant methods.(õÀ µ
+^squid:S1126¸"AReplace this if-then-else statement by a single return statement.(„Ý Åøÿÿÿÿ
+Gsquid:S1148û"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ëÏÚùê,
+hsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(‡ÅñÕýÿÿÿÿ
+csquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(€¤¿á
+rsquid:S1488£"ZImmediately return this expression instead of assigning it to the temporary variable "dm".(ŽªÅ
+csquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(â®´û
+Gsquid:S00108ÿ")Either remove or fill this block of code.(œ®¤÷øÿÿÿÿ
+^squid:S1126Ê"AReplace this if-then-else statement by a single return statement.(Öô©šýÿÿÿÿ
+?squid:S1148Q"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+@squid:S1148ë"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+hsquid:CommentedOutCodeLine¶"<This block of commented-out lines of code should be removed.(ÔŸ¸üùÿÿÿÿ
+?squid:S1148l"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+hsquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(”Ì‚ÿþÿÿÿÿ
+hsquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(ö›“„ÿÿÿÿÿ
+isquid:S00117A"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾¬þæ
+hsquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(‘ˆÃÍÿÿÿÿÿ
+xsquid:S1488ñ"`Immediately return this expression instead of assigning it to the temporary variable "distance".(ü¨éÜ
+:squid:S1643N"Use a StringBuilder instead.(ÅÀö‹8Í»ùê,
+csquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(íßèû
+hsquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(Ò·þ§þÿÿÿÿ
+^squid:S1126Ó"AReplace this if-then-else statement by a single return statement.(§À„¦øÿÿÿÿ
+hsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(‚åÁ£üÿÿÿÿ
+Bsquid:S1181©"%Catch Exception instead of Throwable.(•”ø¾øÿÿÿÿ
+Psquid:S1197ù"8Move the array designator from the variable to the type.(¾éÓ
+hsquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(Âçÿöüÿÿÿÿ
+Bsquid:S1181´"%Catch Exception instead of Throwable.(•”ø¾øÿÿÿÿ

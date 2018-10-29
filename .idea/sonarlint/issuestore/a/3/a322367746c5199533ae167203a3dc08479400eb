@@ -1,0 +1,11 @@
+
+Hsquid:S1068"*Remove this unused "isInit" private field.(º«Î›8Ã´ÃÓé,
+|squid:S1171"YMove the contents of this initializer to a standard constructor or to field initializers.(ÒÌâ–øÿÿÿÿ8Ã´ÃÓé,
+hsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(àØú
+8Ã´ÃÓé,
+isquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(ßŸÖœ8Ã´ÃÓé,
+Ysquid:S2696*"6Make the enclosing method "static" or remove this set.(ñõîÙşÿÿÿÿ8Ã´ÃÓé,
+ssquid:S1450"URemove the "isInit" field and declare it as a local variable in the relevant methods.(º«Î›8Ã´ÃÓé,
+jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(™°Ÿò8Ã´ÃÓé,
+isquid:CommentedOutCodeLineu"<This block of commented-out lines of code should be removed.(ÕŠãŠ8Ã´ÃÓé,
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ñé–”8Ã´ÃÓé,

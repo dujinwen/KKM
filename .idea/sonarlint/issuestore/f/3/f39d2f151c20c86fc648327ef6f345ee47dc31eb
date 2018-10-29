@@ -1,0 +1,30 @@
+
+¥squid:S1186˜"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Äðúµùÿÿÿÿ8³Å ýê,
+Vsquid:S1135®"2Complete the task associated to this TODO comment.(» æžÿÿÿÿÿ8³Å ýê,
+jsquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(ï•þ¼8³Å ýê,
+\"squid:SwitchLastCaseIsDefaultCheckp""Add a default case to this switch.(×“¾ñùÿÿÿÿ8’ÛúÏé,
+lsquid:MaximumInheritanceDepth*"<This class has 8 parents which is greater than 5 authorized.(þàÈí8œ—­øê,
+Gsquid:S1148Ú"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8³Å ýê,
+;squid:S1643Â"Use a StringBuilder instead.(êÐ£ë8³Å ýê,
+Gsquid:S1148“"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8³Å ýê,
+Usquid:S1135S"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ8’ÛúÏé,
+jsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(„Ý¤ì8³Å ýê,
+jsquid:CommentedOutCodeLineß"<This block of commented-out lines of code should be removed.(Ç¬ý›8³Å ýê,
+osquid:S1192î"KDefine a constant instead of duplicating this literal ", message:" 6 times.(Æ¸õ£ýÿÿÿÿ8³Å ýê,
+jsquid:S1226•"FIntroduce a new variable instead of reusing the parameter "eventType".(èœå­üÿÿÿÿ8³Å ýê,
+Lsquid:S1172þ".Remove this unused method parameter "captcha".(¤”ª\8³Å ýê,
+ squid:S1186µ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Õô°š8³Å ýê,
+Vsquid:S1135º"2Complete the task associated to this TODO comment.(» æžÿÿÿÿÿ8³Å ýê,
+jsquid:S1226¡"FIntroduce a new variable instead of reusing the parameter "eventType".(èœå­üÿÿÿÿ8³Å ýê,
+Nsquid:S1066ã"/Merge this if statement with the enclosing one.(±Ó¿±8³Å ýê,
+Ssquid:S2864Á"4Iterate over the "entrySet" instead of the "keySet".(á«ûÀ8³Å ýê,
+Vsquid:S1135´"2Complete the task associated to this TODO comment.(» æžÿÿÿÿÿ8³Å ýê,
+csquid:S3398ò"?Move this method into the anonymous class declared at line 179.(¤…š¹þÿÿÿÿ8³Å ýê,
+ksquid:S1192È"GDefine a constant instead of duplicating this literal "openid" 3 times.(™´Ç¥ùÿÿÿÿ8³Å ýê,
+jsquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(Ç¬ý›8³Å ýê,
+jsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(»˜žž8³Å ýê,
+msquid:S1192¼"NDefine a constant instead of duplicating this literal "LoginActivity" 3 times.(–™Ëè8³Å ýê,
+Ksquid:S1185X"(Remove this method to simply inherit it.(Ðô´·ùÿÿÿÿ8•ºêùê,
+]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïŽúÿÿÿÿ8öÐ¢ýê,
+]squid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(ãÇ¤Úýÿÿÿÿ8öÐ¢ýê,
+rsquid:UselessImportCheck"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Äüþÿÿÿÿ8öÐ¢ýê,

@@ -1,0 +1,20 @@
+
+bsquid:CommentedOutCodeLine="<This block of commented-out lines of code should be removed.(÷èÀª
+isquid:S1223±"LRename this method to prevent any misunderstanding or make it a constructor.(™…ï¢øÿÿÿÿ
+asquid:CommentedOutCodeLineQ"<This block of commented-out lines of code should be removed.(í—¡F
+gsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(À™³¾þÿÿÿÿ
+bsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(ýüð‰
+hsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(ûƒëØøÿÿÿÿ
+csquid:CommentedOutCodeLinež"<This block of commented-out lines of code should be removed.(Ø“«þ
+squid:S1186i"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ð¸™áúÿÿÿÿ
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ûá€ëÿÿÿÿÿ
+gsquid:CommentedOutCodeLines"<This block of commented-out lines of code should be removed.(¬¾äøÿÿÿÿ
+csquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(’Ö¡‘
+Hsquid:S1068)",Remove this unused "hasTitle" private field.(˜ÈŽùûÿÿÿÿ
+asquid:CommentedOutCodeLine9"<This block of commented-out lines of code should be removed.(óÈ¶L
+gsquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(°µõäùÿÿÿÿ
+hsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+Osquid:S1135’"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ
+osquid:S00114°"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(”˜»Ûýÿÿÿÿ
+hsquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ûéüçýÿÿÿÿ
+lsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(Š¤Ø 8©·üê,

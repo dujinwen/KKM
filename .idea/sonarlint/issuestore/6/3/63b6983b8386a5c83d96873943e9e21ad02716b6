@@ -1,0 +1,29 @@
+
+Q"squid:SwitchLastCaseIsDefaultCheckß""Add a default case to this switch.(ºÖ
+Jsquid:S1199à"-Extract this nested code block into a method.( Ç¯Ûùÿÿÿÿ
+ysquid:S1450M"]Remove the "rv_hot_huodong" field and declare it as a local variable in the relevant methods.(¨ííÿıÿÿÿÿ
+csquid:S1301ß"KReplace this "switch" statement by "if" statements to increase readability.(ºÖ
+gsquid:CommentedOutCodeLineq"<This block of commented-out lines of code should be removed.(úğê¼ùÿÿÿÿ
+bsquid:CommentedOutCodeLines"<This block of commented-out lines of code should be removed.(³Ô—§
+gsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(°Ä®šùÿÿÿÿ
+hsquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ïñ…æÿÿÿÿÿ
+hsquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(ëü¨öùÿÿÿÿ
+csquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(Ô½³
+hsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(Ş²ˆÀüÿÿÿÿ
+hsquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(ÄÑ¡¸üÿÿÿÿ
+hsquid:CommentedOutCodeLine¶"<This block of commented-out lines of code should be removed.(ÍÕ¦İûÿÿÿÿ
+hsquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(– àÏúÿÿÿÿ
+csquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(˜ñ›„
+hsquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(Ã·ÌŒşÿÿÿÿ
+hsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(Ã·ÌŒşÿÿÿÿ
+csquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(â¢´‹
+hsquid:CommentedOutCodeLine³"<This block of commented-out lines of code should be removed.(€ªàˆùÿÿÿÿ
+csquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(Ã¨ğ
+csquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(¨œÌÚ
+Osquid:S1135”"2Complete the task associated to this TODO comment.(Ÿ“í‚ÿÿÿÿÿ
+squid:S1186·"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜ Ù—ÿÿÿÿÿ
+?squid:S1185`"(Remove this method to simply inherit it.(ˆÏ€¶
+Esquid:S1185Ê"(Remove this method to simply inherit it.(ÉÎÍïıÿÿÿÿ
+vsquid:S00116M"YRename this field "rv_hot_huodong" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ííÿıÿÿÿÿ
+osquid:S00117Ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘Ãî¢üÿÿÿÿ
+isquid:S00117Õ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È‘È`
