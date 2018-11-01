@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.UserHelp;
 import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.adapter.MeiRongShiListAdapter;
@@ -141,6 +142,7 @@ public class SearchBeauticianFragment extends Fragment implements SearchIPage {
                 .tag(this)
                 .params("keyword", keyword)
                 .params("page", pageNum)
+                .params("user_id", UserHelp.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

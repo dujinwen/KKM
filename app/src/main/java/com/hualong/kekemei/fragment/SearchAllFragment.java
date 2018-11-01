@@ -11,11 +11,12 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.HotSearchBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.URLs;
-import com.hualong.kekemei.bean.HotSearchBean;
+import com.hualong.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -28,8 +29,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.hualong.kekemei.activity.SearchActivity.EXTRA_KEY_KEYWORD;
 
 
 /**
@@ -47,20 +46,9 @@ public class SearchAllFragment extends Fragment implements SearchIPage {
 
     private Unbinder unbinder;
 
-    private String keyWord = "";
-
-    public static SearchAllFragment newInstance(String keyWord) {
+    public static SearchAllFragment newInstance() {
         SearchAllFragment fragment = new SearchAllFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_KEY_KEYWORD, keyWord);
-        fragment.setArguments(bundle);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        keyWord = getArguments().getString(EXTRA_KEY_KEYWORD);
     }
 
     @Nullable
@@ -75,7 +63,7 @@ public class SearchAllFragment extends Fragment implements SearchIPage {
     private void initData() {
         OkGo.<String>post(URLs.HOT_SEARCH)
                 .tag(this)
-                .params("user_id", "1")
+                .params("user_id", UserHelp.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
