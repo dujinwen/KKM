@@ -1,18 +1,17 @@
 
-Q"squid:SwitchLastCaseIsDefaultCheck¯""Add a default case to this switch.(ºÖ
-csquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(ûÈ´Ñ
-csquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(õ²ëã
-ssquid:S00116>"[Rename this field "shop_detail_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“©‰€
-squid:S1186•"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ‘ÿÿÿÿÿÿ
 Ksquid:S1481æ"3Remove this unused "shopDetailBean" local variable.(Üÿ†“
-Dsquid:S1481·",Remove this unused "content" local variable.(¬Ô¾İ
-Ssquid:S1854·";Remove this useless assignment to local variable "content".(¬Ô¾İ
-wsquid:S1450X"[Remove the "hotProjectRv" field and declare it as a local variable in the relevant methods.(èä´©úÿÿÿÿ
-Zsquid:S1854æ"BRemove this useless assignment to local variable "shopDetailBean".(Üÿ†“
-`squid:S2259¡"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½
-ksquid:S001168"SRename this field "iv_share" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÃ¥™
+squid:S1186•"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ‘ÿÿÿÿÿÿ
 ksquid:S001166"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
-psquid:S1450T"YRemove the "markLayout" field and declare it as a local variable in the relevant methods.(·±«“
 `squid:S2259“"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½
-esquid:MaximumInheritanceDepth1"<This class has 8 parents which is greater than 5 authorized.(òÒë
+Ssquid:S1854·";Remove this useless assignment to local variable "content".(¬Ô¾İ
+csquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(õ²ëã
+`squid:S2259¡"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½
+wsquid:S1450X"[Remove the "hotProjectRv" field and declare it as a local variable in the relevant methods.(èä´©úÿÿÿÿ
+ssquid:S00116>"[Rename this field "shop_detail_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“©‰€
+csquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(ûÈ´Ñ
+Q"squid:SwitchLastCaseIsDefaultCheck¯""Add a default case to this switch.(ºÖ
+psquid:S1450T"YRemove the "markLayout" field and declare it as a local variable in the relevant methods.(·±«“
+Dsquid:S1481·",Remove this unused "content" local variable.(¬Ô¾İ
+ksquid:S001168"SRename this field "iv_share" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÃ¥™
+Zsquid:S1854æ"BRemove this useless assignment to local variable "shopDetailBean".(Üÿ†“
 ssquid:S1450V"\Remove the "rvCommentList" field and declare it as a local variable in the relevant methods.(²ºÈÎ

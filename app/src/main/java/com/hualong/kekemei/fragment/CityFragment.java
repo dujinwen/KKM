@@ -12,8 +12,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.ClassifyActivity;
+import com.hualong.kekemei.bean.ProjectListBean;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
@@ -56,7 +63,15 @@ public class CityFragment extends Fragment {
     }
 
     private void initData() {
-        //        OkGo.<String>get(URLs.FAXIAN_URL)
+        OkGo.<String>post(URLs.PROJECT_LIST).params("page", "1").execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e("ShopActivity", "project list:" + response.body());
+                Gson gson = new Gson();
+                ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
+
+            }
+        });
 
     }
 

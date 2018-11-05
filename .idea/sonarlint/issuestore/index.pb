@@ -231,3 +231,7 @@ i
 9app/src/main/java/com/hualong/kekemei/utils/UserHelp.java,3\f\3f7be5f65177bfe3b236b441629e26fa4052cc96
 l
 <app/src/main/java/com/hualong/kekemei/bean/EvaluateBean.java,a\e\aead247fb36043196b645829aacdbfce897fc03a
+[
++app/src/main/res/layout/fragment_person.xml,3\a\3af3dc6b3a29faa877d709a1877bd3b79747a15d
+c
+3app/src/main/res/layout/activity_project_detail.xml,8\c\8ce7091d8eed9bfa3b0e37b5624dcfd3c50d207f

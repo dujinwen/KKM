@@ -19,7 +19,8 @@ public class URLs {
     public static final String ORDER_REFUND = "http://kekemei.ecooth.com/api/order/refund";
     //生成订单
     public static final String ORDER_GENERATING = "http://kekemei.ecooth.com/api/order/generatingOrder";
-
+    //订单搜索
+    public static final String ORDER_SEARCH = "http://kekemei.ecooth.com/api/order/orderSearch";
 
     /**
      * 评论
@@ -48,9 +49,18 @@ public class URLs {
     public static final String MY_ORDER = "http://kekemei.ecooth.com/api/order/myorder";
     //我的优惠券
     public static final String MY_COUPON = " http://kekemei.ecooth.com/api/user/mycoupon";
+    //添加收藏
+    public static final String ADD_COLLECTION = "http://kekeme/api/user/addColleciton";
+    //领取优惠券
+    public static final String COUPON_RECEIVE = "http://kekemei.ecooth.com/api/coupon/receive";
+    //领红包
+    public static final String RED_ENVELOPES_RECEIVE = "http://kekemei.ecooth.com/api/Redenvelopes/receive";
     //为你推荐
     public static final String FOR_YOU = "http://kekemei.ecooth.com/api/project/foryou";
-
+    //我关注的美容师
+    public static final String MY_BEAUTICIAN = "http://kekemei/api/user/myBeautician";
+    //我的收藏
+    public static final String MY_COLLECTION = "http://kekemei.ecooth.com/api/user/mycollection";
 
     /**
      * 首页
@@ -60,7 +70,10 @@ public class URLs {
     public static final String NOTICE_LIST = "http://kekemei.ecooth.com/api/notice/noticelist";
     //首页
     public static final String INDEX = "http://kekemei.ecooth.com/api/index";
-
+    //发现
+    public static final String DISCOVE = "http://kekemei.ecooth.com/api/shop/discove";
+    //发现
+    public static final String PROJECT_CATEGORY = "http://kekemei.ecooth.com/api/project/projectcategory";
 
     /**
      * 美容师
@@ -77,15 +90,15 @@ public class URLs {
      */
     //热搜&amp;搜索历史
     public static final String HOT_SEARCH = "http://kekemei.ecooth.com/api/index/hotsearch";
-    //为你推荐
+    //首页搜索
     public static final String INDEX_SEARCH = "http://kekemei.ecooth.com/api/index/search";
 
     /**
      * 店铺
      */
-    //我的优惠券
+    //附近的店铺
     public static final String SHOP_NEAR = "http://kekemei.ecooth.com/api/shop/nearbyShop";
-    //为你推荐
+    //店铺主页
     public static final String SHOP_DETAILS = "http://kekemei.ecooth.com/api/shop/details";
 
 
@@ -125,5 +138,16 @@ public class URLs {
     public static final String SECOND = "http://kekemei.ecooth.com/api/project/second";
     //项目列表
     public static final String PROJECT_LIST = "http://kekemei.ecooth.com/api/project/projectList";
+    //分类搜索
+    public static final String PROJECT_SEATCH = "http://kekemei.ecooth.com/api/project/search";
+    //按收藏数排序
+    public static final String PROJECT_SORT_COLLECTION = "http://kekemei.ecooth.com/api/project/sortCollection";
+    //按评论数排序
+    public static final String PROJECT_SORT = "http://kekemei.ecooth.com/api/project/sortproject";
+    //秒杀加抢购接口状态数据
+    public static final String PROJECT_SECOND = "http://kekemei.ecooth.com/api/project/second";
+    //按订单数排序
+    public static final String PROJECT_SORT_ORDER = "http://kekemei.ecooth.com/api/project/sortorder";
+
 
 }
