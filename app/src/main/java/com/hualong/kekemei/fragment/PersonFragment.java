@@ -151,12 +151,12 @@ public class PersonFragment extends Fragment {
             }
         });
 
-        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
                 CouponDataBean couponBean = gson.fromJson(response.body(), CouponDataBean.class);
-                tvDaijinnum.setText(couponBean.getData().size());
+                tvDaijinnum.setText(couponBean.getData().size()+"");
             }
         });
     }

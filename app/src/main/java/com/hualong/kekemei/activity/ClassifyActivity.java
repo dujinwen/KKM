@@ -144,6 +144,7 @@ public class ClassifyActivity extends BaseActivity {
                 llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 break;
             case R.id.btn_queren:
+                llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 break;
         }
     }
@@ -299,10 +300,9 @@ public class ClassifyActivity extends BaseActivity {
                         holder.tv.setBackgroundResource(R.mipmap.classification_shaixuan_xuanze_btn_s);
                         holder.tv.setTextColor(0xFF7AD2D2);
                     }
-
                     savePosition(position);
                     isClick = !isClick;
-                    llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+
                 }
             });
         }

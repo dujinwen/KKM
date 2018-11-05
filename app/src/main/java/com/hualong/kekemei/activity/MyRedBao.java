@@ -16,13 +16,13 @@ import butterknife.ButterKnife;
  * Created by peiyangfan on 2018/11/5.
  */
 
-public class MyVoucher extends BaseActivity {
+public class MyRedBao extends BaseActivity {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     private CouponDataBean.DataBean.CouponBean voucherData;
     private BaseQuickAdapter adapter;
 
-    public MyVoucher(CouponDataBean.DataBean.CouponBean voucherData) {
+    public MyRedBao(CouponDataBean.DataBean.CouponBean voucherData) {
         this.voucherData = voucherData;
     }
 

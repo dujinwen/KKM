@@ -72,7 +72,7 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
         ImageView imageView = null;
         for (int i = 0; i < size; i++) {
             imageView = new ImageView(this);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setImageResource(imageList[i]);
             viewList.add(imageView);
         }

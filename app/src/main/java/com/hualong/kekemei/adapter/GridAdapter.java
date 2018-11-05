@@ -1,6 +1,7 @@
 package com.hualong.kekemei.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.activity.JiFenActivity;
 import com.hualong.kekemei.bean.UserBean;
 
 import java.util.List;
@@ -43,7 +45,7 @@ public class GridAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.user_status_item, null);
@@ -60,7 +62,32 @@ public class GridAdapter extends BaseAdapter {
         viewHolder.icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                switch (position) {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        mContext.startActivity(new Intent(mContext, JiFenActivity.class));
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+
+                        break;
+                    default:
+
+                        break;
+                }
             }
         });
         return convertView;

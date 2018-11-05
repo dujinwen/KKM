@@ -212,6 +212,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.MyVoucher" />
+        <activity android:name=".activity.MyRedBao" />
+        <activity android:name=".activity.JiFenActivity" />
     </application>
 
 </manifest>
