@@ -73,7 +73,7 @@ public class MessageFragment
     private ViewPager jViewPager;
 
     private MultipleStatusView multipleStatusView;
-    int status = OrderListBean.ORDER_STATUS_ALL;
+    int status = OrderListBean.ORDER_STATUS_TO_BE_PAID;
     private RecyclerView rv_hot_huodong;
 
     public static OrderListFragment newInstance(int orderStatus) {

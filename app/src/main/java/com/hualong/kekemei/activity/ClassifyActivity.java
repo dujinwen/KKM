@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,9 +13,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.adapter.FindOrderListAdapter;
+import com.hualong.kekemei.bean.HotdataBean;
+import com.hualong.kekemei.bean.ProjectListBean;
+import com.hualong.kekemei.utils.EndLessOnScrollListener;
+import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.view.MultipleStatusView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -75,11 +91,16 @@ public class ClassifyActivity extends BaseActivity {
     LinearLayout llPop;
     @BindView(R.id.btn_queren)
     Button btnQueren;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+    @BindView(R.id.rl_list)
+    RelativeLayout rlList;
     private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
     private ArrayList<String> objects;
-
+    private FindOrderListAdapter listAdapter;
     @SuppressWarnings("unchecked")
     private static ArrayList<Integer> positionArrayList = new ArrayList();
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected int setLayoutId() {
@@ -140,7 +161,9 @@ public class ClassifyActivity extends BaseActivity {
         //        pingLunBiaoQianGridViewAdapter.notifyDataSetChanged();
     }
 
+
     private void setSelect(int id) {
+
         tvMeirong.setSelected(id == R.id.tal_meirong);
         vMeirong.setVisibility(id == R.id.tal_meirong ? View.VISIBLE : View.INVISIBLE);
 
@@ -152,22 +175,103 @@ public class ClassifyActivity extends BaseActivity {
 
         tvQita.setSelected(id == R.id.tal_qita);
         vQita.setVisibility(id == R.id.tal_qita ? View.VISIBLE : View.INVISIBLE);
+        switch (id) {
+            case R.id.tal_meirong:
+                page = 1;
+                category = 1;
+                getData(1, category);
+                break;
+            case R.id.tal_meiti:
+                category = 2;
+                page = 1;
+                getData(1, category);
+                break;
+            case R.id.tal_yangsheng:
+                category = 3;
+                page = 1;
+                getData(1, category);
+                break;
+            case R.id.tal_qita:
+                category = 4;
+                page = 1;
+                getData(1, category);
+                break;
+            default:
+
+                break;
+        }
+
     }
 
 
     @Override
     protected void initData() {
         super.initData();
+        linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        rvList.setLayoutManager(linearLayoutManager);
+        listAdapter = new FindOrderListAdapter(getBaseContext());
+        //        listAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        //            @Override
+        //            public void onLoadMoreRequested() {
+        //                loadMoreData();
+        //            }
+        //        }, rvList);
+        rvList.setAdapter(listAdapter);
 
-
-        //        rvList.setAdapter(new ClassifyAdater());
+        rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                loadMoreData();
+            }
+        });
 
         setSelect(R.id.tal_meirong);
 
 
+        getData(1, 1);
         rvPinglunbiaoqian.setLayoutManager(new GridLayoutManager(ClassifyActivity.this, 3));
         pingLunBiaoQianGridViewAdapter = new PingLunBiaoQianGridViewAdapter();
         rvPinglunbiaoqian.setAdapter(pingLunBiaoQianGridViewAdapter);
+    }
+
+
+    private void loadMoreData() {
+        page = page++;
+        getData(page, category);
+    }
+
+    private int page = 1;
+    private int category = 1;
+    private ArrayList<HotdataBean> arrayList = new ArrayList();
+
+    private void getData(final int page, int category) {
+        OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).params("category", category).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e("ShopActivity", "project list:" + response.body());
+
+                try {
+                    JSONObject obj = new JSONObject(response.body());
+                    if (obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                        multipleStatusView.showEmpty();
+                        return;
+                    }
+                    multipleStatusView.showOutContentView(rvList);
+                    Gson gson = new Gson();
+                    ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
+                    if (page == 1) {
+                        listAdapter.setNewData(projectListBean.getData());
+                    } else {
+                        arrayList.addAll(projectListBean.getData());
+                        listAdapter.setNewData(arrayList);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
     }
 
 
@@ -198,6 +302,7 @@ public class ClassifyActivity extends BaseActivity {
 
                     savePosition(position);
                     isClick = !isClick;
+                    llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 }
             });
         }

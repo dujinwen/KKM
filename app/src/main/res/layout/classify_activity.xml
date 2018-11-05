@@ -59,6 +59,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="美  体"
+                android:textSize="@dimen/px_45"
                 android:textColor="@drawable/selector_comment_find_tab" />
 
             <View
@@ -85,6 +86,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="养  生"
+                android:textSize="@dimen/px_45"
                 android:textColor="@drawable/selector_comment_find_tab" />
 
             <View
@@ -111,6 +113,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="其  他"
+                android:textSize="@dimen/px_45"
                 android:textColor="@drawable/selector_comment_find_tab" />
 
             <View
@@ -149,6 +152,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/px_29">
@@ -160,6 +164,10 @@
             android:background="#FFF">
 
         </android.support.v7.widget.RecyclerView>
+        <com.hualong.kekemei.view.MultipleStatusView
+            android:id="@+id/multiple_status_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/ll_pop"
