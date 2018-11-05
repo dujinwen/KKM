@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +102,7 @@ public class SearchTradeNameFragment extends Fragment implements SearchIPage {
         refresh_layout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refresh_layout.setEnableLoadMore(false);
 
-        rv_list.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+        rv_list.setLayoutManager(new LinearLayoutManager(getActivity()));
         listAdapter = new ShopListAdapter(getActivity(), R.layout.list_shop, null);
         rv_list.setAdapter(listAdapter);
 

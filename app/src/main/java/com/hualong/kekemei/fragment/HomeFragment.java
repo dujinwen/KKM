@@ -16,19 +16,24 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.activity.SearchActivity;
+import com.hualong.kekemei.activity.ShopActivity;
 import com.hualong.kekemei.activity.ShopListActivity;
 import com.hualong.kekemei.adapter.DAVipAdapter;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.BannerBean;
+import com.hualong.kekemei.bean.BeauticianBean;
 import com.hualong.kekemei.bean.CommentTagsBean;
+import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.HomeBean;
+import com.hualong.kekemei.bean.ShopBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
@@ -177,18 +182,32 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvMeirongshi.setHasFixedSize(true);
                 rvMeirongshi.setNestedScrollingEnabled(false);
                 rvMeirongshi.setLayoutManager(layout_meirongshi);
-                MeiRongShiAdapter adapter = new MeiRongShiAdapter(getActivity());
-                rvMeirongshi.setAdapter(adapter);
-                adapter.addData(homeBean.getData().getBeautician());
+                final MeiRongShiAdapter meiRongShiAdapter = new MeiRongShiAdapter(getActivity());
+                rvMeirongshi.setAdapter(meiRongShiAdapter);
+                meiRongShiAdapter.addData(homeBean.getData().getBeautician());
+                meiRongShiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        BeauticianBean data = meiRongShiAdapter.getItem(position);
+                        ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.BEAUTICIAN);
+                    }
+                });
 
                 LinearLayoutManager layout_vip = new LinearLayoutManager(getActivity().getBaseContext());
                 layout_vip.setOrientation(LinearLayoutManager.HORIZONTAL);
                 rvDavipKkm.setHasFixedSize(true);
                 rvDavipKkm.setNestedScrollingEnabled(false);
                 rvDavipKkm.setLayoutManager(layout_vip);
-                DAVipAdapter adapter_vip = new DAVipAdapter(getActivity());
+                final DAVipAdapter adapter_vip = new DAVipAdapter(getActivity());
                 rvDavipKkm.setAdapter(adapter_vip);
                 adapter_vip.addData(homeBean.getData().getShop());
+                adapter_vip.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        ShopBean data = adapter_vip.getItem(position);
+                        ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.SHOP);
+                    }
+                });
 
                 rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);

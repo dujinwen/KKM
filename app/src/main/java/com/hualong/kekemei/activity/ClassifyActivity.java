@@ -243,7 +243,7 @@ public class ClassifyActivity extends BaseActivity {
 
     private int page = 1;
     private int category = 1;
-    private ArrayList<HotdataBean> arrayList = new ArrayList();
+    private ArrayList<HotdataBean> arrayList = new ArrayList<>();
 
     private void getData(final int page, int category) {
         OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).params("category", category).execute(new StringCallback() {

@@ -27,6 +27,7 @@
             android:src="@mipmap/beautician_detail_satisfaction_ic" />
 
         <TextView
+            android:id="@+id/tradingArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="58px"
@@ -156,11 +157,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="优         惠"
+            android:text="服         务"
             android:textColor="#383838"
             android:textSize="40px" />
 
         <TextView
+            android:id="@+id/serviceOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="52px"
@@ -171,6 +173,7 @@
             android:textSize="40px" />
 
         <TextView
+            android:id="@+id/serviceTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="33px"
@@ -181,6 +184,7 @@
             android:textSize="40px" />
 
         <TextView
+            android:id="@+id/serviceThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="33px"
