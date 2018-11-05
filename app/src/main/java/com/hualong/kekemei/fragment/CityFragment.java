@@ -89,7 +89,7 @@ public class CityFragment extends Fragment {
     }
 
     private int page = 1;
-    private ArrayList<HotdataBean> arrayList = new ArrayList();
+    private ArrayList<HotdataBean> arrayList = new ArrayList<>();
 
     private void getData(final int page) {
         OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).execute(new StringCallback() {
