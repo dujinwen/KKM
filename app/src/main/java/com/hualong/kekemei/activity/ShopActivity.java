@@ -72,6 +72,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.shopName)
     TextView shopName;
 
+    @BindView(R.id.tvCollectionCount)
+    TextView tvCollectionCount;
+
     @BindView(R.id.tvFollow)
     TextView tvFollow;
 
@@ -162,6 +165,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         indicatorShopHome.setVisibility(View.VISIBLE);
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
+        initContentHead(contentHead);
 
         View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
 
@@ -188,6 +192,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             contentView.addView(nearbySectionView);
         }
         contentView.addView(commentSectionView);
+    }
+
+    private TextView tradingArea;
+    private TextView serviceOne;
+    private TextView serviceTwo;
+    private TextView serviceThree;
+
+    private void initContentHead(View contentHead) {
+        tradingArea = contentHead.findViewById(R.id.tradingArea);
+        serviceOne = contentHead.findViewById(R.id.serviceOne);
+        serviceTwo = contentHead.findViewById(R.id.serviceTwo);
+        serviceThree = contentHead.findViewById(R.id.serviceThree);
     }
 
     private void initNearbyView(View view) {
@@ -343,6 +359,30 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tv_title.setText("克克美-" + shopDetailBean.getData().getName());
                     shopName.setText(shopDetailBean.getData().getName());
                     shopStar.setStarMark(shopDetailBean.getData().getStart());
+                    tvCollectionCount.setText("粉丝数:" + shopDetailBean.getData().getCollection_count());
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().get$trading())) {
+                        List<String> tradingList = shopDetailBean.getData().get$trading();
+                        StringBuilder tradingText = new StringBuilder();
+                        for (String trading : tradingList) {
+                            tradingText.append(trading).append("    ");
+                        }
+                        tradingArea.setText(tradingText.toString());
+                    }
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getService())) {
+                        List<ShopDetailBean.DataBean.ServiceBean> serviceList = shopDetailBean.getData().getService();
+                        if (serviceList.get(0) != null) {
+                            serviceOne.setText(serviceList.get(0).getName());
+                        }
+                        if (serviceList.get(1) != null) {
+                            serviceTwo.setText(serviceList.get(1).getName());
+                        }
+                        if (serviceList.get(2) != null) {
+                            serviceThree.setText(serviceList.get(2).getName());
+                        }
+                    }
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getBeautician())) {
+                        meiRongShiAdapter.replaceData(shopDetailBean.getData().getBeautician());
+                    }
                 }
             });
         } else {
@@ -371,7 +411,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-        if (detailEnum == DetailEnum.SHOP) {
+        /*if (detailEnum == DetailEnum.SHOP) {
             OkGo.<String>get(URLs.BEAUTICIAN_NEAR).params("longitude", 116.4072154982)
                     .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
                 @Override
@@ -382,7 +422,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     meiRongShiAdapter.addData(meiRongShiListBean.getData());
                 }
             });
-        }
+        }*/
 
         initCommentTags();
 

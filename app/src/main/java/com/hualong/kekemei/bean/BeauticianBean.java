@@ -22,6 +22,12 @@ public class BeauticianBean {
      * tag_text : ["干净卫生","技师专业"]
      * user_id : 1
      * user_nickname : admin
+     * shop_shop_ids : 1,2
+     * place :
+     * speciality :
+     * identity :
+     * redenvelopes_ids : 0
+     * coupon_ids : 0
      * image : /uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg
      * images : /uploads/20181022/2c5d84349965e653baa9870a5311d15d.jpg,/uploads/20181022/0847d20fcb22b348e29a61e333a363b4.jpg,/uploads/20181022/d92905316745b7ce3c0e3d6ddc382c98.jpg
      */
@@ -43,6 +49,13 @@ public class BeauticianBean {
     private List<String> tag_text;
     private String image;
     private String images;
+    private int redenvelopes_ids;
+    private int coupon_ids;
+    private String shop_shop_ids;
+    private String place;
+    private String speciality;
+    private String identity;
+
 
     public String getContent() {
         return content;
@@ -178,5 +191,53 @@ public class BeauticianBean {
 
     public void setImages(String images) {
         this.images = images;
+    }
+
+    public int getRedenvelopes_ids() {
+        return redenvelopes_ids;
+    }
+
+    public void setRedenvelopes_ids(int redenvelopes_ids) {
+        this.redenvelopes_ids = redenvelopes_ids;
+    }
+
+    public int getCoupon_ids() {
+        return coupon_ids;
+    }
+
+    public void setCoupon_ids(int coupon_ids) {
+        this.coupon_ids = coupon_ids;
+    }
+
+    public String getShop_shop_ids() {
+        return shop_shop_ids;
+    }
+
+    public void setShop_shop_ids(String shop_shop_ids) {
+        this.shop_shop_ids = shop_shop_ids;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }
