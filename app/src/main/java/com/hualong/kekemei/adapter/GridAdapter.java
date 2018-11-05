@@ -56,6 +56,13 @@ public class GridAdapter extends BaseAdapter {
         }
         viewHolder.icon.setImageResource(list.get(position).getUserIcon());
         viewHolder.name.setText(list.get(position).getUserName());
+
+        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
         return convertView;
     }
 
