@@ -2,6 +2,7 @@ package com.hualong.kekemei;
 
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.amap.api.location.AMapLocationClient;
 import com.hualong.kekemei.utils.AppCompatUtils;
@@ -14,7 +15,10 @@ import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by peiyangfan on 2018/10/9.
@@ -47,7 +51,22 @@ public class App extends MultiDexApplication {
         initImagePicker();
         // 初始化环信SDK
         initEasemob();
+        initUM();
+    }
 
+    private void initUM() {
+        //设置LOG开关，默认为false
+        UMConfigure.setLogEnabled(true);
+        try {
+            Class<?> aClass = Class.forName("com.umeng.commonsdk.UMConfigure");
+            Field[] fs = aClass.getDeclaredFields();
+            for (Field f:fs){
+                Log.e("xxxxxx","ff="+f.getName()+"   "+f.getType().getName());
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        UMConfigure.init(mContext,UMConfigure.DEVICE_TYPE_PHONE,"5bd2d515b465f57fa40000dc");
     }
 
     private void initImagePicker() {

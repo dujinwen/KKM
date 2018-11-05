@@ -200,7 +200,7 @@ public class LoginActivity extends BaseActivity {
     UMAuthListener authListener = new UMAuthListener() {
         @Override
         public void onStart(SHARE_MEDIA platform) {
-
+            LogUtil.d("LoginActivity", platform + "开始授权成功");
         }
 
         @Override
@@ -472,4 +472,11 @@ public class LoginActivity extends BaseActivity {
             btnYanzhengma.setText("获取验证码");
         }
     };
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+    }
 }

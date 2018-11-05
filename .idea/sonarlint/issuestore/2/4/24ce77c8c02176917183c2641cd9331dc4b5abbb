@@ -1,20 +1,20 @@
 
-nsquid:S1192•"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜצותÿÿÿÿ8ת›ררכ,
 gsquid:S2259”"H"NullPointerException" will be thrown when invoking method "fillTags()".(י½8ת›ררכ,
-Ksquid:S1481×",Remove this unused "content" local variable.(¬װ¾Ý8ת›ררכ,
-Esquid:S1172£"&Remove these unused method parameters.(¿צß¥8ת›ררכ,
-vsquid:S00117¸"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üשÿÿÿÿ8ת›ררכ,
-hsquid:S1192”"IDefine a constant instead of duplicating this literal "latitude" 3 times.(חמ8ת›ררכ,
-osquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(ס¥שרÿÿÿÿ8ת›ררכ,
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ûƒׂ—‎ÿÿÿÿ8ת›ררכ,
-osquid:CommentedOutCodeLineױ"<This block of commented-out lines of code should be removed.(ֱָֽתÿÿÿÿ8ת›ררכ,
-qsquid:S00117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(טµֶ8ת›ררכ,
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(®ƒק8ת›ררכ,
 X"squid:SwitchLastCaseIsDefaultCheckר""Add a default case to this switch.(÷ײ8ת›ררכ,
-]squid:S1858¨">"body" returns a string, there's no need to call "toString()".(˜ƒַק8ת›ררכ,
-qsquid:S00117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ם¬ƒ8ת›ררכ,
+vsquid:S00117¸"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üשÿÿÿÿ8ת›ררכ,
 jsquid:CommentedOutCodeLineֽ"<This block of commented-out lines of code should be removed.(¨ֶח8ת›ררכ,
+qsquid:S00117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(טµֶ8ת›ררכ,
+nsquid:S1192•"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜצותÿÿÿÿ8ת›ררכ,
+hsquid:S1192”"IDefine a constant instead of duplicating this literal "latitude" 3 times.(חמ8ת›ררכ,
+osquid:CommentedOutCodeLineױ"<This block of commented-out lines of code should be removed.(ֱָֽתÿÿÿÿ8ת›ררכ,
+Esquid:S1172£"&Remove these unused method parameters.(¿צß¥8ת›ררכ,
+qsquid:S00117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ם¬ƒ8ת›ררכ,
+osquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(ס¥שרÿÿÿÿ8ת›ררכ,
+jsquid:CommentedOutCodeLineו"<This block of commented-out lines of code should be removed.(¥”©Ê8ת›ררכ,
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ûƒׂ—‎ÿÿÿÿ8ת›ררכ,
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(®ƒק8ת›ררכ,
+Ksquid:S1481×",Remove this unused "content" local variable.(¬װ¾Ý8ת›ררכ,
+]squid:S1858¨">"body" returns a string, there's no need to call "toString()".(˜ƒַק8ת›ררכ,
 osquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(י״»Úûÿÿÿÿ8ת›ררכ,
 gsquid:S2259†"H"NullPointerException" will be thrown when invoking method "fillTags()".(י½8ת›ררכ,
-jsquid:CommentedOutCodeLineו"<This block of commented-out lines of code should be removed.(¥”©Ê8ת›ררכ,
 Zsquid:S1854×";Remove this useless assignment to local variable "content".(¬װ¾Ý8ת›ררכ,

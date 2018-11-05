@@ -1,14 +1,14 @@
 
-Asquid:S1068"+Remove this unused "context" private field.(Í›Á
 isquid:CommentedOutCodeLine8"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
 ~squid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(»êâ§˘ˇˇˇˇ8◊Êú¯Í,
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(‚†ë·¸ˇˇˇˇ
 isquid:CommentedOutCodeLineY"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
 wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(ùÛà©˛ˇˇˇˇ
-isquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
-isquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
 2squid:S3626]"Remove this redundant jump.(˚¡›Ö
-bsquid:CommentedOutCodeLine,"<This block of commented-out lines of code should be removed.(∂€œ¢
 ysquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ç£ìà8◊Êú¯Í,
+Asquid:S1068"+Remove this unused "context" private field.(Í›Á
+bsquid:CommentedOutCodeLine,"<This block of commented-out lines of code should be removed.(∂€œ¢
+isquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
+isquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
 isquid:CommentedOutCodeLine0"<This block of commented-out lines of code should be removed.(ﬂëØô8ù¯ù¯Í,
 isquid:CommentedOutCodeLineQ"<This block of commented-out lines of code should be removed.(∂€œ¢8ù¯ù¯Í,
-wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(‚†ë·¸ˇˇˇˇ

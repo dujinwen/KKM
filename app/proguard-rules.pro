@@ -21,11 +21,16 @@
 #-renamesourcefileattribute SourceFile
 
 #友盟
-    -keep class com.umeng.** {*;}
-
-    -keep class com.newrelic.** { *; }
-    -dontwarn com.newrelic.**
-    -keepattributes Exceptions, Signature, InnerClasses
+   -dontshrink
+   -dontoptimize
+   -dontwarn com.google.android.maps.**
+   -dontwarn android.webkit.WebView
+   -dontwarn com.umeng.**
+   -dontwarn com.tencent.weibo.sdk.**
+   -dontwarn com.facebook.**
+   -keep public class javax.**
+   -keep public class android.webkit.**
+   -dontwarn android.support.v4.**
 
 
  #3D 地图 V5.0.0之前：

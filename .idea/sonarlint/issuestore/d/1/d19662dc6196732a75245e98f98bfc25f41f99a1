@@ -1,8 +1,8 @@
 
-bsquid:S1301T"KReplace this "switch" statement by "if" statements to increase readability.(é∫÷ç
+nsquid:CommentedOutCodeLineX"<This block of commented-out lines of code should be removed.(î©°≈¸ˇˇˇˇ8æﬂ§˘Í,
 bsquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(ŸÆ÷˜
-nsquid:CommentedOutCodeLineW"<This block of commented-out lines of code should be removed.(î©°≈¸ˇˇˇˇ8æﬂ§˘Í,
-gsquid:CommentedOutCodeLines"<This block of commented-out lines of code should be removed.(¡»üÕ˙ˇˇˇˇ
-Nsquid:S1135|"2Complete the task associated to this TODO comment.(◊õ£⁄˘ˇˇˇˇ
 P"squid:SwitchLastCaseIsDefaultCheckT""Add a default case to this switch.(é∫÷ç
-bsquid:CommentedOutCodeLinek"<This block of commented-out lines of code should be removed.(ê®∆Á
+bsquid:S1301T"KReplace this "switch" statement by "if" statements to increase readability.(é∫÷ç
+Nsquid:S1135}"2Complete the task associated to this TODO comment.(◊õ£⁄˘ˇˇˇˇ
+gsquid:CommentedOutCodeLinet"<This block of commented-out lines of code should be removed.(¡»üÕ˙ˇˇˇˇ
+bsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(ê®∆Á
