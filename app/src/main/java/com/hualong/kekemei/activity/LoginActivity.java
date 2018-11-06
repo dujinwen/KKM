@@ -35,6 +35,9 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Map;
 
 import butterknife.BindView;
@@ -221,10 +224,10 @@ public class LoginActivity extends BaseActivity {
                     openId = data.get("openid");
                 } else if (platform == SHARE_MEDIA.QQ) {
                     thirdType = 2;
-                    openId = data.get("unionid");
+                    openId = data.get("openid");
                 } else if (platform == SHARE_MEDIA.SINA) {
                     thirdType = 3;
-                    openId = data.get("unionid");
+                    openId = data.get("openid");
                 }
 
 
@@ -267,8 +270,19 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         LogUtil.d(LoginActivity.this.getLocalClassName(),response.body());
-                        saveUserInfo(response);
-                        toolbar.setTitle("绑定手机");
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response.body());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        String msg = jsonObject.optString("msg");
+                        if (msg.equals("您还没有绑定手机号,请绑定手机号")){
+                            tvTitle.setText("绑定手机");
+                        }else {
+                            saveUserInfo(response);
+                            finish();
+                        }
                         ToastUtil.showToastMsg(LoginActivity.this, "三方登录成功");
                     }
                 });
@@ -294,8 +308,23 @@ public class LoginActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response.body());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        String msg = jsonObject.optString("msg");
+                        if (msg.equals("已被注册,请换个手机号" )){
+                            ToastUtil.showToastMsg(getBaseContext(),msg.toString());
+                            return;
+                        }
                         ToastUtil.showToastMsg(LoginActivity.this, "绑定用户成功");
+
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     }
                 });
     }

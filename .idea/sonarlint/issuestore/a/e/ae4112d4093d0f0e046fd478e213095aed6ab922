@@ -1,3 +1,8 @@
 
-Wsquid:S1481G"4Remove this unused "projectListBean" local variable.(ùÊû‰ùÿÿÿÿ8Æ‡¯žì,
-fsquid:S1854G"CRemove this useless assignment to local variable "projectListBean".(ùÊû‰ùÿÿÿÿ8Æ‡¯žì,
+jsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(¶ùÂ8™Ööºî,
+€squid:S1450?"bRemove the "linearLayoutManager" field and declare it as a local variable in the relevant methods.(„žñš8Ì‰ºµî,
+nsquid:CommentedOutCodeLineo"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ8“ˆôºî,
+[squid:UnusedPrivateMethodb"/Remove this unused private "initBanner" method.(Úü†Í8™Ööºî,
+usquid:S00117P"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øêáãýÿÿÿÿ8ÅŠëºî,
+Ysquid:S2123":Remove this increment or correct the code not to waste it.(Ô¾ö8Ì‰ºµî,
+isquid:CommentedOutCodeLineg"<This block of commented-out lines of code should be removed.(¨Æç8“ˆôºî,

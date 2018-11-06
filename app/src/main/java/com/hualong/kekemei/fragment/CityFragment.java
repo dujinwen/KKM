@@ -17,11 +17,13 @@ import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.ClassifyActivity;
 import com.hualong.kekemei.adapter.FindOrderListAdapter;
+import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.HotdataBean;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.utils.EndLessOnScrollListener;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.URLs;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -75,6 +77,8 @@ public class CityFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvRemenxiangmu.setLayoutManager(linearLayoutManager);
         listAdapter = new FindOrderListAdapter(getActivity());
+        View header_view = getActivity().getLayoutInflater().inflate(R.layout.layout_city_header, (ViewGroup) rvRemenxiangmu.getParent(), false);
+        listAdapter.addHeaderView(header_view);
         rvRemenxiangmu.setAdapter(listAdapter);
         rvRemenxiangmu.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
             @Override
@@ -88,6 +92,27 @@ public class CityFragment extends Fragment {
 
     }
 
+    /**
+     * 初始化XBanner
+     */
+    private void initBanner() {
+        //设置广告图片点击事件
+        xbanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+            @Override
+            public void onItemClick(XBanner banner, Object model, View view, int position) {
+                //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //加载广告图片
+        xbanner.loadImage(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, Object model, View view, int position) {
+                //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
+                //                Glide.with(MainActivity.this).load(((AdvertiseEntity.OthersBean) model).getThumbnail()).placeholder(R.drawable.default_image).error(R.drawable.default_image).into((ImageView) view);
+                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((BannerBean) model).getImage(), (ImageView) view);
+            }
+        });
+    }
     private int page = 1;
     private ArrayList<HotdataBean> arrayList = new ArrayList<>();
 
@@ -105,6 +130,8 @@ public class CityFragment extends Fragment {
                     arrayList.addAll(projectListBean.getData());
                     listAdapter.setNewData(arrayList);
                 }
+
+//                initBanner();
 
             }
         });

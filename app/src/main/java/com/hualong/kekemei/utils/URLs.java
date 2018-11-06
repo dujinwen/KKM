@@ -72,7 +72,7 @@ public class URLs {
     public static final String INDEX = "http://kekemei.ecooth.com/api/index";
     //发现
     public static final String DISCOVE = "http://kekemei.ecooth.com/api/shop/discove";
-    //发现
+    //分类列表
     public static final String PROJECT_CATEGORY = "http://kekemei.ecooth.com/api/project/projectcategory";
 
     /**

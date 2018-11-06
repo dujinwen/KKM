@@ -1,12 +1,12 @@
 
-hsquid:S1301°"KReplace this "switch" statement by "if" statements to increase readability.(×“¾ñùÿÿÿÿ
-bsquid:S1155æ">Use isEmpty() to check whether the collection is empty or not.(ô‡ûÃıÿÿÿÿ8ìª ùê,
-squid:S1319†"rThe type of the "results" object should be an interface such as "List" rather than the implementation "ArrayList".(¤”‡Óşÿÿÿÿ
-csquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(‰•Êè
-qsquid:MaximumInheritanceDepth+"<This class has 8 parents which is greater than 5 authorized.(Æ¯‚­ûÿÿÿÿ8ìª ùê,
-Nsquid:S1135K"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ
-osquid:S3776á"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ì–¹ıÿÿÿÿ
-wsquid:S00115;"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ÿ¾öóÿÿÿÿÿ
-csquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(áÇ¤
-qsquid:S001169"YRename this field "refresh_layout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿ·û
 csquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(Ïò£
+qsquid:MaximumInheritanceDepth+"<This class has 8 parents which is greater than 5 authorized.(Æ¯‚­ûÿÿÿÿ8ìª ùê,
+bsquid:S1155æ">Use isEmpty() to check whether the collection is empty or not.(ô‡ûÃıÿÿÿÿ8ìª ùê,
+Nsquid:S1135K"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ
+csquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(áÇ¤
+wsquid:S00115;"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ÿ¾öóÿÿÿÿÿ
+osquid:S3776á"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ì–¹ıÿÿÿÿ
+squid:S1319†"rThe type of the "results" object should be an interface such as "List" rather than the implementation "ArrayList".(¤”‡Óşÿÿÿÿ
+qsquid:S001169"YRename this field "refresh_layout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œÿ·û
+hsquid:S1301°"KReplace this "switch" statement by "if" statements to increase readability.(×“¾ñùÿÿÿÿ
+csquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(‰•Êè

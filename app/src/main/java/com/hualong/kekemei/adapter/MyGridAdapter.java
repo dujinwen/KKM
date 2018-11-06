@@ -46,6 +46,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             helper.setText(R.id.now_price, item1.getPrice() + "");
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item1.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             //        helper.setText(R.id.tv_renshu,item1.getPrice()+"");
+
             return;
         }
 
@@ -92,6 +93,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             return;
         }
+        helper.addOnClickListener(R.id.ll_huodong);
 
     }
 

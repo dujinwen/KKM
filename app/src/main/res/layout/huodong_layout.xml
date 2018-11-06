@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/px_449"
     android:layout_height="@dimen/px_832"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ll_huodong">
 
     <ImageView
         android:id="@+id/iv_beautician_photo"

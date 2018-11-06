@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.activity.HuiYuanctivity;
 import com.hualong.kekemei.activity.JiFenActivity;
 import com.hualong.kekemei.bean.UserBean;
 
@@ -80,6 +81,7 @@ public class GridAdapter extends BaseAdapter {
                         mContext.startActivity(new Intent(mContext, JiFenActivity.class));
                         break;
                     case 5:
+                        mContext.startActivity(new Intent(mContext, HuiYuanctivity.class));
                         break;
                     case 6:
 

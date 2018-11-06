@@ -831,5 +831,14 @@
     <dimen name="px_91">91px</dimen>
     <dimen name="px_140">140px</dimen>
     <dimen name="px_177">177px</dimen>
+    <dimen name="px_518">518px</dimen>
+    <dimen name="px_138">138px</dimen>
+    <dimen name="px_79">79px</dimen>
+    <dimen name="px_134">134px</dimen>
+    <dimen name="px_102">102px</dimen>
+    <dimen name="px_89">89px</dimen>
+    <dimen name="px_527">527px</dimen>
+    <dimen name="px_229">229px</dimen>
+    <dimen name="px_444">444px</dimen>
 
 </resources>

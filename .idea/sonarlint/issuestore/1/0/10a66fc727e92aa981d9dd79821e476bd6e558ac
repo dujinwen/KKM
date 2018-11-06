@@ -1,14 +1,17 @@
 
-Lsquid:S1172è"/Remove this unused method parameter "response".(®õ¦¬şÿÿÿÿ
-3squid:S3626½"Remove this redundant jump.(ûÁİ…
-squid:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ‘ÿÿÿÿÿÿ
-Csquid:S1481Û"&Remove this unused "i" local variable.(ùó›Ìøÿÿÿÿ
-gsquid:S2259–"O"NullPointerException" will be thrown when invoking method "onResultSuccess()".(Ééğ
-ksquid:S00116/"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
 hsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(òÑâÀüÿÿÿÿ
+3squid:S3626½"Remove this redundant jump.(ûÁİ…
+ksquid:S00116/"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
 >squid:S1172Ñ"&Remove these unused method parameters.(ó™Äü
-jsquid:S3776Ê"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ÅÛäí
-Qsquid:S3400Ö"9Remove this method and declare a constant for this value.(”·³›
-vsquid:S1450J"ZRemove the "isMyComment" field and declare it as a local variable in the relevant methods.(æå¹üÿÿÿÿÿ
+Csquid:S1481Û"&Remove this unused "i" local variable.(ùó›Ìøÿÿÿÿ
 Fsquid:S1481Ü")Remove this unused "item" local variable.(Èè…êşÿÿÿÿ
+vsquid:S1450J"ZRemove the "isMyComment" field and declare it as a local variable in the relevant methods.(æå¹üÿÿÿÿÿ
 csquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(¦„­ó
+gsquid:S2259–"O"NullPointerException" will be thrown when invoking method "onResultSuccess()".(Ééğ
+squid:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ‘ÿÿÿÿÿÿ
+Lsquid:S1172è"/Remove this unused method parameter "response".(®õ¦¬şÿÿÿÿ
+Qsquid:S3400Ö"9Remove this method and declare a constant for this value.(”·³›
+jsquid:S3776Ê"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ÅÛäí
+_squid:UnusedPrivateMethod"2Remove this unused private "showNoNetwork" method.(¿²½ˆ8ßÏÌ·î,
+]squid:S1155Ğ">Use isEmpty() to check whether the collection is empty or not.(üÍÈŸ8ßÏÌ·î,
+qsquid:MaximumInheritanceDepth+"<This class has 8 parents which is greater than 5 authorized.(ŞÙĞÍøÿÿÿÿ8ßÏÌ·î,

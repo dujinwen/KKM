@@ -1,29 +1,28 @@
 
-jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(Ç¬ı›8³Å ıê,
-Ssquid:S2864Ö"4Iterate over the "entrySet" instead of the "keySet".(á«ûÀ8³Å ıê,
-Vsquid:S1135Ş"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8³Å ıê,
-msquid:S1192Ë"NDefine a constant instead of duplicating this literal "LoginActivity" 4 times.(ñğÍ8³Å ıê,
-Lsquid:S1172¢".Remove this unused method parameter "captcha".(¤”ª\8³Å ıê,
-Vsquid:S1135Ø"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8³Å ıê,
-csquid:S3398‡"?Move this method into the anonymous class declared at line 200.(¤…š¹şÿÿÿÿ8³Å ıê,
-`squid:S1226µ"BIntroduce a new variable instead of reusing the parameter "eType".(¢êØ!8»–Õóë,
-¥squid:S1186¼"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Äğúµùÿÿÿÿ8³Å ıê,
-osquid:S1192’"KDefine a constant instead of duplicating this literal ", message:" 6 times.(Æ¸õ£ıÿÿÿÿ8³Å ıê,
-jsquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(Ç¬ı›8³Å ıê,
-Ksquid:S1185_"(Remove this method to simply inherit it.(Ğô´·ùÿÿÿÿ8•ºêùê,
-Gsquid:S1148ş"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³Å ıê,
-Usquid:S1135Y"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ8’ÛúÏé,
-Vsquid:S1135Ò"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8³Å ıê,
-`squid:S1226©"BIntroduce a new variable instead of reusing the parameter "eType".(¢êØ!8»–Õóë,
-isquid:UselessImportCheck">Remove this unused import 'com.hualong.kekemei.utils.SPUtils'.(³ûè×8›ñ²ôë,
-Gsquid:S1148·"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³Å ıê,
 \"squid:SwitchLastCaseIsDefaultCheckw""Add a default case to this switch.(×“¾ñùÿÿÿÿ8’ÛúÏé,
-jsquid:CommentedOutCodeLineë"<This block of commented-out lines of code should be removed.(ï•ş¼8³Å ıê,
+csquid:S3398‡"?Move this method into the anonymous class declared at line 200.(¤…š¹şÿÿÿÿ8³Å ıê,
 ksquid:S1192İ"GDefine a constant instead of duplicating this literal "openid" 3 times.(™´Ç¥ùÿÿÿÿ8³Å ıê,
-Nsquid:S1066ø"/Merge this if statement with the enclosing one.(±Ó¿±8³Å ıê,
-]squid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(ãÇ¤Úıÿÿÿÿ8öĞ¢ıê,
-;squid:S1643×"Use a StringBuilder instead.(êĞ£ë8³Å ıê,
-rsquid:UselessImportCheck	"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Äüşÿÿÿÿ8öĞ¢ıê,
 jsquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(„İ¤ì8³Å ıê,
+osquid:S1192’"KDefine a constant instead of duplicating this literal ", message:" 6 times.(Æ¸õ£ıÿÿÿÿ8³Å ıê,
+`squid:S1226µ"BIntroduce a new variable instead of reusing the parameter "eType".(¢êØ!8»–Õóë,
+Lsquid:S1172¢".Remove this unused method parameter "captcha".(¤”ª\8³Å ıê,
+isquid:UselessImportCheck">Remove this unused import 'com.hualong.kekemei.utils.SPUtils'.(³ûè×8›ñ²ôë,
+`squid:S1226©"BIntroduce a new variable instead of reusing the parameter "eType".(¢êØ!8»–Õóë,
+Usquid:S1135Y"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ8’ÛúÏé,
+rsquid:UselessImportCheck	"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Äüşÿÿÿÿ8öĞ¢ıê,
+]squid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(ãÇ¤Úıÿÿÿÿ8öĞ¢ıê,
+Gsquid:S1148ş"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³Å ıê,
+;squid:S1643×"Use a StringBuilder instead.(êĞ£ë8³Å ıê,
+Vsquid:S1135Ş"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8³Å ıê,
+Vsquid:S1135Ò"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8³Å ıê,
+jsquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(Ç¬ı›8³Å ıê,
+msquid:S1192Ë"NDefine a constant instead of duplicating this literal "LoginActivity" 4 times.(ñğÍ8³Å ıê,
 ]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïúÿÿÿÿ8öĞ¢ıê,
-lsquid:MaximumInheritanceDepth/"<This class has 8 parents which is greater than 5 authorized.(şàÈí8´´Öî,
+Ksquid:S1185_"(Remove this method to simply inherit it.(Ğô´·ùÿÿÿÿ8•ºêùê,
+¥squid:S1186¼"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Äğúµùÿÿÿÿ8³Å ıê,
+jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(Ç¬ı›8³Å ıê,
+Gsquid:S1148·"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³Å ıê,
+jsquid:CommentedOutCodeLineë"<This block of commented-out lines of code should be removed.(ï•ş¼8³Å ıê,
+Vsquid:S1135Ø"2Complete the task associated to this TODO comment.(» æÿÿÿÿÿ8³Å ıê,
+Nsquid:S1066ø"/Merge this if statement with the enclosing one.(±Ó¿±8³Å ıê,
+Ssquid:S2864Ö"4Iterate over the "entrySet" instead of the "keySet".(á«ûÀ8³Å ıê,

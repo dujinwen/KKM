@@ -78,8 +78,8 @@ public class PersonFragment extends Fragment {
     @BindView(R.id.tv_hongbaonum)
     TextView tvHongbaonum;
 
-    private String[] userForwardArray = {"我的订单", "我的钱包", "我的美容师", "我的收藏", "我的积分", "客户服务"};
-    private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_qianbao_btn,
+    private String[] userForwardArray = {"我的订单", "关注的店铺", "我的美容师", "我的收藏", "我的积分", "客户服务"};
+    private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_dianpu_btn,
             R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn, R.mipmap.user_dizhi_btn, R.mipmap.user_kefu_btn};
 
     @Nullable
@@ -134,20 +134,20 @@ public class PersonFragment extends Fragment {
         OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                //                                HongBao hongBao = gson.fromJson(response.body(), HongBao.class);
-                //                                if (hongBao.getCode() == 1 && hongBao.getData().size() != 0) {
-                //                                    llForyou.setVisibility(View.VISIBLE);
-                //                                } else {
-                //                                    llForyou.setVisibility(View.GONE);
-                //                                    return;
-                //                                }
-                //
-                //                                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                //
-                //                                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
-                //                                rvTuijian.setAdapter(adapter);
-                //                                adapter.addData(hongBao.getData());
+//                Gson gson = new Gson();
+//                                                HongBao hongBao = gson.fromJson(response.body(), HongBao.class);
+//                                                if (hongBao.getCode() == 1 && hongBao.getData().size() != 0) {
+//                                                    llForyou.setVisibility(View.VISIBLE);
+//                                                } else {
+//                                                    llForyou.setVisibility(View.GONE);
+//                                                    return;
+//                                                }
+//
+//                                                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//
+//                                                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+//                                                rvTuijian.setAdapter(adapter);
+//                                                adapter.addData(hongBao.getData());
             }
         });
 

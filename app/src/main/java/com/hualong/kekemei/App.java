@@ -34,6 +34,8 @@ public class App extends MultiDexApplication {
     {
         PlatformConfig.setWeixin(Common.WX_APP_ID, Common.WX_APP_SECRET);
         PlatformConfig.setQQZone(Common.QQ_APP_ID, Common.QQ_APP_SECRET);
+//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
     }
 
     public static App getInstance() {

@@ -1,22 +1,22 @@
 
 gsquid:CommentedOutCodeLineg"<This block of commented-out lines of code should be removed.(ìššŸýÿÿÿÿ
-bsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(™ÃˆÒ
-@squid:S1148–"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-gsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(áíüÈùÿÿÿÿ
-gsquid:CommentedOutCodeLine\"<This block of commented-out lines of code should be removed.(™ž¬Ðùÿÿÿÿ
-@squid:S1148Ö"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Esquid:S1481¯".Remove this unused "startTime" local variable.(°¡Á
+Tsquid:S1854¯"=Remove this useless assignment to local variable "startTime".(°¡Á
+bsquid:CommentedOutCodeLineY"<This block of commented-out lines of code should be removed.(ÎÖîœ
 Gsquid:S2093¼"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
-@squid:S1148¡"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Isquid:S1135W"2Complete the task associated to this TODO comment.(úŽð•
+bsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(™ÃˆÒ
 Tsquid:S1854Ä"=Remove this useless assignment to local variable "startTime".(°¡Á
 ksquid:S2095É"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(ÖÆˆ¯ýÿÿÿÿ
-bsquid:CommentedOutCodeLineY"<This block of commented-out lines of code should be removed.(ÎÖîœ
-Tsquid:S1854¯"=Remove this useless assignment to local variable "startTime".(°¡Á
-@squid:S1148¯"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-Osquid:S1197Ê"8Move the array designator from the variable to the type.(ë"
-Isquid:S1135W"2Complete the task associated to this TODO comment.(úŽð•
-Esquid:S1481Ä".Remove this unused "startTime" local variable.(°¡Á
-@squid:S1148à"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-gsquid:CommentedOutCodeLinee"<This block of commented-out lines of code should be removed.(³ž¨¦üÿÿÿÿ
-Esquid:S1481¯".Remove this unused "startTime" local variable.(°¡Á
-Tsquid:S1854€"=Remove this useless assignment to local variable "startTime".(°¡Á
 Esquid:S1481€".Remove this unused "startTime" local variable.(°¡Á
+Tsquid:S1854€"=Remove this useless assignment to local variable "startTime".(°¡Á
+@squid:S1148Ö"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Osquid:S1197Ê"8Move the array designator from the variable to the type.(ë"
+@squid:S1148–"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+@squid:S1148¡"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Esquid:S1481Ä".Remove this unused "startTime" local variable.(°¡Á
+@squid:S1148¯"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+@squid:S1148à"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+gsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(áíüÈùÿÿÿÿ
+gsquid:CommentedOutCodeLine\"<This block of commented-out lines of code should be removed.(™ž¬Ðùÿÿÿÿ
+gsquid:CommentedOutCodeLinee"<This block of commented-out lines of code should be removed.(³ž¨¦üÿÿÿÿ

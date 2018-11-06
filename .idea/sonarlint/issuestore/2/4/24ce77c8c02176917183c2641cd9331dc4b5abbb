@@ -1,20 +1,25 @@
 
-gsquid:S2259”"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8ú›øøë,
-X"squid:SwitchLastCaseIsDefaultCheckø""Add a default case to this switch.(ºÖ8ú›øøë,
-vsquid:S00117¸"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üùÿÿÿÿ8ú›øøë,
-jsquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(¨Æç8ú›øøë,
-qsquid:S00117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èµÆ8ú›øøë,
-nsquid:S1192•"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜöåúÿÿÿÿ8ú›øøë,
-hsquid:S1192”"IDefine a constant instead of duplicating this literal "latitude" 3 times.(çœî8ú›øøë,
-osquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ8ú›øøë,
-Esquid:S1172£"&Remove these unused method parameters.(¿öß¥8ú›øøë,
-qsquid:S00117½"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§í¬ƒ8ú›øøë,
-osquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ8ú›øøë,
-jsquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(¥”©Ê8ú›øøë,
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÛƒÒ—ıÿÿÿÿ8ú›øøë,
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(®ƒ÷8ú›øøë,
-Ksquid:S1481ª",Remove this unused "content" local variable.(¬Ô¾İ8ú›øøë,
-]squid:S1858¨">"body" returns a string, there's no need to call "toString()".(˜ƒÇ÷8ú›øøë,
-osquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ú›øøë,
-gsquid:S2259†"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8ú›øøë,
-Zsquid:S1854ª";Remove this useless assignment to local variable "content".(¬Ô¾İ8ú›øøë,
+vsquid:S00117Ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üùÿÿÿÿ8ú›øøë,
+Ksquid:S1481á",Remove this unused "content" local variable.(¬Ô¾İ8¨¿¯»î,
+jsquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(¥”©Ê8¨¿¯»î,
+qsquid:S00117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èµÆ8ú›øøë,
+Nsquid:S00108ô")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8…ø®»î,
+qsquid:S3776°"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¿öß¥8¨¿¯»î,
+Nsquid:S00108å")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8ã™¯¾î,
+osquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ÛƒÒ—ıÿÿÿÿ8ú›øøë,
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(®ƒ÷8ú›øøë,
+gsquid:S2259½"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8¨¿¯»î,
+X"squid:SwitchLastCaseIsDefaultCheck²""Add a default case to this switch.(ºÖ8¨¿¯»î,
+gsquid:S2259Ë"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8¨¿¯»î,
+Nsquid:S00108’")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8¨¿¯»î,
+Zsquid:S1854á";Remove this useless assignment to local variable "content".(¬Ô¾İ8¨¿¯»î,
+Nsquid:S00108ƒ")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8¬¯»î,
+osquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ8ú›øøë,
+qsquid:S00117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í—ÇŸ8Â³ß·î,
+Esquid:S1172°"&Remove these unused method parameters.(¿öß¥8ú›øøë,
+hsquid:S1192¡"IDefine a constant instead of duplicating this literal "latitude" 3 times.(çœî8¨¿¯»î,
+jsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(¨Æç8¨¿¯»î,
+]squid:S1858µ">"body" returns a string, there's no need to call "toString()".(˜ƒÇ÷8ú›øøë,
+osquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ú›øøë,
+osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ8¨¿¯»î,
+nsquid:S1192¢"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜöåúÿÿÿÿ8¨¿¯»î,

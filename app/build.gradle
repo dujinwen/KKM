@@ -90,7 +90,7 @@ dependencies {
     implementation 'pub.devrel:easypermissions:0.1.9'
     compile 'com.google.android:flexbox:0.2.3'
     implementation project(':mainnavigatetabbar')
-        implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:multidex:1.0.3'
     //https://blog.csdn.net/DDK837239693/article/details/53520162?utm_source=blogxgwz6
     //implementation 'com.daidingkang:flowlayouttag:1.0.0'去掉这个依赖，避免出现两个启动图标
     //环信
@@ -99,10 +99,8 @@ dependencies {
     //    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
     implementation project(':easeui')
     compile 'com.lzy.widget:imagepicker:0.6.1'
-
-//    compile 'com.umeng.sdk:common:1.5.0'
-//    compile 'com.umeng.sdk:utdid:1.1.5.3'
-
-//    compile 'com.umeng.sdk:analytics:7.5.0'
-
+    //    compile 'com.umeng.sdk:common:1.5.0'
+    //    compile 'com.umeng.sdk:utdid:1.1.5.3'
+    //    compile 'com.umeng.sdk:analytics:7.5.0'
+    implementation project(':UMLibrary')
 }

@@ -223,7 +223,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvXinren.setNestedScrollingEnabled(false);
                 rvXinren.setAdapter(adapter1);
                 adapter1.addData(homeBean.getData().getNewmemberdata());
+                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        if (view.getId() == R.id.ll_huodong) {
 
+                        }
+                    }
+                });
 
                 rvRemenxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter4 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.HotdataBean);
@@ -231,7 +238,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvRemenxiangmu.setNestedScrollingEnabled(false);
                 rvRemenxiangmu.setAdapter(adapter4);
                 adapter4.addData(homeBean.getData().getHotdata());
+                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        if (view.getId() == R.id.ll_huodong) {
 
+                        }
+                    }
+                });
 
                 rvHuiyuan.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter2 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.MemberdataBean);
@@ -239,7 +253,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvHuiyuan.setNestedScrollingEnabled(false);
                 rvHuiyuan.setAdapter(adapter2);
                 adapter2.addData(homeBean.getData().getMemberdata());
+                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        if (view.getId() == R.id.ll_huodong) {
 
+                        }
+                    }
+                });
 
                 rvZuixinxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
                 MyGridAdapter adapter3 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.SpecialdataBean);
@@ -247,7 +268,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvZuixinxiangmu.setNestedScrollingEnabled(false);
                 rvZuixinxiangmu.setAdapter(adapter3);
                 adapter3.addData(homeBean.getData().getSpecialdata());
+                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        if (view.getId() == R.id.ll_huodong) {
 
+                        }
+                    }
+                });
                 rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
                 commentAdapter = new EvaluateListAdapter(getActivity(), false);
                 rvCommentList.setHasFixedSize(true);
@@ -404,7 +432,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
-
             case R.id.ll_meirong:
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -414,11 +441,11 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 startActivity(intent);
                 break;
             case R.id.ll_yangsheng:
-                intent.putExtra("type",3);
+                intent.putExtra("type", 3);
                 startActivity(intent);
                 break;
             case R.id.ll_qita:
-                intent.putExtra("type",4);
+                intent.putExtra("type", 4);
                 startActivity(intent);
                 break;
             case R.id.commentTabAll:
