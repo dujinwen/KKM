@@ -40,6 +40,7 @@
             android:layout_width="@dimen/px_230"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:id="@+id/show_select_time"
             android:orientation="vertical">
 
             <ImageView

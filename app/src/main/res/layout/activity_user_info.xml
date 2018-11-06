@@ -9,15 +9,15 @@
     <ImageView
         android:id="@+id/headIcon"
         android:layout_width="match_parent"
-        android:layout_height="560px"
+        android:layout_height="@dimen/px_560"
         android:background="@mipmap/user_head_bg" />
 
     <com.hualong.kekemei.view.CircleImageView
         android:id="@+id/icon"
-        android:layout_width="240px"
-        android:layout_height="240px"
+        android:layout_width="@dimen/px_240"
+        android:layout_height="@dimen/px_240"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="239px"
+        android:layout_marginTop="@dimen/px_240"
         android:src="@mipmap/user_icon_default" />
 
     <include layout="@layout/layout_title_bar" />

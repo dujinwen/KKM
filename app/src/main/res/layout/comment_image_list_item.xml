@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/commentImage"
-        android:layout_width="174px"
-        android:layout_height="168px"
+        android:layout_width="@dimen/px_174"
+        android:layout_height="@dimen/px_168"
         android:src="@mipmap/user_icon_default" />
 
 </LinearLayout>

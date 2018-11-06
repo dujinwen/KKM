@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.HuiYuanctivity;
 import com.hualong.kekemei.activity.JiFenActivity;
+import com.hualong.kekemei.activity.MainActivity;
 import com.hualong.kekemei.bean.UserBean;
 
 import java.util.List;
@@ -65,7 +66,7 @@ public class GridAdapter extends BaseAdapter {
             public void onClick(View v) {
                 switch (position) {
                     case 0:
-
+                        MainActivity.start(mContext,2);
                         break;
                     case 1:
 

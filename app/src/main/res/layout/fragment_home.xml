@@ -47,8 +47,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
+                        android:layout_width="@dimen/px_132"
+                        android:layout_height="@dimen/px_132"
                         android:layout_weight="1"
                         android:background="@mipmap/home_meirong_btn" />
 
@@ -68,8 +68,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
+                        android:layout_width="@dimen/px_132"
+                        android:layout_height="@dimen/px_132"
                         android:layout_weight="1"
                         android:background="@mipmap/home_meiti_btn" />
 
@@ -89,8 +89,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
+                        android:layout_width="@dimen/px_132"
+                        android:layout_height="@dimen/px_132"
                         android:layout_weight="1"
                         android:background="@mipmap/home_yansheng_btn" />
 
@@ -110,8 +110,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="132px"
-                        android:layout_height="132px"
+                        android:layout_width="@dimen/px_132"
+                        android:layout_height="@dimen/px_132"
                         android:layout_weight="1"
                         android:background="@mipmap/home_qita_btn" />
 
@@ -132,8 +132,8 @@
                 android:paddingTop="@dimen/px_32">
 
                 <LinearLayout
-                    android:layout_width="1010px"
-                    android:layout_height="217px"
+                    android:layout_width="@dimen/px_1010"
+                    android:layout_height="@dimen/px_217"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -142,8 +142,8 @@
                         android:src="@mipmap/home_youhuijuan_pic" />
 
                     <LinearLayout
-                        android:layout_width="230px"
-                        android:layout_height="217px"
+                        android:layout_width="@dimen/px_230"
+                        android:layout_height="@dimen/px_217"
                         android:background="@mipmap/home_youhuijian_lingqu_btn"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -152,18 +152,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="50"
-                            android:textSize="53px" />
+                            android:textSize="@dimen/px_53" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="满599立减50"
-                            android:textSize="26px" />
+                            android:textSize="@dimen/px_26" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="230px"
-                        android:layout_height="217px"
+                        android:layout_width="@dimen/px_230"
+                        android:layout_height="@dimen/px_217"
                         android:background="@mipmap/home_youhuijian_lingqu_btn"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -172,18 +172,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="80"
-                            android:textSize="53px" />
+                            android:textSize="@dimen/px_53" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="满899立减80"
-                            android:textSize="26px" />
+                            android:textSize="@dimen/px_26" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="230px"
-                        android:layout_height="217px"
+                        android:layout_width="@dimen/px_230"
+                        android:layout_height="@dimen/px_217"
                         android:background="@mipmap/home_youhuijian_lingqu_btn"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -192,13 +192,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="100"
-                            android:textSize="53px" />
+                            android:textSize="@dimen/px_53" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="满1099立减100"
-                            android:textSize="26px" />
+                            android:textSize="@dimen/px_26" />
                     </LinearLayout>
 
 

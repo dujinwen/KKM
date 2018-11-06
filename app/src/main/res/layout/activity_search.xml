@@ -10,7 +10,7 @@
     <com.hualong.kekemei.view.PagerSlidingTabStrip
         android:id="@+id/searchIndictor"
         android:layout_width="match_parent"
-        android:layout_height="140px"
+        android:layout_height="@dimen/px_140"
         android:background="@color/transparent"
         android:textColor="#C1C1C1"
         android:textSize="13sp"

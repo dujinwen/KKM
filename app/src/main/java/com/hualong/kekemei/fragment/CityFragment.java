@@ -44,12 +44,10 @@ import butterknife.Unbinder;
  */
 public class CityFragment extends Fragment {
 
-    @BindView(R.id.xbanner)
-    XBanner xbanner;
+
     @BindView(R.id.rv_remenxiangmu)
     RecyclerView rvRemenxiangmu;
-    @BindView(R.id.ll_home)
-    LinearLayout llHome;
+
     @BindView(R.id.text_msg)
     TextView textMsg;
     @BindView(R.id.ll_search)
@@ -61,6 +59,8 @@ public class CityFragment extends Fragment {
     ImageView fanhui;
     private FindOrderListAdapter listAdapter;
     private LinearLayoutManager linearLayoutManager;
+    private XBanner xBanner;
+    private View llHotProject;
 
     @Nullable
     @Override
@@ -79,6 +79,9 @@ public class CityFragment extends Fragment {
         listAdapter = new FindOrderListAdapter(getActivity());
         View header_view = getActivity().getLayoutInflater().inflate(R.layout.layout_city_header, (ViewGroup) rvRemenxiangmu.getParent(), false);
         listAdapter.addHeaderView(header_view);
+        xBanner = header_view.findViewById(R.id.xbanner);
+        llHotProject = header_view.findViewById(R.id.ll_hot_project);
+        llHotProject.setVisibility(View.GONE);
         rvRemenxiangmu.setAdapter(listAdapter);
         rvRemenxiangmu.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
             @Override
@@ -97,14 +100,14 @@ public class CityFragment extends Fragment {
      */
     private void initBanner() {
         //设置广告图片点击事件
-        xbanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+        xBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
             }
         });
         //加载广告图片
-        xbanner.loadImage(new XBanner.XBannerAdapter() {
+        xBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
@@ -130,7 +133,7 @@ public class CityFragment extends Fragment {
                     arrayList.addAll(projectListBean.getData());
                     listAdapter.setNewData(arrayList);
                 }
-
+//                xBanner.setData(projectListBean.getBannerBeans(),null);
 //                initBanner();
 
             }

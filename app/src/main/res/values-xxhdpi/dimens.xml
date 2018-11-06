@@ -840,5 +840,16 @@
     <dimen name="px_527">527px</dimen>
     <dimen name="px_229">229px</dimen>
     <dimen name="px_444">444px</dimen>
+    <dimen name="px_189">189px</dimen>
+    <dimen name="px_143">143px</dimen>
+    <dimen name="px_68">68px</dimen>
+    <dimen name="px_5">5px</dimen>
+    <dimen name="px_622">622px</dimen>
+    <dimen name="px_560">560px</dimen>
+    <dimen name="px_240">240px</dimen>
+    <dimen name="px_168">168px</dimen>
+    <dimen name="px_174">174px</dimen>
+    <dimen name="px_132">132px</dimen>
+    <dimen name="px_1010">1010px</dimen>
 
 </resources>

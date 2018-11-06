@@ -21,6 +21,7 @@ import com.hualong.kekemei.adapter.GridAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.CouponDataBean;
 import com.hualong.kekemei.bean.ForYouBean;
+import com.hualong.kekemei.bean.HongBaoDataBean;
 import com.hualong.kekemei.bean.UserBean;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.utils.UserHelp;
@@ -30,6 +31,9 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +113,6 @@ public class PersonFragment extends Fragment {
         ncgv.setAdapter(gridAdapter);
 
 
-
         OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -134,20 +137,22 @@ public class PersonFragment extends Fragment {
         OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-//                Gson gson = new Gson();
-//                                                HongBao hongBao = gson.fromJson(response.body(), HongBao.class);
-//                                                if (hongBao.getCode() == 1 && hongBao.getData().size() != 0) {
-//                                                    llForyou.setVisibility(View.VISIBLE);
-//                                                } else {
-//                                                    llForyou.setVisibility(View.GONE);
-//                                                    return;
-//                                                }
-//
-//                                                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-//
-//                                                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
-//                                                rvTuijian.setAdapter(adapter);
-//                                                adapter.addData(hongBao.getData());
+                Gson gson = new Gson();
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                       tvHongbaonum.setText("0");
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                HongBaoDataBean hongBao = gson.fromJson(response.body(), HongBaoDataBean.class);
+                tvHongbaonum.setText(hongBao.getData().size()+"");
+
             }
         });
 
@@ -155,8 +160,19 @@ public class PersonFragment extends Fragment {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        tvDaijinnum.setText("0");
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 CouponDataBean couponBean = gson.fromJson(response.body(), CouponDataBean.class);
-                tvDaijinnum.setText(couponBean.getData().size()+"");
+                tvDaijinnum.setText(couponBean.getData().size() + "");
             }
         });
     }

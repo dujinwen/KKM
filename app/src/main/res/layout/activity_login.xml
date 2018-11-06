@@ -41,10 +41,10 @@
 
         <ImageView
             android:id="@+id/iv_share"
-            android:layout_width="58px"
+            android:layout_width="@dimen/px_58"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginRight="75px"
+            android:layout_marginRight="@dimen/px_75"
             android:src="@mipmap/share_btn"
             android:visibility="gone" />
 

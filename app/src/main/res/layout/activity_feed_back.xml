@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/edt_content"
         android:layout_width="match_parent"
-        android:layout_height="622px"
+        android:layout_height="@dimen/px_622"
         android:layout_marginLeft="@dimen/px_37"
         android:layout_marginRight="@dimen/px_37"
         android:layout_marginTop="@dimen/px_27"
@@ -27,11 +27,11 @@
     <TextView
         android:id="@+id/txtContactService"
         android:layout_width="match_parent"
-        android:layout_height="122px"
+        android:layout_height="@dimen/px_122"
         android:layout_marginBottom="@dimen/help_center_page_custom_service_bottom_margin"
         android:layout_marginLeft="@dimen/px_37"
         android:layout_marginRight="@dimen/px_37"
-        android:layout_marginTop="137px"
+        android:layout_marginTop="@dimen/px_137"
         android:background="@drawable/shape_border_radius"
         android:gravity="center"
         android:text="提      交"

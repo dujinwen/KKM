@@ -60,7 +60,7 @@
                     ratingbar:starDistance="4dp"
                     ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
                     ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                    ratingbar:starSize="40px" />
+                    ratingbar:starSize="@dimen/px_40" />
             </LinearLayout>
 
             <TextView
