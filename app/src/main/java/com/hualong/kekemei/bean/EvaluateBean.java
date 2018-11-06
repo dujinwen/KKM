@@ -2,7 +2,7 @@ package com.hualong.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EvaluateBean extends BaseBean {
+public class EvaluateBean{
     /**
      * id : 1
      * user_id : 1

@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.FindOrderListAdapter;
-import com.hualong.kekemei.bean.HotdataBean;
+import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.utils.EndLessOnScrollListener;
 import com.hualong.kekemei.utils.LogUtil;
@@ -263,7 +263,7 @@ public class ClassifyActivity extends BaseActivity {
 
     private int page = 1;
     private int category = 1;
-    private ArrayList<HotdataBean> arrayList = new ArrayList<>();
+    private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
     private void getData(final int page, int category) {
         OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).params("category", category).execute(new StringCallback() {

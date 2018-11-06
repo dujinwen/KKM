@@ -14,7 +14,7 @@ public class ProjectListBean {
     private int code;
     private String msg;
     private String time;
-    private List<HotdataBean> data;
+    private List<BaseBean> data;
 
     public int getCode() {
         return code;
@@ -40,11 +40,11 @@ public class ProjectListBean {
         this.time = time;
     }
 
-    public List<HotdataBean> getData() {
+    public List<BaseBean> getData() {
         return data;
     }
 
-    public void setData(List<HotdataBean> data) {
+    public void setData(List<BaseBean> data) {
         this.data = data;
     }
 }

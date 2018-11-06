@@ -6,12 +6,8 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.bean.DataBean;
-import com.hualong.kekemei.utils.URLs;
-import com.hualong.kekemei.bean.HotdataBean;
 import com.hualong.kekemei.bean.BaseBean;
-import com.hualong.kekemei.bean.ForYouBean;
-import com.hualong.kekemei.bean.HomeBean;
+import com.hualong.kekemei.utils.URLs;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 /**
@@ -39,60 +35,11 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, BaseBean item) {
-        if (type == NewmemberdataBean) {
-            HomeBean.DataBean.NewmemberdataBean item1 = (HomeBean.DataBean.NewmemberdataBean) item;
             //                setData(item1);
-            helper.setText(R.id.tv_name, item1.getName());
-            helper.setText(R.id.now_price, item1.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item1.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
+            helper.setText(R.id.tv_name, item.getName());
+            helper.setText(R.id.now_price, item.getPrice_newmember() + "");
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             //        helper.setText(R.id.tv_renshu,item1.getPrice()+"");
-
-            return;
-        }
-
-
-        if (type == HotdataBean) {
-
-            HotdataBean item2 = (HotdataBean) item;
-            //                setData(item1);
-            helper.setText(R.id.tv_name, item2.getName());
-            helper.setText(R.id.now_price, item2.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item2.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
-
-            return;
-        }
-        if (type == MemberdataBean) {
-            HomeBean.DataBean.MemberdataBean item3 = (HomeBean.DataBean.MemberdataBean) item;
-            //                setData(item1);
-            helper.setText(R.id.tv_name, item3.getName());
-            helper.setText(R.id.now_price, item3.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item3.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
-            return;
-        }
-        if (type == SpecialdataBean) {
-            HomeBean.DataBean.SpecialdataBean item4 = (HomeBean.DataBean.SpecialdataBean) item;
-            //                setData(item1);
-            helper.setText(R.id.tv_name, item4.getName());
-            helper.setText(R.id.now_price, item4.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
-            return;
-        }
-        if (type == ORDER_HOT_BEAN) {
-            DataBean item4 = (DataBean) item;
-            //                setData(item1);
-            helper.setText(R.id.tv_name, item4.getName());
-            helper.setText(R.id.now_price, item4.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
-            return;
-        }
-        if (type == PERSON_TUI_JIAN){
-            ForYouBean.DataBean item4 = (ForYouBean.DataBean) item;
-            //                setData(item1);
-            helper.setText(R.id.tv_name, item4.getName());
-            helper.setText(R.id.now_price, item4.getPrice() + "");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item4.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
-            return;
-        }
         helper.addOnClickListener(R.id.ll_huodong);
 
     }

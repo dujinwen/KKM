@@ -49,15 +49,15 @@ public class SearchResultBean {
     }
 
     public static class DataBean {
-        private List<HotdataBean> project;
+        private List<BaseBean> project;
         private List<ShopBean> shop;
         private List<BeauticianBean> beautician;
 
-        public List<HotdataBean> getProject() {
+        public List<BaseBean> getProject() {
             return project;
         }
 
-        public void setProject(List<HotdataBean> project) {
+        public void setProject(List<BaseBean> project) {
             this.project = project;
         }
 

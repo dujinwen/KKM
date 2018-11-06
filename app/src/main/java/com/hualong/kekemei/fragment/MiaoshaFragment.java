@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.MiaoshaListAdapter;
-import com.hualong.kekemei.bean.HotdataBean;
+import com.hualong.kekemei.bean.BaseBean;
 
 import java.util.List;
 
@@ -29,13 +29,13 @@ public class MiaoshaFragment extends Fragment {
     RecyclerView miaoshaRv;
 
     private Unbinder unbinder;
-    private List<HotdataBean> projectData;
+    private List<BaseBean> projectData;
 
-    public void setProjectData(List<HotdataBean> projectData) {
+    public void setProjectData(List<BaseBean> projectData) {
         this.projectData = projectData;
     }
 
-    public static MiaoshaFragment newInstance(List<HotdataBean> project_data) {
+    public static MiaoshaFragment newInstance(List<BaseBean> project_data) {
         MiaoshaFragment fragment = new MiaoshaFragment();
         fragment.setProjectData(project_data);
         return fragment;

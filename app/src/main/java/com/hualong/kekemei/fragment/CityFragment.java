@@ -18,7 +18,7 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.ClassifyActivity;
 import com.hualong.kekemei.adapter.FindOrderListAdapter;
 import com.hualong.kekemei.bean.BannerBean;
-import com.hualong.kekemei.bean.HotdataBean;
+import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.utils.EndLessOnScrollListener;
 import com.hualong.kekemei.utils.LogUtil;
@@ -117,7 +117,7 @@ public class CityFragment extends Fragment {
         });
     }
     private int page = 1;
-    private ArrayList<HotdataBean> arrayList = new ArrayList<>();
+    private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
     private void getData(final int page) {
         OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).execute(new StringCallback() {

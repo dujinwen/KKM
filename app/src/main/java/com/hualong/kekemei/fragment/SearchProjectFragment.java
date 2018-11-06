@@ -13,13 +13,13 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.adapter.MyGridAdapter;
+import com.hualong.kekemei.bean.BaseBean;
+import com.hualong.kekemei.bean.SearchResultBean;
 import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.utils.UserHelp;
 import com.hualong.kekemei.view.MultipleStatusView;
-import com.hualong.kekemei.utils.URLs;
-import com.hualong.kekemei.adapter.MyGridAdapter;
-import com.hualong.kekemei.bean.HotdataBean;
-import com.hualong.kekemei.bean.SearchResultBean;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -229,7 +229,7 @@ public class SearchProjectFragment extends Fragment implements SearchIPage {
         listAdapter.loadMoreFail();
     }
 
-    public void loadMoreSuccess(List<HotdataBean> dataList) {
+    public void loadMoreSuccess(List<BaseBean> dataList) {
         listAdapter.addData(dataList);
     }
 
@@ -241,7 +241,7 @@ public class SearchProjectFragment extends Fragment implements SearchIPage {
         listAdapter.loadMoreComplete();
     }
 
-    public void showData(List<HotdataBean> dataList) {
+    public void showData(List<BaseBean> dataList) {
         if (isOnDestory)
             return;
         multipleStatusView.showOutContentView(refresh_layout);

@@ -87,7 +87,7 @@ public class MiaoshaBean {
             private String project_project_ids;
             private String state;
             private String state_text;
-            private List<HotdataBean> project_data;
+            private List<BaseBean> project_data;
 
             public int getId() {
                 return id;
@@ -145,11 +145,11 @@ public class MiaoshaBean {
                 this.state_text = state_text;
             }
 
-            public List<HotdataBean> getProject_data() {
+            public List<BaseBean> getProject_data() {
                 return project_data;
             }
 
-            public void setProject_data(List<HotdataBean> project_data) {
+            public void setProject_data(List<BaseBean> project_data) {
                 this.project_data = project_data;
             }
         }
