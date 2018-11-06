@@ -55,6 +55,7 @@
             ratingbar:starSize="40px" />
 
         <TextView
+            android:id="@+id/tvOrderCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/px_40"

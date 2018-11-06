@@ -24,15 +24,22 @@
                 android:layout_height="wrap_content">
 
                 <include layout="@layout/section_detail_content_layout" />
-                <include layout="@layout/section_shop_detail_top_head_layout"/>
-                <include layout="@layout/section_detail_select_time_layout"/>
+
+                <include layout="@layout/section_shop_detail_top_head_layout" />
+
+                <include layout="@layout/section_detail_select_time_layout" />
 
             </RelativeLayout>
         </ScrollView>
+
     </LinearLayout>
 
     <include
         android:id="@+id/layoutBottomBar"
         layout="@layout/section_shop_detail_bottom_bar_layout" />
 
+    <com.hualong.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>
