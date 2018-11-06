@@ -26,6 +26,7 @@
             android:textSize="@dimen/px_35" />
 
         <TextView
+            android:id="@+id/tv_jifennum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2409.00"

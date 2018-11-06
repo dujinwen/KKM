@@ -128,6 +128,7 @@ public class ClassifyActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fanhui:
+                finish();
                 break;
             case R.id.tal_meirong:
             case R.id.tal_meiti:
