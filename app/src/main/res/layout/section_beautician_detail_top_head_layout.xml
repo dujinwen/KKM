@@ -88,6 +88,7 @@
             android:src="@mipmap/beautician_detail_photo_pic" />
 
         <TextView
+            android:id="@+id/tvSatisfaction"
             android:layout_width="@dimen/px_275"
             android:layout_height="@dimen/px_82"
             android:layout_centerHorizontal="true"

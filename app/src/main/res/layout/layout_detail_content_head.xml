@@ -88,6 +88,7 @@
         android:paddingLeft="29px">
 
         <TextView
+            android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="北京市大兴区胜利镇马头街22号"
@@ -95,6 +96,7 @@
             android:textSize="40px" />
 
         <TextView
+            android:id="@+id/tvDistance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="170px"

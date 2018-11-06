@@ -82,6 +82,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tvFollow)
     TextView tvFollow;
 
+    @BindView(R.id.tvSatisfaction)
+    TextView tvSatisfaction;
+
     @BindView(R.id.shopStar)
     StarBar shopStar;
 
@@ -102,6 +105,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
+
+    private ImageView callPhone;
 
     private View commentSectionView;
     private TextView userCommentNum;
@@ -178,6 +183,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         multipleStatusView.showOutContentView(scrollLayout);
 
+        if (detailEnum == DetailEnum.SHOP) {
+            callPhone = findViewById(R.id.callphone);
+        }
+
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
         initContentHead(contentHead);
 
@@ -212,12 +221,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView serviceOne;
     private TextView serviceTwo;
     private TextView serviceThree;
+    private TextView tvAddress;
+    private TextView tvDistance;
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
         serviceOne = contentHead.findViewById(R.id.serviceOne);
         serviceTwo = contentHead.findViewById(R.id.serviceTwo);
         serviceThree = contentHead.findViewById(R.id.serviceThree);
+        tvAddress = contentHead.findViewById(R.id.tvAddress);
+        tvDistance = contentHead.findViewById(R.id.tvDistance);
     }
 
     private void initNearbyView(View view) {
@@ -374,20 +387,35 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     LogUtil.e(TAG, "shop detail:" + response.body());
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
-                    ShopDetailBean detailBean = gson.fromJson(response.body(), ShopDetailBean.class);
+                    final ShopDetailBean detailBean = gson.fromJson(response.body(), ShopDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
                     tv_title.setText("克克美-" + detailBean.getData().getName());
                     shopName.setText(detailBean.getData().getName());
                     shopStar.setStarMark(detailBean.getData().getStart());
                     tvOrderCount.setText("服务人数:  " + detailBean.getData().getOrder_count());
                     tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getCollection_count());
+                    tvSatisfaction.setText(detailBean.getData().get$satisfaction() + "%满意度");
+                    tvAddress.setText(detailBean.getData().getAddress());
+                    tvDistance.setText(detailBean.getData().getDistance());
+                    if (StringUtils.isNotBlank(detailBean.getData().getTel())) {
+                        LogUtil.e(TAG, "tel:" + detailBean.getData().getTel());
+                        callPhone.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                LogUtil.e(TAG, "click tel:" + detailBean.getData().getTel());
+                                AppUtil.callPhone(ShopActivity.this, detailBean.getData().getTel());
+                            }
+                        });
+                    }
                     if (detailBean.getData().getIscollection() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
+                        tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.common_text_dark));
                         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn_1));
                     } else {
                         tvFollow.setText("关注");
                         tvFollow.setClickable(true);
+                        tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.white));
                         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getStrading())) {
@@ -454,13 +482,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     shopStar.setStarMark(detailBean.getData().getStart());
                     tvOrderCount.setText("服务人数:  " + detailBean.getData().getOrder_count());
                     tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getFriend_count());
+                    tvSatisfaction.setText(detailBean.getData().getSatisfaction() + "%满意度");
+                    tvAddress.setText(detailBean.getData().getAddress());
+//                    tvDistance.setText(detailBean.getData().getDistance());
                     if (detailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
+                        tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.common_text_dark));
                         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn_1));
                     } else {
                         tvFollow.setText("关注");
                         tvFollow.setClickable(true);
+                        tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.white));
                         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getStrading())) {
@@ -549,5 +582,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 commentTagFlowLayout.addView(txt);
             }
         }
+    }
+
+    public void phoneClick(View view) {
+
     }
 }
