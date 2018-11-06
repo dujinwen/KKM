@@ -254,7 +254,7 @@ public class MessageFragment
 
     @Override
     public void showEmpty() {
-        multipleStatusView.showEmpty();
+        multipleStatusView.showEmpty(R.mipmap.default_dingdan);
     }
 
     @Override

@@ -254,7 +254,7 @@ public class ClassifyActivity extends BaseActivity {
                 try {
                     JSONObject obj = new JSONObject(response.body());
                     if (obj.getString("data") == null || obj.getString("data").isEmpty()) {
-                        multipleStatusView.showEmpty();
+                        multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                         return;
                     }
                     multipleStatusView.showOutContentView(rvList);

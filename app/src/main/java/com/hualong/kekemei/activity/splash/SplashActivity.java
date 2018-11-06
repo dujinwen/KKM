@@ -86,6 +86,7 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
         } else {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
         }
+        finish();
 
     }
 

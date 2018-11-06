@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
@@ -79,17 +80,17 @@ public class MultipleStatusView extends RelativeLayout {
     }
 
 
-//    @Override protected void onDetachedFromWindow() {
-//        super.onDetachedFromWindow();
-//        clear(mEmptyView, mLoadingView, mErrorView, mNoNetworkView);
-//        if (null != mOtherIds) {
-//            mOtherIds.clear();
-//        }
-//        if (null != mOnRetryClickListener) {
-//            mOnRetryClickListener = null;
-//        }
-//        mInflater = null;
-//    }
+    //    @Override protected void onDetachedFromWindow() {
+    //        super.onDetachedFromWindow();
+    //        clear(mEmptyView, mLoadingView, mErrorView, mNoNetworkView);
+    //        if (null != mOtherIds) {
+    //            mOtherIds.clear();
+    //        }
+    //        if (null != mOnRetryClickListener) {
+    //            mOnRetryClickListener = null;
+    //        }
+    //        mInflater = null;
+    //    }
 
 
     /**
@@ -112,7 +113,14 @@ public class MultipleStatusView extends RelativeLayout {
      * 显示空视图
      */
     public final void showEmpty() {
-        showEmpty(mEmptyViewResId, DEFAULT_LAYOUT_PARAMS);
+        showEmpty(mEmptyViewResId, DEFAULT_LAYOUT_PARAMS,-1);
+    }
+
+    /**
+     * 显示空视图
+     */
+    public final void showEmpty(int id) {
+        showEmpty(mEmptyViewResId, DEFAULT_LAYOUT_PARAMS,id);
     }
 
     /**
@@ -121,8 +129,8 @@ public class MultipleStatusView extends RelativeLayout {
      * @param layoutId      自定义布局文件
      * @param needMarginTop 是否需要距离顶部的留白
      */
-    public final void showEmpty(int layoutId, boolean needMarginTop) {
-        showEmpty(inflateView(layoutId), needMarginTop ? DEFAULT_LAYOUT_PARAMS_MARGIN_TOP : DEFAULT_LAYOUT_PARAMS);
+    public final void showEmpty(int layoutId, boolean needMarginTop,int id) {
+        showEmpty(inflateView(layoutId), needMarginTop ? DEFAULT_LAYOUT_PARAMS_MARGIN_TOP : DEFAULT_LAYOUT_PARAMS,id);
     }
 
     /**
@@ -131,9 +139,10 @@ public class MultipleStatusView extends RelativeLayout {
      * @param layoutId     自定义布局文件
      * @param layoutParams 布局参数
      */
-    public final void showEmpty(int layoutId, ViewGroup.LayoutParams layoutParams) {
-        showEmpty(inflateView(layoutId), layoutParams);
+    public final void showEmpty(int layoutId, ViewGroup.LayoutParams layoutParams,int id) {
+        showEmpty(inflateView(layoutId), layoutParams, id);
     }
+
 
     /**
      * 显示空视图
@@ -141,14 +150,18 @@ public class MultipleStatusView extends RelativeLayout {
      * @param view         自定义视图
      * @param layoutParams 布局参数
      */
-    public final void showEmpty(View view, ViewGroup.LayoutParams layoutParams) {
+    public final void showEmpty(View view, ViewGroup.LayoutParams layoutParams, int id) {
         checkNull(view, "Empty view is null!");
         mViewStatus = STATUS_EMPTY;
         if (null == mEmptyView) {
             mEmptyView = view;
             View emptyRetryView = mEmptyView.findViewById(R.id.common_empty_retry_view);
+            if (id != -1){
+                ImageView iv_nodata = mEmptyView.findViewById(R.id.iv_nodata);
+                iv_nodata.setImageResource(id);
+            }
             if (null != mOnRetryClickListener && null != emptyRetryView) {
-//                emptyRetryView.setOnClickListener(mOnRetryClickListener);
+                //                emptyRetryView.setOnClickListener(mOnRetryClickListener);
             }
             mOtherIds.add(mEmptyView.getId());
             addView(mEmptyView, 0, layoutParams);
@@ -194,10 +207,10 @@ public class MultipleStatusView extends RelativeLayout {
         mViewStatus = STATUS_ERROR;
         if (null == mErrorView) {
             mErrorView = view;
-            View errorRetryBtn = mErrorView.findViewById(R.id.common_error_retry_view);
-            if (null != mOnRetryClickListener && null != errorRetryBtn) {
-                errorRetryBtn.setOnClickListener(mOnRetryClickListener);
-            }
+            //            View errorRetryBtn = mErrorView.findViewById(R.id.common_error_retry_view);
+            //            if (null != mOnRetryClickListener && null != errorRetryBtn) {
+            //                errorRetryBtn.setOnClickListener(mOnRetryClickListener);
+            //            }
             mOtherIds.add(mErrorView.getId());
             addView(mErrorView, 0, layoutParams);
         }

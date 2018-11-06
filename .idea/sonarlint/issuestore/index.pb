@@ -191,8 +191,6 @@ l
 ]image_loader_module/src/main/java/com/jcloud/image_loader_module/BaseImageLoaderStrategy.java,6\6\660866fdcd8149deb77a03f6a1f3294834b3d1fc
 Ž
 ^image_loader_module/src/main/java/com/jcloud/image_loader_module/GlideImageLoaderStrategy.java,6\0\6072f8f2e3bfd57b65dc786a5ae3cfc82c239e2a
-g
-7app/src/main/java/com/hualong/kekemei/bean/HongBao.java,7\d\7d03206c37083027089d558004086b1cbcc2bad4
 [
 +app/src/main/res/layout/activity_splash.xml,1\3\13b26b9b6631cddf289c5ab7c4e546a180da97d8
 G
