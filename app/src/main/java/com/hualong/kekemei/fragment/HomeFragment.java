@@ -1,6 +1,7 @@
 package com.hualong.kekemei.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.activity.ClassifyActivity;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
 import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.activity.ShopActivity;
@@ -122,6 +124,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     TextView commentTabNew;
     @BindView(R.id.commentTabPhoto)
     TextView commentTabPhoto;
+    @BindView(R.id.layoutUserComment)
+    RelativeLayout layoutUserComment;
+    @BindView(R.id.markLayout)
+    LinearLayout markLayout;
+    @BindView(R.id.lookMore)
+    TextView lookMore;
     private HomeBean.DataBean.CommentdataBean commentdata;
     private EvaluateListAdapter commentAdapter;
 
@@ -389,18 +397,29 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     }
 
+    Intent intent;
+
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search})
     public void onViewClicked(View view) {
+        intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
-            case R.id.ll_meirong:
 
+            case R.id.ll_meirong:
+                intent.putExtra("type", 1);
+                startActivity(intent);
                 break;
             case R.id.ll_meiti:
+                intent.putExtra("type", 2);
+                startActivity(intent);
                 break;
             case R.id.ll_yangsheng:
+                intent.putExtra("type",3);
+                startActivity(intent);
                 break;
             case R.id.ll_qita:
+                intent.putExtra("type",4);
+                startActivity(intent);
                 break;
             case R.id.commentTabAll:
                 commentTabAll.setSelected(true);

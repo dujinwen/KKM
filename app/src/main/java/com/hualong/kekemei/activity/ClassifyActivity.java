@@ -1,6 +1,7 @@
 package com.hualong.kekemei.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -101,6 +102,7 @@ public class ClassifyActivity extends BaseActivity {
     @SuppressWarnings("unchecked")
     private static ArrayList<Integer> positionArrayList = new ArrayList();
     private LinearLayoutManager linearLayoutManager;
+    private int type = R.id.tal_meirong;
 
     @Override
     protected int setLayoutId() {
@@ -225,11 +227,29 @@ public class ClassifyActivity extends BaseActivity {
                 loadMoreData();
             }
         });
+        Intent intent = getIntent();
+        type = intent.getIntExtra("type", 1);
+        //        setSelect(type);
+        switch (type) {
+            case 1:
+                onViewClicked(talMeirong);
+                break;
+            case 2:
+                onViewClicked(talMeiti);
+                break;
+            case 3:
+                onViewClicked(talYangsheng);
+                break;
+            case 4:
+                onViewClicked(talQita);
+                break;
+            default:
 
-        setSelect(R.id.tal_meirong);
+                break;
+        }
 
 
-        getData(1, 1);
+        //        getData(1, 1);
         rvPinglunbiaoqian.setLayoutManager(new GridLayoutManager(ClassifyActivity.this, 3));
         pingLunBiaoQianGridViewAdapter = new PingLunBiaoQianGridViewAdapter();
         rvPinglunbiaoqian.setAdapter(pingLunBiaoQianGridViewAdapter);
