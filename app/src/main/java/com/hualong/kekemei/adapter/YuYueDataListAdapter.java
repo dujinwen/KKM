@@ -38,12 +38,12 @@ public class YuYueDataListAdapter extends BaseQuickAdapter<YuYueDataBean.DataBea
            helper.setText(R.id.tv_can_yuyue,"可预约");
            ll_select_date_time.setBackground(mContext.getDrawable(R.drawable.btn_white_background));
            ll_select_date_time.setElevation(4);
-           ll_select_date_time.setEnabled(false);
+           ll_select_date_time.setEnabled(true);
        }else {
            helper.setText(R.id.tv_can_yuyue,"约满");
            ll_select_date_time.setBackground(mContext.getDrawable(R.drawable.btn_c1c1c1_background));
            ll_select_date_time.setElevation(4);
-           ll_select_date_time.setEnabled(true);
+           ll_select_date_time.setEnabled(false);
        }
         helper.addOnClickListener(R.id.ll_select_data_time);
     }

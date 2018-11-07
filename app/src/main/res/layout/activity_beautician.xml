@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <include
-        android:id="@+id/layoutBottomBar"
+
         layout="@layout/section_beautician_detail_bottom_bar_layout" />
 
     <com.hualong.kekemei.view.MultipleStatusView

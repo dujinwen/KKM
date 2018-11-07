@@ -15,32 +15,20 @@
         android:layout_marginTop="@dimen/px_127"
         android:orientation="horizontal">
 
-        <HorizontalScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recyclerview_horizontal"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/px_144"
+            android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:background="#FFECF9F9">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/px_58">
-
-                <GridView
-                    android:id="@+id/grid"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:numColumns="auto_fit"
-                    android:stretchMode="spacingWidthUniform"></GridView>
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:background="#FFECF9F9"
+            android:scrollbars="none"/>
 
         <LinearLayout
+            android:id="@+id/show_select_time"
             android:layout_width="@dimen/px_230"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:id="@+id/show_select_time"
             android:orientation="vertical">
 
             <ImageView
@@ -60,11 +48,22 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list_yuyue"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/px_1024"
         android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/px_46"
         android:layout_weight="1">
 
     </android.support.v7.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/queding"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_144"
+        android:layout_gravity="center"
+        android:background="#FF7AD2D2"
+        android:text="确定"
+        android:textColor="#fff"
+        android:textSize="@dimen/px_43" />
 </LinearLayout>
 
