@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,6 +41,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -105,6 +108,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.ll_dianpu_tab)
+    LinearLayout llDianpuTab;
+    @BindView(R.id.grid)
+    GridView grid;
+    @BindView(R.id.show_select_time)
+    LinearLayout showSelectTime;
+    @BindView(R.id.ll_select_time)
+    LinearLayout llSelectTime;
 
     private ImageView callPhone;
 
@@ -127,7 +140,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private MeiRongShiAdapter meiRongShiAdapter;
     @Nullable
     private LinearLayout ll_yuyue;
-    private LinearLayout llSelectTime;
 
     public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -340,7 +352,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.ll_yuyue:
-                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                llSelectTime.setVisibility(View.VISIBLE);
+                llDianpuTab.setVisibility(View.GONE);
                 break;
         }
     }
@@ -354,6 +368,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
                 Gson gson = new Gson();
+            }
+        });
+    }
+
+    /**
+     * 预约时间
+     *
+     */
+    private void timeData() {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", System.currentTimeMillis()).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "follow beautician:" + response.body());
+//                Gson gson = new Gson();
             }
         });
     }
@@ -484,7 +512,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getFriend_count());
                     tvSatisfaction.setText(detailBean.getData().getSatisfaction() + "%满意度");
                     tvAddress.setText(detailBean.getData().getAddress());
-//                    tvDistance.setText(detailBean.getData().getDistance());
+                    //                    tvDistance.setText(detailBean.getData().getDistance());
                     if (detailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
@@ -557,6 +585,22 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 contentSectionAdapter.replaceData(projectListBean.getData());
             }
         });
+
+
+        initDayTime();
+        timeData();
+
+
+
+    }
+
+    private void initDayTime() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 30);
+
+        Date date = cal.getTime();
+
+        LogUtil.d("SHOPACTIVITY",date.toString());
     }
 
     /**
