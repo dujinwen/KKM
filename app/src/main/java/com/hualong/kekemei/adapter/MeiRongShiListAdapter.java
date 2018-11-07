@@ -39,16 +39,18 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<BeauticianBean, Base
             if (size != 0) {
                 view.setVisibility(View.VISIBLE);
                 for (int i = 0; i < size; i++) {
-                    TextView textView = new TextView(mContext);
+                    String text = item.getTag_text().get(i);
+                    if (text!=null&&!text.isEmpty()&&text!="")
+                    {TextView textView = new TextView(mContext);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     params.setMargins(0, AppUtil.px2dip(mContext, 27), AppUtil.px2dip(mContext, 30), 0);
                     textView.setLayoutParams(params);
-                    textView.setText(item.getTag_text().get(i));
+                    textView.setText(text);
                     textView.setTextSize(AppUtil.px2dip(mContext, 29));
                     textView.setPadding(AppUtil.px2dip(mContext, 7), AppUtil.px2dip(mContext, 4), AppUtil.px2dip(mContext, 9), AppUtil.px2dip(mContext, 4));
                     textView.setTextColor(mContext.getResources().getColor(R.color.FF7AD2D2, null));
                     textView.setBackgroundResource(R.drawable.btn_blue_with_corners_background);
-                    view.addView(textView);
+                    view.addView(textView);}
                 }
             } else {
                 view.setVisibility(View.GONE);
