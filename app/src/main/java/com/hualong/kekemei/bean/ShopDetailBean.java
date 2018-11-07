@@ -61,6 +61,7 @@ public class ShopDetailBean {
         private int user_id;
         private int order_count;
         private int collection_count;
+        private int comment_count;
         private int iscollection;
         private String satisfaction;
         private String distance;
@@ -84,6 +85,14 @@ public class ShopDetailBean {
 
         public void setComment_tag(List<BeauticianDetailBean.DataBean.CommentTagBean> comment_tag) {
             this.comment_tag = comment_tag;
+        }
+
+        public int getComment_count() {
+            return comment_count;
+        }
+
+        public void setComment_count(int comment_count) {
+            this.comment_count = comment_count;
         }
 
         public int getId() {

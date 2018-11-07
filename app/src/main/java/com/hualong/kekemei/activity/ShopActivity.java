@@ -27,9 +27,9 @@ import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.adapter.YuYueDataListAdapter;
+import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.BeauticianDetailBean;
 import com.hualong.kekemei.bean.DetailEnum;
-import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
 import com.hualong.kekemei.bean.YuYueDataBean;
 import com.hualong.kekemei.utils.AppUtil;
@@ -211,23 +211,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         initContentHead(contentHead);
 
         View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
+        initContentSectionView(contentSectionView);
 
         View nearbySectionView = View.inflate(this, R.layout.section_layout_nearby_beautician, null);
-
         initNearbyView(nearbySectionView);
 
         commentSectionView = View.inflate(this, R.layout.layout_comment_top_head, null);
-
         initCommentView(commentSectionView);
-
-        hotProjectRv = contentSectionView.findViewById(R.id.sectionRv);
-        ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
-        ll_yuyue.setOnClickListener(this);
-        hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
-        hotProjectRv.setHasFixedSize(true);
-        hotProjectRv.setNestedScrollingEnabled(false);
-        contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
-        hotProjectRv.setAdapter(contentSectionAdapter);
 
         contentView.addView(contentHead);
         contentView.addView(contentSectionView);
@@ -235,6 +225,22 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             contentView.addView(nearbySectionView);
         }
         contentView.addView(commentSectionView);
+    }
+
+    private void initContentSectionView(View view) {
+        hotProjectRv = view.findViewById(R.id.sectionRv);
+        hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
+        hotProjectRv.setHasFixedSize(true);
+        hotProjectRv.setNestedScrollingEnabled(false);
+        contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
+        hotProjectRv.setAdapter(contentSectionAdapter);
+        TextView lookMore = view.findViewById(R.id.lookMore);
+        lookMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+            }
+        });
     }
 
     private TextView tradingArea;
@@ -246,6 +252,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
+        ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
+        ll_yuyue.setOnClickListener(this);
         serviceOne = contentHead.findViewById(R.id.serviceOne);
         serviceTwo = contentHead.findViewById(R.id.serviceTwo);
         serviceThree = contentHead.findViewById(R.id.serviceThree);
@@ -504,13 +512,23 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             serviceThree.setVisibility(View.GONE);
                         }
                     }
+                    if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
+                        contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
+                        contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = contentSectionAdapter.getItem(position);
+                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                            }
+                        });
+                    }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getBeautician())) {
                         meiRongShiAdapter.replaceData(detailBean.getData().getBeautician());
                     }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getAll().size()
-                                + detailBean.getData().getCommentdata().getNewX().size() + detailBean.getData().getCommentdata().getHaveimg().size()));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
                         commentdata = detailBean.getData().getCommentdata();
                         commentAdapter.replaceData(detailBean.getData().getCommentdata().getAll());
                     } else {
@@ -585,10 +603,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             }
                         }
                     }
+                    if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
+                        contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
+                        contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = contentSectionAdapter.getItem(position);
+                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                            }
+                        });
+                    }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getAll().size()
-                                + detailBean.getData().getCommentdata().getNewX().size() + detailBean.getData().getCommentdata().getHaveimg().size()));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
                         commentAdapter.addData(detailBean.getData().getCommentdata().getAll());
                     } else {
                         commentSectionView.setVisibility(View.GONE);
@@ -603,21 +631,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         }
-
-        OkGo.<String>post(URLs.PROJECT_LIST).params("page", "1").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "project list:" + response.body());
-                Gson gson = new Gson();
-                ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
-                contentSectionAdapter.replaceData(projectListBean.getData());
-            }
-        });
-
-
         initDayTime();
-
-
     }
 
     private ArrayList<Calendar> arrayList = new ArrayList();

@@ -8,8 +8,8 @@
     <ImageView
         android:id="@+id/shop_detail_icon"
         android:layout_width="match_parent"
-        android:layout_height="1175px"
-        android:background="@mipmap/beautician_detail_photo_pic" />
+        android:layout_height="wrap_content"
+        android:src="@mipmap/beautician_detail_photo_pic" />
 
     <TextView
         android:id="@+id/shopName"
@@ -31,6 +31,7 @@
         android:paddingTop="22px">
 
         <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥288"
@@ -38,6 +39,7 @@
             android:textSize="69px" />
 
         <TextView
+            android:id="@+id/marketPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="29px"
@@ -47,6 +49,7 @@
             android:textSize="32px" />
 
         <TextView
+            android:id="@+id/tvCollection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
@@ -93,6 +96,7 @@
             android:textSize="32px" />
 
         <TextView
+            android:id="@+id/tvFollowNum"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

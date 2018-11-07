@@ -62,6 +62,7 @@ public class BeauticianDetailBean {
         private int isfriend;
         private int friend_count;
         private int order_count;
+        private int comment_count;
         private int average_price;
         private List<String> auth;
         private List<CouponBean> coupon;
@@ -215,6 +216,14 @@ public class BeauticianDetailBean {
 
         public void setOrder_count(int order_count) {
             this.order_count = order_count;
+        }
+
+        public int getComment_count() {
+            return comment_count;
+        }
+
+        public void setComment_count(int comment_count) {
+            this.comment_count = comment_count;
         }
 
         public int getAverage_price() {

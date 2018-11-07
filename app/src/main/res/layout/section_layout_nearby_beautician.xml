@@ -4,11 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_43"
+        android:background="@color/common_background" />
+
     <TextView
         android:id="@+id/fujin_meirongshi"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_160"
-        android:layout_marginTop="@dimen/px_48"
         android:background="#fff"
         android:gravity="center_vertical"
         android:drawableRight="@mipmap/title_more_btn"
