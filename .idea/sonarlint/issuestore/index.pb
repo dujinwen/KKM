@@ -304,16 +304,12 @@ t
 Dapp/src/main/java/com/hualong/kekemei/activity/UserInfoActivity.java,7\7\77058525bc6e17ba2b8c8c514de22ebb7a2d0c71
 n
 >app/src/main/java/com/hualong/kekemei/adapter/GridAdapter.java,6\8\68e09442fa6a78a9ce8c6ae17d481bd36d9df574
-m
-=app/src/main/java/com/hualong/kekemei/activity/MyVoucher.java,0\0\0067a3dca7710e06e3bc2793ec58e4e16f02d961
 n
 >app/src/main/java/com/hualong/kekemei/bean/ShopDetailBean.java,e\e\ee0edd2de4fd60525353b0b802a0ab0d413e985d
 r
 Bapp/src/main/java/com/hualong/kekemei/bean/MeiRongShiListBean.java,b\9\b95eae8743e1f4ab47fc275977bcb76f7f98702a
 n
 >app/src/main/java/com/hualong/kekemei/bean/BeauticianBean.java,b\d\bd260215297679cda18360b6bc48d59283c5278d
-l
-<app/src/main/java/com/hualong/kekemei/activity/MyRedBao.java,d\4\d485e24caca62645966c276aa214464efcf37279
 M
 UMLibrary/AndroidManifest.xml,1\e\1e2ba84f1d01bb4ad7820252d792de6c74db4601
 ?

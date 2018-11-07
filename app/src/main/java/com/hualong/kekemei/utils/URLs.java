@@ -84,7 +84,12 @@ public class URLs {
     public static final String FOLLOW_BEAUTICIAN = "http://kekemei.ecooth.com/api/beautician/follow";
     //附近的美容师
     public static final String BEAUTICIAN_NEAR = "http://kekemei.ecooth.com/api/beautician/nearbyBeautician";
-
+    //预约美容师店铺
+    public static final String ADD_APPOINTMENT = "http://kekemei.ecooth.com/api/appointment/addAppointment";
+    //美容师搜索
+    public static final String BEAUTICIAN_SEARCH ="http://kekemei.ecooth.com/api/beautician/search";
+    //预约时间
+    public static final String APPOINTMENT_TIME_DATA ="http://kekemei.ecooth.com/api/appointment/timedata";
     /**
      * 搜索
      */
