@@ -44,7 +44,7 @@ public class BeauticianBean {
     private String state_text;
     private long user_id;
     private String user_nickname;
-    private List<String> shops;
+    private List<MeiRongShiListBean.DataBeanX.DataBean.ShopsBean> shops;
     private List<String> tag;
     private List<String> tag_text;
     private String image;
@@ -153,11 +153,11 @@ public class BeauticianBean {
         this.user_nickname = user_nickname;
     }
 
-    public List<String> getShops() {
+    public List<MeiRongShiListBean.DataBeanX.DataBean.ShopsBean> getShops() {
         return shops;
     }
 
-    public void setShops(List<String> shops) {
+    public void setShops(List<MeiRongShiListBean.DataBeanX.DataBean.ShopsBean> shops) {
         this.shops = shops;
     }
 

@@ -87,7 +87,7 @@ public class ShopListActivity extends BaseActivity {
                         switch (view.getId()) {
                             case R.id.ll_shop_list_item:
                                 ShopActivity.start(ShopListActivity.this, shopListBean.getData().getData().get(position).getId(),
-                                        shopListBean.getData().getData().get(position).getUser_id(), DetailEnum.BEAUTICIAN);
+                                        shopListBean.getData().getData().get(position).getUser_id(), DetailEnum.SHOP);
                                 break;
                         }
                     }

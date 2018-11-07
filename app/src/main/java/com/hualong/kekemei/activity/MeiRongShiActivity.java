@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.SPUtils;
 import com.hualong.kekemei.utils.URLs;
@@ -70,14 +72,27 @@ public class MeiRongShiActivity extends BaseActivity {
                 LogUtil.d("MeiRongShiActivity", response.body());
 
                 Gson gson = new Gson();
-                MeiRongShiListBean meiRongShiListBean = gson.fromJson(response.body(), MeiRongShiListBean.class);
+                final MeiRongShiListBean meiRongShiListBean = gson.fromJson(response.body(), MeiRongShiListBean.class);
 
-//                xbanner.setData(meiRongShiListBean.getData().getBanneradv(), null);
+                xbanner.setData(meiRongShiListBean.getData().getBanner(), null);
                 initBanner();
 
 
                 rvMeirongshi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                rvMeirongshi.setAdapter(new MeiRongShiListAdapter(MeiRongShiActivity.this, R.layout.list_meirongshi, meiRongShiListBean.getData()));
+                MeiRongShiListAdapter adapter = new MeiRongShiListAdapter(MeiRongShiActivity.this, R.layout.list_meirongshi, meiRongShiListBean.getData().getData());
+                rvMeirongshi.setAdapter(adapter);
+
+                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        switch (view.getId()) {
+                            case R.id.ll_meirongshi:
+                                ShopActivity.start(MeiRongShiActivity.this, meiRongShiListBean.getData().getData().get(position).getId(),
+                                        meiRongShiListBean.getData().getData().get(position).getUser_id(), DetailEnum.BEAUTICIAN);
+                                break;
+                        }
+                    }
+                });
 
             }
         });
