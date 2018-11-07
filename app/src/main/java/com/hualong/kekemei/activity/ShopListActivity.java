@@ -71,14 +71,14 @@ public class ShopListActivity extends BaseActivity {
                 Gson gson = new Gson();
                 final ShopListBean shopListBean = gson.fromJson(response.body(), ShopListBean.class);
 
-                //                xbanner.setData(meiRongShiListBean.getData().getBanneradv(), null);
+                xbanner.setData(shopListBean.getData().getBanner(), null);
                 initBanner();
 
 
                 rvMeirongshi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
                 ShopListAdapter adapter = new ShopListAdapter(ShopListActivity.this, R.layout.list_shop
 
-                        , shopListBean.getData());
+                        , shopListBean.getData().getData());
                 rvMeirongshi.setAdapter(adapter);
 
                 adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -86,9 +86,8 @@ public class ShopListActivity extends BaseActivity {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         switch (view.getId()) {
                             case R.id.ll_shop_list_item:
-                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId(),
-                                        shopListBean.getData().get(position).getUser_id(), DetailEnum.BEAUTICIAN);
-//                                ProjectDetailActivity.start(ShopListActivity.this, shopListBean.getData().get(position).getId());
+                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().getData().get(position).getId(),
+                                        shopListBean.getData().getData().get(position).getUser_id(), DetailEnum.BEAUTICIAN);
                                 break;
                         }
                     }

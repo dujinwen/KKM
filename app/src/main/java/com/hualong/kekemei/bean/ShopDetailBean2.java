@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ShopDetailBean {
+public class ShopDetailBean2 {
     private int code;
     private String msg;
     private String time;
@@ -68,14 +68,12 @@ public class ShopDetailBean {
         private CommentdataBean commentdata;
         private String state_text;
         private List<ServiceBean> service;
-        private List<CouponBean> coupon;
-        private List<RedenvelopesBean> redenvelopes;
         private List<BeauticianBean> beautician;
         private List<String> strading;
-        private List<BaseBean> hotdata;
-        private List<BaseBean> specialdata;
-        private List<BaseBean> newmemberdata;
-        private List<BaseBean> memberdata;
+        private List<HotdataBean> hotdata;
+        private List<SpecialdataBean> specialdata;
+        private List<NewmemberdataBean> newmemberdata;
+        private List<MemberdataBean> memberdata;
         private List<BeauticianDetailBean.DataBean.CommentTagBean> comment_tag;
 
         public List<BeauticianDetailBean.DataBean.CommentTagBean> getComment_tag() {
@@ -174,40 +172,7 @@ public class ShopDetailBean {
             this.latitude = latitude;
         }
 
-        public List<BaseBean> getHotdata() {
-            return hotdata;
-        }
-
-        public void setHotdata(List<BaseBean> hotdata) {
-            this.hotdata = hotdata;
-        }
-
-        public List<BaseBean> getSpecialdata() {
-            return specialdata;
-        }
-
-        public void setSpecialdata(List<BaseBean> specialdata) {
-            this.specialdata = specialdata;
-        }
-
-        public List<BaseBean> getNewmemberdata() {
-            return newmemberdata;
-        }
-
-        public void setNewmemberdata(List<BaseBean> newmemberdata) {
-            this.newmemberdata = newmemberdata;
-        }
-
-        public List<BaseBean> getMemberdata() {
-            return memberdata;
-        }
-
-        public void setMemberdata(List<BaseBean> memberdata) {
-            this.memberdata = memberdata;
-        }
-
         public String getContent() {
-
             return content;
         }
 
@@ -319,22 +284,6 @@ public class ShopDetailBean {
             this.service = service;
         }
 
-        public List<CouponBean> getCoupon() {
-            return coupon;
-        }
-
-        public void setCoupon(List<CouponBean> coupon) {
-            this.coupon = coupon;
-        }
-
-        public List<RedenvelopesBean> getRedenvelopes() {
-            return redenvelopes;
-        }
-
-        public void setRedenvelopes(List<RedenvelopesBean> redenvelopes) {
-            this.redenvelopes = redenvelopes;
-        }
-
         public List<BeauticianBean> getBeautician() {
             return beautician;
         }
@@ -351,6 +300,37 @@ public class ShopDetailBean {
             this.strading = strading;
         }
 
+        public List<HotdataBean> getHotdata() {
+            return hotdata;
+        }
+
+        public void setHotdata(List<HotdataBean> hotdata) {
+            this.hotdata = hotdata;
+        }
+
+        public List<SpecialdataBean> getSpecialdata() {
+            return specialdata;
+        }
+
+        public void setSpecialdata(List<SpecialdataBean> specialdata) {
+            this.specialdata = specialdata;
+        }
+
+        public List<NewmemberdataBean> getNewmemberdata() {
+            return newmemberdata;
+        }
+
+        public void setNewmemberdata(List<NewmemberdataBean> newmemberdata) {
+            this.newmemberdata = newmemberdata;
+        }
+
+        public List<MemberdataBean> getMemberdata() {
+            return memberdata;
+        }
+
+        public void setMemberdata(List<MemberdataBean> memberdata) {
+            this.memberdata = memberdata;
+        }
 
         public static class CommentdataBean {
             private List<EvaluateBean> all;
@@ -703,8 +683,24 @@ public class ShopDetailBean {
             private int like_count;
             private String quality_text;
             private String state_text;
-            private List<RedenvelopesBeanX> redenvelopes;
-            private List<CouponBeanX> coupon;
+            private List<String> redenvelopes;
+            private List<String> coupon;
+
+            public void setRedenvelopes(List<String> redenvelopes) {
+                this.redenvelopes = redenvelopes;
+            }
+
+            public void setCoupon(List<String> coupon) {
+                this.coupon = coupon;
+            }
+
+            public List<String> getRedenvelopes() {
+                return redenvelopes;
+            }
+
+            public List<String> getCoupon() {
+                return coupon;
+            }
 
             public int getId() {
                 return id;
@@ -890,21 +886,6 @@ public class ShopDetailBean {
                 this.state_text = state_text;
             }
 
-            public List<RedenvelopesBeanX> getRedenvelopes() {
-                return redenvelopes;
-            }
-
-            public void setRedenvelopes(List<RedenvelopesBeanX> redenvelopes) {
-                this.redenvelopes = redenvelopes;
-            }
-
-            public List<CouponBeanX> getCoupon() {
-                return coupon;
-            }
-
-            public void setCoupon(List<CouponBeanX> coupon) {
-                this.coupon = coupon;
-            }
 
             public static class RedenvelopesBeanX {
                 /**
@@ -1191,8 +1172,24 @@ public class ShopDetailBean {
             private int like_count;
             private String quality_text;
             private String state_text;
-            private List<RedenvelopesBeanXX> redenvelopes;
-            private List<CouponBeanXX> coupon;
+            private List<String> redenvelopes;
+            private List<String> coupon;
+
+            public void setRedenvelopes(List<String> redenvelopes) {
+                this.redenvelopes = redenvelopes;
+            }
+
+            public void setCoupon(List<String> coupon) {
+                this.coupon = coupon;
+            }
+
+            public List<String> getRedenvelopes() {
+                return redenvelopes;
+            }
+
+            public List<String> getCoupon() {
+                return coupon;
+            }
 
             public int getId() {
                 return id;
@@ -1378,21 +1375,7 @@ public class ShopDetailBean {
                 this.state_text = state_text;
             }
 
-            public List<RedenvelopesBeanXX> getRedenvelopes() {
-                return redenvelopes;
-            }
 
-            public void setRedenvelopes(List<RedenvelopesBeanXX> redenvelopes) {
-                this.redenvelopes = redenvelopes;
-            }
-
-            public List<CouponBeanXX> getCoupon() {
-                return coupon;
-            }
-
-            public void setCoupon(List<CouponBeanXX> coupon) {
-                this.coupon = coupon;
-            }
 
             public static class RedenvelopesBeanXX {
                 /**
@@ -1679,8 +1662,24 @@ public class ShopDetailBean {
             private int like_count;
             private String quality_text;
             private String state_text;
-            private List<RedenvelopesBeanXXX> redenvelopes;
-            private List<CouponBeanXXX> coupon;
+            private List<String> redenvelopes;
+            private List<String> coupon;
+
+            public void setRedenvelopes(List<String> redenvelopes) {
+                this.redenvelopes = redenvelopes;
+            }
+
+            public void setCoupon(List<String> coupon) {
+                this.coupon = coupon;
+            }
+
+            public List<String> getRedenvelopes() {
+                return redenvelopes;
+            }
+
+            public List<String> getCoupon() {
+                return coupon;
+            }
 
             public int getId() {
                 return id;
@@ -1866,21 +1865,7 @@ public class ShopDetailBean {
                 this.state_text = state_text;
             }
 
-            public List<RedenvelopesBeanXXX> getRedenvelopes() {
-                return redenvelopes;
-            }
 
-            public void setRedenvelopes(List<RedenvelopesBeanXXX> redenvelopes) {
-                this.redenvelopes = redenvelopes;
-            }
-
-            public List<CouponBeanXXX> getCoupon() {
-                return coupon;
-            }
-
-            public void setCoupon(List<CouponBeanXXX> coupon) {
-                this.coupon = coupon;
-            }
 
             public static class RedenvelopesBeanXXX {
                 /**

@@ -108,8 +108,8 @@ public class BeauticianDetailBean {
         private int order_count;
         private int average_price;
         private List<String> auth;
-        private List<CouponBean> coupon;
-        private List<RedEnvelopes> redenvelopes;
+        private List<String> coupon;
+        private List<String> redenvelopes;
         private int start;
         private double satisfaction;
         private List<CommentTagBean> comment_tag;
@@ -277,19 +277,19 @@ public class BeauticianDetailBean {
             this.auth = auth;
         }
 
-        public List<CouponBean> getCoupon() {
+        public List<String> getCoupon() {
             return coupon;
         }
 
-        public void setCoupon(List<CouponBean> coupon) {
+        public void setCoupon(List<String> coupon) {
             this.coupon = coupon;
         }
 
-        public List<RedEnvelopes> getRedenvelopes() {
+        public List<String> getRedenvelopes() {
             return redenvelopes;
         }
 
-        public void setRedenvelopes(List<RedEnvelopes> redenvelopes) {
+        public void setRedenvelopes(List<String> redenvelopes) {
             this.redenvelopes = redenvelopes;
         }
 
@@ -681,8 +681,8 @@ public class BeauticianDetailBean {
             private int like_count;
             private String quality_text;
             private String state_text;
-            private List<RedenvelopesBean> redenvelopes;
-            private List<CouponBean> coupon;
+//            private List<String> redenvelopes;
+//            private List<String> coupon;
 
             public int getId() {
                 return id;
@@ -868,21 +868,22 @@ public class BeauticianDetailBean {
                 this.state_text = state_text;
             }
 
-            public List<RedenvelopesBean> getRedenvelopes() {
-                return redenvelopes;
-            }
-
-            public void setRedenvelopes(List<RedenvelopesBean> redenvelopes) {
-                this.redenvelopes = redenvelopes;
-            }
-
-            public List<CouponBean> getCoupon() {
-                return coupon;
-            }
-
-            public void setCoupon(List<CouponBean> coupon) {
-                this.coupon = coupon;
-            }
+//            public List<String> getCoupon() {
+//                return coupon;
+//            }
+//
+//            public void setCoupon(List<String> coupon) {
+//                this.coupon = coupon;
+//            }
+//
+//            public List<String> getRedenvelopes() {
+//
+//                return redenvelopes;
+//            }
+//
+//            public void setRedenvelopes(List<String> redenvelopes) {
+//                this.redenvelopes = redenvelopes;
+//            }
 
             public static class RedenvelopesBean {
                 /**
@@ -1169,8 +1170,24 @@ public class BeauticianDetailBean {
             private int like_count;
             private String quality_text;
             private String state_text;
-            private List<RedenvelopesBeanX> redenvelopes;
-            private List<CouponBeanX> coupon;
+            private List<String> redenvelopes;
+            private List<String> coupon;
+
+            public void setRedenvelopes(List<String> redenvelopes) {
+                this.redenvelopes = redenvelopes;
+            }
+
+            public void setCoupon(List<String> coupon) {
+                this.coupon = coupon;
+            }
+
+            public List<String> getRedenvelopes() {
+                return redenvelopes;
+            }
+
+            public List<String> getCoupon() {
+                return coupon;
+            }
 
             public int getId() {
                 return id;
@@ -1356,21 +1373,6 @@ public class BeauticianDetailBean {
                 this.state_text = state_text;
             }
 
-            public List<RedenvelopesBeanX> getRedenvelopes() {
-                return redenvelopes;
-            }
-
-            public void setRedenvelopes(List<RedenvelopesBeanX> redenvelopes) {
-                this.redenvelopes = redenvelopes;
-            }
-
-            public List<CouponBeanX> getCoupon() {
-                return coupon;
-            }
-
-            public void setCoupon(List<CouponBeanX> coupon) {
-                this.coupon = coupon;
-            }
 
             public static class RedenvelopesBeanX {
                 /**
@@ -1657,8 +1659,24 @@ public class BeauticianDetailBean {
             private int like_count;
             private String quality_text;
             private String state_text;
-            private List<RedenvelopesBeanXX> redenvelopes;
-            private List<CouponBeanXX> coupon;
+            private List<String> redenvelopes;
+            private List<String> coupon;
+
+            public void setRedenvelopes(List<String> redenvelopes) {
+                this.redenvelopes = redenvelopes;
+            }
+
+            public void setCoupon(List<String> coupon) {
+                this.coupon = coupon;
+            }
+
+            public List<String> getRedenvelopes() {
+                return redenvelopes;
+            }
+
+            public List<String> getCoupon() {
+                return coupon;
+            }
 
             public int getId() {
                 return id;
@@ -1844,21 +1862,7 @@ public class BeauticianDetailBean {
                 this.state_text = state_text;
             }
 
-            public List<RedenvelopesBeanXX> getRedenvelopes() {
-                return redenvelopes;
-            }
 
-            public void setRedenvelopes(List<RedenvelopesBeanXX> redenvelopes) {
-                this.redenvelopes = redenvelopes;
-            }
-
-            public List<CouponBeanXX> getCoupon() {
-                return coupon;
-            }
-
-            public void setCoupon(List<CouponBeanXX> coupon) {
-                this.coupon = coupon;
-            }
 
             public static class RedenvelopesBeanXX {
                 /**

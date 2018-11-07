@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,10 +27,12 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
+import com.hualong.kekemei.adapter.YuYueDataListAdapter;
 import com.hualong.kekemei.bean.BeauticianDetailBean;
 import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
+import com.hualong.kekemei.bean.YuYueDataBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
@@ -41,8 +45,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -118,6 +122,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout showSelectTime;
     @BindView(R.id.ll_select_time)
     LinearLayout llSelectTime;
+    @BindView(R.id.rv_list_yuyue)
+    RecyclerView rvListYuyue;
 
     private ImageView callPhone;
 
@@ -140,6 +146,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private MeiRongShiAdapter meiRongShiAdapter;
     @Nullable
     private LinearLayout ll_yuyue;
+    private Calendar cal;
+    private DayAdapter dayAdapter;
+    private YuYueDataListAdapter yuYueDataListAdapter;
 
     public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -281,6 +290,25 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         rvCommentList.setLayoutManager(new LinearLayoutManager(this));
         rvCommentList.setHasFixedSize(true);
         rvCommentList.setNestedScrollingEnabled(false);
+        rvListYuyue.setLayoutManager(new GridLayoutManager(getBaseContext(), 4));
+        yuYueDataListAdapter = new YuYueDataListAdapter(this);
+        rvListYuyue.setAdapter(yuYueDataListAdapter);
+        yuYueDataListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.ll_select_data_time) {
+                    if (view.isSelected()) {
+                        view.setSelected(true);
+                        view.setBackground(ShopActivity.this.getResources().getDrawable(R.drawable.btn_7ad2d2_background));
+                    } else {
+                        view.setSelected(false);
+                        view.setBackground(ShopActivity.this.getResources().getDrawable(R.drawable.btn_white_background));
+                    }
+                }
+            }
+        });
+
+
         commentAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -374,14 +402,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * 预约时间
-     *
      */
-    private void timeData() {
-        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", System.currentTimeMillis()).execute(new StringCallback() {
+    public void timeData(long timedstartdate) {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
-//                Gson gson = new Gson();
+                Gson gson = new Gson();
+                YuYueDataBean yuYueDataBean = gson.fromJson(response.body(), YuYueDataBean.class);
+                yuYueDataListAdapter.setNewData(yuYueDataBean.getData());
+                //
             }
         });
     }
@@ -588,19 +618,21 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
 
         initDayTime();
-        timeData();
-
 
 
     }
 
+    private ArrayList<Calendar> arrayList = new ArrayList();
+
     private void initDayTime() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 30);
+        for (int i = 0; i < 30; i++) {
+            cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, i);
+            arrayList.add(cal);
+        }
 
-        Date date = cal.getTime();
-
-        LogUtil.d("SHOPACTIVITY",date.toString());
+        dayAdapter = new DayAdapter(this, arrayList);
+        grid.setAdapter(dayAdapter);
     }
 
     /**
@@ -630,5 +662,88 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     public void phoneClick(View view) {
 
+    }
+
+
+    class DayAdapter extends BaseAdapter {
+        private Context mContext;
+        private ArrayList<Calendar> calList;
+        private String week = "周日";
+
+        public DayAdapter(Context context, ArrayList<Calendar> arrayList) {
+
+            this.mContext = context;
+            this.calList = arrayList;
+        }
+
+
+        @Override
+        public int getCount() {
+            return calList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return calList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.layout_date_list, null);
+                viewHolder = new ViewHolder();
+                viewHolder.tv_date_and_week = convertView.findViewById(R.id.tv_date_and_week);
+                viewHolder.tv_can_yuyue = convertView.findViewById(R.id.tv_can_yuyue);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            final Calendar calendar = calList.get(position);
+            switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+                case Calendar.MONDAY:
+                    week = "周一";
+                    break;
+                case Calendar.TUESDAY:
+                    week = "周二";
+                    break;
+                case Calendar.WEDNESDAY:
+                    week = "周三";
+                    break;
+                case Calendar.THURSDAY:
+                    week = "周四";
+                    break;
+                case Calendar.FRIDAY:
+                    week = "周五";
+                    break;
+                case Calendar.SATURDAY:
+                    week = "周六";
+                    break;
+                case Calendar.SUNDAY:
+                    week = "周日";
+                    break;
+                default:
+
+                    break;
+            }
+            viewHolder.tv_date_and_week.setText(week + " " + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
+            viewHolder.tv_date_and_week.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    timeData(calendar.getTimeInMillis());
+                }
+            });
+            return convertView;
+        }
+
+        private class ViewHolder {
+            TextView tv_date_and_week;
+            TextView tv_can_yuyue;
+        }
     }
 }
