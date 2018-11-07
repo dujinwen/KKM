@@ -57,4 +57,10 @@
     <string name="home_comment_title_text">客户评价</string>
     <string name="home_comment_num_format">(%1$d)</string>
 
+    <!--详情页-->
+    <string name="shop_detail_name_text">克克美-%1$s</string>
+    <string name="shop_detail_server_number">服务人数:&#160;&#160;%1$d</string>
+    <string name="shop_detail_fensi_number">粉丝数:&#160;&#160;%1$d</string>
+    <string name="shop_detail_satisfaction">%1$s满意度</string>
+
 </resources>

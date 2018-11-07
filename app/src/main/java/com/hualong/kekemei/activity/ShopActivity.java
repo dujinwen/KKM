@@ -16,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -95,18 +94,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.shopStar)
     StarBar shopStar;
 
-    @BindView(R.id.shopHome)
-    RelativeLayout shopHome;
+    @BindView(R.id.detailHome)
+    TextView detailHome;
     @BindView(R.id.indicatorShopHome)
     ImageView indicatorShopHome;
 
-    @BindView(R.id.hotProject)
-    RelativeLayout hotProject;
     @BindView(R.id.indicatorHotProject)
     ImageView indicatorHotProject;
 
-    @BindView(R.id.userEvaluate)
-    RelativeLayout userEvaluate;
     @BindView(R.id.indicatorEvaluate)
     ImageView indicatorEvaluate;
 
@@ -191,6 +186,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 finish();
             }
         });
+        if (detailEnum == DetailEnum.BEAUTICIAN) {
+            tv_title.setText("美容师详情");
+            detailHome.setText("美容师首页");
+        }
         iv_share.setVisibility(View.VISIBLE);
         llSelectTime = findViewById(R.id.ll_select_time);
         indicatorShopHome.setVisibility(View.VISIBLE);
@@ -447,12 +446,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     Gson gson = new Gson();
                     final ShopDetailBean detailBean = gson.fromJson(response.body(), ShopDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                    tv_title.setText("克克美-" + detailBean.getData().getName());
+                    tv_title.setText(getString(R.string.shop_detail_name_text, detailBean.getData().getName()));
                     shopName.setText(detailBean.getData().getName());
                     shopStar.setStarMark(detailBean.getData().getStart());
-                    tvOrderCount.setText("服务人数:  " + detailBean.getData().getOrder_count());
-                    tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getCollection_count());
-                    tvSatisfaction.setText(detailBean.getData().get$satisfaction() + "%满意度");
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getCollection_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(detailBean.getData().getAddress());
                     tvDistance.setText(detailBean.getData().getDistance());
                     if (StringUtils.isNotBlank(detailBean.getData().getTel())) {
@@ -535,14 +534,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     Gson gson = new Gson();
                     BeauticianDetailBean detailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                    tv_title.setText("克克美-" + detailBean.getData().getName());
                     shopName.setText(detailBean.getData().getName());
                     shopStar.setStarMark(detailBean.getData().getStart());
-                    tvOrderCount.setText("服务人数:  " + detailBean.getData().getOrder_count());
-                    tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getFriend_count());
-                    tvSatisfaction.setText(detailBean.getData().getSatisfaction() + "%满意度");
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getFriend_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(detailBean.getData().getAddress());
-                    //                    tvDistance.setText(detailBean.getData().getDistance());
+//                    tvDistance.setText(detailBean.getData().getDistance());
                     if (detailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
@@ -659,11 +657,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
-
-    public void phoneClick(View view) {
-
-    }
-
 
     class DayAdapter extends BaseAdapter {
         private Context mContext;

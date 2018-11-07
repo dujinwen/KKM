@@ -24,17 +24,18 @@
 
         <TextView
             android:id="@+id/tvSatisfaction"
-            android:layout_width="275px"
-            android:layout_height="82px"
+            android:layout_width="@dimen/px_275"
+            android:layout_height="@dimen/px_82"
             android:layout_marginLeft="94px"
             android:layout_marginTop="383px"
             android:background="@drawable/shape_grey_shop_detail"
             android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
             android:gravity="center_vertical"
             android:paddingLeft="29px"
+            android:drawablePadding="10px"
             android:text="10%满意度"
             android:textColor="#333333"
-            android:textSize="35px" />
+            android:textSize="@dimen/px_35" />
     </RelativeLayout>
 
     <LinearLayout
