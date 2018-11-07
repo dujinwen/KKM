@@ -16,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -30,10 +29,10 @@ import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.adapter.YuYueDataListAdapter;
+import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.BeauticianDetailBean;
 import com.hualong.kekemei.bean.CanlBean;
 import com.hualong.kekemei.bean.DetailEnum;
-import com.hualong.kekemei.bean.ProjectListBean;
 import com.hualong.kekemei.bean.ShopDetailBean;
 import com.hualong.kekemei.bean.YuYueDataBean;
 import com.hualong.kekemei.utils.AppUtil;
@@ -99,18 +98,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.shopStar)
     StarBar shopStar;
 
-    @BindView(R.id.shopHome)
-    RelativeLayout shopHome;
+    @BindView(R.id.detailHome)
+    TextView detailHome;
     @BindView(R.id.indicatorShopHome)
     ImageView indicatorShopHome;
 
-    @BindView(R.id.hotProject)
-    RelativeLayout hotProject;
     @BindView(R.id.indicatorHotProject)
     ImageView indicatorHotProject;
 
-    @BindView(R.id.userEvaluate)
-    RelativeLayout userEvaluate;
     @BindView(R.id.indicatorEvaluate)
     ImageView indicatorEvaluate;
 
@@ -199,6 +194,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 finish();
             }
         });
+        if (detailEnum == DetailEnum.BEAUTICIAN) {
+            tv_title.setText("美容师详情");
+            detailHome.setText("美容师首页");
+        }
         iv_share.setVisibility(View.VISIBLE);
         llSelectTime = findViewById(R.id.ll_select_time);
         indicatorShopHome.setVisibility(View.VISIBLE);
@@ -220,23 +219,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         initContentHead(contentHead);
 
         View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
+        initContentSectionView(contentSectionView);
 
         View nearbySectionView = View.inflate(this, R.layout.section_layout_nearby_beautician, null);
-
         initNearbyView(nearbySectionView);
 
         commentSectionView = View.inflate(this, R.layout.layout_comment_top_head, null);
-
         initCommentView(commentSectionView);
-
-        hotProjectRv = contentSectionView.findViewById(R.id.sectionRv);
-        ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
-        ll_yuyue.setOnClickListener(this);
-        hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
-        hotProjectRv.setHasFixedSize(true);
-        hotProjectRv.setNestedScrollingEnabled(false);
-        contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
-        hotProjectRv.setAdapter(contentSectionAdapter);
 
         contentView.addView(contentHead);
         contentView.addView(contentSectionView);
@@ -244,6 +233,22 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             contentView.addView(nearbySectionView);
         }
         contentView.addView(commentSectionView);
+    }
+
+    private void initContentSectionView(View view) {
+        hotProjectRv = view.findViewById(R.id.sectionRv);
+        hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
+        hotProjectRv.setHasFixedSize(true);
+        hotProjectRv.setNestedScrollingEnabled(false);
+        contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
+        hotProjectRv.setAdapter(contentSectionAdapter);
+        TextView lookMore = view.findViewById(R.id.lookMore);
+        lookMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+            }
+        });
     }
 
     private TextView tradingArea;
@@ -255,6 +260,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
+        ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
+        ll_yuyue.setOnClickListener(this);
         serviceOne = contentHead.findViewById(R.id.serviceOne);
         serviceTwo = contentHead.findViewById(R.id.serviceTwo);
         serviceThree = contentHead.findViewById(R.id.serviceThree);
@@ -462,12 +469,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     Gson gson = new Gson();
                     final ShopDetailBean detailBean = gson.fromJson(response.body(), ShopDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                    tv_title.setText("克克美-" + detailBean.getData().getName());
+                    tv_title.setText(getString(R.string.shop_detail_name_text, detailBean.getData().getName()));
                     shopName.setText(detailBean.getData().getName());
                     shopStar.setStarMark(detailBean.getData().getStart());
-                    tvOrderCount.setText("服务人数:  " + detailBean.getData().getOrder_count());
-                    tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getCollection_count());
-                    tvSatisfaction.setText(detailBean.getData().get$satisfaction() + "%满意度");
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getCollection_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(detailBean.getData().getAddress());
                     tvDistance.setText(detailBean.getData().getDistance());
                     if (StringUtils.isNotBlank(detailBean.getData().getTel())) {
@@ -520,13 +527,23 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             serviceThree.setVisibility(View.GONE);
                         }
                     }
+                    if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
+                        contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
+                        contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = contentSectionAdapter.getItem(position);
+                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                            }
+                        });
+                    }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getBeautician())) {
                         meiRongShiAdapter.replaceData(detailBean.getData().getBeautician());
                     }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getAll().size()
-                                + detailBean.getData().getCommentdata().getNewX().size() + detailBean.getData().getCommentdata().getHaveimg().size()));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
                         commentdata = detailBean.getData().getCommentdata();
                         commentAdapter.replaceData(detailBean.getData().getCommentdata().getAll());
                     } else {
@@ -550,14 +567,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     Gson gson = new Gson();
                     BeauticianDetailBean detailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                    tv_title.setText("克克美-" + detailBean.getData().getName());
                     shopName.setText(detailBean.getData().getName());
                     shopStar.setStarMark(detailBean.getData().getStart());
-                    tvOrderCount.setText("服务人数:  " + detailBean.getData().getOrder_count());
-                    tvCollectionCount.setText("粉丝数:  " + detailBean.getData().getFriend_count());
-                    tvSatisfaction.setText(detailBean.getData().getSatisfaction() + "%满意度");
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getFriend_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(detailBean.getData().getAddress());
-                    //                    tvDistance.setText(detailBean.getData().getDistance());
+//                    tvDistance.setText(detailBean.getData().getDistance());
                     if (detailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
@@ -602,10 +618,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             }
                         }
                     }
+                    if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
+                        contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
+                        contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = contentSectionAdapter.getItem(position);
+                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                            }
+                        });
+                    }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getAll().size()
-                                + detailBean.getData().getCommentdata().getNewX().size() + detailBean.getData().getCommentdata().getHaveimg().size()));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
                         commentAdapter.addData(detailBean.getData().getCommentdata().getAll());
                     } else {
                         commentSectionView.setVisibility(View.GONE);
@@ -620,18 +646,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         }
-
-        OkGo.<String>post(URLs.PROJECT_LIST).params("page", "1").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "project list:" + response.body());
-                Gson gson = new Gson();
-                ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
-                contentSectionAdapter.replaceData(projectListBean.getData());
-            }
-        });
-
-
         initDayTime();
         timeData(System.currentTimeMillis());
 
@@ -663,23 +677,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 timeData(canlBean.getDataBean().get(position).getTimeInMillis());
             }
         });
-        //        dayAdapter.setNewData(canlBean.getDataBean());
-        //
-        //        dayAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-        //            @Override
-        //            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        //
-        //                Calendar item = (Calendar) adapter.getItem(position);
-        //                timeData(item.getTimeInMillis());
-        //                if (view.getId() == R.id.tv_date_and_week || view.getId() == R.id.tv_can_yuyue || view.getId() == R.id.ll_select_data_time){
-        ////                    TextView view1 = (TextView) view;
-        //                    TextView tv_date_and_week = (TextView) adapter.getViewByPosition(id_recyclerview_horizontal, position, R.id.tv_date_and_week);
-        //                    TextView tv_can_yuyue = (TextView) adapter.getViewByPosition(id_recyclerview_horizontal, position, R.id.tv_can_yuyue);
-        //                    tv_date_and_week.setTextColor(0xFF7AD2D2);
-        //                    tv_can_yuyue.setTextColor(0xFF7AD2D2);
-        //                }
-        //            }
-        //        });
     }
 
     /**
@@ -705,9 +702,5 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 commentTagFlowLayout.addView(txt);
             }
         }
-    }
-
-    public void phoneClick(View view) {
-
     }
 }

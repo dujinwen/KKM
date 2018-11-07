@@ -93,10 +93,13 @@
             android:layout_height="@dimen/px_82"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/px_418"
-            android:background="@drawable/refund_red_btn_background"
-            android:gravity="center"
+            android:background="@drawable/shape_grey_shop_detail"
+            android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
+            android:gravity="center_vertical"
+            android:drawablePadding="10px"
+            android:paddingLeft="29px"
             android:text="95%满意度"
-            android:textColor="#FFFFFFFF"
-            android:textSize="@dimen/px_37" />
+            android:textColor="#333333"
+            android:textSize="@dimen/px_35" />
     </RelativeLayout>
 </RelativeLayout>

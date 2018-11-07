@@ -1,5 +1,6 @@
 package com.hualong.kekemei.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,23 +25,19 @@ import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
-import com.hualong.kekemei.bean.CommentTagsBean;
-import com.hualong.kekemei.bean.EvaluateBean;
-import com.hualong.kekemei.bean.EvaluateListBean;
-import com.hualong.kekemei.bean.ProjectListBean;
-import com.hualong.kekemei.bean.ShopDetailBean;
+import com.hualong.kekemei.bean.BaseBean;
+import com.hualong.kekemei.bean.ProjectDetailBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.StringUtils;
 import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.view.MultipleStatusView;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -58,11 +58,22 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.scrollLayout)
     ScrollView scrollLayout;
 
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+
     @BindView(R.id.shop_detail_icon)
     ImageView shop_detail_icon;
 
     @BindView(R.id.shopName)
     TextView shopName;
+    @BindView(R.id.price)
+    TextView price;
+    @BindView(R.id.marketPrice)
+    TextView marketPrice;
+    @BindView(R.id.tvCollection)
+    TextView tvCollection;
+    @BindView(R.id.tvFollowNum)
+    TextView tvFollowNum;
 
     @BindView(R.id.projectDetail)
     RelativeLayout projectDetail;
@@ -77,6 +88,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.contentView)
     LinearLayout contentView;
 
+    private WebView webContainer;
+
+    private ProjectDetailBean.DataBean.CommentBean commentData;
+    private View commentSectionView;
     private TextView userCommentNum;
     private TextView commentTabAll;
     private TextView commentTabNew;
@@ -89,6 +104,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private String beauticianId;
     private MyGridAdapter contentSectionAdapter;
     private EvaluateListAdapter commentAdapter;
+
+    private String encoding = "UTF-8";
+    private String mimeType = "text/html";
 
     public static void start(Context context, int beauticianId) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
@@ -117,29 +135,75 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
             }
         });
+        tv_title.setText("项目详情");
         iv_share.setVisibility(View.VISIBLE);
 
         indicatorProjectDetail.setVisibility(View.VISIBLE);
 
-        View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
+        multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initData();
+            }
+        });
 
-        View commentSectionView = View.inflate(this, R.layout.layout_comment_top_head, null);
+        multipleStatusView.showOutContentView(scrollLayout);
+
+        View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
+        initContentHead(contentHead);
+
+        View webLayout = View.inflate(this, R.layout.layout_detail_content_web, null);
+        webContainer = webLayout.findViewById(R.id.webContainer);
+
+        commentSectionView = View.inflate(this, R.layout.layout_comment_top_head, null);
+        initCommentView(commentSectionView);
 
         View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
+        initContentSectionView(contentSectionView);
 
-        userCommentNum = commentSectionView.findViewById(R.id.userCommentNum);
-        commentTabAll = commentSectionView.findViewById(R.id.commentTabAll);
-        commentTabNew = commentSectionView.findViewById(R.id.commentTabNew);
-        commentTabPhoto = commentSectionView.findViewById(R.id.commentTabPhoto);
-        markLayout = commentSectionView.findViewById(R.id.markLayout);
+        contentView.addView(contentHead);
+        contentView.addView(webLayout);
+        contentView.addView(commentSectionView);
+        contentView.addView(contentSectionView);
+    }
+
+    @SuppressLint({"SetJavaScriptEnabled"})
+    private void displayForWebView(String html, String baseUrl) {
+        webContainer.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webContainer.getSettings().setDefaultFontSize(13);
+        webContainer.getSettings().setJavaScriptEnabled(true);
+        webContainer.getSettings().setBuiltInZoomControls(true);
+        webContainer.getSettings().setDisplayZoomControls(false);
+        webContainer.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                /*Intent intent = new Intent(ProjectDetailActivity.this, SingleWebViewActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);*/
+                return true;   // true自身处理，false系统浏览器处理。
+            }
+
+        });
+        if (StringUtils.isEmpty(baseUrl)) {
+            baseUrl = "about:blank";
+        }
+        webContainer.loadDataWithBaseURL(baseUrl, html, mimeType, encoding, "about:blank");
+        webContainer.scrollTo(0, 0);
+    }
+
+    private void initCommentView(View view) {
+        userCommentNum = view.findViewById(R.id.userCommentNum);
+        commentTabAll = view.findViewById(R.id.commentTabAll);
+        commentTabNew = view.findViewById(R.id.commentTabNew);
+        commentTabPhoto = view.findViewById(R.id.commentTabPhoto);
+        markLayout = view.findViewById(R.id.markLayout);
         markLayout.setVisibility(View.VISIBLE);
-        commentTagFlowLayout = commentSectionView.findViewById(R.id.commentTagFlowLayout);
-        rvCommentList = commentSectionView.findViewById(R.id.rvCommentList);
+        commentTagFlowLayout = view.findViewById(R.id.commentTagFlowLayout);
+        rvCommentList = view.findViewById(R.id.rvCommentList);
         commentTabAll.setSelected(true);
         commentTabAll.setOnClickListener(this);
         commentTabNew.setOnClickListener(this);
         commentTabPhoto.setOnClickListener(this);
-
         commentAdapter = new EvaluateListAdapter(this, false);
         rvCommentList.setLayoutManager(new LinearLayoutManager(this));
         rvCommentList.setHasFixedSize(true);
@@ -150,24 +214,45 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             }
         });
         rvCommentList.setAdapter(commentAdapter);
-        TextView lookMore = commentSectionView.findViewById(R.id.lookMore);
+        TextView lookMore = view.findViewById(R.id.lookMore);
         lookMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserEvaluateActivity.start(ProjectDetailActivity.this, false);
             }
         });
+    }
 
-        hotProjectRv = contentSectionView.findViewById(R.id.sectionRv);
+    private void initContentSectionView(View view) {
+        hotProjectRv = view.findViewById(R.id.sectionRv);
         hotProjectRv.setLayoutManager(new GridLayoutManager(this, 2));
         hotProjectRv.setHasFixedSize(true);
         hotProjectRv.setNestedScrollingEnabled(false);
         contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
         hotProjectRv.setAdapter(contentSectionAdapter);
+        TextView lookMore = view.findViewById(R.id.lookMore);
+        lookMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProjectDetailActivity.this, ClassifyActivity.class));
+            }
+        });
+    }
 
-        contentView.addView(contentHead);
-        contentView.addView(commentSectionView);
-        contentView.addView(contentSectionView);
+    private TextView tradingArea;
+    private TextView serviceOne;
+    private TextView serviceTwo;
+    private TextView serviceThree;
+    private TextView tvAddress;
+    private TextView tvDistance;
+
+    private void initContentHead(View contentHead) {
+        tradingArea = contentHead.findViewById(R.id.tradingArea);
+        serviceOne = contentHead.findViewById(R.id.serviceOne);
+        serviceTwo = contentHead.findViewById(R.id.serviceTwo);
+        serviceThree = contentHead.findViewById(R.id.serviceThree);
+        tvAddress = contentHead.findViewById(R.id.tvAddress);
+        tvDistance = contentHead.findViewById(R.id.tvDistance);
     }
 
     @OnClick({R.id.projectDetail, R.id.userEvaluate})
@@ -181,22 +266,31 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.userEvaluate:
                 indicatorProjectDetail.setVisibility(View.GONE);
                 indicatorEvaluate.setVisibility(View.VISIBLE);
-                scrollTo(contentView.getChildAt(1));
+                scrollTo(contentView.getChildAt(2));
                 break;
             case R.id.commentTabAll:
                 commentTabAll.setSelected(true);
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(false);
+                if (commentData != null) {
+                    commentAdapter.replaceData(commentData.getAll());
+                }
                 break;
             case R.id.commentTabNew:
                 commentTabAll.setSelected(false);
                 commentTabNew.setSelected(true);
                 commentTabPhoto.setSelected(false);
+                if (commentData != null) {
+                    commentAdapter.replaceData(commentData.getNewX());
+                }
                 break;
             case R.id.commentTabPhoto:
                 commentTabAll.setSelected(false);
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(true);
+                if (commentData != null) {
+                    commentAdapter.replaceData(commentData.getHaveimg());
+                }
                 break;
         }
     }
@@ -222,71 +316,46 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initData() {
         super.initData();
+        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.PROJECT_DETAILS).params("id", beauticianId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ProjectDetailActivity", response.body());
+                multipleStatusView.showOutContentView(scrollLayout);
                 Gson gson = new Gson();
-                ShopDetailBean shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
-                /*ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
-                tv_title.setText("克克美-" + shopDetailBean.getData().getName());
-                shopName.setText(shopDetailBean.getData().getName());*/
-            }
-        });
-
-
-        OkGo.<String>post(URLs.PROJECT_LIST).params("page", "1").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
-                Gson gson = new Gson();
-                ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
-                contentSectionAdapter.replaceData(projectListBean.getData());
-            }
-        });
-
-        initCommentTags();
-
-        OkGo.<String>post(URLs.COMMENT_LIST).params("page", "1").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
-                Gson gson = new Gson();
-                EvaluateListBean evaluateListBean = gson.fromJson(response.body(), EvaluateListBean.class);
-                userCommentNum.setText(getString(R.string.home_comment_num_format, evaluateListBean.getData().size()));
-                List<EvaluateBean> list = new ArrayList<>();
-                for (int i = 0; i < 2; i++) {
-                    list.add(evaluateListBean.getData().get(i));
+                ProjectDetailBean detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
+                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
+                shopName.setText(detailBean.getData().getName());
+                price.setText("￥" + detailBean.getData().getPrice_discount());
+                marketPrice.setText("￥" + detailBean.getData().getPrice_market());
+                /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
+                displayForWebView("http://www.baidu.com", "http://www.baidu.com");
+                if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
+                    contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
+                    contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            LogUtil.e("section", "click:" + position);
+                            BaseBean item = contentSectionAdapter.getItem(position);
+                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId());
+                        }
+                    });
                 }
-                commentAdapter.replaceData(list);
-            }
-        });
-    }
-
-    private void initCommentTags() {
-        OkGo.<String>post(URLs.COMMENT_TAG).params("type", "1").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("comment", "body:" + response.body());
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
-                        fillTags(null);
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (detailBean.getData().getComment() != null && CollectionUtils.isNotEmpty(detailBean.getData().getComment().getAll())) {
+                    commentSectionView.setVisibility(View.VISIBLE);
+//                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                    commentData = detailBean.getData().getComment();
+                    commentAdapter.replaceData(detailBean.getData().getComment().getAll());
+                } else {
+                    commentSectionView.setVisibility(View.GONE);
                 }
-                Gson gson = new Gson();
-                CommentTagsBean commentTagsBean = gson.fromJson(response.body(), CommentTagsBean.class);
-                fillTags(commentTagsBean.getData());
+                fillTags(detailBean.getData().getComment().getTags());
             }
 
             @Override
             public void onError(Response<String> response) {
-                LogUtil.e("TAG", response.message());
-                fillTags(null);
+                super.onError(response);
+                multipleStatusView.showError();
             }
         });
     }
@@ -296,15 +365,15 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      *
      * @param result
      */
-    private void fillTags(final List<String> result) {
+    private void fillTags(final List<ProjectDetailBean.DataBean.CommentBean.TagsBean> result) {
         if (CollectionUtils.isEmpty(result)) {
             return;
         }
         commentTagFlowLayout.removeAllViews();
         for (int i = 0; i < result.size(); i++) {
             final TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_comment_tag_layout, commentTagFlowLayout, false);
-            if (!AppUtil.isEmptyString(result.get(i))) {
-                txt.setText(result.get(i));
+            if (!AppUtil.isEmptyString(result.get(i).getName())) {
+                txt.setText(result.get(i).getName());
                 txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
