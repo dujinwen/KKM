@@ -18,6 +18,7 @@ import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.ShopListBean;
 import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.SPUtils;
 import com.hualong.kekemei.utils.URLs;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
@@ -59,8 +60,10 @@ public class ShopListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        OkGo.<String>get(URLs.SHOP_NEAR).params("longitude", 116.4072154982)
-                .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
+        String latitude = SPUtils.getString(this, "latitude", "");
+        String longitude = SPUtils.getString(this, "longitude", "");
+        OkGo.<String>get(URLs.SHOP_NEAR).params("longitude", longitude)
+                .params("latitude", latitude).params("page", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.d("ShopListActivity", response.body());

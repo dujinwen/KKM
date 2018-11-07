@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.utils.LogUtil;
+import com.hualong.kekemei.utils.SPUtils;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.MeiRongShiListBean;
@@ -60,8 +61,10 @@ public class MeiRongShiActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        OkGo.<String>get(URLs.BEAUTICIAN_NEAR).params("longitude", 116.4072154982)
-                .params("latitude", 39.9047253699).params("page", "1").execute(new StringCallback() {
+        String latitude = SPUtils.getString(this, "latitude", "");
+        String longitude = SPUtils.getString(this, "longitude", "");
+        OkGo.<String>get(URLs.BEAUTICIAN_NEAR).params("longitude", longitude)
+                .params("latitude", latitude).params("page", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.d("MeiRongShiActivity", response.body());

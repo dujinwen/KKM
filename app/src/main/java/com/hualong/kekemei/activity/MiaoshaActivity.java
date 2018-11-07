@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.utils.SPUtils;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.adapter.MiaoshaPagerAdapter;
 import com.hualong.kekemei.bean.MiaoshaBean;
@@ -86,8 +87,10 @@ public class MiaoshaActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.SECOND).params("longitude", "116.4072154982")
-                .params("latitude", "39.9047253699").execute(new StringCallback() {
+        String latitude = SPUtils.getString(this, "latitude", "");
+        String longitude = SPUtils.getString(this, "longitude", "");
+        OkGo.<String>post(URLs.SECOND).params("longitude", longitude)
+                .params("latitude", latitude).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();

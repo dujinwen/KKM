@@ -31,6 +31,7 @@ import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.BannerBean;
+import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.BeauticianBean;
 import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.bean.DetailEnum;
@@ -41,6 +42,7 @@ import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.SPUtils;
 import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.utils.UserHelp;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -174,8 +176,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
 
     private void initData(String latitude, String longitude) {
-        OkGo.<String>post(URLs.INDEX).params("longitude", 116.4072154982)
-                .params("latitude", 39.9047253699).execute(new StringCallback() {
+        OkGo.<String>post(URLs.INDEX).params("longitude", longitude)
+                .params("latitude", latitude).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.d("APPLOCALTION", response.body().toString());
@@ -218,7 +220,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 });
 
                 rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);
+                final MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);
                 rvXinren.setHasFixedSize(true);
                 rvXinren.setNestedScrollingEnabled(false);
                 rvXinren.setAdapter(adapter1);
@@ -227,7 +229,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
-
+                            BaseBean data = adapter1.getItem(position);
+                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
                         }
                     }
                 });
@@ -242,7 +245,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
-
+                            BaseBean data = adapter1.getItem(position);
+                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
                         }
                     }
                 });
@@ -257,7 +261,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
-
+                            BaseBean data = adapter1.getItem(position);
+                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
                         }
                     }
                 });
@@ -272,7 +277,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
-
+                            BaseBean data = adapter1.getItem(position);
+                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
                         }
                     }
                 });

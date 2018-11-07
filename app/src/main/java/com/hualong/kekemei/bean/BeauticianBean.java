@@ -42,7 +42,7 @@ public class BeauticianBean {
     private int start;
     private String state;
     private String state_text;
-    private int user_id;
+    private long user_id;
     private String user_nickname;
     private List<String> shops;
     private List<String> tag;
@@ -137,11 +137,11 @@ public class BeauticianBean {
         this.state_text = state_text;
     }
 
-    public int getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
 

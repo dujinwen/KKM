@@ -129,7 +129,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout ll_yuyue;
     private LinearLayout llSelectTime;
 
-    public static void start(Context context, int beauticianId, int userId, DetailEnum detailEnum) {
+    public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
         intent.putExtra(EXTRA_KEY_USER_ID, String.valueOf(userId));
