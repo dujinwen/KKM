@@ -30,8 +30,8 @@ public class BaseBean {
      * views : 0
      * createtime : 1538449687
      * like_count : 0
-     * redenvelopes : [{"id":1,"name":"111111","type":"1","price_satisfy":0,"price_reduction":100,"image":"/assets/img/qrcode.png","count":9,"state":"1","createtime":1537844659,"type_text":"Type 1","state_text":"State 1"}]
-     * coupon : [{"id":1,"name":"111111","type":"1","price_satisfy":0,"price_reduction":100,"image":"/assets/img/qrcode.png","count":9,"state":"1","createtime":1537844659,"type_text":"Type 1","state_text":"State 1"}]
+     * redenvelopes : ["1111","11111"}]
+     * coupon : [{"1111","1111","1111"}]
      * quality_text :
      * state_text : State 2
      */
@@ -59,8 +59,8 @@ public class BaseBean {
     private int like_count;
     private String quality_text;
     private String state_text;
-    private List<RedenvelopesBean> redenvelopes;
-    private List<CouponBean> coupon;
+    private List<String> redenvelopes;
+    private List<String> coupon;
 
     public int getId() {
         return id;
@@ -246,251 +246,19 @@ public class BaseBean {
         this.state_text = state_text;
     }
 
-    public List<RedenvelopesBean> getRedenvelopes() {
+    public List<String> getRedenvelopes() {
         return redenvelopes;
     }
 
-    public void setRedenvelopes(List<RedenvelopesBean> redenvelopes) {
+    public void setRedenvelopes(List<String> redenvelopes) {
         this.redenvelopes = redenvelopes;
     }
 
-    public List<CouponBean> getCoupon() {
+    public List<String> getCoupon() {
         return coupon;
     }
 
-    public void setCoupon(List<CouponBean> coupon) {
+    public void setCoupon(List<String> coupon) {
         this.coupon = coupon;
-    }
-
-    public static class RedenvelopesBean {
-        /**
-         * id : 1
-         * name : 111111
-         * type : 1
-         * price_satisfy : 0
-         * price_reduction : 100
-         * image : /assets/img/qrcode.png
-         * count : 9
-         * state : 1
-         * createtime : 1537844659
-         * type_text : Type 1
-         * state_text : State 1
-         */
-
-        private int id;
-        private String name;
-        private String type;
-        private int price_satisfy;
-        private int price_reduction;
-        private String image;
-        private int count;
-        private String state;
-        private int createtime;
-        private String type_text;
-        private String state_text;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public int getPrice_satisfy() {
-            return price_satisfy;
-        }
-
-        public void setPrice_satisfy(int price_satisfy) {
-            this.price_satisfy = price_satisfy;
-        }
-
-        public int getPrice_reduction() {
-            return price_reduction;
-        }
-
-        public void setPrice_reduction(int price_reduction) {
-            this.price_reduction = price_reduction;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public int getCreatetime() {
-            return createtime;
-        }
-
-        public void setCreatetime(int createtime) {
-            this.createtime = createtime;
-        }
-
-        public String getType_text() {
-            return type_text;
-        }
-
-        public void setType_text(String type_text) {
-            this.type_text = type_text;
-        }
-
-        public String getState_text() {
-            return state_text;
-        }
-
-        public void setState_text(String state_text) {
-            this.state_text = state_text;
-        }
-    }
-
-    public static class CouponBean {
-        /**
-         * id : 1
-         * name : 111111
-         * type : 1
-         * price_satisfy : 0
-         * price_reduction : 100
-         * image : /assets/img/qrcode.png
-         * count : 9
-         * state : 1
-         * createtime : 1537844659
-         * type_text : Type 1
-         * state_text : State 1
-         */
-
-        private int id;
-        private String name;
-        private String type;
-        private int price_satisfy;
-        private int price_reduction;
-        private String image;
-        private int count;
-        private String state;
-        private int createtime;
-        private String type_text;
-        private String state_text;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public int getPrice_satisfy() {
-            return price_satisfy;
-        }
-
-        public void setPrice_satisfy(int price_satisfy) {
-            this.price_satisfy = price_satisfy;
-        }
-
-        public int getPrice_reduction() {
-            return price_reduction;
-        }
-
-        public void setPrice_reduction(int price_reduction) {
-            this.price_reduction = price_reduction;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public int getCreatetime() {
-            return createtime;
-        }
-
-        public void setCreatetime(int createtime) {
-            this.createtime = createtime;
-        }
-
-        public String getType_text() {
-            return type_text;
-        }
-
-        public void setType_text(String type_text) {
-            this.type_text = type_text;
-        }
-
-        public String getState_text() {
-            return state_text;
-        }
-
-        public void setState_text(String state_text) {
-            this.state_text = state_text;
-        }
     }
 }
