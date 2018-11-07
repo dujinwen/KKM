@@ -1,5 +1,6 @@
 package com.hualong.kekemei.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -23,7 +21,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.adapter.DayCheckAdapter;
 import com.hualong.kekemei.adapter.DayCheckAdapter2;
 import com.hualong.kekemei.adapter.EvaluateListAdapter;
 import com.hualong.kekemei.adapter.MeiRongShiAdapter;
@@ -32,6 +29,7 @@ import com.hualong.kekemei.adapter.YuYueDataListAdapter;
 import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.BeauticianDetailBean;
 import com.hualong.kekemei.bean.CanlBean;
+import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.ShopDetailBean;
 import com.hualong.kekemei.bean.YuYueDataBean;
@@ -39,7 +37,6 @@ import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.StringUtils;
-import com.hualong.kekemei.utils.ToastUtil;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.view.StarBar;
@@ -133,6 +130,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView commentTabAll;
     private TextView commentTabNew;
     private TextView commentTabPhoto;
+    private TextView tvCommentPeer;
     private LinearLayout markLayout;
     private FlexboxLayout commentTagFlowLayout;
     private RecyclerView rvCommentList;
@@ -292,6 +290,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         commentTabAll = view.findViewById(R.id.commentTabAll);
         commentTabNew = view.findViewById(R.id.commentTabNew);
         commentTabPhoto = view.findViewById(R.id.commentTabPhoto);
+        tvCommentPeer = view.findViewById(R.id.tvCommentPeer);
         markLayout = view.findViewById(R.id.markLayout);
         markLayout.setVisibility(View.VISIBLE);
         commentTagFlowLayout = view.findViewById(R.id.commentTagFlowLayout);
@@ -316,12 +315,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tv_can_yuyue = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_can_yuyue);
                     if (!view.isSelected()) {
                         view.setSelected(true);
-                        view.setBackground(ShopActivity.this.getResources().getDrawable(R.drawable.btn_7ad2d2_background));
+                        view.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.drawable.btn_7ad2d2_background));
                         tv_date_and_week.setTextColor(0XFFFFFFFF);
                         tv_can_yuyue.setTextColor(0XFFFFFFFF);
                     } else {
                         view.setSelected(false);
-                        view.setBackground(ShopActivity.this.getResources().getDrawable(R.drawable.btn_white_background));
+                        view.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.drawable.btn_white_background));
                         tv_date_and_week.setTextColor(0XFF999999);
                         tv_can_yuyue.setTextColor(0XFF999999);
                     }
@@ -462,6 +461,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         multipleStatusView.showLoading();
         if (detailEnum == DetailEnum.SHOP) {
             OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
+                @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "shop detail:" + response.body());
@@ -543,13 +543,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getCount()));
+                        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
                         commentdata = detailBean.getData().getCommentdata();
                         commentAdapter.replaceData(detailBean.getData().getCommentdata().getAll());
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getTags())) {
+                            fillTags(detailBean.getData().getCommentdata().getTags());
+                        }
                     } else {
                         commentSectionView.setVisibility(View.GONE);
                     }
-                    fillTags(detailBean.getData().getComment_tag());
                 }
 
                 @Override
@@ -560,6 +563,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             });
         } else {
             OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+                @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "beautician detail:" + response.body());
@@ -631,12 +635,15 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getCount()));
                         commentAdapter.addData(detailBean.getData().getCommentdata().getAll());
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getTags())) {
+                            fillTags(detailBean.getData().getCommentdata().getTags());
+                        }
                     } else {
                         commentSectionView.setVisibility(View.GONE);
                     }
-                    fillTags(detailBean.getData().getComment_tag());
                 }
 
                 @Override
@@ -652,7 +659,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    private ArrayList<Calendar> calList = new ArrayList();
+    private ArrayList<Calendar> calList = new ArrayList<>();
 
     private void initDayTime() {
         final CanlBean canlBean = new CanlBean();
@@ -668,7 +675,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         id_recyclerview_horizontal.setLayoutManager(linearLayoutManager);
-        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(),beauticianId);
+        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(), beauticianId);
         id_recyclerview_horizontal.setAdapter(dayAdapter);
 
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
@@ -684,7 +691,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      *
      * @param result
      */
-    private void fillTags(final List<BeauticianDetailBean.DataBean.CommentTagBean> result) {
+    private void fillTags(final List<CommentTagsBean> result) {
         if (CollectionUtils.isEmpty(result)) {
             return;
         }

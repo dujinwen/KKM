@@ -1,50 +1,77 @@
 package com.hualong.kekemei.bean;
 
-import java.util.List;
-
 public class CommentTagsBean {
-
     /**
-     * code : 1
-     * msg : 请求成功
-     * time : 1540123385
-     * data : ["服务热情","技师专业"]
+     * id : 3
+     * name : 美容师专业
+     * state : 1
+     * weigh : 0
+     * tag_type : 1
+     * state_text : 正常
+     * tag_type_text : Tag_type 1
      */
 
-    private int code;
-    private String msg;
-    private String time;
-    private List<String> data;
+    private int id;
+    private String name;
+    private String state;
+    private int weigh;
+    private String tag_type;
+    private String state_text;
+    private String tag_type_text;
 
-    public int getCode() {
-        return code;
+    public int getId() {
+        return id;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getName() {
+        return name;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTime() {
-        return time;
+    public String getState() {
+        return state;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public List<String> getData() {
-        return data;
+    public int getWeigh() {
+        return weigh;
     }
 
-    public void setData(List<String> data) {
-        this.data = data;
+    public void setWeigh(int weigh) {
+        this.weigh = weigh;
+    }
+
+    public String getTag_type() {
+        return tag_type;
+    }
+
+    public void setTag_type(String tag_type) {
+        this.tag_type = tag_type;
+    }
+
+    public String getState_text() {
+        return state_text;
+    }
+
+    public void setState_text(String state_text) {
+        this.state_text = state_text;
+    }
+
+    public String getTag_type_text() {
+        return tag_type_text;
+    }
+
+    public void setTag_type_text(String tag_type_text) {
+        this.tag_type_text = tag_type_text;
     }
 }

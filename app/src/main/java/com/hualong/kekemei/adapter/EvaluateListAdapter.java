@@ -1,6 +1,7 @@
 package com.hualong.kekemei.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -8,8 +9,10 @@ import com.hualong.kekemei.R;
 import com.hualong.kekemei.bean.EvaluateBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.StringUtils;
+import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.view.NoScrollGridView;
 import com.hualong.kekemei.view.StarBar;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 import java.util.Arrays;
 
@@ -41,10 +44,12 @@ public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseView
             noScrollGridView.setAdapter(gridAdapter);
 //            gridAdapter.replaceData(Arrays.asList(split));
         }
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getUser_avatar(), (ImageView) helper.getView(R.id.icon));
+        helper.setText(R.id.name, item.getNickname());
         helper.setText(R.id.commentContent, item.getContent());
         helper.setText(R.id.date, AppUtil.getFormatTime2(item.getCreatetime()));
         StarBar startBar = helper.getView(R.id.star_bar);
-        startBar.setStarMark(item.getStart());
+        startBar.setStarMark(Float.parseFloat(item.getStart()));
     }
 }
 

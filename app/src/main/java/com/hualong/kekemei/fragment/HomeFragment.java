@@ -33,7 +33,6 @@ import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.BeauticianBean;
-import com.hualong.kekemei.bean.CommentTagsBean;
 import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.bean.HomeBean;
 import com.hualong.kekemei.bean.ShopBean;
@@ -48,9 +47,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -170,7 +166,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         }
 
         commentTabAll.setSelected(true);
-        initCommentTags();
         return view;
     }
 
@@ -306,37 +301,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 LogUtil.d("APPLOCALTION", response.toString());
             }
         });
-    }
-
-    private void initCommentTags() {
-        OkGo.<String>post(URLs.COMMENT_TAG)
-                .tag(this)
-                .params("type", "1")
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        LogUtil.e("comment", "body:" + response.body());
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body());
-                            Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
-                                fillTags(null);
-                                return;
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Gson gson = new Gson();
-                        CommentTagsBean commentTagsBean = gson.fromJson(response.body(), CommentTagsBean.class);
-                        fillTags(commentTagsBean.getData());
-                    }
-
-                    @Override
-                    public void onError(Response<String> response) {
-                        LogUtil.e("TAG", response.message());
-                        fillTags(null);
-                    }
-                });
     }
 
     /**

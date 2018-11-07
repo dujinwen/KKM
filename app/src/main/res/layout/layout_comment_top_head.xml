@@ -106,8 +106,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="32px"
         android:orientation="horizontal"
-        android:paddingLeft="130px"
-        android:paddingRight="130px"
+        android:paddingLeft="100px"
+        android:paddingRight="100px"
         android:visibility="gone">
 
         <TextView
@@ -150,6 +150,7 @@
             android:background="#CCCCCC" />
 
         <TextView
+            android:id="@+id/tvCommentPeer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="46px"

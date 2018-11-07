@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -176,13 +177,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         webContainer.getSettings().setDisplayZoomControls(false);
         webContainer.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                /*Intent intent = new Intent(ProjectDetailActivity.this, SingleWebViewActivity.class);
-                intent.putExtra("url", url);
-                startActivity(intent);*/
-                return true;   // true自身处理，false系统浏览器处理。
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return true;
             }
-
         });
         if (StringUtils.isEmpty(baseUrl)) {
             baseUrl = "about:blank";
@@ -346,10 +343,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 //                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
                     commentData = detailBean.getData().getComment();
                     commentAdapter.replaceData(detailBean.getData().getComment().getAll());
+                    if (CollectionUtils.isNotEmpty(detailBean.getData().getComment().getTags())) {
+                        fillTags(detailBean.getData().getComment().getTags());
+                    }
                 } else {
                     commentSectionView.setVisibility(View.GONE);
                 }
-                fillTags(detailBean.getData().getComment().getTags());
             }
 
             @Override

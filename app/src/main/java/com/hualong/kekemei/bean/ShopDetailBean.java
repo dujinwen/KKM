@@ -61,13 +61,13 @@ public class ShopDetailBean {
         private int user_id;
         private int order_count;
         private int collection_count;
-        private int comment_count;
         private int iscollection;
         private String satisfaction;
+        private String peer;
         private String distance;
         private int start;
-        private CommentdataBean commentdata;
         private String state_text;
+        private CommentdataBean commentdata;
         private List<ServiceBean> service;
         private List<CouponBean> coupon;
         private List<RedenvelopesBean> redenvelopes;
@@ -77,23 +77,6 @@ public class ShopDetailBean {
         private List<BaseBean> specialdata;
         private List<BaseBean> newmemberdata;
         private List<BaseBean> memberdata;
-        private List<BeauticianDetailBean.DataBean.CommentTagBean> comment_tag;
-
-        public List<BeauticianDetailBean.DataBean.CommentTagBean> getComment_tag() {
-            return comment_tag;
-        }
-
-        public void setComment_tag(List<BeauticianDetailBean.DataBean.CommentTagBean> comment_tag) {
-            this.comment_tag = comment_tag;
-        }
-
-        public int getComment_count() {
-            return comment_count;
-        }
-
-        public void setComment_count(int comment_count) {
-            this.comment_count = comment_count;
-        }
 
         public int getId() {
             return id;
@@ -255,6 +238,14 @@ public class ShopDetailBean {
             this.satisfaction = satisfaction;
         }
 
+        public String getPeer() {
+            return peer;
+        }
+
+        public void setPeer(String peer) {
+            this.peer = peer;
+        }
+
         public String getDistance() {
             return distance;
         }
@@ -360,10 +351,37 @@ public class ShopDetailBean {
         }
 
         public static class CommentdataBean {
+
+            /**
+             * tags : [{"id":3,"name":"美容师专业","state":"1","weigh":0,"tag_type":"1","state_text":"正常","tag_type_text":"Tag_type 1"},{"id":5,"name":"干净卫生","state":"1","weigh":0,"tag_type":"2","state_text":"正常","tag_type_text":"Tag_type 2"}]
+             * count : 1
+             * all : [{"id":1,"user_id":1,"project_project_id":3,"shop_shop_id":1,"beautician_beautician_id":1,"comment_tag_ids":"5,3","order_id":0,"content":"很好","images":"","coment_type":"1","start":"3","state":"1","createtime":1538469581,"satisfaction":"2","switch":1,"nickname":"admin","user_avatar":"/assets/img/avatar.png","reply":null,"coment_type_text":"Coment_type 1","start_text":"Start 3","state_text":"正常","satisfaction_text":"Satisfaction 2"}]
+             * new : [{"id":1,"user_id":1,"project_project_id":3,"shop_shop_id":1,"beautician_beautician_id":1,"comment_tag_ids":"5,3","order_id":0,"content":"很好","images":"","coment_type":"1","start":"3","state":"1","createtime":1538469581,"satisfaction":"2","switch":1,"nickname":"admin","user_avatar":"/assets/img/avatar.png","reply":null,"coment_type_text":"Coment_type 1","start_text":"Start 3","state_text":"正常","satisfaction_text":"Satisfaction 2"}]
+             * haveimg : []
+             */
+
+            private int count;
+            private List<CommentTagsBean> tags;
             private List<EvaluateBean> all;
             @SerializedName("new")
             private List<EvaluateBean> newX;
             private List<EvaluateBean> haveimg;
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public List<CommentTagsBean> getTags() {
+                return tags;
+            }
+
+            public void setTags(List<CommentTagsBean> tags) {
+                this.tags = tags;
+            }
 
             public List<EvaluateBean> getAll() {
                 return all;

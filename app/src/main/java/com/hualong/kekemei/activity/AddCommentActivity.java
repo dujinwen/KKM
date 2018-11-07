@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.GridImageAdapter;
 import com.hualong.kekemei.bean.CommentTagsBean;
@@ -195,8 +196,9 @@ public class AddCommentActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                         Gson gson = new Gson();
-                        CommentTagsBean commentTagsBean = gson.fromJson(response.body(), CommentTagsBean.class);
-                        fillTags(commentTagsBean.getData());
+                        List<CommentTagsBean> commentTagsBean = gson.fromJson(response.body(), new TypeToken<List<CommentTagsBean>>() {
+                        }.getType());
+                        fillTags(commentTagsBean);
                     }
 
                     @Override
@@ -212,15 +214,15 @@ public class AddCommentActivity extends BaseActivity {
      *
      * @param result
      */
-    private void fillTags(final List<String> result) {
+    private void fillTags(final List<CommentTagsBean> result) {
         if (CollectionUtils.isEmpty(result)) {
             return;
         }
         commentTagFlowLayout.removeAllViews();
         for (int i = 0; i < result.size(); i++) {
             final TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_comment_tag_layout, commentTagFlowLayout, false);
-            if (!AppUtil.isEmptyString(result.get(i))) {
-                txt.setText(result.get(i));
+            if (!AppUtil.isEmptyString(result.get(i).getName())) {
+                txt.setText(result.get(i).getName());
                 txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -62,14 +62,13 @@ public class BeauticianDetailBean {
         private int isfriend;
         private int friend_count;
         private int order_count;
-        private int comment_count;
         private int average_price;
         private List<String> auth;
         private List<CouponBean> coupon;
         private List<RedEnvelopes> redenvelopes;
         private int start;
         private String satisfaction;
-        private List<CommentTagBean> comment_tag;
+        private String peer;
         private String address;
         private int like_people;
         private String state_text;
@@ -218,14 +217,6 @@ public class BeauticianDetailBean {
             this.order_count = order_count;
         }
 
-        public int getComment_count() {
-            return comment_count;
-        }
-
-        public void setComment_count(int comment_count) {
-            this.comment_count = comment_count;
-        }
-
         public int getAverage_price() {
             return average_price;
         }
@@ -274,12 +265,12 @@ public class BeauticianDetailBean {
             this.satisfaction = satisfaction;
         }
 
-        public List<CommentTagBean> getComment_tag() {
-            return comment_tag;
+        public String getPeer() {
+            return peer;
         }
 
-        public void setComment_tag(List<CommentTagBean> comment_tag) {
-            this.comment_tag = comment_tag;
+        public void setPeer(String peer) {
+            this.peer = peer;
         }
 
         public String getAddress() {
@@ -371,10 +362,28 @@ public class BeauticianDetailBean {
         }
 
         public static class CommentdataBean {
+            private int count;
+            private List<CommentTagsBean> tags;
             private List<EvaluateBean> all;
             @SerializedName("new")
             private List<EvaluateBean> newX;
             private List<EvaluateBean> haveimg;
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public List<CommentTagsBean> getTags() {
+                return tags;
+            }
+
+            public void setTags(List<CommentTagsBean> tags) {
+                this.tags = tags;
+            }
 
             public List<EvaluateBean> getAll() {
                 return all;
@@ -398,83 +407,6 @@ public class BeauticianDetailBean {
 
             public void setHaveimg(List<EvaluateBean> haveimg) {
                 this.haveimg = haveimg;
-            }
-        }
-
-        public static class CommentTagBean {
-
-            /**
-             * id : 3
-             * name : 美容师专业
-             * state : 1
-             * weigh : 0
-             * tag_type : 1
-             * state_text : 正常
-             * tag_type_text : 美容师
-             */
-
-            private int id;
-            private String name;
-            private String state;
-            private int weigh;
-            private String tag_type;
-            private String state_text;
-            private String tag_type_text;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getState() {
-                return state;
-            }
-
-            public void setState(String state) {
-                this.state = state;
-            }
-
-            public int getWeigh() {
-                return weigh;
-            }
-
-            public void setWeigh(int weigh) {
-                this.weigh = weigh;
-            }
-
-            public String getTag_type() {
-                return tag_type;
-            }
-
-            public void setTag_type(String tag_type) {
-                this.tag_type = tag_type;
-            }
-
-            public String getState_text() {
-                return state_text;
-            }
-
-            public void setState_text(String state_text) {
-                this.state_text = state_text;
-            }
-
-            public String getTag_type_text() {
-                return tag_type_text;
-            }
-
-            public void setTag_type_text(String tag_type_text) {
-                this.tag_type_text = tag_type_text;
             }
         }
 

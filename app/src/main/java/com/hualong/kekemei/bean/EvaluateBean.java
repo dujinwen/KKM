@@ -2,7 +2,7 @@ package com.hualong.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class EvaluateBean{
+public class EvaluateBean {
     /**
      * id : 1
      * user_id : 1
@@ -38,7 +38,6 @@ public class EvaluateBean{
     private String comment_tag_ids;
     private int order_id;
     private String content;
-    private float start;
     private String state;
     private int createtime;
     private String satisfaction;
@@ -47,6 +46,23 @@ public class EvaluateBean{
     private String start_text;
     private String state_text;
     private String satisfaction_text;
+    /**
+     * beautician_beautician_id : 1
+     * coment_type : 1
+     * coment_type_text : Coment_type 1
+     * nickname : admin
+     * shop_shop_id : 1
+     * start : 3
+     * user_avatar : /assets/img/avatar.png
+     */
+
+    private int beautician_beautician_id;
+    private String coment_type;
+    private String coment_type_text;
+    private String nickname;
+    private int shop_shop_id;
+    private String start;
+    private String user_avatar;
 
     public int getId() {
         return id;
@@ -112,11 +128,11 @@ public class EvaluateBean{
         this.content = content;
     }
 
-    public float getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(float start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
@@ -206,5 +222,53 @@ public class EvaluateBean{
 
     public void setType_text(String type_text) {
         this.type_text = type_text;
+    }
+
+    public int getBeautician_beautician_id() {
+        return beautician_beautician_id;
+    }
+
+    public void setBeautician_beautician_id(int beautician_beautician_id) {
+        this.beautician_beautician_id = beautician_beautician_id;
+    }
+
+    public String getComent_type() {
+        return coment_type;
+    }
+
+    public void setComent_type(String coment_type) {
+        this.coment_type = coment_type;
+    }
+
+    public String getComent_type_text() {
+        return coment_type_text;
+    }
+
+    public void setComent_type_text(String coment_type_text) {
+        this.coment_type_text = coment_type_text;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getShop_shop_id() {
+        return shop_shop_id;
+    }
+
+    public void setShop_shop_id(int shop_shop_id) {
+        this.shop_shop_id = shop_shop_id;
+    }
+
+    public String getUser_avatar() {
+        return user_avatar;
+    }
+
+    public void setUser_avatar(String user_avatar) {
+        this.user_avatar = user_avatar;
     }
 }
