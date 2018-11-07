@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvRemenxiangmu.setNestedScrollingEnabled(false);
                 rvRemenxiangmu.setAdapter(adapter4);
                 adapter4.addData(homeBean.getData().getHotdata());
-                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
@@ -253,7 +253,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvHuiyuan.setNestedScrollingEnabled(false);
                 rvHuiyuan.setAdapter(adapter2);
                 adapter2.addData(homeBean.getData().getMemberdata());
-                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                adapter2.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
@@ -268,7 +268,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 rvZuixinxiangmu.setNestedScrollingEnabled(false);
                 rvZuixinxiangmu.setAdapter(adapter3);
                 adapter3.addData(homeBean.getData().getSpecialdata());
-                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                adapter3.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
