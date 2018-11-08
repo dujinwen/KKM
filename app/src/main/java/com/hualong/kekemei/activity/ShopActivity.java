@@ -47,7 +47,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -781,16 +780,26 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private void initDayTime(String time) {
         final CanlBean canlBean = new CanlBean();
 
-        cal = Calendar.getInstance();
-        if ("" != time && time != null) {
-            String[] year = time.split(" ")[0].split("-");
-            String[] day = time.split(" ")[1].split(":");
-            cal.set(Integer.getInteger(year[0]), Integer.getInteger(year[1]), Integer.getInteger(year[2])
-                    , Integer.getInteger(day[0]), Integer.getInteger(day[1]));
-        }
+        calList.clear();
         for (int i = 0; i < 30; i++) {
-            cal.add(Calendar.DATE, i);
-            calList.add(cal);
+            cal = Calendar.getInstance();
+            if (time != null && !time.isEmpty() && "" != null) {
+                if ("" != time && time != null) {
+                    String[] year = time.split(" ")[0].split("-");
+                    String[] day = time.split(" ")[1].split(":");
+                    Integer integer = Integer.parseInt(year[0]);
+                    Integer integer1 = Integer.parseInt(year[1]);
+                    Integer integer2 = Integer.parseInt(year[2]);
+                    Integer integer3 = Integer.parseInt(day[0]);
+                    Integer integer4 = Integer.parseInt(day[1]);
+                    cal.set(integer, integer1.intValue()-1, integer2);
+                    cal.add(Calendar.DATE, i);
+                    calList.add(cal);
+                }
+            } else {
+                cal.add(Calendar.DATE, i);
+                calList.add(cal);
+            }
         }
         canlBean.setDataBean(calList);
 
@@ -860,17 +869,17 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
                 ToastUtil.showToastMsg(mContext, time);
-                try {
 
-                    if (AppUtil.dateToStamp(time) < System.currentTimeMillis()) {
-                        ToastUtil.showToastMsg(getApplication(), "时间不可选");
-                    } else {
-                        initDayTime(time);
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                long currentTimeMillis = System.currentTimeMillis();
+                String formatTime = AppUtil.getFormatTime(currentTimeMillis);
+
+                String timers = formatTime.split(" ")[0];
+                String timers1 = time.split(" ")[0];
+                if (AppUtil.timeToStamp(timers1) < AppUtil.timeToStamp(timers)) {
+                    ToastUtil.showToastMsg(mContext, "时间不可选");
+                } else {
+                    initDayTime(time);
                 }
-
             }
         }, "2018-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         startTimePicker.showSpecificTime(false); // 显示时和分

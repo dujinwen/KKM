@@ -660,9 +660,10 @@ public class AppUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date(time));
     }
+
     /*
-    * 将时间转换为时间戳
-    */
+     * 将时间转换为时间戳
+     */
     public static long dateToStamp(String s) throws ParseException {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -671,6 +672,21 @@ public class AppUtil {
         return date.getTime();
     }
 
-
-
+    /* //日期转换为时间戳 */
+    public static long timeToStamp(String timers) {
+        Date d = new Date();
+        long timeStemp = 0;
+        try {
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+            d = sf.parse(timers);// 日期转换为时间戳
+        } catch (ParseException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        timeStemp = d.getTime();
+        return timeStemp;
+    }
 }
+
+
+

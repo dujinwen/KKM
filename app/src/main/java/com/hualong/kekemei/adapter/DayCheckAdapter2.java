@@ -1,23 +1,17 @@
 package com.hualong.kekemei.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.platform.comapi.map.L;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.bean.YuYueDataBean;
-import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.URLs;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -75,7 +69,9 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
         //   view.setOnClickListener(this);
         return viewHolder;
     }
+
     private String week = "周日";
+
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 
@@ -113,13 +109,13 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
                 YuYueDataBean yuYueDataBean = gson.fromJson(response.body(), YuYueDataBean.class);
                 viewHolder.tv_can_yuyue.setText("可预约");
                 for (int j = 0; j < yuYueDataBean.getData().size(); j++) {
-                    if (yuYueDataBean.getData().get(j).getState() == 1){
+                    if (yuYueDataBean.getData().get(j).getState() == 1) {
                         viewHolder.tv_can_yuyue.setText("约满");
                     }
                 }
             }
         });
-        viewHolder.tv_date_and_week.setText(week + " " + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
+        viewHolder.tv_date_and_week.setText(week + " " + (calendar.get(Calendar.MONTH) + 1 )+ "/" + calendar.get(Calendar.DAY_OF_MONTH));
         //将数据保存在itemView的Tag中，以便点击时进行获取
         viewHolder.itemView.setTag(viewHolder.tv_date_and_week);
 
@@ -130,7 +126,7 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
             viewHolder.tv_date_and_week.setTextColor(Color.parseColor("#c1c1c1"));
             viewHolder.tv_can_yuyue.setTextColor(Color.parseColor("#c1c1c1"));
         }
-        if (isFirst && i== 0){
+        if (isFirst && i == 0) {
             viewHolder.tv_date_and_week.setTextColor(Color.parseColor("#7AD2D2"));
             viewHolder.tv_can_yuyue.setTextColor(Color.parseColor("#7AD2D2"));
             isFirst = false;
@@ -165,6 +161,7 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
         public ViewHolder(View arg0) {
             super(arg0);
         }
+
         LinearLayout ll_select_data_time;
         TextView tv_can_yuyue;
         TextView tv_date_and_week;
@@ -173,7 +170,6 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
     public interface OnItemClickListener {
         void onItemClick(View view, TextView textView, int position);
     }
-
 
 
 }
