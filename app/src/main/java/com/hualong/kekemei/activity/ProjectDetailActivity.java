@@ -97,6 +97,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private TextView commentTabAll;
     private TextView commentTabNew;
     private TextView commentTabPhoto;
+    private TextView tvCommentPeer;
     private LinearLayout markLayout;
     private FlexboxLayout commentTagFlowLayout;
     private RecyclerView rvCommentList;
@@ -193,6 +194,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         commentTabAll = view.findViewById(R.id.commentTabAll);
         commentTabNew = view.findViewById(R.id.commentTabNew);
         commentTabPhoto = view.findViewById(R.id.commentTabPhoto);
+        tvCommentPeer = view.findViewById(R.id.tvCommentPeer);
         markLayout = view.findViewById(R.id.markLayout);
         markLayout.setVisibility(View.VISIBLE);
         commentTagFlowLayout = view.findViewById(R.id.commentTagFlowLayout);
@@ -315,6 +317,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         super.initData();
         multipleStatusView.showLoading();
         OkGo.<String>post(URLs.PROJECT_DETAILS).params("id", beauticianId).execute(new StringCallback() {
+            @SuppressLint("StringFormatMatches")
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ProjectDetailActivity", response.body());
@@ -341,6 +344,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 if (detailBean.getData().getComment() != null && CollectionUtils.isNotEmpty(detailBean.getData().getComment().getAll())) {
                     commentSectionView.setVisibility(View.VISIBLE);
 //                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                    tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
                     commentData = detailBean.getData().getComment();
                     commentAdapter.replaceData(detailBean.getData().getComment().getAll());
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getComment().getTags())) {

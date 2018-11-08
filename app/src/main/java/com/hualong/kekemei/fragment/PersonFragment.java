@@ -189,7 +189,7 @@ public class PersonFragment extends Fragment {
                 LoginActivity.start(getActivity());
                 break;
             case R.id.userName:
-                UserInfoActivity.start(getActivity());
+                UserInfoActivity.start(getActivity(), String.valueOf(UserHelp.getUserId(getActivity())));
                 break;
         }
     }
