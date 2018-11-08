@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.LoginActivity;
+import com.hualong.kekemei.activity.MyRedBaoActivity;
+import com.hualong.kekemei.activity.MyVoucherActivity;
 import com.hualong.kekemei.activity.SettingActivity;
 import com.hualong.kekemei.activity.UserInfoActivity;
 import com.hualong.kekemei.adapter.GridAdapter;
@@ -85,6 +87,8 @@ public class PersonFragment extends Fragment {
     private String[] userForwardArray = {"我的订单", "关注的店铺", "我的美容师", "我的收藏", "我的积分", "客户服务"};
     private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_dianpu_btn,
             R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn, R.mipmap.user_dizhi_btn, R.mipmap.user_kefu_btn};
+    private CouponDataBean couponBean;
+    private HongBaoDataBean hongBaoBean;
 
     @Nullable
     @Override
@@ -143,15 +147,15 @@ public class PersonFragment extends Fragment {
                     jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-                       tvHongbaonum.setText("0");
+                        tvHongbaonum.setText("0");
                         return;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                HongBaoDataBean hongBao = gson.fromJson(response.body(), HongBaoDataBean.class);
-                tvHongbaonum.setText(hongBao.getData().size()+"");
+                hongBaoBean = gson.fromJson(response.body(), HongBaoDataBean.class);
+                tvHongbaonum.setText(hongBaoBean.getData().size() + "");
 
             }
         });
@@ -171,7 +175,7 @@ public class PersonFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                CouponDataBean couponBean = gson.fromJson(response.body(), CouponDataBean.class);
+                couponBean = gson.fromJson(response.body(), CouponDataBean.class);
                 tvDaijinnum.setText(couponBean.getData().size() + "");
             }
         });
@@ -189,7 +193,7 @@ public class PersonFragment extends Fragment {
                 LoginActivity.start(getActivity());
                 break;
             case R.id.userName:
-                UserInfoActivity.start(getActivity());
+                UserInfoActivity.start(getActivity(), UserHelp.getUserId(getActivity()) + "");
                 break;
         }
     }
@@ -198,5 +202,22 @@ public class PersonFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick({R.id.tiyan, R.id.daijinquan, R.id.hongbao})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tiyan:
+
+                break;
+            case R.id.daijinquan:
+                if (couponBean == null) return;
+                MyVoucherActivity.start(getActivity(), couponBean);
+                break;
+            case R.id.hongbao:
+                if (hongbao == null) return;
+                MyRedBaoActivity.start(getActivity(), hongBaoBean);
+                break;
+        }
     }
 }

@@ -3,8 +3,8 @@
     android:layout_width="@dimen/px_995"
     android:id="@+id/ll_voucher_bg"
     android:layout_height="@dimen/px_230"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="@dimen/px_43"
+    android:layout_gravity="center"
+    android:layout_marginBottom="@dimen/px_43"
     android:background="@mipmap/orderform_youhuijuan_youhuijuan_"
     android:gravity="center"
     android:orientation="vertical"
@@ -54,6 +54,7 @@
                 android:textSize="@dimen/px_58" />
 
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -75,7 +76,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_23"
         android:orientation="horizontal">
 
         <TextView

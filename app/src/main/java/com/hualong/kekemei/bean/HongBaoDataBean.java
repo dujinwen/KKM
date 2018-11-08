@@ -190,6 +190,8 @@ public class HongBaoDataBean {
             private String state_text;
             private String type;
             private String type_text;
+            private String activitytime;
+            private String activitytime_end;
 
             public int getCount() {
                 return count;
@@ -277,6 +279,22 @@ public class HongBaoDataBean {
 
             public void setType_text(String type_text) {
                 this.type_text = type_text;
+            }
+
+            public String getActivitytime() {
+                return activitytime;
+            }
+
+            public void setActivitytime(String activitytime) {
+                this.activitytime = activitytime;
+            }
+
+            public String getActivitytime_end() {
+                return activitytime_end;
+            }
+
+            public void setActivitytime_end(String activitytime_end) {
+                this.activitytime_end = activitytime_end;
             }
         }
     }
