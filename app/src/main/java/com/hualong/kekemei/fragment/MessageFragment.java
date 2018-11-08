@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.utils.UserHelp;
 import com.hualong.kekemei.view.IndictorWithNumber;
 import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.activity.OrderListContract;
@@ -28,6 +30,9 @@ import com.hualong.kekemei.adapter.MyGridAdapter;
 import com.hualong.kekemei.bean.DataBean;
 import com.hualong.kekemei.bean.OrderListBean;
 import com.hualong.kekemei.adapter.OrderListAdapter;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -152,39 +157,26 @@ public class MessageFragment
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //                if (view.getId() == R.id.order_id_copy_tv) {
-                //                    Toast.makeText(getContext(), "复制成功", Toast.LENGTH_SHORT).show();
-                //                    AppUtil.copyToClipboard(getContext(),
-                //                            ((OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position)).
-                //                                    getOrderNo() + "");
-                //                } else if (view.getId() == R.id.order_adress_copy_tv) {
-                //                    Toast.makeText(getContext(), "复制成功", Toast.LENGTH_SHORT).show();
-                //                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
-                //                    String copStr = String.format(getContext().getResources().getString(R.string.format_buyer_name_tv), item.getShopName())
-                //                            + "  " + item.getMobile() + "  /n" + String.format(getContext().getResources().getString(R.string.format_adress),
-                //                            item.getFullAddress());
-                //                    AppUtil.copyToClipboard(getContext(), copStr);
-                //                } else if (view.getId() == R.id.deliver_btn_tv) {
-                //                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
-                //                    Router.build("work_order_deliver").with(DeliverActivity.ARG_PARAM1, item.getOrderNo())
-                //                            .requestCode(ActivityRequestCode.ACTIVITY_REQUEST_TO_DELIVER).go(getContext());
-                //                } else if (view.getId() == R.id.phone_call_btn) {
-                //                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
-                //                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                //                    Uri data = Uri.parse("tel:" + item.getMobile());
-                //                    intent.setData(data);
-                //                    startActivity(intent);
-                //                }
+                switch (view.getId()){
+                    case R.id.zaicigoumai:
+//                        OkGo.<String>get(URLs.ORDER_GENERATING)
+//                                .params("user_id", UserHelp.getUserId(getActivity()))
+//                                .params("name", beauticianBean.getName())
+//                                .params("project_id",beauticianBean.getId())
+//                                .execute(new StringCallback() {
+//                                    @Override
+//                                    public void onSuccess(Response<String> response) {
+//
+//                                    }
+//                                });
+                    break;
+
+                    default:
+
+                    break;
+                }
             }
         });
-        //        jAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-        //            @Override
-        //            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ////                Router.build("work_order_detail").with(OrderDetailActivity.ARG_PARAM1,
-        ////                        ((OrderListBean.PageResultVoBean.ResultBean) adapter.getData().get(position)).getOrderNo())
-        ////                        .requestCode(ActivityRequestCode.ACTIVITY_REQUEST_TO_DELIVER).go(getContext());
-        //            }
-        //        });
 
         jRecyclerView.setAdapter(jAdapter);
 

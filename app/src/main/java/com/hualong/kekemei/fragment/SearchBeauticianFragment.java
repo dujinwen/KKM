@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.activity.MeiRongShiActivity;
+import com.hualong.kekemei.activity.ShopActivity;
+import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.UserHelp;
 import com.hualong.kekemei.view.MultipleStatusView;
@@ -108,6 +111,30 @@ public class SearchBeauticianFragment extends Fragment implements SearchIPage {
         listAdapter = new MeiRongShiListAdapter(getActivity(), R.layout.list_shop, null);
         rv_list.setAdapter(listAdapter);
 
+        listAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BeauticianBean beauticianBean = (BeauticianBean) adapter.getItem(position);
+                switch (view.getId()) {
+                    case R.id.ll_meirongshi:
+                        ShopActivity.start(getActivity(), beauticianBean.getId(),
+                                beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
+                        break;
+                    case R.id.btn_buy_now:
+                        OkGo.<String>get(URLs.ORDER_GENERATING)
+                                .params("user_id", UserHelp.getUserId(getActivity()))
+                                .params("name", beauticianBean.getName())
+                                .params("project_id",beauticianBean.getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+
+                                    }
+                                });
+                        break;
+                }
+            }
+        });
         listAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {

@@ -57,7 +57,7 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<BeauticianBean, Base
             }
         }
         helper.addOnClickListener(R.id.ll_meirongshi);
-
+        helper.addOnClickListener(R.id.btn_buy_now);
         StarBar star_bar = helper.getView(R.id.star_bar);
         star_bar.setStarMark(2.5f);
     }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.BeauticianBean;
 import com.hualong.kekemei.bean.DetailEnum;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.SPUtils;
@@ -20,6 +21,7 @@ import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.bean.BannerBean;
 import com.hualong.kekemei.bean.MeiRongShiListBean;
 import com.hualong.kekemei.adapter.MeiRongShiListAdapter;
+import com.hualong.kekemei.utils.UserHelp;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -85,10 +87,23 @@ public class MeiRongShiActivity extends BaseActivity {
                 adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                BeauticianBean beauticianBean = meiRongShiListBean.getData().getData().get(position);
                         switch (view.getId()) {
                             case R.id.ll_meirongshi:
-                                ShopActivity.start(MeiRongShiActivity.this, meiRongShiListBean.getData().getData().get(position).getId(),
-                                        meiRongShiListBean.getData().getData().get(position).getUser_id(), DetailEnum.BEAUTICIAN);
+                                ShopActivity.start(MeiRongShiActivity.this, beauticianBean.getId(),
+                                        beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
+                                break;
+                            case R.id.btn_buy_now:
+                                OkGo.<String>get(URLs.ORDER_GENERATING)
+                                        .params("user_id", UserHelp.getUserId(MeiRongShiActivity.this))
+                                        .params("name", beauticianBean.getName())
+                                        .params("project_id",beauticianBean.getId())
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+
+                                            }
+                                        });
                                 break;
                         }
                     }

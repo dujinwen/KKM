@@ -26,6 +26,7 @@ import com.hualong.kekemei.utils.ShowPopupWindow;
 import com.hualong.kekemei.utils.ToastUtil;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.utils.UserHelp;
+import com.hualong.kekemei.view.CustomDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -60,7 +61,8 @@ public class MainActivity extends BaseActivity {
     private boolean hasCoupons = false;
     private View iv_btn_lingqu;
     private AlertDialog dlg;
-
+    private CustomDialog mDialog;
+    private CustomDialog.Builder builder;
     public static void start(Context context, int tab) {
 
         Intent intent = new Intent(context, MainActivity.class);
@@ -130,31 +132,27 @@ public class MainActivity extends BaseActivity {
     }
 
     public void showDIYDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View layout = inflater.inflate(R.layout.activity_coupons, null);//获取自定义布局
-        builder.setView(layout);
-
-        iv_btn_lingqu = layout.findViewById(R.id.iv_btn_lingqu);
-        iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
-                        .params("user_id", UserHelp.getUserId(MainActivity.this))
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                LogUtil.d("MAINACTIVITY", response.body().toString());
-                            }
-                        });
-
-                dlg.dismiss();
-            }
-        });
-
-        dlg = builder.create();
-        dlg.setCanceledOnTouchOutside(false);
-        dlg.show();
+        builder = new CustomDialog.Builder(MainActivity.this);
+        builder.setTvOneName("￥8");
+        builder.setTvOneNeirong("红包");
+        mDialog = builder
+                .setSingleButton(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
+                                .params("user_id", UserHelp.getUserId(MainActivity.this))
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        LogUtil.d("MAINACTIVITY", response.body().toString());
+                                    }
+                                                });
+                        mDialog.dismiss();
+                    }
+                })
+                .createDialog(MainActivity.this,1);
+        mDialog.setCanceledOnTouchOutside(true);
+        mDialog.show();
     }
 
 
