@@ -787,12 +787,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 if ("" != time && time != null) {
                     String[] year = time.split(" ")[0].split("-");
                     String[] day = time.split(" ")[1].split(":");
-                    Integer integer = Integer.parseInt(year[0]);
-                    Integer integer1 = Integer.parseInt(year[1]);
-                    Integer integer2 = Integer.parseInt(year[2]);
-                    Integer integer3 = Integer.parseInt(day[0]);
-                    Integer integer4 = Integer.parseInt(day[1]);
-                    cal.set(integer, integer1.intValue()-1, integer2);
+                    int integer = Integer.parseInt(year[0]);
+                    int integer1 = Integer.parseInt(year[1]);
+                    int integer2 = Integer.parseInt(year[2]);
+                    int integer3 = Integer.parseInt(day[0]);
+                    int integer4 = Integer.parseInt(day[1]);
+
+                    int month = integer1 - 1 == 0 ? 12 : integer1 - 1;
+                    cal.set(integer, month, integer2);
                     cal.add(Calendar.DATE, i);
                     calList.add(cal);
                 }
