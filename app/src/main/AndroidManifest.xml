@@ -82,6 +82,7 @@
             android:name=".activity.MainActivity"
             android:clipToPadding="true"
             android:fitsSystemWindows="true"
+
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
 

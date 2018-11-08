@@ -40,6 +40,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
             helper.setText(R.id.now_price, item.getPrice_newmember() + "");
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL+item.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
             //        helper.setText(R.id.tv_renshu,item1.getPrice()+"");
+        helper.addOnClickListener(R.id.ll_huodong);
 
     }
 

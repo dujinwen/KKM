@@ -285,13 +285,14 @@
             </LinearLayout>
 
 
-            <ImageView
+            <Button
                 android:id="@+id/iv_btn_lingqu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/px_451"
+                android:layout_height="@dimen/px_86"
                 android:layout_gravity="bottom|center"
                 android:layout_marginBottom="@dimen/px_73"
-                android:src="@mipmap/home_hongbao_lingqu" />
+                android:onClick="onClick"
+                android:background="@mipmap/home_hongbao_lingqu" />
         </LinearLayout>
 
         <ImageView

@@ -1,20 +1,15 @@
 package com.hualong.kekemei.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AnalogClock;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.bean.NewPeopleBean;
@@ -22,19 +17,13 @@ import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;
 import com.hualong.kekemei.fragment.PersonFragment;
-import com.hualong.kekemei.utils.ShowPopupWindow;
-import com.hualong.kekemei.utils.ToastUtil;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.utils.UserHelp;
-import com.hualong.kekemei.view.CustomDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.sina.weibo.sdk.utils.LogUtil;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
-
-import java.net.URL;
-import java.security.interfaces.ECKey;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,8 +50,15 @@ public class MainActivity extends BaseActivity {
     private boolean hasCoupons = false;
     private View iv_btn_lingqu;
     private AlertDialog dlg;
-    private CustomDialog mDialog;
-    private CustomDialog.Builder builder;
+
+
+    private LinearLayout llOneRed;
+    private LinearLayout llTowRed;
+    private LinearLayout llThrRed;
+    private TextView tvOneName,tvOneNeirong,tvNameOne2,tvNeirongOne2,tvNeirongTow2,tvNameTow2
+            ,tvNameOne3,tvNeirongOne3,tvNameTow3,tvNeirongTow3,tvNameThr3,tvNeirongThr3;
+
+
     public static void start(Context context, int tab) {
 
         Intent intent = new Intent(context, MainActivity.class);
@@ -122,7 +118,7 @@ public class MainActivity extends BaseActivity {
                         NewPeopleBean newPeopleBean = gson.fromJson(response.body(), NewPeopleBean.class);
                         Intent intent = null;
                         if (newPeopleBean.getData().getIsnew() == 0) {
-                            showDIYDialog();
+                            showDIYDialog(3);
                         } else {
 
                         }
@@ -130,31 +126,95 @@ public class MainActivity extends BaseActivity {
                     }
                 });
     }
+    public void showDIYDialog(int a) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Dialog);
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.activity_coupons, null);//获取自定义布局
+        builder.setView(layout);
 
-    public void showDIYDialog() {
-        builder = new CustomDialog.Builder(MainActivity.this);
-        builder.setTvOneName("￥8");
-        builder.setTvOneNeirong("红包");
-        mDialog = builder
-                .setSingleButton(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
-                                .params("user_id", UserHelp.getUserId(MainActivity.this))
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-                                        LogUtil.d("MAINACTIVITY", response.body().toString());
-                                    }
-                                                });
-                        mDialog.dismiss();
-                    }
-                })
-                .createDialog(MainActivity.this,1);
-        mDialog.setCanceledOnTouchOutside(true);
-        mDialog.show();
+        initDialogViiew(layout,a);
+        iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
+                        .params("user_id", UserHelp.getUserId(MainActivity.this))
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                LogUtil.d("MAINACTIVITY", response.body().toString());
+                            }
+                        });
+
+                dlg.dismiss();
+            }
+        });
+
+        dlg = builder.create();
+        dlg.setCanceledOnTouchOutside(false);
+        dlg.show();
     }
 
+    private void initDialogViiew(View layout,int type) {
+        llOneRed = layout.findViewById(R.id.ll_one_red);
+        llTowRed = layout.findViewById(R.id.ll_tow_red);
+        llThrRed = layout.findViewById(R.id.ll_thr_red);
+        tvOneName = layout.findViewById(R.id.tv_one_name);
+        tvNameTow2 = layout.findViewById(R.id.tv_name_tow_2);
+        tvNameOne2 = layout.findViewById(R.id.tv_name_one_2);
+        tvNameOne3 =  layout.findViewById(R.id.tv_name_one_3);
+        tvNameTow3 =  layout.findViewById(R.id.tv_name_tow_3);
+        tvNameThr3 = layout.findViewById(R.id.tv_name_thr_3);
+
+        tvOneNeirong = layout.findViewById(R.id.tv_one_neirong);
+        tvNeirongOne2 =  layout.findViewById(R.id.tv_neirong_one_2);
+        tvNeirongTow2 =  layout.findViewById(R.id.tv_neirong_tow_2);
+        tvNeirongOne3 = layout.findViewById(R.id.tv_neirong_one_3);
+        tvNeirongTow3 = layout.findViewById(R.id.tv_neirong_tow_3);
+        tvNeirongThr3 = layout.findViewById(R.id.tv_neirong_thr_3);
+        iv_btn_lingqu = layout.findViewById(R.id.iv_btn_lingqu);
+
+
+        switch (type) {
+            case 1:
+                llOneRed.setVisibility(View.VISIBLE);
+                llTowRed.setVisibility(View.GONE);
+                llThrRed.setVisibility(View.GONE);
+                break;
+            case 2:
+                llOneRed.setVisibility(View.GONE);
+                llTowRed.setVisibility(View.VISIBLE);
+                llThrRed.setVisibility(View.GONE);
+                break;
+            case 3:
+                llOneRed.setVisibility(View.GONE);
+                llTowRed.setVisibility(View.GONE);
+                llThrRed.setVisibility(View.VISIBLE);
+                break;
+
+            default:
+
+                break;
+        }
+
+
+        setText();
+    }
+    private void setText() {
+
+//        tvOneName.setText(strOneName);
+//        tvOneNeirong.setText(strOneNeirong);
+//        tvNameOne2.setText(strNameOne2);
+//        tvNeirongOne2.setText(strNeirongOne2);
+//        tvNameTow2.setText(strNameTow2);
+//        tvNeirongTow2.setText(strNeirongTow2);
+//
+//        tvNameOne3.setText(strNameOne3);
+//        tvNeirongOne3.setText(strNeirongOne3);
+//        tvNameTow3.setText(strNameTow3);
+//        tvNeirongTow3.setText(strNeirongTow3);
+//        tvNameThr3.setText(strNameThr3);
+//        tvNeirongThr3.setText(strNeirongThr3);
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -176,17 +236,6 @@ public class MainActivity extends BaseActivity {
         //        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
         mNavigateTabBar.addTab(MessageFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_dingdan_btn_n, R.mipmap.home_dingdan_btn_d, TAG_PAGE_MESSAGE));
         mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_wode_btn_n, R.mipmap.home_wode_btn_d, TAG_PAGE_PERSON));
-        //        mNavigateTabBar.setTabSelectListener(new MainNavigateTabBar.OnTabSelectedListener() {
-        //            @Override
-        //            public void onTabSelected(MainNavigateTabBar.ViewHolder holder) {
-        //                if (holder.tabIndex == 2 || holder.tabIndex == 6) {
-        //                    hasTitle = true;
-        //                    tvTitle.setText("订单");
-        //                } else {
-        //                    hasTitle = false;
-        //                }
-        //            }
-        //        });
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.activity.ClassifyActivity;
 import com.hualong.kekemei.activity.MeiRongShiActivity;
+import com.hualong.kekemei.activity.ProjectDetailActivity;
 import com.hualong.kekemei.activity.SearchActivity;
 import com.hualong.kekemei.activity.ShopActivity;
 import com.hualong.kekemei.activity.ShopListActivity;
@@ -212,7 +213,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
+                            ProjectDetailActivity.start(getActivity(), data.getId());
                         }
                     }
                 });
@@ -228,7 +229,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
+                            ProjectDetailActivity.start(getActivity(), data.getId());
                         }
                     }
                 });
@@ -244,7 +245,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
+                            ProjectDetailActivity.start(getActivity(), data.getId());
                         }
                     }
                 });
@@ -260,7 +261,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ShopActivity.start(getActivity(), data.getId(), UserHelp.getUserId(getActivity()), DetailEnum.BEAUTICIAN);
+                            ProjectDetailActivity.start(getActivity(), data.getId());
                         }
                     }
                 });
