@@ -199,6 +199,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         if (detailEnum == DetailEnum.BEAUTICIAN) {
             tv_title.setText("美容师详情");
             detailHome.setText("美容师首页");
+            findViewById(R.id.tvBeauticianInfo).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MeiRongShiJieShaoActivity.start(ShopActivity.this, beauticianId);
+                }
+            });
         }
         iv_share.setVisibility(View.VISIBLE);
         llSelectTime = findViewById(R.id.ll_select_time);

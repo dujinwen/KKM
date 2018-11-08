@@ -187,25 +187,14 @@
                         android:textColor="#FF7AD2D2"
                         android:textSize="@dimen/px_39" />
 
-                    <HorizontalScrollView
-                        android:layout_width="fill_parent"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/workPhotoList"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/px_43">
+                        android:paddingLeft="@dimen/px_36"
+                        android:paddingBottom="@dimen/px_58"
+                        android:paddingTop="@dimen/px_58"/>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:layout_margin="@dimen/px_58">
-
-                            <GridView
-                                android:id="@+id/grid"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:gravity="center"
-                                android:numColumns="auto_fit"
-                                android:stretchMode="spacingWidthUniform" />
-                        </LinearLayout>
-                    </HorizontalScrollView>
                 </LinearLayout>
             </LinearLayout>
 
