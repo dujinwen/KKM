@@ -127,7 +127,7 @@
     <dimen name="date_picker_text_size">48px</dimen>
     <dimen name="date_picker_text_padding_right">48px</dimen>
     <dimen name="date_picker_time_height">735px</dimen>
-    <dimen name="date_max_text_size">54px</dimen>
+    <dimen name="date_max_text_size">52px</dimen>
     <dimen name="date_min_text_size">42px</dimen>
 
     <dimen name="add_children_dialog_margin_left">30px</dimen>
@@ -857,5 +857,6 @@
     <dimen name="px_262">262px</dimen>
     <dimen name="px_533">533px</dimen>
     <dimen name="px_669">669px</dimen>
+    <dimen name="px_612">612px</dimen>
 
 </resources>

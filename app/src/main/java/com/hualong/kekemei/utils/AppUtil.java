@@ -32,7 +32,6 @@ import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -42,6 +41,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -61,6 +61,7 @@ public class AppUtil {
 
     private static AMapLocationClient mLocationClient;
     private static AMapLocationClientOption mLocationOption;
+
 
     public static String getFromAssets(Context ct, String fileName) {
         String Result = "";
@@ -392,11 +393,11 @@ public class AppUtil {
     }
 
     // 取得屏幕分辨率
-//    public static Point getScreenResolution(Context context) {
-//        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//        Display display = wm.getDefaultDisplay();
-//        return new Point(display.get(), display.getHeight());
-////    }
+    //    public static Point getScreenResolution(Context context) {
+    //        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    //        Display display = wm.getDefaultDisplay();
+    //        return new Point(display.get(), display.getHeight());
+    ////    }
 
     //获取设备分辨率
     public static String getResolution(Activity activity) {
@@ -453,12 +454,12 @@ public class AppUtil {
         return Build.MODEL;
     }
 
-//    public static String getDeviceId(Context context) {
-//        //        return android.os.Build.MANUFACTURER + Build.BRAND  + Build.MODEL;
-//        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
-//        String szImei = TelephonyMgr.getDeviceId();
-//        return szImei;
-//    }
+    //    public static String getDeviceId(Context context) {
+    //        //        return android.os.Build.MANUFACTURER + Build.BRAND  + Build.MODEL;
+    //        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+    //        String szImei = TelephonyMgr.getDeviceId();
+    //        return szImei;
+    //    }
 
     /**
      * 获取操作系统版本
@@ -512,10 +513,10 @@ public class AppUtil {
         context.getWindow().setAttributes(lp);
     }
 
-//    public static void copyToClipboard(Context context, String copy) {
-//        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-//        cmb.setText(copy);
-//    }
+    //    public static void copyToClipboard(Context context, String copy) {
+    //        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+    //        cmb.setText(copy);
+    //    }
 
 
     /**
@@ -528,23 +529,23 @@ public class AppUtil {
      * 2:程序在后台运行
      * 3:程序未启动
      */
-//    public static boolean isAppAlive(Context context, String packageName) {
-//        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-//        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(20);
-//
-//        //判断程序是否在栈顶
-//        if (list.get(0).topActivity.getPackageName().equals(packageName)) {
-//            return true;
-//        } else {
-////            判断程序是否在栈里
-//            for (ActivityManager.RunningTaskInfo info : list) {
-//                if (info.topActivity.getPackageName().equals(packageName)) {
-//                    return false;
-//                }
-//            }//栈里找不到，返回3
-//            return false;
-//        }
-//    }
+    //    public static boolean isAppAlive(Context context, String packageName) {
+    //        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+    //        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(20);
+    //
+    //        //判断程序是否在栈顶
+    //        if (list.get(0).topActivity.getPackageName().equals(packageName)) {
+    //            return true;
+    //        } else {
+    ////            判断程序是否在栈里
+    //            for (ActivityManager.RunningTaskInfo info : list) {
+    //                if (info.topActivity.getPackageName().equals(packageName)) {
+    //                    return false;
+    //                }
+    //            }//栈里找不到，返回3
+    //            return false;
+    //        }
+    //    }
     public static boolean checkPasswordRegex(String password) {
         if (password == null || password.isEmpty() || password.length() == 0) return false;
 
@@ -559,39 +560,39 @@ public class AppUtil {
      *
      * @return true表示在范围内，否则false
      */
-//    public static boolean isCurrentInTimeScope(int beginHour, int beginMin, int endHour, int endMin) {
-//        boolean result = false;
-//        final long aDayInMillis = 1000 * 60 * 60 * 24;
-//        final long currentTimeMillis = System.currentTimeMillis();
-//
-//        Time now = new Time();
-//        now.set(currentTimeMillis);
-//
-//        Time startTime = new Time();
-//        startTime.set(currentTimeMillis);
-//        startTime.hour = beginHour;
-//        startTime.minute = beginMin;
-//
-//        Time endTime = new Time();
-//        endTime.set(currentTimeMillis);
-//        endTime.hour = endHour;
-//        endTime.minute = endMin;
-//
-//        if (!startTime.before(endTime)) {
-//            // 跨天的特殊情况（比如22:00-8:00）
-//            startTime.set(startTime.toMillis(true) - aDayInMillis);
-//            result = !now.before(startTime) && !now.after(endTime); // startTime <= now <= endTime
-//            Time startTimeInThisDay = new Time();
-//            startTimeInThisDay.set(startTime.toMillis(true) + aDayInMillis);
-//            if (!now.before(startTimeInThisDay)) {
-//                result = true;
-//            }
-//        } else {
-//            // 普通情况(比如 8:00 - 14:00)
-//            result = !now.before(startTime) && !now.after(endTime); // startTime <= now <= endTime
-//        }
-//        return result;
-//    }
+    //    public static boolean isCurrentInTimeScope(int beginHour, int beginMin, int endHour, int endMin) {
+    //        boolean result = false;
+    //        final long aDayInMillis = 1000 * 60 * 60 * 24;
+    //        final long currentTimeMillis = System.currentTimeMillis();
+    //
+    //        Time now = new Time();
+    //        now.set(currentTimeMillis);
+    //
+    //        Time startTime = new Time();
+    //        startTime.set(currentTimeMillis);
+    //        startTime.hour = beginHour;
+    //        startTime.minute = beginMin;
+    //
+    //        Time endTime = new Time();
+    //        endTime.set(currentTimeMillis);
+    //        endTime.hour = endHour;
+    //        endTime.minute = endMin;
+    //
+    //        if (!startTime.before(endTime)) {
+    //            // 跨天的特殊情况（比如22:00-8:00）
+    //            startTime.set(startTime.toMillis(true) - aDayInMillis);
+    //            result = !now.before(startTime) && !now.after(endTime); // startTime <= now <= endTime
+    //            Time startTimeInThisDay = new Time();
+    //            startTimeInThisDay.set(startTime.toMillis(true) + aDayInMillis);
+    //            if (!now.before(startTimeInThisDay)) {
+    //                result = true;
+    //            }
+    //        } else {
+    //            // 普通情况(比如 8:00 - 14:00)
+    //            result = !now.before(startTime) && !now.after(endTime); // startTime <= now <= endTime
+    //        }
+    //        return result;
+    //    }
     public static void getUserPoint(Context context, AMapLocationListener locationListener) {
         //声明mLocationOption对象
         mLocationClient = new AMapLocationClient(context);
@@ -628,9 +629,9 @@ public class AppUtil {
     }
 
 
-    public static void sendYanZhengMa(String mobile, String event,StringCallback stringCallback) {
-            OkGo.<String>get(URLs.SEND).params("mobile", mobile)
-                    .params("event", event).execute(stringCallback);
+    public static void sendYanZhengMa(String mobile, String event, StringCallback stringCallback) {
+        OkGo.<String>get(URLs.SEND).params("mobile", mobile)
+                .params("event", event).execute(stringCallback);
     }
 
     public static void checkCaptcha(String mobile, String event, String captcha, StringCallback stringCallback) {
@@ -659,6 +660,17 @@ public class AppUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date(time));
     }
+    /*
+    * 将时间转换为时间戳
+    */
+    public static long dateToStamp(String s) throws ParseException {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = simpleDateFormat.parse(s);
+
+        return date.getTime();
+    }
+
 
 
 }

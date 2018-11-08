@@ -45,8 +45,9 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/date_picker_time_height"
+            android:layout_centerHorizontal="true"
             android:background="@color/background"
             android:orientation="horizontal">
 
@@ -58,13 +59,12 @@
 
             <TextView
                 android:id="@+id/year_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="年"
                 android:textColor="@color/text2"
-                android:textSize="@dimen/date_picker_text_size" />
+                android:textSize="@dimen/px_58" />
 
             <com.hualong.kekemei.utils.DatePickerView
                 android:id="@+id/month_pv"
@@ -74,13 +74,12 @@
 
             <TextView
                 android:id="@+id/month_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="月"
                 android:textColor="@color/text2"
-                android:textSize="@dimen/date_picker_text_size" />
+                android:textSize="@dimen/px_58" />
 
             <com.hualong.kekemei.utils.DatePickerView
                 android:id="@+id/day_pv"
@@ -90,13 +89,12 @@
 
             <TextView
                 android:id="@+id/day_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="日"
                 android:textColor="@color/text2"
-                android:textSize="@dimen/date_picker_text_size" />
+                android:textSize="@dimen/px_58" />
 
             <com.hualong.kekemei.utils.DatePickerView
                 android:id="@+id/hour_pv"
@@ -106,13 +104,12 @@
 
             <TextView
                 android:id="@+id/hour_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="时"
                 android:textColor="@color/text2"
-                android:textSize="@dimen/date_picker_text_size" />
+                android:textSize="@dimen/px_58" />
 
             <com.hualong.kekemei.utils.DatePickerView
                 android:id="@+id/minute_pv"
@@ -122,13 +119,12 @@
 
             <TextView
                 android:id="@+id/minute_text"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="center"
                 android:text="分"
                 android:textColor="@color/text2"
-                android:textSize="@dimen/date_picker_text_size" />
+                android:textSize="@dimen/px_58" />
 
         </LinearLayout>
 

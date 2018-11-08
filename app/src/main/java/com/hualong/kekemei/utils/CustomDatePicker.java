@@ -121,7 +121,7 @@ public class CustomDatePicker {
         year_text = datePickerDialog.findViewById(R.id.year_text);
         month_text = datePickerDialog.findViewById(R.id.month_text);
         day_text = datePickerDialog.findViewById(R.id.day_text);
-        tv_title = datePickerDialog.findViewById(R.id.tv_title);
+//        tv_title = datePickerDialog.findViewById(R.id.tv_title);
         /*设置确定和取消按钮的点击事件*/
         tv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +141,7 @@ public class CustomDatePicker {
     }
 
     private void initParameter() {
-        tv_title.setText(title);
+//        tv_title.setText(title);
         startYear = startCalendar.get(Calendar.YEAR);
         startMonth = startCalendar.get(Calendar.MONTH) + 1;
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
@@ -530,12 +530,12 @@ public class CustomDatePicker {
                 hour_text.setVisibility(View.VISIBLE);
                 minute_pv.setVisibility(View.VISIBLE);
                 minute_text.setVisibility(View.VISIBLE);
-                year_pv.setVisibility(View.GONE);
-                month_pv.setVisibility(View.GONE);
-                day_pv.setVisibility(View.GONE);
-                year_text.setVisibility(View.GONE);
-                month_text.setVisibility(View.GONE);
-                day_text.setVisibility(View.GONE);
+                year_pv.setVisibility(View.VISIBLE);
+                month_pv.setVisibility(View.VISIBLE);
+                day_pv.setVisibility(View.VISIBLE);
+                year_text.setVisibility(View.VISIBLE);
+                month_text.setVisibility(View.VISIBLE);
+                day_text.setVisibility(View.VISIBLE);
             } else {
                 disScrollUnit(SCROLL_TYPE.HOUR, SCROLL_TYPE.MINUTE);
                 hour_pv.setVisibility(View.GONE);

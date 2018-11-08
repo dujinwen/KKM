@@ -35,8 +35,10 @@ import com.hualong.kekemei.bean.ShopDetailBean;
 import com.hualong.kekemei.bean.YuYueDataBean;
 import com.hualong.kekemei.utils.AppUtil;
 import com.hualong.kekemei.utils.CollectionUtils;
+import com.hualong.kekemei.utils.CustomDatePicker;
 import com.hualong.kekemei.utils.LogUtil;
 import com.hualong.kekemei.utils.StringUtils;
+import com.hualong.kekemei.utils.ToastUtil;
 import com.hualong.kekemei.utils.URLs;
 import com.hualong.kekemei.view.MultipleStatusView;
 import com.hualong.kekemei.view.StarBar;
@@ -45,6 +47,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -61,6 +64,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
     private static final String EXTRA_KEY_USER_ID = "userId";
     private static final String EXTRA_KEY_ENUM_ID = "type";
+    private CustomDatePicker startTimePicker;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -136,7 +140,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private RecyclerView rvCommentList;
     private ShopDetailBean.DataBean.CommentdataBean commentdata;
 
-    private LinearLayout newComerLayout,memberLayout,preferenceLayout;
+    private LinearLayout newComerLayout, memberLayout, preferenceLayout;
     private RecyclerView hotProjectRv, newComerRv, memberRv, preferenceRv;
     private String beauticianId, userId;
     private MyGridAdapter hotProjectAdapter, newComerAdapter, memberAdapter, preferenceAdapter;
@@ -284,7 +288,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
-    private void initRv(RecyclerView view){
+    private void initRv(RecyclerView view) {
         view.setLayoutManager(new GridLayoutManager(this, 2));
         view.setHasFixedSize(true);
         view.setNestedScrollingEnabled(false);
@@ -587,7 +591,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 LogUtil.e("section", "click:" + position);
                                 BaseBean item = newComerAdapter.getItem(position);
-                                NewComerActivity.start(ShopActivity.this, item.getId()+"");
+                                NewComerActivity.start(ShopActivity.this, item.getId() + "");
                             }
                         });
                     }
@@ -654,7 +658,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getFriend_count()));
                     tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(detailBean.getData().getAddress());
-//                    tvDistance.setText(detailBean.getData().getDistance());
+                    //                    tvDistance.setText(detailBean.getData().getDistance());
                     if (detailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
@@ -766,24 +770,31 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         }
-        initDayTime();
-        timeData(System.currentTimeMillis());
+        initDayTime("");
 
+        initDatePicker(this);
     }
 
 
     private ArrayList<Calendar> calList = new ArrayList<>();
 
-    private void initDayTime() {
+    private void initDayTime(String time) {
         final CanlBean canlBean = new CanlBean();
+
+        cal = Calendar.getInstance();
+        if ("" != time && time != null) {
+            String[] year = time.split(" ")[0].split("-");
+            String[] day = time.split(" ")[1].split(":");
+            cal.set(Integer.getInteger(year[0]), Integer.getInteger(year[1]), Integer.getInteger(year[2])
+                    , Integer.getInteger(day[0]), Integer.getInteger(day[1]));
+        }
         for (int i = 0; i < 30; i++) {
-            cal = Calendar.getInstance();
             cal.add(Calendar.DATE, i);
             calList.add(cal);
         }
         canlBean.setDataBean(calList);
 
-
+        timeData(canlBean.getDataBean().get(0).getTimeInMillis());
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -823,4 +834,49 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         }
     }
+
+    @OnClick(R.id.show_select_time)
+    public void onViewClicked(View v) {
+        switch (v.getId()) {
+            case R.id.show_select_time:
+
+                startTimePicker.show(AppUtil.getFormatTime(System.currentTimeMillis()));
+                break;
+
+            default:
+
+                break;
+        }
+    }
+
+
+    /*
+  初始化时间选择器
+   */
+    protected void initDatePicker(final Context mContext) {
+
+
+        startTimePicker = new CustomDatePicker(mContext, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                ToastUtil.showToastMsg(mContext, time);
+                try {
+
+                    if (AppUtil.dateToStamp(time) < System.currentTimeMillis()) {
+                        ToastUtil.showToastMsg(getApplication(), "时间不可选");
+                    } else {
+                        initDayTime(time);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, "2018-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        startTimePicker.showSpecificTime(false); // 显示时和分
+        startTimePicker.setIsLoop(true); // 允许循环滚动
+
+
+    }
+
 }
