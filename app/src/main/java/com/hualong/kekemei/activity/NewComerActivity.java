@@ -153,7 +153,7 @@ public class NewComerActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.NEW_COMMER).params("user_id", userId).params("page", "1").execute(new StringCallback() {
+        OkGo.<String>post(URLs.PROJECT_NEW_PEOPLE).params("user_id", userId).params("page", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "response:" + response.body());

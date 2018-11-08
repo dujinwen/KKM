@@ -158,7 +158,5 @@ public class URLs {
     //按订单数排序
     public static final String PROJECT_SORT_ORDER = "http://kekemei.ecooth.com/api/project/sortorder";
 
-    /*新人体验*/
-    public static final String NEW_COMMER = "http://kekemei.ecooth.com/api/project/newpeople";
 
 }
