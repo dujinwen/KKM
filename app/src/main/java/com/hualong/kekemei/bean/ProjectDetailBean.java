@@ -103,6 +103,8 @@ public class ProjectDetailBean {
         private String state_text;
         private String treatment_count;
         private String treatment_price;
+        private String satisfaction;
+        private String peer;
         private int views;
         private int weigh;
         private CommentBean comment;
@@ -279,6 +281,22 @@ public class ProjectDetailBean {
 
         public void setTreatment_price(String treatment_price) {
             this.treatment_price = treatment_price;
+        }
+
+        public String getSatisfaction() {
+            return satisfaction;
+        }
+
+        public void setSatisfaction(String satisfaction) {
+            this.satisfaction = satisfaction;
+        }
+
+        public String getPeer() {
+            return peer;
+        }
+
+        public void setPeer(String peer) {
+            this.peer = peer;
         }
 
         public int getViews() {
