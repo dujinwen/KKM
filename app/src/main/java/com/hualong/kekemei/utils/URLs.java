@@ -38,7 +38,8 @@ public class URLs {
     /**
      * 我的
      */
-
+    //领取新人卡
+    public static final String ADD_NEW_PEOPLE = "http://kekemei.ecooth.com/api/user/addNewpople";
     //重置密码
     public static final String RESET_PASSWORD = "http://kekemei.ecooth.com/api/user/resetpwd";
     //我的首页
