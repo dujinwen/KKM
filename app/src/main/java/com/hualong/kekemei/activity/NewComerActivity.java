@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.hualong.kekemei.R;
 import com.hualong.kekemei.adapter.FindOrderListAdapter;
 import com.hualong.kekemei.adapter.MyGridAdapter;
+import com.hualong.kekemei.bean.BaseBean;
 import com.hualong.kekemei.bean.NewComerBean;
 import com.hualong.kekemei.utils.CollectionUtils;
 import com.hualong.kekemei.utils.LogUtil;
@@ -32,7 +33,13 @@ import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -80,6 +87,9 @@ public class NewComerActivity extends BaseActivity {
     private MyGridAdapter allAdapter, forYouAdapter;
 
     private String userId;
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
+    private int jPageNum = 1;
 
     public static void start(Context context, String userId) {
         Intent intent = new Intent(context, NewComerActivity.class);
@@ -124,11 +134,17 @@ public class NewComerActivity extends BaseActivity {
         refresh_layout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
-//                loadData(true);
+                loadData(true);
             }
         });
         refresh_layout.setRefreshHeader(new ClassicsHeader(this));
-        refresh_layout.setEnableLoadMore(false);
+        refresh_layout.setEnableLoadMore(true);
+        refresh_layout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         newPeopleList.setLayoutManager(linearLayoutManager);
         listAdapter = new FindOrderListAdapter(getBaseContext());
@@ -153,61 +169,7 @@ public class NewComerActivity extends BaseActivity {
     protected void initData() {
         super.initData();
         multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.PROJECT_NEW_PEOPLE).params("user_id", userId).params("page", "1").execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "response:" + response.body());
-                Gson gson = new Gson();
-                NewComerBean newComerBean = gson.fromJson(response.body(), NewComerBean.class);
-                if (newComerBean.getData().getIsnew() == 0) {
-                    scrollContent.setVisibility(View.VISIBLE);
-                    multipleStatusView.showOutContentView(scrollContent);
-                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + newComerBean.getData().getBanner().getImage(), topBanner);
-                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getProjectall())) {
-                        allAdapter.replaceData(newComerBean.getData().getProjectall());
-                        allAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                            /*BaseBean item = hotProjectAdapter.getItem(position);
-                            ProjectDetailActivity.start(ShopActivity.this, item.getId());*/
-                            }
-                        });
-                    }
-                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getForyou())) {
-                        forYouAdapter.replaceData(newComerBean.getData().getForyou());
-                        forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                            /*BaseBean item = hotProjectAdapter.getItem(position);
-                            ProjectDetailActivity.start(ShopActivity.this, item.getId());*/
-                            }
-                        });
-                    }
-                } else {
-                    scrollContent.setVisibility(View.GONE);
-                    multipleStatusView.showOutContentView(refresh_layout);
-                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getNewpopledata())) {
-                        listAdapter.replaceData(newComerBean.getData().getNewpopledata());
-                        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                            /*BaseBean item = hotProjectAdapter.getItem(position);
-                            ProjectDetailActivity.start(ShopActivity.this, item.getId());*/
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                multipleStatusView.showError();
-            }
-        });
+        loadData(true);
     }
 
     @OnClick({R.id.lookMoreAll, R.id.lookMoreForYou})
@@ -218,6 +180,149 @@ public class NewComerActivity extends BaseActivity {
             case R.id.lookMoreForYou:
                 break;
         }
+    }
+
+    private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            jPageNum = 1;
+            showRefreshLoading(isRefresh);
+        }
+        getData(jPageNum);
+    }
+
+    public void loadMoreData() {
+        isLoadMore = true;
+        isRefresh = false;
+        getData(jPageNum);
+    }
+
+    private void getData(int pageNum) {
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
+        OkGo.<String>post(URLs.PROJECT_NEW_PEOPLE).params("user_id", userId).params("page", pageNum).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "response:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        onResult(null);
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new Gson();
+                NewComerBean newComerBean = gson.fromJson(response.body(), NewComerBean.class);
+                onResult(newComerBean);
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                onResultError(response);
+            }
+        });
+    }
+
+    public void onResult(Object response) {
+        if (!isLoadMore) {
+            jPageNum++;
+
+            NewComerBean newComerBean = (NewComerBean) response;
+
+            if (null == response || null == newComerBean.getData()) {
+                showEmpty();
+            } else {
+                if (isRefresh)
+                    showRefreshLoading(false);
+                if (newComerBean.getData().getIsnew() == 0) {
+                    scrollContent.setVisibility(View.VISIBLE);
+                    multipleStatusView.showOutContentView(scrollContent);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + newComerBean.getData().getBanner().getImage(), topBanner);
+                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getProjectall())) {
+                        allAdapter.replaceData(newComerBean.getData().getProjectall());
+                        allAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = allAdapter.getItem(position);
+                                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
+                            }
+                        });
+                    }
+                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getForyou())) {
+                        forYouAdapter.replaceData(newComerBean.getData().getForyou());
+                        forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = forYouAdapter.getItem(position);
+                                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
+                            }
+                        });
+                    }
+                } else {
+                    toolbar.setBackgroundColor(Color.parseColor("#7AD2D2"));
+                    scrollContent.setVisibility(View.GONE);
+                    multipleStatusView.showOutContentView(refresh_layout);
+                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getNewpopledata())) {
+                        listAdapter.replaceData(newComerBean.getData().getNewpopledata());
+                        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                LogUtil.e("section", "click:" + position);
+                                BaseBean item = listAdapter.getItem(position);
+                                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
+                            }
+                        });
+                    }
+                }
+            }
+
+            if (null != response && jPageNum > newComerBean.getData().getNewpopledata().size())//@TODO 需要改条件
+                showLoadMoreEnd();
+            else
+                showLoadMoreComplete();
+        } else {
+            jPageNum++;
+            NewComerBean newComerBean = (NewComerBean) response;
+            loadMoreSuccess(newComerBean.getData().getNewpopledata());
+            if (jPageNum > newComerBean.getData().getNewpopledata().size()) {//@TODO 需要改条件
+                showLoadMoreEnd();
+            } else {
+                showLoadMoreComplete();
+            }
+        }
+    }
+
+    public void onResultError(Object response) {
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showError();
+        if (isLoadMore)
+            listAdapter.loadMoreFail();
+        if (isRefresh)
+            showRefreshLoading(false);
+    }
+
+    public void showEmpty() {
+        multipleStatusView.showEmpty();
+    }
+
+    public void loadMoreSuccess(List<BaseBean> dataList) {
+        refresh_layout.finishLoadMore();
+        listAdapter.addData(dataList);
+    }
+
+    public void showLoadMoreEnd() {
+        listAdapter.loadMoreEnd(false);
+    }
+
+    public void showLoadMoreComplete() {
+        listAdapter.loadMoreComplete();
     }
 
     public void showRefreshLoading(boolean show) {
