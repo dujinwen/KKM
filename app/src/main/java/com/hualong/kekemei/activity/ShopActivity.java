@@ -587,7 +587,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 LogUtil.e("section", "click:" + position);
                                 BaseBean item = newComerAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                                NewComerActivity.start(ShopActivity.this, item.getId()+"");
                             }
                         });
                     }

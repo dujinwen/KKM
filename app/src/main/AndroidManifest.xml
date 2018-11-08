@@ -102,6 +102,7 @@
         <activity android:name=".activity.UserEvaluateActivity" />
         <activity android:name=".activity.AddCommentActivity" />
         <activity android:name=".activity.ProjectDetailActivity" />
+        <activity android:name=".activity.NewComerActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
