@@ -1,26 +1,44 @@
 package com.hualong.kekemei.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AnalogClock;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
+import com.google.gson.Gson;
 import com.hualong.kekemei.R;
+import com.hualong.kekemei.bean.NewPeopleBean;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;
 import com.hualong.kekemei.fragment.PersonFragment;
+import com.hualong.kekemei.utils.ShowPopupWindow;
+import com.hualong.kekemei.utils.ToastUtil;
+import com.hualong.kekemei.utils.URLs;
+import com.hualong.kekemei.utils.UserHelp;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.sina.weibo.sdk.utils.LogUtil;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
+
+import java.net.URL;
+import java.security.interfaces.ECKey;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements AMapLocationListener {
+public class MainActivity extends BaseActivity {
     public static final int TAB_HOME = 0;
     private static final String KEY_TAB = "tab";
 
@@ -40,6 +58,8 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
     private int mCurrentTab = TAB_HOME;
     private boolean hasTitle = false;
     private boolean hasCoupons = false;
+    private View iv_btn_lingqu;
+    private AlertDialog dlg;
 
     public static void start(Context context, int tab) {
 
@@ -78,22 +98,65 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
 
     @Override
     protected void initData() {
-//        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
-//            //开启定位权限,200是标识码
-//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-//        } else {
-//            AppUtil.getUserPoint(getApplicationContext(), this);
-//            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
-//        }
-        if (hasCoupons)
-            initCouponsView();
+        //        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+        //                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
+        //            //开启定位权限,200是标识码
+        //            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+        //        } else {
+        //            AppUtil.getUserPoint(getApplicationContext(), this);
+        //            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
+        //        }
+
+        initCouponsView();
 
     }
 
     private void initCouponsView() {
-        startActivity(new Intent(MainActivity.this, CouponsActivity.class));
+        OkGo.<String>get(URLs.PROJECT_NEW_PEOPLE).params("user_id", UserHelp.getUserId(this)).params("page", 1)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        NewPeopleBean newPeopleBean = gson.fromJson(response.body(), NewPeopleBean.class);
+                        Intent intent = null;
+                        if (newPeopleBean.getData().getIsnew() == 0) {
+                            showDIYDialog();
+                        } else {
+
+                        }
+
+                    }
+                });
     }
+
+    public void showDIYDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.activity_coupons, null);//获取自定义布局
+        builder.setView(layout);
+
+        iv_btn_lingqu = layout.findViewById(R.id.iv_btn_lingqu);
+        iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
+                        .params("user_id", UserHelp.getUserId(MainActivity.this))
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                LogUtil.d("MAINACTIVITY", response.body().toString());
+                            }
+                        });
+
+                dlg.dismiss();
+            }
+        });
+
+        dlg = builder.create();
+        dlg.setCanceledOnTouchOutside(false);
+        dlg.show();
+    }
+
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -134,12 +197,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         mNavigateTabBar.onSaveInstanceState(outState);
     }
 
-
-    public void onClickPublish(View v) {
-        Toast.makeText(this, "预约", Toast.LENGTH_LONG).show();
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,33 +204,4 @@ public class MainActivity extends BaseActivity implements AMapLocationListener {
         ButterKnife.bind(this);
     }
 
-    @Override
-    public void onLocationChanged(AMapLocation amapLocation) {
-//        if (amapLocation != null) {
-//            if (amapLocation.getErrorCode() == 0) {
-//                //定位成功回调信息，设置相关消息
-//                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-//                double latitude = amapLocation.getLatitude();//获取纬度
-//                double longitude = amapLocation.getLongitude();//获取经度
-//                SPUtils.putDouble(this, "latitude", latitude);
-//                SPUtils.putDouble(this, "longitude", longitude);
-//                //                mPoint = new DPoint(latitude,longitude);
-//                //                loadData();//后续操作
-//
-//                LogUtil.d("APPLOCALTION", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
-//            } else {
-//                //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-//                LogUtil.d("APPLOCALTION", "location Error, ErrCode:"
-//                        + amapLocation.getErrorCode() + ", errInfo:"
-//                        + amapLocation.getErrorInfo());
-//
-//            }
-//        }
-
-    }
-
-
-    public interface setLocation {
-        void setLocation(double latitude, double longitude);
-    }
 }

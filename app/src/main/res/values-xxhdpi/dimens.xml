@@ -854,5 +854,7 @@
     <dimen name="px_105">105px</dimen>
     <dimen name="px_1024">1024px</dimen>
     <dimen name="px_262">262px</dimen>
+    <dimen name="px_533">533px</dimen>
+    <dimen name="px_669">669px</dimen>
 
 </resources>

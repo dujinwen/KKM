@@ -74,6 +74,10 @@ public class URLs {
     public static final String DISCOVE = "http://kekemei.ecooth.com/api/shop/discove";
     //分类列表
     public static final String PROJECT_CATEGORY = "http://kekemei.ecooth.com/api/project/projectcategory";
+    //新人专区，新人体验
+    public static final String PROJECT_NEW_PEOPLE= "http://kekemei.ecooth.com/api/project/newpeople";
+    //红包一健领取
+    public static final String COUPON_ONE_RECEIVE = "http://kekemei.ecooth.com/api/coupon/onereceive";
 
     /**
      * 美容师

@@ -141,21 +141,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        //        try {
-        //            Thread.sleep(5000);
-        //            initData("", "");
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
 
         unbinder = ButterKnife.bind(this, view);
-
-        //        llSearch.setOnClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View v) {
-        //
-        //            }
-        //        });
         String latitude = SPUtils.getString(getActivity(), "latitude", "");
         String longitude = SPUtils.getString(getActivity(), "longitude", "");
 
