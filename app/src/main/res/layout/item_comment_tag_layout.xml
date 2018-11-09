@@ -14,7 +14,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="5dp"
-    android:textColor="@color/common_text_dark"
+    android:textColor="@drawable/selector_comment_tag_item"
     android:textSize="@dimen/px_37"
     tools:ignore="RtlHardcoded" />
 

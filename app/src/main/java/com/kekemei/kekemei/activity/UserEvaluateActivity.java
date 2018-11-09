@@ -19,6 +19,7 @@ import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.bean.EvaluateBean;
 import com.kekemei.kekemei.bean.EvaluateListBean;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.IndictorWithNumber;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
@@ -28,6 +29,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,22 +106,20 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
         });
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
 
-        jSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+        jSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        jSwipeRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 loadData(true);
             }
         });
-        jSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
-        jSwipeRefreshLayout.setEnableLoadMore(false);
 
         jAdapter = new EvaluateListAdapter(this, isMyComment);
-        jAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                loadMoreData();
-            }
-        }, jRecyclerView);
 
         jRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -138,8 +138,8 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
     public void getData(int pageNum) {
         onRequestStart();
         OkGo.<String>get(URLs.COMMENT_LIST)
-                .tag(this).params("shop_id", "").params("user_id", "1")
-                .params("beautician_id", "1").params("project_id", "1")
+                .tag(this)/*.params("shop_id", "1").params("user_id", UserHelp.getUserId(this))
+                .params("beautician_id", "1").params("project_id", "1")*/
                 .params("page", pageNum).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -271,6 +271,7 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
     }
 
     private void loadMoreSuccess(List<EvaluateBean> dataList) {
+        jSwipeRefreshLayout.finishLoadMore();
         jAdapter.addData(dataList);
     }
 
@@ -356,7 +357,6 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
 
     private void showIndictor(IndictorWithNumber.TabModele titleModle) {
         if (null == jViewPager.getAdapter() && !isOnDestroy && getFragmentManager() != null) {
-            jViewPager.setOffscreenPageLimit(titleModle.getListCount() - 1);
             jViewPager.setAdapter(new IndictorWithNumber.MyPagerAdapter(getFragmentManager(), titleModle));
         }
         jIndictorWithNumber.setViewPager(jViewPager, titleModle);

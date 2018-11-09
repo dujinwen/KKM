@@ -8,24 +8,26 @@
         android:id="@+id/titleLayout"
         layout="@layout/layout_title_bar" />
 
+    <com.kekemei.kekemei.view.IndictorWithNumber
+        android:id="@+id/indictor_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_173"
+        android:layout_below="@+id/titleLayout"
+        android:visibility="gone"
+        app:pstsDividerColor="#00000000"
+        app:pstsIndicatorColor="#ECF9F9"
+        app:pstsIndicatorHeight="0dp"
+        app:pstsTabPaddingLeftRight="@dimen/work_order_list_indictor_padding_left"
+        app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
+        app:pstsUnderlineColor="#e5e6e8"
+        app:pstsUnderlineHeight="0dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/titleLayout"
+        android:layout_below="@+id/indictor_tabs"
+        android:background="@color/white"
         android:orientation="vertical">
-
-        <com.kekemei.kekemei.view.IndictorWithNumber
-            android:id="@+id/indictor_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/px_173"
-            android:visibility="gone"
-            app:pstsDividerColor="#00000000"
-            app:pstsIndicatorColor="#1199ff"
-            app:pstsIndicatorHeight="@dimen/work_order_list_indictor_hight"
-            app:pstsTabPaddingLeftRight="@dimen/work_order_list_indictor_padding_left"
-            app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
-            app:pstsUnderlineColor="#e5e6e8"
-            app:pstsUnderlineHeight="@dimen/work_order_list_under_line_hight" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/swipe_rfresh_layout"
@@ -52,5 +54,5 @@
         android:id="@+id/multiple_status_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/titleLayout" />
+        android:layout_below="@+id/indictor_tabs" />
 </RelativeLayout>
