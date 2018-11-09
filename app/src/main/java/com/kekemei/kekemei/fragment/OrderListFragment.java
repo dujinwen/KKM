@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.fragment.base.BaseFragment;
 import com.kekemei.kekemei.view.IndictorWithNumber;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -107,29 +108,32 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                if (view.getId() == R.id.order_id_copy_tv) {
-//                    Toast.makeText(getContext(), "复制成功", Toast.LENGTH_SHORT).show();
-//                    AppUtil.copyToClipboard(getContext(),
-//                            ((OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position)).
-//                                    getOrderNo() + "");
-//                } else if (view.getId() == R.id.order_adress_copy_tv) {
-//                    Toast.makeText(getContext(), "复制成功", Toast.LENGTH_SHORT).show();
-//                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
-//                    String copStr = String.format(getContext().getResources().getString(R.string.format_buyer_name_tv), item.getShopName())
-//                            + "  " + item.getMobile() + "  /n" + String.format(getContext().getResources().getString(R.string.format_adress),
-//                            item.getFullAddress());
-//                    AppUtil.copyToClipboard(getContext(), copStr);
-//                } else if (view.getId() == R.id.deliver_btn_tv) {
-//                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
-//                    Router.build("work_order_deliver").with(DeliverActivity.ARG_PARAM1, item.getOrderNo())
-//                            .requestCode(ActivityRequestCode.ACTIVITY_REQUEST_TO_DELIVER).go(getContext());
-//                } else if (view.getId() == R.id.phone_call_btn) {
-//                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
-//                    Intent intent = new Intent(Intent.ACTION_DIAL);
-//                    Uri data = Uri.parse("tel:" + item.getMobile());
-//                    intent.setData(data);
-//                    startActivity(intent);
-//                }
+                if (view.getId() == R.id.qupingjia) {
+                    AddCommentActivity.start(getActivity());
+                }
+                /*if (view.getId() == R.id.order_id_copy_tv) {
+                    Toast.makeText(getContext(), "复制成功", Toast.LENGTH_SHORT).show();
+                    AppUtil.copyToClipboard(getContext(),
+                            ((OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position)).
+                                    getOrderNo() + "");
+                } else if (view.getId() == R.id.order_adress_copy_tv) {
+                    Toast.makeText(getContext(), "复制成功", Toast.LENGTH_SHORT).show();
+                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
+                    String copStr = String.format(getContext().getResources().getString(R.string.format_buyer_name_tv), item.getShopName())
+                            + "  " + item.getMobile() + "  /n" + String.format(getContext().getResources().getString(R.string.format_adress),
+                            item.getFullAddress());
+                    AppUtil.copyToClipboard(getContext(), copStr);
+                } else if (view.getId() == R.id.deliver_btn_tv) {
+                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
+                    Router.build("work_order_deliver").with(DeliverActivity.ARG_PARAM1, item.getOrderNo())
+                            .requestCode(ActivityRequestCode.ACTIVITY_REQUEST_TO_DELIVER).go(getContext());
+                } else if (view.getId() == R.id.phone_call_btn) {
+                    OrderListBean.PageResultVoBean.ResultBean item = (OrderListBean.PageResultVoBean.ResultBean) adapter.getItem(position);
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + item.getMobile());
+                    intent.setData(data);
+                    startActivity(intent);
+                }*/
             }
         });
 //        jAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

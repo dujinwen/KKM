@@ -70,6 +70,13 @@ public class AddCommentActivity extends BaseActivity {
     @BindView(R.id.etCommentContent)
     EditText etCommentContent;
 
+    @BindView(R.id.tvVerySatisfied)
+    TextView tvVerySatisfied;
+    @BindView(R.id.tvSatisfied)
+    TextView tvSatisfied;
+    @BindView(R.id.tvCommonly)
+    TextView tvCommonly;
+
     @BindView(R.id.commentTagFlowLayout)
     FlexboxLayout commentTagFlowLayout;
 
@@ -250,30 +257,35 @@ public class AddCommentActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
                             if (msg.equals("暂无数据")) {
-//                                fillTags();
                                 return;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         Gson gson = new Gson();
-//                        HotSearchBean hotSearchBean = gson.fromJson(response.body(), HotSearchBean.class);
-//                        fillTags();
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         LogUtil.e("TAG", response.message());
-//                        fillTags();
                     }
                 });
     }
 
-    @OnClick({R.id.submitComment})
+    @OnClick({R.id.submitComment, R.id.tvVerySatisfied, R.id.tvSatisfied, R.id.tvCommonly})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submitComment:
                 submitComment();
+                break;
+            case R.id.tvVerySatisfied:
+                tvVerySatisfied.setSelected(true);
+                break;
+            case R.id.tvSatisfied:
+                tvSatisfied.setSelected(true);
+                break;
+            case R.id.tvCommonly:
+                tvCommonly.setSelected(true);
                 break;
         }
     }

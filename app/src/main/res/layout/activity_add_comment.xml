@@ -20,48 +20,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/px_173"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/px_16"
-                    android:drawableTop="@mipmap/icon"
-                    android:gravity="center"
-                    android:text="好评"
-                    android:textColor="#999999"
-                    android:textSize="@dimen/px_29" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/px_16"
-                    android:drawableTop="@mipmap/icon"
-                    android:gravity="center"
-                    android:text="中评"
-                    android:textColor="#999999"
-                    android:textSize="@dimen/px_29" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/px_16"
-                    android:drawableTop="@mipmap/icon"
-                    android:gravity="center"
-                    android:text="差评"
-                    android:textColor="#999999"
-                    android:textSize="@dimen/px_29" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/px_43"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/px_68"
@@ -92,6 +51,66 @@
                     app:alignContent="flex_start"
                     app:flexDirection="row"
                     app:flexWrap="wrap" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="259px"
+                android:layout_marginTop="@dimen/px_43"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/px_36"
+                    android:layout_marginTop="@dimen/px_42"
+                    android:text="满意度"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/px_46" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="171px"
+                    android:paddingRight="32px">
+
+                    <TextView
+                        android:id="@+id/tvVerySatisfied"
+                        android:layout_width="@dimen/px_230"
+                        android:layout_height="@dimen/px_72"
+                        android:background="@drawable/selector_comment_tag_item"
+                        android:gravity="center"
+                        android:text="很满意"
+                        android:textColor="@drawable/selector_comment_tag_item"
+                        android:textSize="@dimen/px_32" />
+
+                    <TextView
+                        android:id="@+id/tvSatisfied"
+                        android:layout_width="@dimen/px_230"
+                        android:layout_height="@dimen/px_72"
+                        android:layout_marginLeft="90px"
+                        android:background="@drawable/selector_comment_tag_item"
+                        android:gravity="center"
+                        android:text="满意"
+                        android:textColor="@drawable/selector_comment_tag_item"
+                        android:textSize="@dimen/px_32" />
+
+                    <TextView
+                        android:id="@+id/tvCommonly"
+                        android:layout_width="@dimen/px_230"
+                        android:layout_height="@dimen/px_72"
+                        android:layout_marginLeft="90px"
+                        android:background="@drawable/selector_comment_tag_item"
+                        android:gravity="center"
+                        android:text="一般"
+                        android:textColor="@drawable/selector_comment_tag_item"
+                        android:textSize="@dimen/px_32" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -207,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:text="服务技术"
                         android:textColor="#333333"
-                        android:textSize="@dimen/px_40"/>
+                        android:textSize="@dimen/px_40" />
 
                     <com.kekemei.kekemei.view.StarBar
                         android:layout_width="wrap_content"
@@ -218,7 +237,7 @@
                         ratingbar:starDistance="10dp"
                         ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
                         ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                        ratingbar:starSize="@dimen/px_66"/>
+                        ratingbar:starSize="@dimen/px_66" />
                 </LinearLayout>
 
             </LinearLayout>
