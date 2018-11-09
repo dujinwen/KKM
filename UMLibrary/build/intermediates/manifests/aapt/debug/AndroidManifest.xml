@@ -150,13 +150,12 @@
             android:name="com.umeng.message.UmengDownloadResourceService"
             android:exported="false" />
 
-        <!-- <provider -->
-        <!-- android:name="com.umeng.message.provider.MessageProvider" -->
-        <!-- android:authorities="com.umeng.soexample.umeng.message" -->
-        <!-- android:exported="false"> -->
-        <!-- <grant-uri-permission android:pathPattern=".*" /> -->
-        <!-- </provider> -->
-
+        <provider
+            android:name="com.umeng.message.provider.MessageProvider"
+            android:authorities="com.umeng.soexample.umeng.message"
+            android:exported="false" >
+            <grant-uri-permission android:pathPattern=".*" />
+        </provider>
     </application>
 
 </manifest>

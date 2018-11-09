@@ -277,6 +277,18 @@ ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:151:9-153:40
 		ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:153:13-37
 	android:name
 		ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:152:13-74
+provider#com.umeng.message.provider.MessageProvider
+ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:155:9-160:20
+	android:authorities
+		ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:157:13-68
+	android:exported
+		ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:158:13-37
+	android:name
+		ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:156:13-70
+grant-uri-permission
+ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:159:13-62
+	android:pathPattern
+		ADDED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml:159:35-59
 uses-sdk
 INJECTED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\JD_PROJECT\KKM\UMLibrary\AndroidManifest.xml
