@@ -17,6 +17,8 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareConfig;
 
 import java.lang.reflect.Field;
 
@@ -32,10 +34,11 @@ public class App extends MultiDexApplication {
     private boolean isInit = false;
 
     {
-        PlatformConfig.setWeixin(Common.WX_APP_ID, Common.WX_APP_SECRET);
-        PlatformConfig.setQQZone(Common.QQ_APP_ID, Common.QQ_APP_SECRET);
-//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+//        PlatformConfig.setWeixin(Common.WX_APP_ID, Common.WX_APP_SECRET);
+//        PlatformConfig.setQQZone(Common.QQ_APP_ID, Common.QQ_APP_SECRET);
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
     }
 
     public static App getInstance() {
@@ -69,7 +72,11 @@ public class App extends MultiDexApplication {
             e.printStackTrace();
         }
         UMConfigure.init(this,"5bd2d515b465f57fa40000dc","Umeng", UMConfigure.DEVICE_TYPE_PHONE,
-                "669c30a9584623e70e8cd01b0381dcb4");
+                "");
+
+        UMShareConfig config = new UMShareConfig();
+        config.isNeedAuthOnGetUserInfo(true);
+        UMShareAPI.get(mContext).setShareConfig(config);
     }
 
     private void initImagePicker() {

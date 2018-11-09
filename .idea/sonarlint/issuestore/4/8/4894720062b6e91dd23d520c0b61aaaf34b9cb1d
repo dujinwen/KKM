@@ -1,10 +1,0 @@
-
-–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(šœ•²
-isquid:MaximumInheritanceDepth"=This class has 10 parents which is greater than 5 authorized.(ÏÎøìûÿÿÿÿ
-@squid:S1068"+Remove this unused "mChatId" private field.(ËÒ˜´
-=squid:S1185"(Remove this method to simply inherit it.(Ù«µ§
-Tsquid:UselessImportCheck"3Remove this unused import 'android.content.Intent'.(³ð‹G
-psquid:S1450"[Remove the "chatFragment" field and declare it as a local variable in the relevant methods.(«˜½ý
-Bsquid:S1185"(Remove this method to simply inherit it.(èüù±ùÿÿÿÿ
-`squid:UselessImportCheck"9Remove this unused import 'com.hyphenate.util.EasyUtils'.(‘ŒÉÜûÿÿÿÿ
-`squid:UselessImportCheck"?Remove this unused import 'android.support.annotation.NonNull'.(¼Åß

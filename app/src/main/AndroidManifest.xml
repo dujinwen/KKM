@@ -117,11 +117,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        <activity
-        android:name=".wxapi.WXPayEntryActivity"
-        android:exported="true"
-        android:launchMode="singleTop" />
-
         <!-- 微信 end -->
 
         <!-- 设置环信应用的AppKey -->
@@ -209,7 +204,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1106153887" />
+                <data android:scheme="tencent100424468" />
             </intent-filter>
 
         </activity>

@@ -1,11 +1,0 @@
-
-bsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(¨Æç
-hsquid:S00117J"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶™À2
-Gsquid:S1481^"0Remove this unused "miaoShaBean" local variable.(®þåá
-gsquid:CommentedOutCodeLineu"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ
-gsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(šÀ¼Úúÿÿÿÿ
-ksquid:S00116#"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
-lsquid:MaximumInheritanceDepth"<This class has 8 parents which is greater than 5 authorized.(‚®«8ý¦›ùê,
-Ksquid:S1068."/Remove this unused "curPosition" private field.(¸º´¸ûÿÿÿÿ
-Vsquid:S1854^"?Remove this useless assignment to local variable "miaoShaBean".(®þåá
-]squid:HiddenFieldCheckJ"<Rename "tv_title" which hides the field declared at line 34.(¶™À2

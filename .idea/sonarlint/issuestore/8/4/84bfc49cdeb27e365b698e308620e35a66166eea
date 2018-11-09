@@ -1,8 +1,0 @@
-
-Gsquid:S1148ü"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ŽÎ½·î,
-Wsquid:UnusedPrivateMethodñ"*Remove this unused private "clear" method.(¹žâä8ŽÎ½·î,
-Csquid:S1068"'Remove this unused "TAG" private field.(Ì“÷¸úÿÿÿÿ
-gsquid:CommentedOutCodeLineS"<This block of commented-out lines of code should be removed.(Êƒ²Ïøÿÿÿÿ
-qsquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öØºŸ8ŽÎ½·î,
-osquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(ëÏ×ƒýÿÿÿÿ8ŽÎ½·î,
-osquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(Ú©ÔÓøÿÿÿÿ8ŽÎ½·î,

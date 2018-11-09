@@ -17,12 +17,12 @@ import com.kekemei.kekemei.fragment.CityFragment;
 import com.kekemei.kekemei.fragment.HomeFragment;
 import com.kekemei.kekemei.fragment.MessageFragment;
 import com.kekemei.kekemei.fragment.PersonFragment;
+import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.sina.weibo.sdk.utils.LogUtil;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
 
 import butterknife.BindView;

@@ -1,16 +1,0 @@
-
-…"squid:ClassVariableVisibilityCheck¡"QMake count a static final constant or non-public and provide accessors if needed.(§™…×ıÿÿÿÿ
-qsquid:S1450f"ZRemove the "tabTypeface" field and declare it as a local variable in the relevant methods.(Î¨’ 
-"squid:ClassVariableVisibilityCheckF"`Make delegatePageListener a static final constant or non-public and provide accessors if needed.(€ßí®
-jsquid:S00116÷"QRename this field "TITLES" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Îƒ—Ä
-€"squid:ClassVariableVisibilityCheckŸ"QMake title a static final constant or non-public and provide accessors if needed.(Å¬õ
-hsquid:CommentedOutCodeLineö"<This block of commented-out lines of code should be removed.(ØË©ñÿÿÿÿÿ
-csquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(Á¿Îá
-Fsquid:S1068f"/Remove this unused "tabTypeface" private field.(Î¨’ 
-Csquid:S1068o",Remove this unused "jContext" private field.(ôÕˆË
-hsquid:CommentedOutCodeLineó"<This block of commented-out lines of code should be removed.(•ïâ—ùÿÿÿÿ
-Ksquid:S1068g"4Remove this unused "tabTypefaceStyle" private field.(Ó£¶
-Isquid:S1172ü",Remove this unused method parameter "title".(Œæşÿÿÿÿ
-vsquid:S1450g"_Remove the "tabTypefaceStyle" field and declare it as a local variable in the relevant methods.(Ó£¶
-†"squid:ClassVariableVisibilityCheck "RMake status a static final constant or non-public and provide accessors if needed.(×É¸Áûÿÿÿÿ
-hsquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(›ÄÓÎÿÿÿÿÿ

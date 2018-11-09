@@ -1,9 +1,0 @@
-
-Vsquid:S1118":Add a private constructor to hide the implicit public one.(‡ÛŸÚıÿÿÿÿ
-^
-squid:S899"BDo something with the "boolean" value returned by "createNewFile".(Ğ’Íùÿÿÿÿ
-?squid:S1148o"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-@squid:S1148Ÿ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-Fsquid:S2093k"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
-?squid:S1148v"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-esquid:S4042Q"IUse "java.nio.Files#delete" here for better messages on error conditions.(ºèêŒüÿÿÿÿ

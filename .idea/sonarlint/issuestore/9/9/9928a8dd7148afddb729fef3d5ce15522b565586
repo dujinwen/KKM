@@ -1,34 +1,0 @@
-
-hsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(²ïÍÔùÿÿÿÿ
-Jsquid:S1172¢"-Remove this unused method parameter "imgUrl".(Æ·Ëïüÿÿÿÿ
-žsquid:S1186¢"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Æ·Ëïüÿÿÿÿ
-ksquid:S00116@"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
-csquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(Þíçâ
-@squid:S1481‚"(Remove this unused "url" local variable.(±„ÎÄ
-`squid:S2259½"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½ž
-Osquid:S1854‚"7Remove this useless assignment to local variable "url".(±„ÎÄ
-tsquid:S1450S"]Remove the "compressThread" field and declare it as a local variable in the relevant methods.(–ºÉ
-hsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(Ö½Ã„ùÿÿÿÿ
-csquid:CommentedOutCodeLine÷"<This block of commented-out lines of code should be removed.(Þíçâ
-csquid:CommentedOutCodeLineþ"<This block of commented-out lines of code should be removed.(Æÿ½Ñ
-`squid:S2259Ë"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½ž
-Bsquid:S00108œ")Either remove or fill this block of code.(å¥ž‡
-csquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(ŸÿÕþ
-csquid:S1301Œ"KReplace this "switch" statement by "if" statements to increase readability.(ŽºÖ
-Psquid:S1854ý"8Remove this useless assignment to local variable "gson".(þëŒ
-csquid:CommentedOutCodeLineý"<This block of commented-out lines of code should be removed.(Þíçâ
-csquid:CommentedOutCodeLineŽ"<This block of commented-out lines of code should be removed.(Þíçâ
-^squid:S2142Ð"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€
-U"squid:SwitchLastCaseIsDefaultCheckY""Add a default case to this switch.(ýÞ³‹ùÿÿÿÿ
-csquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(§Ûã¨
-gsquid:S1301Y"KReplace this "switch" statement by "if" statements to increase readability.(ýÞ³‹ùÿÿÿÿ
-Q"squid:SwitchLastCaseIsDefaultCheckŒ""Add a default case to this switch.(ŽºÖ
-^squid:S1192¸"FDefine a constant instead of duplicating this literal "body:" 3 times.(Õª‡õ
-Ssquid:S1854à";Remove this useless assignment to local variable "content".(¬Ô¾Ý
-™squid:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
-hsquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(›‡Ô×ùÿÿÿÿ
-—squid:S1319ï"zThe type of the "uploadImagePath" object should be an interface such as "List" rather than the implementation "ArrayList".(áÑ„ ûÿÿÿÿ
-osquid:S3776¥"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(§ÌÛýÿÿÿÿ
-Dsquid:S1481à",Remove this unused "content" local variable.(¬Ô¾Ý
-`squid:S1192¸"HDefine a constant instead of duplicating this literal "comment" 3 times.(Õª‡õ
-Asquid:S1481ý")Remove this unused "gson" local variable.(þëŒ

@@ -1,32 +1,0 @@
-
-gsquid:S2259¿"HA "NullPointerException" could be thrown; "jsonObject" is nullable here.(éöœ8öÀÁ¶ï,
-Ssquid:S2864Ù"4Iterate over the "entrySet" instead of the "keySet".(á«ûÀ8³Å ýê,
-ksquid:S1192à"GDefine a constant instead of duplicating this literal "openid" 5 times.(™´Ç¥ùÿÿÿÿ8³Å ýê,
-Vsquid:S1135û"2Complete the task associated to this TODO comment.(» æžÿÿÿÿÿ8³Å ýê,
-Lsquid:S1172°".Remove this unused method parameter "captcha".(¤”ª\8³Å ýê,
-`squid:S1226¬"BIntroduce a new variable instead of reusing the parameter "eType".(¢êØ!8»–Õóë,
-isquid:UselessImportCheck">Remove this unused import 'com.hualong.kekemei.utils.SPUtils'.(³ûè×8›ñ²ôë,
-Gsquid:S1148›"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8³Å ýê,
-jsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(„Ý¤ì8³Å ýê,
-rsquid:UselessImportCheck	"BRemove this unused import 'android.support.v4.app.ActivityCompat'.(Äüþÿÿÿÿ8öÐ¢ýê,
-jsquid:CommentedOutCodeLine•"<This block of commented-out lines of code should be removed.(Ç¬ý›8³Å ýê,
-jsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(Ç¬ý›8³Å ýê,
-`squid:S1226¸"BIntroduce a new variable instead of reusing the parameter "eType".(¢êØ!8»–Õóë,
-csquid:S3398Š"?Move this method into the anonymous class declared at line 203.(¤…š¹þÿÿÿÿ8³Å ýê,
-Gsquid:S1148Ô"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8³Å ýê,
-¥squid:S1186Ù"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Äðúµùÿÿÿÿ8³Å ýê,
-Usquid:S1135\"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ8’ÛúÏé,
-]squid:UselessImportCheck"-Remove this unused import 'android.os.Build'.(ãÇ¤Úýÿÿÿÿ8öÐ¢ýê,
-osquid:S1192¯"KDefine a constant instead of duplicating this literal ", message:" 6 times.(Æ¸õ£ýÿÿÿÿ8³Å ýê,
-gsquid:S2259—"HA "NullPointerException" could be thrown; "jsonObject" is nullable here.(éöœ8öÀÁ¶ï,
-Nsquid:S1066û"/Merge this if statement with the enclosing one.(±Ó¿±8³Å ýê,
-Vsquid:S1135õ"2Complete the task associated to this TODO comment.(» æžÿÿÿÿÿ8³Å ýê,
-Vsquid:S1135ï"2Complete the task associated to this TODO comment.(» æžÿÿÿÿÿ8³Å ýê,
-Ksquid:S1185b"(Remove this method to simply inherit it.(Ðô´·ùÿÿÿÿ8•ºêùê,
-lsquid:MaximumInheritanceDepth2"<This class has 8 parents which is greater than 5 authorized.(þàÈí8öÀÁ¶ï,
-;squid:S1643Ú"Use a StringBuilder instead.(êÐ£ë8³Å ýê,
-\"squid:SwitchLastCaseIsDefaultCheckz""Add a default case to this switch.(×“¾ñùÿÿÿÿ8’ÛúÏé,
-jsquid:S1858Á"F"msg" is already a string, there's no need to call "toString()" on it.(ýÒÇéùÿÿÿÿ8öÀÁ¶ï,
-]squid:UselessImportCheck"-Remove this unused import 'android.Manifest'.(¦øïŽúÿÿÿÿ8öÐ¢ýê,
-msquid:S1192Î"NDefine a constant instead of duplicating this literal "LoginActivity" 4 times.(ñðÍ8³Å ýê,
-jsquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(ï•þ¼8³Å ýê,

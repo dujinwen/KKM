@@ -1,4 +1,0 @@
-
-vsquid:S1488 "ZImmediately return this expression instead of assigning it to the temporary variable "sp".(àÏ‰üÿÿÿÿ
-wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Î…ç±úÿÿÿÿ
-Qsquid:S1118	":Add a private constructor to hide the implicit public one.(Ø‰ ú

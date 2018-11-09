@@ -129,13 +129,13 @@ public class LoginActivity extends BaseActivity {
                 login(etPhoneNum.getText().toString().trim(), eventType, etYanzhengma.getText().toString().trim());
                 break;
             case R.id.weibo_login:
-                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.SINA, authListener);
+                UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.SINA, authListener);
                 break;
             case R.id.weixin_login:
-                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.WEIXIN, authListener);
+                UMShareAPI.get(LoginActivity.this).doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
                 break;
             case R.id.qq_login:
-                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);
+                UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, authListener);
                 break;
         }
     }
@@ -232,12 +232,13 @@ public class LoginActivity extends BaseActivity {
                 }
 
 
-                thirdLogin(openId, thirdType);
+//                thirdLogin(openId, thirdType);
             }
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            LogUtil.e("LoginActivity", t.getMessage());
             if (platform == SHARE_MEDIA.WEIXIN) {
                 if (!UMShareAPI.get(LoginActivity.this).isInstall(LoginActivity.this, SHARE_MEDIA.WEIXIN)) {
                     ToastUtil.showToastMsg(LoginActivity.this, "请安装微信客户端");
@@ -255,7 +256,7 @@ public class LoginActivity extends BaseActivity {
                 }
             }
             ToastUtil.showToastMsg(LoginActivity.this, "错误" + t.getMessage());
-            LogUtil.e("LoginActivity", t.getMessage());
+
         }
 
         @Override

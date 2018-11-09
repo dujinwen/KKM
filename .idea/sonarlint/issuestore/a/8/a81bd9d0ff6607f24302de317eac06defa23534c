@@ -1,11 +1,0 @@
-
-Q"squid:SwitchLastCaseIsDefaultCheckú""Add a default case to this switch.(½¼æÓ
-Usquid:S1854É"8Remove this useless assignment to local variable "size".(µô‚ðýÿÿÿÿ
-Usquid:S1854ã"8Remove this useless assignment to local variable "size".(µô‚ðýÿÿÿÿ
-jsquid:S3776ù"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ôó§è
-jsquid:S00114È"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ã°ìŸ
-;squid:S16592"$Declare "nPaint" on a separate line.(¬¬ò¸
-Fsquid:S1481É")Remove this unused "size" local variable.(µô‚ðýÿÿÿÿ
-bsquid:CommentedOutCodeLine3"<This block of commented-out lines of code should be removed.(ü±ý—
-Fsquid:S1481ã")Remove this unused "size" local variable.(µô‚ðýÿÿÿÿ
-Zsquid:S3398c">Move this method into the anonymous class declared at line 70.(ä˜Ê—ÿÿÿÿÿ

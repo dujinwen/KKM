@@ -1,14 +1,0 @@
-
-bsquid:HiddenFieldCheckã"?Rename "currentTab" which hides the field declared at line 120.(ïŸØß
-isquid:HiddenFieldCheckä"ARename "dividerWidth" which hides the field declared at line 106.(§Î¥Ïÿÿÿÿÿ
-“"squid:ClassVariableVisibilityCheckN"`Make delegatePageListener a static final constant or non-public and provide accessors if needed.(áÃ§üüÿÿÿÿ
-Psquid:S1068p"4Remove this unused "tabTypefaceStyle" private field.(¡þœ”ýÿÿÿÿ
-hsquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(•¶ÿÁøÿÿÿÿ
-Ysquid:S2259­"AA "NullPointerException" could be thrown; "tab" is nullable here.(è€ŠÛ
-_squid:S2184ï"GCast one of the operands of this multiplication operation to a "float".(¬‹öé
-Fsquid:S1068o"/Remove this unused "tabTypeface" private field.(Î¨’ 
-]squid:S2259î"EA "NullPointerException" could be thrown; "tabText" is nullable here.(ß²Õ·
-qsquid:S1450o"ZRemove the "tabTypeface" field and declare it as a local variable in the relevant methods.(Î¨’ 
-{squid:S1450p"_Remove the "tabTypefaceStyle" field and declare it as a local variable in the relevant methods.(¡þœ”ýÿÿÿÿ
-@squid:S1125£"(Remove the literal "true" boolean value.(öÃ„
-csquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ô«µž
