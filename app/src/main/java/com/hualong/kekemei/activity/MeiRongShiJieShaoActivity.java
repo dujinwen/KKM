@@ -122,7 +122,6 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
         workPhotoList.setLayoutManager(layout_meirongshi);
         adapter = new WorkPhotoListAdapter();
         workPhotoList.setAdapter(adapter);
-//        setGridView();
     }
 
     @Override
@@ -172,30 +171,6 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
             }
         });
     }
-
-    /**
-     * 设置GirdView参数，绑定数据
-     */
-   /* private void setGridView() {
-//        int size = cityList.size();
-        int length = 100;
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        float density = dm.density;
-//        int gridviewWidth = (int) (size * (length + 4) * density);
-        int itemWidth = (int) (length * density);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                4, LinearLayout.LayoutParams.MATCH_PARENT);
-        gridView.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
-        gridView.setColumnWidth(itemWidth); // 设置列表项宽
-        gridView.setHorizontalSpacing(5); // 设置列表项水平间距
-        gridView.setStretchMode(GridView.NO_STRETCH);
-        gridView.setNumColumns(4); // 设置列数量=列表集合数
-
-        GridViewAdapter adapter = new GridViewAdapter(getApplicationContext());
-        gridView.setAdapter(adapter);
-    }*/
 
     private class WorkPhotoListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 

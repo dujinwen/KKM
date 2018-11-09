@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hualong.kekemei.R;
-import com.hualong.kekemei.bean.NewPeopleBean;
+import com.hualong.kekemei.bean.NewComerBean;
 import com.hualong.kekemei.fragment.CityFragment;
 import com.hualong.kekemei.fragment.HomeFragment;
 import com.hualong.kekemei.fragment.MessageFragment;
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        NewPeopleBean newPeopleBean = gson.fromJson(response.body(), NewPeopleBean.class);
+                        NewComerBean newPeopleBean = gson.fromJson(response.body(), NewComerBean.class);
                         Intent intent = null;
                         if (newPeopleBean.getData().getIsnew() == 0) {
                             showDIYDialog(3);
