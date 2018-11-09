@@ -51,7 +51,7 @@
             android:background="@color/background"
             android:orientation="horizontal">
 
-            <com.hualong.kekemei.utils.DatePickerView
+            <com.kekemei.kekemei.utils.DatePickerView
                 android:id="@+id/year_pv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -66,7 +66,7 @@
                 android:textColor="@color/text2"
                 android:textSize="@dimen/px_58" />
 
-            <com.hualong.kekemei.utils.DatePickerView
+            <com.kekemei.kekemei.utils.DatePickerView
                 android:id="@+id/month_pv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -81,7 +81,7 @@
                 android:textColor="@color/text2"
                 android:textSize="@dimen/px_58" />
 
-            <com.hualong.kekemei.utils.DatePickerView
+            <com.kekemei.kekemei.utils.DatePickerView
                 android:id="@+id/day_pv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -96,7 +96,7 @@
                 android:textColor="@color/text2"
                 android:textSize="@dimen/px_58" />
 
-            <com.hualong.kekemei.utils.DatePickerView
+            <com.kekemei.kekemei.utils.DatePickerView
                 android:id="@+id/hour_pv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -111,7 +111,7 @@
                 android:textColor="@color/text2"
                 android:textSize="@dimen/px_58" />
 
-            <com.hualong.kekemei.utils.DatePickerView
+            <com.kekemei.kekemei.utils.DatePickerView
                 android:id="@+id/minute_pv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

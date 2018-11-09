@@ -43,7 +43,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.hualong.kekemei.view.IndictorWithNumber
+        <com.kekemei.kekemei.view.IndictorWithNumber
             android:id="@+id/indictor_tabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_173"
@@ -79,7 +79,7 @@
             <!--android:layout_alignParentTop="true" />-->
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <com.hualong.kekemei.view.MultipleStatusView
+        <com.kekemei.kekemei.view.MultipleStatusView
             android:id="@+id/multiple_status_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

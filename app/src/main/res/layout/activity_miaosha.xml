@@ -23,7 +23,7 @@
             app:tipTextSize="12sp" />
 
 
-        <com.hualong.kekemei.view.PagerSlidingTabStrip
+        <com.kekemei.kekemei.view.PagerSlidingTabStrip
             android:id="@+id/miaoshaTabs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_144"

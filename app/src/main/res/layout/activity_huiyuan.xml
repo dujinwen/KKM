@@ -24,7 +24,7 @@
             android:paddingLeft="@dimen/px_56"
             android:paddingTop="@dimen/px_229">
 
-            <com.hualong.kekemei.view.CircleImageView
+            <com.kekemei.kekemei.view.CircleImageView
                 android:id="@+id/icon"
                 android:layout_width="@dimen/px_171"
                 android:layout_height="@dimen/px_171"

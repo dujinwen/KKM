@@ -21,7 +21,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.hualong.kekemei.view.XEditText
+            <com.kekemei.kekemei.view.XEditText
                 android:id="@+id/editTextSearch"
                 style="@style/SearchXEditText"
                 android:layout_marginRight="42px"

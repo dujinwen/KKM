@@ -1,13 +1,13 @@
 
-isquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(àØú
-8Ã´ÃÓé,
-Hsquid:S1068 "*Remove this unused "isInit" private field.(º«Î›8Ã´ÃÓé,
-nsquid:CommentedOutCodeLine#"<This block of commented-out lines of code should be removed.(Û’®ºþÿÿÿÿ8 ÇÑ¾î,
-jsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(ÕŠãŠ8Ã´ÃÓé,
 Fsquid:S1148E"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8Æ÷Ð¾î,
+jsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(Ñé–”8Ã´ÃÓé,
 |squid:S1171""YMove the contents of this initializer to a standard constructor or to field initializers.(ÒÌâ–øÿÿÿÿ8Ã´ÃÓé,
-jsquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(Ñé–”8Ã´ÃÓé,
+Hsquid:S1068 "*Remove this unused "isInit" private field.(º«Î›8Ã´ÃÓé,
+nsquid:CommentedOutCodeLine#"<This block of commented-out lines of code should be removed.(Û’®ºþÿÿÿÿ8†šà´ï,
+isquid:CommentedOutCodeLinef"<This block of commented-out lines of code should be removed.(ßŸÖœ8Ã´ÃÓé,
+jsquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(ÕŠãŠ8Ã´ÃÓé,
+jsquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(™°Ÿò8Ã´ÃÓé,
 ssquid:S1450 "URemove the "isInit" field and declare it as a local variable in the relevant methods.(º«Î›8Ã´ÃÓé,
-jsquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(™°Ÿò8Ã´ÃÓé,
 Ysquid:S26960"6Make the enclosing method "static" or remove this set.(ñõîÙþÿÿÿÿ8Ã´ÃÓé,
-isquid:CommentedOutCodeLinee"<This block of commented-out lines of code should be removed.(ßŸÖœ8Ã´ÃÓé,
+isquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(àØú
+8Ã´ÃÓé,

@@ -164,7 +164,7 @@
             android:background="#FFF">
 
         </android.support.v7.widget.RecyclerView>
-        <com.hualong.kekemei.view.MultipleStatusView
+        <com.kekemei.kekemei.view.MultipleStatusView
             android:id="@+id/multiple_status_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

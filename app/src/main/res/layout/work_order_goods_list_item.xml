@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/work_order_item_left_margent">
 
 
-    <com.hualong.kekemei.view.ImageViewImp
+    <com.kekemei.kekemei.view.ImageViewImp
         android:id="@+id/goods_img"
         android:layout_width="@dimen/work_order_goods_icon_size"
         android:layout_height="@dimen/work_order_goods_icon_size"

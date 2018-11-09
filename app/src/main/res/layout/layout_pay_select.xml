@@ -31,7 +31,7 @@
                 android:textSize="@dimen/px_37" />
 
 
-            <com.hualong.kekemei.view.CheckBoxSample
+            <com.kekemei.kekemei.view.CheckBoxSample
                 android:id="@+id/iv_check_wechat"
                 android:layout_width="@dimen/px_66"
                 android:layout_height="@dimen/px_66"
@@ -66,7 +66,7 @@
                 android:textColor="#FF000000"
                 android:textSize="@dimen/px_37" />
 
-            <com.hualong.kekemei.view.CheckBoxSample
+            <com.kekemei.kekemei.view.CheckBoxSample
                 android:id="@+id/iv_check_ali"
                 android:layout_width="@dimen/px_66"
                 android:layout_height="@dimen/px_66"

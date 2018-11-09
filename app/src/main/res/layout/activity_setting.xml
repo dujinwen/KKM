@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:paddingLeft="36px">
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtSafely"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -25,7 +25,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtFeedBack"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -36,7 +36,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtHelpCenter"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -47,7 +47,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtAboutUs"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -58,7 +58,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtCleanMemory"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -69,7 +69,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtVersion"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"

@@ -1,26 +1,45 @@
 
-zsquid:S1450m"\Remove the "rvCommentList" field and declare it as a local variable in the relevant methods.(²ºÈÎ8†¿òöê,
-Q"squid:SwitchLastCaseIsDefaultCheck‰""Add a default case to this switch.(ºÖ
-Bsquid:S1659p"$Declare "userId" on a separate line.(à¦ª¬8¹“òŒî,
-jsquid:CommentedOutCodeLineÁ"<This block of commented-out lines of code should be removed.(¸æˆ8¹“òŒî,
-Wsquid:S1854À"8Remove this useless assignment to local variable "gson".(şëŒ8¹“òŒî,
-gsquid:S2259Ğ"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8†¿òöê,
-Wsquid:S1854‰"8Remove this useless assignment to local variable "gson".(şëŒ8¹“òŒî,
-Hsquid:S1481À")Remove this unused "gson" local variable.(şëŒ8¹“òŒî,
-psquid:S3776İ"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(±ÖÑ8½À½»î,
-wsquid:S1450o"[Remove the "hotProjectRv" field and declare it as a local variable in the relevant methods.(èä´©úÿÿÿÿ
-Hsquid:S1481‰")Remove this unused "gson" local variable.(şëŒ8¹“òŒî,
-qsquid:S00117Ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©ìÁ’8†¿òöê,
-Ksquid:S1481æ",Remove this unused "content" local variable.(¬Ô¾İ8†¿òöê,
-gsquid:S2259Â"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8†¿òöê,
-qsquid:MaximumInheritanceDepth6"<This class has 8 parents which is greater than 5 authorized.(İÀ’¬úÿÿÿÿ8½À½»î,
-wsquid:S1450k"YRemove the "markLayout" field and declare it as a local variable in the relevant methods.(·±«“8†¿òöê,
-wsquid:S00116w"SRename this field "ll_yuyue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ø¾³ƒøÿÿÿÿ8†¿òöê,
-ssquid:S00116F"[Rename this field "shop_detail_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“©‰€
-isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(–¶Ï8½À½»î,
-Zsquid:S1854æ";Remove this useless assignment to local variable "content".(¬Ô¾İ8†¿òöê,
-rsquid:S00116@"SRename this field "iv_share" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÃ¥™8†¿òöê,
-ksquid:S00116>"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
-jsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ûÈ´Ñ8†¿òöê,
-jsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(¸æˆ8¹“òŒî,
-¥squid:S1186÷"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ‘ÿÿÿÿÿÿ8†¿òöê,
+qsquid:MaximumInheritanceDepth="<This class has 8 parents which is greater than 5 authorized.(İÀ’¬úÿÿÿÿ8½À½»î,
+Ksquid:S1481Í",Remove this unused "content" local variable.(¬Ô¾İ8†¿òöê,
+Wsquid:S1854Õ"8Remove this useless assignment to local variable "gson".(şëŒ8¹“òŒî,
+qsquid:S00117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©ìÁ’8†¿òöê,
+Msquid:S1659".Declare "preferenceLayout" on a separate line.(±èËº8ßüä²ï,
+zsquid:S1450"[Remove the "hotProjectRv" field and declare it as a local variable in the relevant methods.(¢Æ©«8ßüä²ï,
+vsquid:S1450˜"RRemove the "cal" field and declare it as a local variable in the relevant methods.(¾’“ùÿÿÿÿ8ßüä²ï,
+Zsquid:S1854Í";Remove this useless assignment to local variable "content".(¬Ô¾İ8†¿òöê,
+Hsquid:S1481Õ")Remove this unused "gson" local variable.(şëŒ8¹“òŒî,
+ssquid:S00116Q"[Rename this field "shop_detail_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“©‰€
+€squid:S00116›"[Rename this field "tv_date_and_week" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›¨Ú²ÿÿÿÿÿ8ßüä²ï,
+Vsquid:S2589™"7Remove this expression which always evaluates to "true"(š»¦™8ßüä²ï,
+‰squid:S00116w"eRename this field "id_recyclerview_horizontal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÙœúÿÿÿÿ8ßüä²ï,
+Ssquid:S1659‘"/Declare "preferenceAdapter" on a separate line.(ñšüÂıÿÿÿÿ8ßüä²ï,
+{squid:S1450‹"\Remove the "rvCommentList" field and declare it as a local variable in the relevant methods.(²ºÈÎ8†¿òöê,
+qsquid:S3776ı"SRefactor this method to reduce its Cognitive Complexity from 123 to the 15 allowed.(±ÖÑ8½À½»î,
+rsquid:S00116H"SRename this field "iv_share" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÃ¥™8†¿òöê,
+Isquid:S1659"*Declare "preferenceRv" on a separate line.(¢Æ©«8ßüä²ï,
+osquid:S1301×"KReplace this "switch" statement by "if" statements to increase readability.(×“¾ñùÿÿÿÿ8ßüä²ï,
+xsquid:S1450‰"YRemove the "markLayout" field and declare it as a local variable in the relevant methods.(·±«“8†¿òöê,
+isquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(ÀêËU8ßüä²ï,
+Vsquid:S2589˜"7Remove this expression which always evaluates to "true"(ËĞÏ°8ßüä²ï,
+Esquid:S1659"&Declare "memberRv" on a separate line.(¢Æ©«8ßüä²ï,
+Csquid:S1659"$Declare "userId" on a separate line.(à¦ª¬8¹“òŒî,
+lsquid:S1192É"HDefine a constant instead of duplicating this literal "section" 8 times.(çÜíÒıÿÿÿÿ8ßüä²ï,
+ksquid:S1192É"GDefine a constant instead of duplicating this literal "click:" 8 times.(çÜíÒıÿÿÿÿ8ßüä²ï,
+Isquid:S1659"*Declare "memberLayout" on a separate line.(±èËº8ßüä²ï,
+vsquid:S1450"WRemove the "memberRv" field and declare it as a local variable in the relevant methods.(¢Æ©«8ßüä²ï,
+xsquid:S1450"YRemove the "newComerRv" field and declare it as a local variable in the relevant methods.(¢Æ©«8ßüä²ï,
+Q"squid:SwitchLastCaseIsDefaultCheck’""Add a default case to this switch.(ºÖ
+zsquid:S1450"[Remove the "preferenceRv" field and declare it as a local variable in the relevant methods.(¢Æ©«8ßüä²ï,
+Vsquid:S1854›"7Remove this useless assignment to local variable "day".(‹®Æ‘8ßüä²ï,
+¥squid:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñ‘ÿÿÿÿÿÿ8†¿òöê,
+xsquid:S1450™"YRemove the "dayAdapter" field and declare it as a local variable in the relevant methods.(ô´°8ßüä²ï,
+vsquid:S00116œ"WRename this field "tv_can_yuyue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù…Ê
+8ßüä²ï,
+Osquid:S1659‘"+Declare "memberAdapter" on a separate line.(ñšüÂıÿÿÿÿ8ßüä²ï,
+Gsquid:S1659"(Declare "newComerRv" on a separate line.(¢Æ©«8ßüä²ï,
+Gsquid:S1481›"(Remove this unused "day" local variable.(‹®Æ‘8ßüä²ï,
+jsquid:CommentedOutCodeLineš"<This block of commented-out lines of code should be removed.(á´Èƒ8ßüä²ï,
+Qsquid:S1659‘"-Declare "newComerAdapter" on a separate line.(ñšüÂıÿÿÿÿ8ßüä²ï,
+ksquid:S00116F"SRename this field "tv_title" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍŠ ë
+xsquid:S00116—"SRename this field "ll_yuyue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ø¾³ƒøÿÿÿÿ8†¿òöê,
+jsquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(ûÈ´Ñ8†¿òöê,

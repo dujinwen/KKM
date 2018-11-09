@@ -42,7 +42,7 @@
                 android:textSize="@dimen/px_39" />
         </LinearLayout>
 
-        <com.hualong.kekemei.view.StarBar
+        <com.kekemei.kekemei.view.StarBar
             android:id="@+id/shopStar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -113,7 +113,7 @@
                     android:textColor="#333333"
                     android:textSize="@dimen/px_46" />
 
-                <com.hualong.kekemei.view.NoScrollGridView
+                <com.kekemei.kekemei.view.NoScrollGridView
                     android:id="@+id/commentImages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -156,7 +156,7 @@
                         android:textColor="#333333"
                         android:textSize="@dimen/px_40" />
 
-                    <com.hualong.kekemei.view.StarBar
+                    <com.kekemei.kekemei.view.StarBar
                         android:id="@+id/star_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                         android:textColor="#333333"
                         android:textSize="@dimen/px_40" />
 
-                    <com.hualong.kekemei.view.StarBar
+                    <com.kekemei.kekemei.view.StarBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_69"
@@ -209,7 +209,7 @@
                         android:textColor="#333333"
                         android:textSize="@dimen/px_40"/>
 
-                    <com.hualong.kekemei.view.StarBar
+                    <com.kekemei.kekemei.view.StarBar
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/px_69"

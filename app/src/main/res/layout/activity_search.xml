@@ -7,7 +7,7 @@
 
     <include layout="@layout/layout_search_tool_bar" />
 
-    <com.hualong.kekemei.view.PagerSlidingTabStrip
+    <com.kekemei.kekemei.view.PagerSlidingTabStrip
         android:id="@+id/searchIndictor"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_140"

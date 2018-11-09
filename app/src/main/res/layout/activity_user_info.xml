@@ -12,7 +12,7 @@
         android:layout_height="@dimen/px_560"
         android:background="@mipmap/user_head_bg" />
 
-    <com.hualong.kekemei.view.CircleImageView
+    <com.kekemei.kekemei.view.CircleImageView
         android:id="@+id/icon"
         android:layout_width="@dimen/px_240"
         android:layout_height="@dimen/px_240"
@@ -28,7 +28,7 @@
         android:layout_below="@+id/headIcon"
         android:orientation="vertical">
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtNick"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -38,7 +38,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtSex"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -48,7 +48,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtBirth"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -58,7 +58,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtSkin"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"
@@ -68,7 +68,7 @@
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <com.hualong.kekemei.view.SectionRowView
+        <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtHobby"
             style="@style/CommonSectionRowView"
             app:contentTxtColor="@color/common_text_grey"

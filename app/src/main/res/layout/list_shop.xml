@@ -186,7 +186,7 @@
                 android:textColor="#FF999999"
                 android:textSize="@dimen/px_36" />
 
-            <com.hualong.kekemei.view.StarBar
+            <com.kekemei.kekemei.view.StarBar
                 android:id="@+id/star_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

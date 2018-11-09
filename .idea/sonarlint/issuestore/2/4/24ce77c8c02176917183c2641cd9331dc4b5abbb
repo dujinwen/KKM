@@ -1,25 +1,16 @@
 
-vsquid:S00117Ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üùÿÿÿÿ8ú›øøë,
-Ksquid:S1481á",Remove this unused "content" local variable.(¬Ô¾İ8¨¿¯»î,
-jsquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(¥”©Ê8¨¿¯»î,
-qsquid:S00117¼"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èµÆ8ú›øøë,
-Nsquid:S00108ô")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8…ø®»î,
-qsquid:S3776°"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¿öß¥8¨¿¯»î,
-Nsquid:S00108å")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8ã™¯¾î,
-osquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ÛƒÒ—ıÿÿÿÿ8ú›øøë,
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(®ƒ÷8ú›øøë,
-gsquid:S2259½"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8¨¿¯»î,
-X"squid:SwitchLastCaseIsDefaultCheck²""Add a default case to this switch.(ºÖ8¨¿¯»î,
-gsquid:S2259Ë"H"NullPointerException" will be thrown when invoking method "fillTags()".(é½8¨¿¯»î,
-Nsquid:S00108’")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8¨¿¯»î,
-Zsquid:S1854á";Remove this useless assignment to local variable "content".(¬Ô¾İ8¨¿¯»î,
-Nsquid:S00108ƒ")Either remove or fill this block of code.(Ÿì“×øÿÿÿÿ8¬¯»î,
-osquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ8ú›øøë,
-qsquid:S00117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í—ÇŸ8Â³ß·î,
-Esquid:S1172°"&Remove these unused method parameters.(¿öß¥8ú›øøë,
-hsquid:S1192¡"IDefine a constant instead of duplicating this literal "latitude" 3 times.(çœî8¨¿¯»î,
-jsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(¨Æç8¨¿¯»î,
-]squid:S1858µ">"body" returns a string, there's no need to call "toString()".(˜ƒÇ÷8ú›øøë,
-osquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ú›øøë,
-osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ8¨¿¯»î,
-nsquid:S1192¢"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜöåúÿÿÿÿ8¨¿¯»î,
+Ksquid:S1481Ã",Remove this unused "content" local variable.(¬Ô¾İ8¨¿¯»î,
+Zsquid:S1854Ã";Remove this useless assignment to local variable "content".(¬Ô¾İ8¨¿¯»î,
+vsquid:S00117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£•”Üùÿÿÿÿ8ú›øøë,
+hsquid:S1192•"IDefine a constant instead of duplicating this literal "latitude" 3 times.(çœî8¨¿¯»î,
+jsquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(¨Æç8¨¿¯»î,
+_squid:UnusedPrivateMethod·"-Remove this unused private "fillTags" method.(Ù¾äøÿÿÿÿ8°üä²ï,
+qsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í—ÇŸ8Â³ß·î,
+X"squid:SwitchLastCaseIsDefaultCheck•""Add a default case to this switch.(ºÖ8¨¿¯»î,
+qsquid:S3776­"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¿öß¥8¨¿¯»î,
+qsquid:S00117¹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èµÆ8ú›øøë,
+nsquid:S1192–"JDefine a constant instead of duplicating this literal "longitude" 3 times.(ßÜöåúÿÿÿÿ8¨¿¯»î,
+]squid:S1858²">"body" returns a string, there's no need to call "toString()".(˜ƒÇ÷8ú›øøë,
+osquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ8¨¿¯»î,
+jsquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(¥”©Ê8¨¿¯»î,
+ squid:S1186¨"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ó›ö´8ªãŠ´ï,

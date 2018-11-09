@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.hualong.kekemei.view.loading.AVLoadingIndicatorView
+    <com.kekemei.kekemei.view.loading.AVLoadingIndicatorView
         android:id="@+id/indicator"
         style="@style/AVLoadingIndicatorView"
         android:layout_width="wrap_content"

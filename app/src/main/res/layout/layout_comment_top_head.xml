@@ -130,7 +130,7 @@
                 android:textColor="#222222"
                 android:textSize="40px" />
 
-            <com.hualong.kekemei.view.StarBar
+            <com.kekemei.kekemei.view.StarBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14px"

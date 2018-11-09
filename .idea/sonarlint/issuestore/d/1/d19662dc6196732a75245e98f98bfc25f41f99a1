@@ -1,9 +1,7 @@
 
-bsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(¨Æç
-bsquid:S1301T"KReplace this "switch" statement by "if" statements to increase readability.(ŽºÖ
-Nsquid:S1135}"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ
-P"squid:SwitchLastCaseIsDefaultCheckT""Add a default case to this switch.(ŽºÖ
-bsquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(Ù®Ö÷
-gsquid:CommentedOutCodeLinet"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ
-nsquid:CommentedOutCodeLineX"<This block of commented-out lines of code should be removed.(”©¡Åüÿÿÿÿ8¾ß¤ùê,
-qsquid:MaximumInheritanceDepth "<This class has 8 parents which is greater than 5 authorized.(”ÂÌüÿÿÿÿ8âÕüºî,
+bsquid:CommentedOutCodeLinen"<This block of commented-out lines of code should be removed.(¨Æç
+gsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(ÁÈŸÍúÿÿÿÿ
+Nsquid:S1135"2Complete the task associated to this TODO comment.(×›£Úùÿÿÿÿ
+P"squid:SwitchLastCaseIsDefaultCheckW""Add a default case to this switch.(ŽºÖ
+bsquid:S1301W"KReplace this "switch" statement by "if" statements to increase readability.(ŽºÖ
+qsquid:MaximumInheritanceDepth!"<This class has 8 parents which is greater than 5 authorized.(”ÂÌüÿÿÿÿ8âÕüºî,
