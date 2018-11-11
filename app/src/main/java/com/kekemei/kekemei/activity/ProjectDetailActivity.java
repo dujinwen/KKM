@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
@@ -33,8 +34,8 @@ import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -42,6 +43,7 @@ import com.lzy.okgo.model.Response;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -88,6 +90,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     @BindView(R.id.contentView)
     LinearLayout contentView;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.tv_buy_now)
+    TextView tvBuyNow;
 
     private WebView webContainer;
 
@@ -109,6 +115,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     private String encoding = "UTF-8";
     private String mimeType = "text/html";
+    private ProjectDetailBean detailBean;
 
     public static void start(Context context, int beauticianId) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
@@ -254,7 +261,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         tvDistance = contentHead.findViewById(R.id.tvDistance);
     }
 
-    @OnClick({R.id.projectDetail, R.id.userEvaluate})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.projectDetail:
@@ -291,6 +298,20 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     commentAdapter.replaceData(commentData.getHaveimg());
                 }
                 break;
+
+            case R.id.tv_buy_now:
+                OkGo.<String>get(URLs.ORDER_GENERATING)
+                        .params("user_id", UserHelp.getUserId(this))
+                        .params("name", detailBean.getData().getName())
+                        .params("project_id", detailBean.getData().getProject_category_id())
+                        .params("count", 1)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                            }
+                        });
+                break;
         }
     }
 
@@ -323,7 +344,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 LogUtil.e("ProjectDetailActivity", response.body());
                 multipleStatusView.showOutContentView(scrollLayout);
                 Gson gson = new Gson();
-                ProjectDetailBean detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
+                detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
                 ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
                 shopName.setText(detailBean.getData().getName());
                 price.setText("￥" + detailBean.getData().getPrice_discount());
@@ -387,4 +408,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             }
         }
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+
 }

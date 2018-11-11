@@ -12,14 +12,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.DayCheckAdapter2;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
@@ -42,13 +45,13 @@ import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -63,6 +66,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
     private static final String EXTRA_KEY_USER_ID = "userId";
     private static final String EXTRA_KEY_ENUM_ID = "type";
+    @BindView(R.id.shopHome)
+    RelativeLayout shopHome;
+    @BindView(R.id.hotProject)
+    RelativeLayout hotProject;
+    @BindView(R.id.userEvaluate)
+    RelativeLayout userEvaluate;
+    @BindView(R.id.queding)
+    Button queding;
     private CustomDatePicker startTimePicker;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -335,6 +346,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         rvMeirongshi.setAdapter(meiRongShiAdapter);
     }
 
+    private HashSet<Integer> hashSet = new HashSet();
+
     private void initCommentView(View view) {
         userCommentNum = view.findViewById(R.id.userCommentNum);
         commentTabAll = view.findViewById(R.id.commentTabAll);
@@ -368,11 +381,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         view.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.drawable.btn_7ad2d2_background));
                         tv_date_and_week.setTextColor(0XFFFFFFFF);
                         tv_can_yuyue.setTextColor(0XFFFFFFFF);
+                        hashSet.add(position);
                     } else {
                         view.setSelected(false);
                         view.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.drawable.btn_white_background));
                         tv_date_and_week.setTextColor(0XFF999999);
                         tv_can_yuyue.setTextColor(0XFF999999);
+                        hashSet.remove(position);
                     }
                 }
             }
@@ -397,7 +412,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Optional
     @OnClick({R.id.shopHome, R.id.hotProject, R.id.userEvaluate,
             R.id.commentTabAll, R.id.commentTabNew, R.id.tvFollow,
-            R.id.commentTabPhoto, R.id.ll_yuyue})
+            R.id.commentTabPhoto, R.id.ll_yuyue, R.id.queding})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvFollow:
@@ -450,10 +465,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.ll_yuyue:
-                //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 llSelectTime.setVisibility(View.VISIBLE);
                 llDianpuTab.setVisibility(View.GONE);
                 layoutBottomBar.setVisibility(View.GONE);
+                break;
+
+            case R.id.queding:
+                LogUtil.d("ShopActivity", hashSet.toString());
                 break;
         }
     }
@@ -893,5 +911,4 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
 
     }
-
 }

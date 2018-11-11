@@ -31,6 +31,7 @@
         android:textSize="32px" />
 
     <TextView
+        android:id="@+id/tv_buy_now"
         android:layout_width="379px"
         android:layout_height="match_parent"
         android:background="#7AD2D2"

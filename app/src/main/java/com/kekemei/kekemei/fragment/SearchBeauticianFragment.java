@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,16 +13,15 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.MeiRongShiActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
-import com.kekemei.kekemei.bean.DetailEnum;
-import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.UserHelp;
-import com.kekemei.kekemei.view.MultipleStatusView;
-import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
 import com.kekemei.kekemei.bean.BeauticianBean;
+import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.SearchResultBean;
+import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
+import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -125,6 +123,7 @@ public class SearchBeauticianFragment extends Fragment implements SearchIPage {
                                 .params("user_id", UserHelp.getUserId(getActivity()))
                                 .params("name", beauticianBean.getName())
                                 .params("project_id",beauticianBean.getId())
+                                .params("count",1)
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {

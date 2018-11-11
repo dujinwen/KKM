@@ -652,7 +652,7 @@ public class AppUtil {
     }
 
     public static String getFormatTime1(long time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         return sdf.format(new Date(time));
     }
 

@@ -13,8 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.LoginActivity;
+import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
 import com.kekemei.kekemei.activity.SettingActivity;
@@ -29,7 +31,6 @@ import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
 import com.kekemei.kekemei.view.NoScrollGridView;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -84,9 +85,10 @@ public class PersonFragment extends Fragment {
     @BindView(R.id.tv_hongbaonum)
     TextView tvHongbaonum;
 
-    private String[] userForwardArray = {"我的订单", "关注的店铺", "我的美容师", "我的收藏", "我的积分", "客户服务"};
+    private String[] userForwardArray = {"我的订单", "关注的店铺", "我的美容师", "我的收藏", "我的订单", "我的积分", "客户服务"};
     private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_dianpu_btn,
-            R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn, R.mipmap.user_dizhi_btn, R.mipmap.user_kefu_btn};
+            R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn,
+            R.mipmap.user_dingdan_btn, R.mipmap.user_dizhi_btn, R.mipmap.user_kefu_btn};
     private CouponDataBean couponBean;
     private HongBaoDataBean hongBaoBean;
 
@@ -181,6 +183,11 @@ public class PersonFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
     @OnClick({R.id.user_set_btn, R.id.userName, R.id.icon})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -204,7 +211,7 @@ public class PersonFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tiyan, R.id.daijinquan, R.id.hongbao})
+    @OnClick({R.id.tiyan, R.id.daijinquan, R.id.hongbao, R.id.user_message_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tiyan:
@@ -218,6 +225,10 @@ public class PersonFragment extends Fragment {
                 if (hongbao == null) return;
                 MyRedBaoActivity.start(getActivity(), hongBaoBean);
                 break;
+            case R.id.user_message_btn:
+                MessageActivity.start(getActivity());
+                break;
         }
     }
+
 }

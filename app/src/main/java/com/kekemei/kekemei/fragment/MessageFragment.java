@@ -157,23 +157,25 @@ public class MessageFragment
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.zaicigoumai:
-//                        OkGo.<String>get(URLs.ORDER_GENERATING)
-//                                .params("user_id", UserHelp.getUserId(getActivity()))
-//                                .params("name", beauticianBean.getName())
-//                                .params("project_id",beauticianBean.getId())
-//                                .execute(new StringCallback() {
-//                                    @Override
-//                                    public void onSuccess(Response<String> response) {
-//
-//                                    }
-//                                });
-                    break;
+                        DataBean item = jAdapter.getItem(position);
+                        OkGo.<String>get(URLs.ORDER_GENERATING)
+                                .params("user_id", UserHelp.getUserId(getActivity()))
+                                .params("name", item.getName())
+                                .params("project_id", item.getProject_project_id())
+                                .params("count", 1)
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+
+                                    }
+                                });
+                        break;
 
                     default:
 
-                    break;
+                        break;
                 }
             }
         });
@@ -184,7 +186,6 @@ public class MessageFragment
         new OrderListPresenter(this, status);
 
         jIndictorWithNumber.setTabChangeListener(this);
-
 
 
         ivSearch.setOnClickListener(this);
@@ -340,9 +341,9 @@ public class MessageFragment
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.iv_search:{
-                Intent intent = new Intent(getActivity(),OrderListSearchActivity.class);
+        switch (view.getId()) {
+            case R.id.iv_search: {
+                Intent intent = new Intent(getActivity(), OrderListSearchActivity.class);
                 startActivity(intent);
             }
         }

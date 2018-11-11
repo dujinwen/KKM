@@ -78,7 +78,6 @@ public class GridAdapter extends BaseAdapter {
 
                         break;
                     case 4:
-
                         mContext.startActivity(new Intent(mContext, JiFenActivity.class));
                         break;
                     case 5:

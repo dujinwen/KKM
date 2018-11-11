@@ -223,6 +223,7 @@
         <activity android:name=".activity.HuiYuanctivity" />
         <activity android:name=".activity.MyRedBaoActivity" />
         <activity android:name=".activity.MyVoucherActivity" />
+        <activity android:name=".activity.MessageActivity" />
     </application>
 
 </manifest>

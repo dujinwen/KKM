@@ -297,7 +297,7 @@ public class LoginActivity extends BaseActivity {
         UserHelp.setAvatar(baseContext, userinfo.getAvatar());
         UserHelp.setUserId(baseContext, userinfo.getUser_id());
 
-//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
 

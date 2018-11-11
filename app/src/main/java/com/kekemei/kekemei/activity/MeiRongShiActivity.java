@@ -97,7 +97,8 @@ public class MeiRongShiActivity extends BaseActivity {
                                 OkGo.<String>get(URLs.ORDER_GENERATING)
                                         .params("user_id", UserHelp.getUserId(MeiRongShiActivity.this))
                                         .params("name", beauticianBean.getName())
-                                        .params("project_id",beauticianBean.getId())
+                                        .params("project_id",beauticianBean.getOrder())
+                                        .params("count",1)
                                         .execute(new StringCallback() {
                                             @Override
                                             public void onSuccess(Response<String> response) {
