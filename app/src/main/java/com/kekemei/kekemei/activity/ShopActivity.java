@@ -45,6 +45,7 @@ import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -476,6 +477,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    public static final int REQUEST_ALBUM = 10;
+    private void openPhotoPicker() {
+        Intent intent = new Intent(this, ImageGridActivity.class);
+        startActivityForResult(intent, REQUEST_ALBUM);
+    }
+
     /**
      * 关注
      */
@@ -597,50 +604,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                         hotProjectAdapter.replaceData(detailBean.getData().getHotdata());
-                        hotProjectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = hotProjectAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getNewmemberdata())) {
                         newComerLayout.setVisibility(View.VISIBLE);
                         newComerAdapter.replaceData(detailBean.getData().getNewmemberdata());
-                        newComerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = newComerAdapter.getItem(position);
-                                NewComerActivity.start(ShopActivity.this, item.getId() + "");
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getMemberdata())) {
                         memberLayout.setVisibility(View.VISIBLE);
                         memberAdapter.replaceData(detailBean.getData().getMemberdata());
-                        memberAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = memberAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getSpecialdata())) {
                         preferenceLayout.setVisibility(View.VISIBLE);
                         preferenceAdapter.replaceData(detailBean.getData().getSpecialdata());
-                        preferenceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = preferenceAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getBeautician())) {
                         meiRongShiAdapter.replaceData(detailBean.getData().getBeautician());
@@ -728,50 +703,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                         hotProjectAdapter.replaceData(detailBean.getData().getHotdata());
-                        hotProjectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = hotProjectAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getNewmemberdata())) {
                         newComerLayout.setVisibility(View.VISIBLE);
                         newComerAdapter.replaceData(detailBean.getData().getNewmemberdata());
-                        newComerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = newComerAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getMemberdata())) {
                         memberLayout.setVisibility(View.VISIBLE);
                         memberAdapter.replaceData(detailBean.getData().getMemberdata());
-                        memberAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = memberAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(detailBean.getData().getSpecialdata())) {
                         preferenceLayout.setVisibility(View.VISIBLE);
                         preferenceAdapter.replaceData(detailBean.getData().getSpecialdata());
-                        preferenceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = preferenceAdapter.getItem(position);
-                                ProjectDetailActivity.start(ShopActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);

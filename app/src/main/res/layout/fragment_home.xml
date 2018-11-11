@@ -212,6 +212,7 @@
                     android:paddingTop="@dimen/px_19">
 
                     <ImageView
+                        android:id="@+id/ivNewComer"
                         android:layout_width="@dimen/px_540"
                         android:layout_height="@dimen/px_369"
                         android:background="@mipmap/home_guangao_xinren_pic" />

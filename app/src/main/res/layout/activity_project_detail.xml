@@ -18,16 +18,27 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <include layout="@layout/section_project_detail_top_head_layout" />
+                <include
+                    android:id="@+id/topLayout"
+                    layout="@layout/section_project_detail_top_head_layout" />
 
-                <include layout="@layout/section_project_detail_content_layout" />
+                <include
+                    layout="@layout/section_project_detail_content_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/topLayout" />
 
-            </LinearLayout>
+                <include
+                    layout="@layout/section_detail_select_time_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/topLayout" />
+
+            </RelativeLayout>
         </ScrollView>
     </LinearLayout>
 
