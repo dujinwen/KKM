@@ -792,12 +792,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             if (time != null && !time.isEmpty() && "" != null) {
                 if ("" != time && time != null) {
                     String[] year = time.split(" ")[0].split("-");
-                    String[] day = time.split(" ")[1].split(":");
                     int integer = Integer.parseInt(year[0]);
                     int integer1 = Integer.parseInt(year[1]);
                     int integer2 = Integer.parseInt(year[2]);
 
-                    int month = integer1 - 1 == 0 ? 12 : integer1 - 1;
+                    int month = integer1 == 1 ? 12 : integer1 - 1;
+                    integer = integer1 == 1 ? integer - 1 : integer;
                     cal.set(integer, month, integer2);
                     cal.add(Calendar.DATE, i);
                     calList.add(cal);

@@ -1,12 +1,9 @@
 package com.kekemei.kekemei.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,19 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.kekemei.kekemei.activity.MainActivity;
-import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.bean.LoginBean;
-import com.kekemei.kekemei.utils.AppUtil;
-import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.SPUtils;
-import com.kekemei.kekemei.utils.ToastUtil;
-import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.utils.UserHelp;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
+import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.LoginBean;
+import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.ToastUtil;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -142,7 +137,7 @@ public class LoginActivity extends BaseActivity {
 
     private void sendYanZhengMa() {
         if (thirdType != -1) {
-            eventType = "register";
+            eventType = "login";
         } else {
             eventType = "login";
         }
@@ -169,7 +164,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         if (thirdType != -1) {
-            eventType = "register";
+            eventType = "login";
             eType = eventType;
             AppUtil.checkCaptcha(moblie,
                     eType,
@@ -191,9 +186,9 @@ public class LoginActivity extends BaseActivity {
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            LogUtil.d(LoginActivity.this.getLocalClassName(),response.body());
+                            LogUtil.d(LoginActivity.this.getLocalClassName(), response.body());
                             saveUserInfo(response);
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
                         }
                     });
 
@@ -228,11 +223,11 @@ public class LoginActivity extends BaseActivity {
                     openId = data.get("openid");
                 } else if (platform == SHARE_MEDIA.SINA) {
                     thirdType = 3;
-                    openId = data.get("openid");
+                    openId = data.get("uid");
                 }
 
 
-//                thirdLogin(openId, thirdType);
+                thirdLogin(openId, thirdType);
             }
         }
 
@@ -271,7 +266,7 @@ public class LoginActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        LogUtil.d(LoginActivity.this.getLocalClassName(),response.body());
+                        LogUtil.d(LoginActivity.this.getLocalClassName(), response.body());
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(response.body());
@@ -279,11 +274,10 @@ public class LoginActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                         String msg = jsonObject.optString("msg");
-                        if (msg.equals("您还没有绑定手机号,请绑定手机号")){
+                        if (msg.equals("您还没有绑定手机号,请绑定手机号")) {
                             tvTitle.setText("绑定手机");
-                        }else {
+                        } else {
                             saveUserInfo(response);
-                            finish();
                         }
                         ToastUtil.showToastMsg(LoginActivity.this, "三方登录成功");
                     }
@@ -291,19 +285,23 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void saveUserInfo(Response<String> response) {
+        LogUtil.d("LoginActivity", response.body());
         Gson gson = new Gson();
         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-        UserHelp.setLogin(getBaseContext(),true);
+        UserHelp.setLogin(getBaseContext(), true);
         LoginBean.DataBean.UserinfoBean userinfo = loginBean.getData().getUserinfo();
         UserHelp.setMobile(baseContext, userinfo.getMobile());
         UserHelp.setUserName(baseContext, userinfo.getUsername());
         UserHelp.setNickName(baseContext, userinfo.getNickname());
-        UserHelp.setToken(baseContext,userinfo.getToken());
-        UserHelp.setAvatar(baseContext,userinfo.getAvatar());
-        UserHelp.setUserId(baseContext,userinfo.getUser_id());
+        UserHelp.setToken(baseContext, userinfo.getToken());
+        UserHelp.setAvatar(baseContext, userinfo.getAvatar());
+        UserHelp.setUserId(baseContext, userinfo.getUser_id());
+
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
-    private void verifyBind(int type, String openId, String mobile, String captcha) {
+    private void verifyBind(int type, final String openId, String mobile, String captcha) {
         OkGo.<String>get(URLs.USER_BINDING).params("type", type)
                 .params("openid", openId)
                 .params("mobile", mobile)
@@ -319,14 +317,14 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         String msg = jsonObject.optString("msg");
-                        if (msg.equals("已被注册,请换个手机号" )){
-                            ToastUtil.showToastMsg(getBaseContext(),msg.toString());
+                        if (msg.equals("已被注册,请换个手机号")) {
+                            ToastUtil.showToastMsg(getBaseContext(), msg.toString());
                             return;
                         }
+                        thirdLogin(openId, thirdType);
                         ToastUtil.showToastMsg(LoginActivity.this, "绑定用户成功");
 
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
+
                     }
                 });
     }
@@ -476,7 +474,6 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 取消倒计时
-     *
      */
     public void oncancel() {
         timer.cancel();
@@ -484,7 +481,6 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 开始倒计时
-     *
      */
     public void restart() {
         timer.start();
@@ -508,6 +504,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

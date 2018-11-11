@@ -115,7 +115,9 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
                 }
             }
         });
-        viewHolder.tv_date_and_week.setText(week + " " + (calendar.get(Calendar.MONTH) + 1 )+ "/" + calendar.get(Calendar.DAY_OF_MONTH));
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        viewHolder.tv_date_and_week.setText(week + " " + (month + 1 )+ "/" + dayOfMonth);
         //将数据保存在itemView的Tag中，以便点击时进行获取
         viewHolder.itemView.setTag(viewHolder.tv_date_and_week);
 

@@ -111,7 +111,7 @@
 
         <!-- 微信 start -->
         <activity
-            android:name="wxapi.WXEntryActivity"
+            android:name="com.umeng.soexample.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
