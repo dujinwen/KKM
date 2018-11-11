@@ -110,13 +110,18 @@
 
 
         <!-- 微信 start -->
+        <!--<activity-->
+            <!--android:name="com.umeng.soexample.wxapi.WXEntryActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:exported="true"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <activity
-            android:name="com.umeng.soexample.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <!-- 微信 end -->
 
         <!-- 设置环信应用的AppKey -->
@@ -204,7 +209,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1106153887" />
             </intent-filter>
 
         </activity>

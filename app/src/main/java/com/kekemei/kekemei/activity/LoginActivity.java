@@ -297,7 +297,7 @@ public class LoginActivity extends BaseActivity {
         UserHelp.setAvatar(baseContext, userinfo.getAvatar());
         UserHelp.setUserId(baseContext, userinfo.getUser_id());
 
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
 
@@ -490,7 +490,8 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            btnYanzhengma.setText((millisUntilFinished / 1000) + "秒后可重发");
+            if (btnYanzhengma != null)
+                btnYanzhengma.setText((millisUntilFinished / 1000) + "秒后可重发");
         }
 
         @Override

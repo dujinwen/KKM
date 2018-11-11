@@ -23,7 +23,6 @@ import com.kekemei.kekemei.activity.MainActivity;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
-import com.kekemei.kekemei.utils.UserHelp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +80,11 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
 
     @OnClick(R.id.btn_home)
     public void onViewClicked() {
-        if (UserHelp.getLogin(getBaseContext(),false)) {
+//        if (UserHelp.getLogin(getBaseContext(),false)) {
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        } else {
+//        } else {
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-        }
+//        }
         finish();
 
     }
