@@ -20,9 +20,11 @@ import com.amap.api.location.AMapLocationListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.MeiRongShiActivity;
+import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.SearchActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
@@ -42,7 +44,6 @@ import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -139,7 +140,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     private Unbinder unbinder;
 
     //申明对象
-    CityPickerView mPicker=new CityPickerView();
+    CityPickerView mPicker = new CityPickerView();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -399,7 +401,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
-            R.id.iv_place, R.id.place})
+            R.id.iv_place, R.id.place, R.id.ivNewComer})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
@@ -455,6 +457,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
             case R.id.iv_place:
             case R.id.place:
+                break;
+            case R.id.ivNewComer:
+                NewComerActivity.start(getActivity(), "1");
                 break;
         }
     }

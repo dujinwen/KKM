@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,22 +25,30 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.adapter.DayCheckAdapter2;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
+import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
+import com.kekemei.kekemei.bean.CanlBean;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
+import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
+import com.kekemei.kekemei.utils.CustomDatePicker;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -89,6 +99,19 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.contentView)
     LinearLayout contentView;
 
+    @BindView(R.id.ll_dianpu_tab)
+    LinearLayout llDianpuTab;
+    @BindView(R.id.id_recyclerview_horizontal)
+    RecyclerView id_recyclerview_horizontal;
+    @BindView(R.id.show_select_time)
+    LinearLayout showSelectTime;
+    @BindView(R.id.ll_select_time)
+    LinearLayout llSelectTime;
+    @BindView(R.id.rv_list_yuyue)
+    RecyclerView rvListYuyue;
+    @BindView(R.id.layoutBottomBar)
+    LinearLayout layoutBottomBar;
+
     private WebView webContainer;
 
     private ProjectDetailBean.DataBean.CommentBean commentData;
@@ -109,6 +132,14 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     private String encoding = "UTF-8";
     private String mimeType = "text/html";
+
+    @Nullable
+    private LinearLayout ll_yuyue;
+    private Calendar cal;
+    private DayCheckAdapter2 dayAdapter;
+    private YuYueDataListAdapter yuYueDataListAdapter;
+    private TextView tv_date_and_week;
+    private TextView tv_can_yuyue;
 
     public static void start(Context context, int beauticianId) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
@@ -252,6 +283,32 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         serviceThree = contentHead.findViewById(R.id.serviceThree);
         tvAddress = contentHead.findViewById(R.id.tvAddress);
         tvDistance = contentHead.findViewById(R.id.tvDistance);
+        ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
+        ll_yuyue.setOnClickListener(this);
+
+        rvListYuyue.setLayoutManager(new GridLayoutManager(getBaseContext(), 4));
+        yuYueDataListAdapter = new YuYueDataListAdapter(this);
+        rvListYuyue.setAdapter(yuYueDataListAdapter);
+        yuYueDataListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.ll_select_data_time) {
+                    tv_date_and_week = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_date_and_week);
+                    tv_can_yuyue = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_can_yuyue);
+                    if (!view.isSelected()) {
+                        view.setSelected(true);
+                        view.setBackground(ContextCompat.getDrawable(ProjectDetailActivity.this, R.drawable.btn_7ad2d2_background));
+                        tv_date_and_week.setTextColor(0XFFFFFFFF);
+                        tv_can_yuyue.setTextColor(0XFFFFFFFF);
+                    } else {
+                        view.setSelected(false);
+                        view.setBackground(ContextCompat.getDrawable(ProjectDetailActivity.this, R.drawable.btn_white_background));
+                        tv_date_and_week.setTextColor(0XFF999999);
+                        tv_can_yuyue.setTextColor(0XFF999999);
+                    }
+                }
+            }
+        });
     }
 
     @OnClick({R.id.projectDetail, R.id.userEvaluate})
@@ -291,6 +348,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     commentAdapter.replaceData(commentData.getHaveimg());
                 }
                 break;
+            case R.id.ll_yuyue:
+                //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                llSelectTime.setVisibility(View.VISIBLE);
+                llDianpuTab.setVisibility(View.GONE);
+                layoutBottomBar.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -308,6 +371,20 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     top = 0;
                 }
                 scrollLayout.smoothScrollTo(0, top);
+            }
+        });
+    }
+
+    /**
+     * 预约时间
+     */
+    public void timeData(long timedstartdate) {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                YuYueDataBean yuYueDataBean = gson.fromJson(response.body(), YuYueDataBean.class);
+                yuYueDataListAdapter.setNewData(yuYueDataBean.getData());
             }
         });
     }
@@ -361,6 +438,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 multipleStatusView.showError();
             }
         });
+
+        initDayTime("");
+
+        initDatePicker(this);
     }
 
     /**
@@ -387,4 +468,75 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             }
         }
     }
+
+    private ArrayList<Calendar> calList = new ArrayList<>();
+
+    private void initDayTime(String time) {
+        final CanlBean canlBean = new CanlBean();
+
+        calList.clear();
+        for (int i = 0; i < 30; i++) {
+            cal = Calendar.getInstance();
+            if (time != null && !time.isEmpty() && "" != null) {
+                if ("" != time && time != null) {
+                    String[] year = time.split(" ")[0].split("-");
+                    int integer = Integer.parseInt(year[0]);
+                    int integer1 = Integer.parseInt(year[1]);
+                    int integer2 = Integer.parseInt(year[2]);
+
+                    int month = integer1 == 1 ? 12 : integer1 - 1;
+                    integer = integer1 == 1 ? integer - 1 : integer;
+                    cal.set(integer, month, integer2);
+                    cal.add(Calendar.DATE, i);
+                    calList.add(cal);
+                }
+            } else {
+                cal.add(Calendar.DATE, i);
+                calList.add(cal);
+            }
+        }
+        canlBean.setDataBean(calList);
+
+        timeData(canlBean.getDataBean().get(0).getTimeInMillis());
+        //设置布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        id_recyclerview_horizontal.setLayoutManager(linearLayoutManager);
+        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(), beauticianId);
+        id_recyclerview_horizontal.setAdapter(dayAdapter);
+
+        dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, TextView textView, int position) {
+                timeData(canlBean.getDataBean().get(position).getTimeInMillis());
+            }
+        });
+    }
+
+    private CustomDatePicker startTimePicker;
+    /*
+     *初始化时间选择器
+     */
+    protected void initDatePicker(final Context mContext) {
+        startTimePicker = new CustomDatePicker(mContext, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                ToastUtil.showToastMsg(mContext, time);
+
+                long currentTimeMillis = System.currentTimeMillis();
+                String formatTime = AppUtil.getFormatTime(currentTimeMillis);
+
+                String timers = formatTime.split(" ")[0];
+                String timers1 = time.split(" ")[0];
+                if (AppUtil.timeToStamp(timers1) < AppUtil.timeToStamp(timers)) {
+                    ToastUtil.showToastMsg(mContext, "时间不可选");
+                } else {
+                    initDayTime(time);
+                }
+            }
+        }, "2018-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        startTimePicker.showSpecificTime(false); // 显示时和分
+        startTimePicker.setIsLoop(true); // 允许循环滚动
+    }
+
 }
