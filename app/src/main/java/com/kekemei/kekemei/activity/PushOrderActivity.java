@@ -1,6 +1,7 @@
 package com.kekemei.kekemei.activity;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,6 +60,27 @@ public class PushOrderActivity extends BaseActivity {
     TextView tvOrderNum;
     @BindView(R.id.ll_add)
     LinearLayout llAdd;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
+    @BindView(R.id.tv_order_name)
+    TextView tvOrderName;
+    @BindView(R.id.iv_jian)
+    ImageView ivJian;
+    @BindView(R.id.iv_man)
+    ImageView ivMan;
+    @BindView(R.id.tv_man)
+    TextView tvMan;
+    @BindView(R.id.ll_youhuiquan)
+    ConstraintLayout llYouhuiquan;
+    @BindView(R.id.tv_old_price)
+    TextView tvOldPrice;
+    @BindView(R.id.tv_juli)
+    TextView tvJuli;
+    @BindView(R.id.ll_julli)
+    LinearLayout llJulli;
+    private int project_id = 0;
+    private String name = "";
+    private int orderNumber = 0;
 
     @Override
     protected int setLayoutId() {
@@ -63,6 +90,12 @@ public class PushOrderActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        tvNum.setText(orderNumber);
     }
 
     @Override
@@ -88,10 +121,12 @@ public class PushOrderActivity extends BaseActivity {
             case R.id.tv_price:
                 break;
             case R.id.tv_jian:
+                tvNum.setText(--orderNumber);
                 break;
             case R.id.tv_num:
                 break;
             case R.id.tv_jia:
+                tvNum.setText(++orderNumber);
                 break;
             case R.id.civ_icon:
                 break;
@@ -106,6 +141,18 @@ public class PushOrderActivity extends BaseActivity {
             case R.id.ll_service_time:
                 break;
             case R.id.btn_yuyue:
+
+                OkGo.<String>get(URLs.ORDER_GENERATING)
+                        .params("user_id", UserHelp.getUserId(PushOrderActivity.this))
+                        .params("name", name)
+                        .params("project_id", project_id)
+                        .params("count", tvNum.getText().toString().trim())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                            }
+                        });
                 break;
         }
     }
