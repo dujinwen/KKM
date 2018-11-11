@@ -12,17 +12,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
+import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BeauticianBean;
 import com.kekemei.kekemei.bean.DetailEnum;
+import com.kekemei.kekemei.bean.MeiRongShiListBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.bean.BannerBean;
-import com.kekemei.kekemei.bean.MeiRongShiListBean;
-import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
-import com.kekemei.kekemei.utils.UserHelp;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -93,19 +92,28 @@ public class MeiRongShiActivity extends BaseActivity {
                                 ShopActivity.start(MeiRongShiActivity.this, beauticianBean.getId(),
                                         beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
                                 break;
-                            case R.id.btn_buy_now:
-                                OkGo.<String>get(URLs.ORDER_GENERATING)
-                                        .params("user_id", UserHelp.getUserId(MeiRongShiActivity.this))
-                                        .params("name", beauticianBean.getName())
-                                        .params("project_id",beauticianBean.getOrder())
-                                        .params("count",1)
-                                        .execute(new StringCallback() {
-                                            @Override
-                                            public void onSuccess(Response<String> response) {
+//                            case R.id.btn_buy_now:
+//                                OkGo.<String>get(URLs.ORDER_GENERATING)
+//                                        .params("user_id", UserHelp.getUserId(MeiRongShiActivity.this))
+//                                        .params("name", beauticianBean.getName())
+//                                        .params("project_id",beauticianBean.getOrder())
+//                                        .params("count",1)
+//                                        .execute(new StringCallback() {
+//                                            @Override
+//                                            public void onSuccess(Response<String> response) {
+//
+//                                            }
+//                                        });
 
-                                            }
-                                        });
-                                break;
+//                                Intent intent = new Intent(MeiRongShiActivity.this, PushOrderActivity.class);
+//                                intent.putExtra(ICON_NAME,beauticianBean.getImage());
+//                                intent.putExtra(ICON_URL,);
+//                                intent.putExtra(ORDER_NAME);
+//                                intent.putExtra(ORDER_PRICE);
+//                                intent.putExtra(IMAGE_URL);
+//                                intent.putExtra(SHOP_PLACE);
+//                                intent.getLongExtra(SERVER_TIME, -1L);
+//                                break;
                         }
                     }
                 });

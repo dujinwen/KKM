@@ -85,10 +85,14 @@ public class PersonFragment extends Fragment {
     @BindView(R.id.tv_hongbaonum)
     TextView tvHongbaonum;
 
-    private String[] userForwardArray = {"我的订单", "关注的店铺", "我的美容师", "我的收藏", "我的订单", "我的积分", "客户服务"};
-    private int[] userForwardIconArray = {R.mipmap.user_dingdan_btn, R.mipmap.user_dianpu_btn,
+    private String[] userForwardArray = {"我的好友", "关注的店铺", "我的美容师", "我的收藏",
+            "我的订单", "我的积分", "会员优惠", "客户服务"};
+    private int[] userForwardIconArray = {
+            R.mipmap.user_haoyou_btn, R.mipmap.user_dianpu_btn,
             R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn,
-            R.mipmap.user_dingdan_btn, R.mipmap.user_dizhi_btn, R.mipmap.user_kefu_btn};
+            R.mipmap.user_dingdan_btn, R.mipmap.user_dizhi_btn,
+            R.mipmap.user_qianbao_btn, R.mipmap.user_kefu_btn};
+
     private CouponDataBean couponBean;
     private HongBaoDataBean hongBaoBean;
 

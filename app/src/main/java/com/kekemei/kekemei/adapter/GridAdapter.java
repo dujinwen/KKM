@@ -66,7 +66,7 @@ public class GridAdapter extends BaseAdapter {
             public void onClick(View v) {
                 switch (position) {
                     case 0:
-                        MainActivity.start(mContext,2);
+
                         break;
                     case 1:
 
@@ -78,12 +78,18 @@ public class GridAdapter extends BaseAdapter {
 
                         break;
                     case 4:
-                        mContext.startActivity(new Intent(mContext, JiFenActivity.class));
+                        MainActivity.start(mContext,2);
                         break;
                     case 5:
-                        mContext.startActivity(new Intent(mContext, HuiYuanctivity.class));
+                        mContext.startActivity(new Intent(mContext, JiFenActivity.class));
                         break;
                     case 6:
+                        mContext.startActivity(new Intent(mContext, HuiYuanctivity.class));
+                        break;
+                    case 7:
+
+                        break;
+                    case 8:
 
                         break;
                     default:
