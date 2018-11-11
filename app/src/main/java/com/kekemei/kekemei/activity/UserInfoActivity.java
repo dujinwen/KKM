@@ -6,15 +6,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.UserInfoBean;
 import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.view.SectionRowView;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -37,15 +37,15 @@ public class UserInfoActivity extends BaseActivity {
     ImageView headIcon;
 
     @BindView(R.id.txtNick)
-    SectionRowView txtNick;
+    EditText txtNick;
     @BindView(R.id.txtSex)
-    SectionRowView txtSex;
+    EditText txtSex;
     @BindView(R.id.txtBirth)
-    SectionRowView txtBirth;
+    EditText txtBirth;
     @BindView(R.id.txtSkin)
-    SectionRowView txtSkin;
+    EditText txtSkin;
     @BindView(R.id.txtHobby)
-    SectionRowView txtHobby;
+    EditText txtHobby;
 
     private String userId;
 
@@ -73,6 +73,12 @@ public class UserInfoActivity extends BaseActivity {
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
         tv_title.setText("个人资料修改");
         tv_submit.setVisibility(View.VISIBLE);
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveUserInfo();
+            }
+        });
     }
 
     @Override
@@ -84,11 +90,23 @@ public class UserInfoActivity extends BaseActivity {
                 Gson gson = new Gson();
                 UserInfoBean userInfoBean = gson.fromJson(response.body(), UserInfoBean.class);
                 ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + userInfoBean.getData().getAvatar(), headIcon);
-                txtNick.setContentTxt(userInfoBean.getData().getNickname());
-                txtSex.setContentTxt(userInfoBean.getData().getNickname());
-                txtBirth.setContentTxt(userInfoBean.getData().getNickname());
-                txtSkin.setContentTxt(userInfoBean.getData().getNickname());
-                txtHobby.setContentTxt(userInfoBean.getData().getNickname());
+                txtNick.setText(userInfoBean.getData().getNickname());
+                txtSex.setText(userInfoBean.getData().getNickname());
+                txtBirth.setText(userInfoBean.getData().getNickname());
+                txtSkin.setText(userInfoBean.getData().getNickname());
+                txtHobby.setText(userInfoBean.getData().getNickname());
+            }
+        });
+    }
+
+    private void saveUserInfo(){
+        String txtNickText = txtNick.getText().toString();
+        String txtSexText = txtSex.getText().toString();
+        OkGo.<String>post(URLs.USER_PROFILE).params("user_id", userId).params("username", userId)
+                .params("nickname", txtNickText).params("bio", txtSexText)
+                .params("avatar", userId).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
             }
         });
     }

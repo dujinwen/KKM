@@ -132,7 +132,7 @@ public class URLs {
     //发送验证码
     public static final String SEND = "http://kekemei.ecooth.com/api/sms/send";
     //修改个人信息
-    public static final String USER_PROFILE = " http://kekemei.ecooth.com/api/user/profile";
+    public static final String USER_PROFILE = "http://kekemei.ecooth.com/api/user/profile";
 
 
 
