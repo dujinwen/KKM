@@ -282,11 +282,11 @@ public class ClassifyActivity extends BaseActivity {
                     Gson gson = new Gson();
                     ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
                     if (page == 1) {
-                        listAdapter.setNewData(projectListBean.getData());
-                    } else {
-                        arrayList.addAll(projectListBean.getData());
-                        listAdapter.setNewData(arrayList);
+                        arrayList.clear();
                     }
+                    arrayList.addAll(projectListBean.getData());
+                    listAdapter.setNewData(arrayList);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
