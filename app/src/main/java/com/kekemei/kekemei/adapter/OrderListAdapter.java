@@ -6,12 +6,13 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.bean.DataBean;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 
-public class OrderListAdapter extends BaseQuickAdapter<DataBean, BaseViewHolder> {
+public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, BaseViewHolder> {
     private Context jContext;
     private String showOrHide;
 
@@ -22,7 +23,7 @@ public class OrderListAdapter extends BaseQuickAdapter<DataBean, BaseViewHolder>
 
 
     @Override
-    protected void convert(BaseViewHolder helper, DataBean item) {
+    protected void convert(BaseViewHolder helper, OrderListBean.DataBean item) {
         helper.addOnClickListener(R.id.quxiaodingdan);
         helper.addOnClickListener(R.id.chakan);
         helper.addOnClickListener(R.id.querenfuwu);

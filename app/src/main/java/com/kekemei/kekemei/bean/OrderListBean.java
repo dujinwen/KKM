@@ -1,6 +1,8 @@
 package com.kekemei.kekemei.bean;
 
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,11 +23,13 @@ public class OrderListBean implements Serializable {
     public static final int ORDER_STATUS_TO_RECEIVE_GOODS = 2; //待服务
     public static final int ORDER_STATUS_FINISHED = 3;      //待评价
     public static final int ORDER_STATUS_CANCLE = 4;  //完成
+
+
     /**
      * code : 1
+     * data : [{"beautician_beautician_id":2,"count":1,"createtime":1539742031,"id":2,"image":"/uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg","name":"3333","pay_type_text":"","price":100,"project_project_id":5,"state":"1","state_text":"待预约","user_id":1},{"count":1,"createtime":1541926073,"id":6,"image":"/uploads/20181022/eba3d6f9ffc2bd7f7791f407bccec354.jpg","name":"订单！！！！","pay_type_text":"","price":0,"project_project_id":3,"state":"0","state_text":"待支付","user_id":1},{"count":1,"createtime":1541927417,"id":7,"image":"/uploads/20181022/5e50668033beb8d9d671da58b598fa79.jpg","name":"美容师","pay_type_text":"","price":0,"project_project_id":1,"state":"0","state_text":"待支付","user_id":1}]
      * msg : 请求成功
-     * time : 1539238425
-     * data : [{"id":1,"name":"订单！！！！","price":0,"user_id":1,"project_project_id":3,"shop_id":2,"state":"1","pay_type":null,"beautician_id":2,"createtime":1538613801,"image":"/uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg","state_text":"待预约","pay_type_text":""}]
+     * time : 1542008144
      */
 
     private int code;
@@ -64,6 +68,157 @@ public class OrderListBean implements Serializable {
     public void setData(List<DataBean> data) {
         this.data = data;
     }
+
+    public static class DataBean implements Serializable, MultiItemEntity {
+        /**
+         * beautician_beautician_id : 2
+         * count : 1
+         * createtime : 1539742031
+         * id : 2
+         * image : /uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg
+         * name : 3333
+         * pay_type_text :
+         * price : 100
+         * project_project_id : 5
+         * state : 1
+         * state_text : 待预约
+         * user_id : 1
+         */
+        @Override
+        public int getItemType() {
+            int ORDER_STATUS;
+            switch (state) {
+                case "0":
+                    ORDER_STATUS = ORDER_STATUS_TO_BE_PAID;
+                    break;
+                case "1":
+                    ORDER_STATUS = ORDER_STATUS_TO_BE_DELIVERED;
+                    break;
+                case "2":
+                    ORDER_STATUS = ORDER_STATUS_TO_RECEIVE_GOODS;
+                    break;
+                case "3":
+                    ORDER_STATUS = ORDER_STATUS_FINISHED;
+                    break;
+                case "4":
+                    ORDER_STATUS = ORDER_STATUS_CANCLE;
+                    break;
+                default:
+                    ORDER_STATUS = ORDER_STATUS_ALL;
+                    break;
+            }
+            return ORDER_STATUS;
+        }
+        private int beautician_beautician_id;
+        private int count;
+        private int createtime;
+        private int id;
+        private String image;
+        private String name;
+        private String pay_type_text;
+        private int price;
+        private int project_project_id;
+        private String state;
+        private String state_text;
+        private int user_id;
+
+        public int getBeautician_beautician_id() {
+            return beautician_beautician_id;
+        }
+
+        public void setBeautician_beautician_id(int beautician_beautician_id) {
+            this.beautician_beautician_id = beautician_beautician_id;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getPay_type_text() {
+            return pay_type_text;
+        }
+
+        public void setPay_type_text(String pay_type_text) {
+            this.pay_type_text = pay_type_text;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        public int getProject_project_id() {
+            return project_project_id;
+        }
+
+        public void setProject_project_id(int project_project_id) {
+            this.project_project_id = project_project_id;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getState_text() {
+            return state_text;
+        }
+
+        public void setState_text(String state_text) {
+            this.state_text = state_text;
+        }
+
+        public int getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
+        }
+    }
+
 
 
 }

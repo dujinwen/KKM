@@ -3,6 +3,7 @@ package com.kekemei.kekemei.activity;
 import android.content.Context;
 
 
+import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.view.IndictorWithNumber;
 import com.kekemei.kekemei.bean.DataBean;
 
@@ -20,7 +21,7 @@ public interface OrderListContract {
 
         void showRefreshLoading(boolean show);
 
-        void showData(List<DataBean> dataList);
+        void showData(List<OrderListBean.DataBean> dataList);
 
         void showEmpty();
 
@@ -28,7 +29,7 @@ public interface OrderListContract {
 
         void showNoNetwork();
 
-        void loadMoreSuccess(List<DataBean> moreList);
+        void loadMoreSuccess(List<OrderListBean.DataBean> moreList);
 
         void showLoadMoreFailed();
 

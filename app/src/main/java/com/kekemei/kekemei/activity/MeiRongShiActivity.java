@@ -29,6 +29,7 @@ import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created 美容师 by peiyangfan on 2018/10/16.
@@ -51,6 +52,8 @@ public class MeiRongShiActivity extends BaseActivity {
     LinearLayout llSearch;
     @BindView(R.id.fenlei)
     ImageView fenlei;
+    @BindView(R.id.ll_fanhui)
+    LinearLayout llFanhui;
 
     public static void start(Activity context) {
         Intent intent = new Intent(context, MeiRongShiActivity.class);
@@ -60,6 +63,14 @@ public class MeiRongShiActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_meirongshi;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+
+        llFanhui.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -86,34 +97,12 @@ public class MeiRongShiActivity extends BaseActivity {
                 adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                BeauticianBean beauticianBean = meiRongShiListBean.getData().getData().get(position);
+                        BeauticianBean beauticianBean = meiRongShiListBean.getData().getData().get(position);
                         switch (view.getId()) {
                             case R.id.ll_meirongshi:
                                 ShopActivity.start(MeiRongShiActivity.this, beauticianBean.getId(),
                                         beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
                                 break;
-//                            case R.id.btn_buy_now:
-//                                OkGo.<String>get(URLs.ORDER_GENERATING)
-//                                        .params("user_id", UserHelp.getUserId(MeiRongShiActivity.this))
-//                                        .params("name", beauticianBean.getName())
-//                                        .params("project_id",beauticianBean.getOrder())
-//                                        .params("count",1)
-//                                        .execute(new StringCallback() {
-//                                            @Override
-//                                            public void onSuccess(Response<String> response) {
-//
-//                                            }
-//                                        });
-
-//                                Intent intent = new Intent(MeiRongShiActivity.this, PushOrderActivity.class);
-//                                intent.putExtra(ICON_NAME,beauticianBean.getImage());
-//                                intent.putExtra(ICON_URL,);
-//                                intent.putExtra(ORDER_NAME);
-//                                intent.putExtra(ORDER_PRICE);
-//                                intent.putExtra(IMAGE_URL);
-//                                intent.putExtra(SHOP_PLACE);
-//                                intent.getLongExtra(SERVER_TIME, -1L);
-//                                break;
                         }
                     }
                 });
@@ -150,5 +139,17 @@ public class MeiRongShiActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.ll_fanhui, R.id.ll_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_fanhui:
+                finish();
+                break;
+            case R.id.ll_search:
+                SearchActivity.start(MeiRongShiActivity.this);
+                break;
+        }
     }
 }

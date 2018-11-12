@@ -177,7 +177,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             case R.id.txtSearch:
                 llHistory.setVisibility(View.GONE);
                 refresh_layout.setVisibility(View.VISIBLE);
-                getData("", jPageNum);
+                getData(editTextSearch.getText().toString(), 0);
                 break;
 
             default:
@@ -272,7 +272,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
         listAdapter.loadMoreFail();
     }
 
-    public void loadMoreSuccess(List<DataBean> dataList) {
+    public void loadMoreSuccess(List<OrderListBean.DataBean> dataList) {
         //        listAdapter.addData(dataList);
     }
 
@@ -284,7 +284,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
         listAdapter.loadMoreComplete();
     }
 
-    public void showData(List<DataBean> dataList) {
+    public void showData(List<OrderListBean.DataBean> dataList) {
         if (isOnDestory)
             return;
         multipleStatusView.showOutContentView(refresh_layout);

@@ -82,14 +82,6 @@ public class MessageFragment
     int status = OrderListBean.ORDER_STATUS_TO_BE_PAID;
     private RecyclerView rv_hot_huodong;
 
-    public static OrderListFragment newInstance(int orderStatus) {
-        OrderListFragment fragment = new OrderListFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_ORDER_STATUS, orderStatus);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -160,7 +152,7 @@ public class MessageFragment
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.zaicigoumai:
-                        DataBean item = jAdapter.getItem(position);
+                        OrderListBean.DataBean item = jAdapter.getItem(position);
 //                        OkGo.<String>get(URLs.ORDER_GENERATING)
 //                                .params("user_id", UserHelp.getUserId(getActivity()))
 //                                .params("name", item.getName())
@@ -244,7 +236,7 @@ public class MessageFragment
     }
 
     @Override
-    public void showData(List<DataBean> dataList) {
+    public void showData(List<OrderListBean.DataBean> dataList) {
         if (isOnDestory)
             return;
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
@@ -268,7 +260,7 @@ public class MessageFragment
     }
 
     @Override
-    public void loadMoreSuccess(List<DataBean> dataList) {
+    public void loadMoreSuccess(List<OrderListBean.DataBean> dataList) {
         jAdapter.addData(dataList);
     }
 
