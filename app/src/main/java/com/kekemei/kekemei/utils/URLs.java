@@ -62,7 +62,8 @@ public class URLs {
     public static final String MY_BEAUTICIAN = "http://kekemei/api/user/myBeautician";
     //我的收藏
     public static final String MY_COLLECTION = "http://kekemei.ecooth.com/api/user/mycollection";
-
+    //发布投诉
+    public static final String ADD_COMPLAINT = "http://kekemei.ecooth.com/api/complaint/addcomplaint";
     /**
      * 首页
      */

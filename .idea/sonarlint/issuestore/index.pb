@@ -128,14 +128,8 @@ X
 ,app/src/main/res/layout/activity_huiyuan.xml,3\8\38223767165fbfe8dd9bec37a6d610251031f980
 ^
 .app/src/main/res/layout/activity_user_info.xml,9\b\9bd04ff77ebaea7a6c4c5d88c8fc7b2172e9d90a
-M
-UMLibrary/AndroidManifest.xml,1\e\1e2ba84f1d01bb4ad7820252d792de6c74db4601
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
-F
-UMLibrary/build.gradle,8\c\8ce3135e7bb9a0df182bf904b3028bacad8bced6
-e
-5UMLibrary/res/layout/com_facebook_activity_layout.xml,a\0\a02e7717941abda70affe236d15ef3e7b79e186e
 ]
 -app/src/main/res/layout/home_title_layout.xml,9\1\91d93ffbc5db50cf288c84537753c69b429cf294
 Q
