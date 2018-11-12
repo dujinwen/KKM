@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -33,9 +34,9 @@
             android:textSize="13sp"
             app:pstsDividerColor="#00000000"
             app:pstsIndicatorColor="@color/transparent"
-            app:pstsShouldExpand="true"
+            app:pstsShouldExpand="false"
             app:pstsTabBackground="@mipmap/seckill_tab_btn"
-            app:pstsTabPaddingLeftRight="0dp"
+            app:pstsTabPaddingLeftRight="15dp"
             app:pstsTextAllCaps="false"
             app:pstsTextSelectedColor="@color/white"
             app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
@@ -48,4 +49,9 @@
     </LinearLayout>
 
     <include layout="@layout/layout_title_bar" />
+
+    <com.kekemei.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>
