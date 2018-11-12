@@ -34,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +101,7 @@ public class ClassifyActivity extends BaseActivity {
     private ArrayList<String> objects;
     private FindOrderListAdapter listAdapter;
     @SuppressWarnings("unchecked")
-    private static ArrayList<Integer> positionArrayList = new ArrayList();
+    private static HashSet<Integer> positionArrayList = new HashSet<>();
     private LinearLayoutManager linearLayoutManager;
     private int type = R.id.tal_meirong;
 
@@ -155,11 +156,11 @@ public class ClassifyActivity extends BaseActivity {
     private void getPingLunBiaoQian() {
         //        OkGo.<String>get(URLs.COMMENT_TAG_URL)
         objects = new ArrayList<>();
-        objects.add("距离最近");
-        objects.add("满意度高");
-        objects.add("距离最近");
-        objects.add("评论最高");
-        objects.add("评星最高");
+        //        objects.add("距离最近");
+        //        objects.add("满意度高");
+        //        objects.add("距离最近");
+        objects.add("订单最多");
+        objects.add("评论最多");
         objects.add("收藏组多");
 
         //        pingLunBiaoQianGridViewAdapter.notifyDataSetChanged();
@@ -299,6 +300,7 @@ public class ClassifyActivity extends BaseActivity {
 
     private class PingLunBiaoQianGridViewAdapter extends RecyclerView.Adapter<PingLunBiaoQianGridViewAdapter.MyViewHolder> {
         private boolean isClick = false;
+        private ArrayList isC = new ArrayList();
 
         @NonNull
         @Override
@@ -317,11 +319,12 @@ public class ClassifyActivity extends BaseActivity {
                     if (isClick) {
                         holder.tv.setBackgroundResource(R.drawable.btn_line_background);
                         holder.tv.setTextColor(0xFF999999);
+                        positionArrayList.remove(position);
                     } else {
                         holder.tv.setBackgroundResource(R.mipmap.classification_shaixuan_xuanze_btn_s);
                         holder.tv.setTextColor(0xFF7AD2D2);
+                        positionArrayList.add(position);
                     }
-                    savePosition(position);
                     isClick = !isClick;
 
                 }
@@ -346,11 +349,4 @@ public class ClassifyActivity extends BaseActivity {
         }
     }
 
-    private void savePosition(int position) {
-        if (positionArrayList.contains(position)) {
-            positionArrayList.remove(position);
-        } else {
-            positionArrayList.add(position);
-        }
-    }
 }
