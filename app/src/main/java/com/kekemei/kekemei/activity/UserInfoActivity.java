@@ -20,6 +20,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 用户中心
@@ -73,12 +74,6 @@ public class UserInfoActivity extends BaseActivity {
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
         tv_title.setText("个人资料修改");
         tv_submit.setVisibility(View.VISIBLE);
-        tv_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveUserInfo();
-            }
-        });
     }
 
     @Override
@@ -99,15 +94,32 @@ public class UserInfoActivity extends BaseActivity {
         });
     }
 
-    private void saveUserInfo(){
+    private void saveUserInfo() {
         String txtNickText = txtNick.getText().toString();
         String txtSexText = txtSex.getText().toString();
-        OkGo.<String>post(URLs.USER_PROFILE).params("user_id", userId).params("username", userId)
-                .params("nickname", txtNickText).params("bio", txtSexText)
-                .params("avatar", userId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.USER_PROFILE).params("user_id", userId).params("gender", userId)
+                .params("birthday", txtNickText).params("hobby_ids", txtSexText)
+                .params("skin_ids", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
             }
         });
+    }
+
+    @OnClick({R.id.txtSex, R.id.txtBirth, R.id.txtSkin, R.id.txtHobby, R.id.tv_submit})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txtSex:
+                break;
+            case R.id.txtBirth:
+                break;
+            case R.id.txtSkin:
+                break;
+            case R.id.txtHobby:
+                break;
+            case R.id.tv_submit:
+                saveUserInfo();
+                break;
+        }
     }
 }

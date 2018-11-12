@@ -283,6 +283,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         initRv(preferenceRv);
         hotProjectAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
         hotProjectRv.setAdapter(hotProjectAdapter);
+        hotProjectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.e("section", "click:" + position);
+                BaseBean item = hotProjectAdapter.getItem(position);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+            }
+        });
         view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -292,6 +300,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         newComerAdapter = new MyGridAdapter(this, MyGridAdapter.NewmemberdataBean);
         newComerRv.setAdapter(newComerAdapter);
+        newComerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.e("section", "click:" + position);
+                BaseBean item = newComerAdapter.getItem(position);
+                NewComerActivity.start(ShopActivity.this, item.getId() + "");
+            }
+        });
         view.findViewById(R.id.lookMoreNew).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -301,6 +317,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         memberAdapter = new MyGridAdapter(this, MyGridAdapter.MemberdataBean);
         memberRv.setAdapter(memberAdapter);
+        memberAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.e("section", "click:" + position);
+                BaseBean item = memberAdapter.getItem(position);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+            }
+        });
         view.findViewById(R.id.lookMoreMember).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -310,6 +334,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         preferenceAdapter = new MyGridAdapter(this, MyGridAdapter.SpecialdataBean);
         preferenceRv.setAdapter(preferenceAdapter);
+        preferenceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.e("section", "click:" + position);
+                BaseBean item = preferenceAdapter.getItem(position);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+            }
+        });
         view.findViewById(R.id.lookMorePreference).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
