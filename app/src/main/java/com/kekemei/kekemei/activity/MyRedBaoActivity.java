@@ -23,7 +23,7 @@ public class MyRedBaoActivity extends BaseActivity {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     private static HongBaoDataBean hongBaoDataBean;
-    private BaseQuickAdapter adapter;
+    private HongBaoDataAdapter adapter;
 
     public static void start(Context context, HongBaoDataBean hongBaoDataBean) {
         MyRedBaoActivity.hongBaoDataBean = hongBaoDataBean;

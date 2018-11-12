@@ -360,7 +360,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         rvMeirongshi.setAdapter(meiRongShiAdapter);
     }
 
-    private HashSet<Integer> hashSet = new HashSet();
+    private HashSet<Integer> hashSet = new HashSet<>();
 
     private void initCommentView(View view) {
         userCommentNum = view.findViewById(R.id.userCommentNum);

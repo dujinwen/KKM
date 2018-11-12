@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.FindOrderListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
@@ -26,7 +27,6 @@ import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -283,7 +283,7 @@ public class NewComerActivity extends BaseActivity {
                 }
             }
 
-            if (null != response && jPageNum > newComerBean.getData().getNewpopledata().size())//@TODO 需要改条件
+            if (null != response && newComerBean.getData().getNewpopledata().size() < 10)//@TODO 需要改条件
                 showLoadMoreEnd();
             else
                 showLoadMoreComplete();
@@ -291,7 +291,7 @@ public class NewComerActivity extends BaseActivity {
             jPageNum++;
             NewComerBean newComerBean = (NewComerBean) response;
             loadMoreSuccess(newComerBean.getData().getNewpopledata());
-            if (jPageNum > newComerBean.getData().getNewpopledata().size()) {//@TODO 需要改条件
+            if (newComerBean.getData().getNewpopledata().size() < 10) {//@TODO 需要改条件
                 showLoadMoreEnd();
             } else {
                 showLoadMoreComplete();

@@ -1,33 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/layout_search_tool_bar" />
 
-    <com.kekemei.kekemei.view.PagerSlidingTabStrip
-        android:id="@+id/searchIndictor"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_140"
-        android:background="@color/transparent"
-        android:textColor="#C1C1C1"
-        android:textSize="13sp"
-        app:pstsDividerColor="#00000000"
-        app:pstsIndicatorColor="#7AD2D2"
-        app:pstsIndicatorHeight="16px"
-        app:pstsShouldExpand="true"
-        app:pstsTabPaddingLeftRight="0dp"
-        app:pstsTextAllCaps="false"
-        app:pstsTextSelectedColor="@color/black"
-        app:pstsTextSize="@dimen/work_order_list_indictor_text_size"
-        app:pstsUnderlineColor="#e5e6e8"
-        app:pstsUnderlineHeight="@dimen/work_order_list_under_line_hight" />
+        android:layout_height="150px"
+        android:orientation="horizontal"
+        android:paddingLeft="50px"
+        android:paddingRight="50px">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/searchPage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <RelativeLayout
+            android:id="@+id/tabAll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tabAllText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="全    部"
+                android:textColor="#222222"
+                android:textSize="46px" />
+
+            <ImageView
+                android:id="@+id/indicatorTabAll"
+                android:layout_width="137px"
+                android:layout_height="16px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#7AD2D2"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tabProject"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tabProjectText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="项    目"
+                android:textColor="#222222"
+                android:textSize="46px" />
+
+            <ImageView
+                android:id="@+id/indicatorProject"
+                android:layout_width="137px"
+                android:layout_height="16px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#7AD2D2"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tabShopName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tabShopNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="店    名"
+                android:textColor="#222222"
+                android:textSize="46px" />
+
+            <ImageView
+                android:id="@+id/indicatorShopName"
+                android:layout_width="137px"
+                android:layout_height="16px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#7AD2D2"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tabBeautician"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tabBeauticianText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="美容师"
+                android:textColor="#222222"
+                android:textSize="46px" />
+
+            <ImageView
+                android:id="@+id/indicatorBeautician"
+                android:layout_width="137px"
+                android:layout_height="16px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="#7AD2D2"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/layout_section_search_all"/>
+
+    <include layout="@layout/layout_section_search_result_list"/>
 
 </LinearLayout>

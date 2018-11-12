@@ -121,4 +121,7 @@
     <color name="text1">#1199FF</color>
     <color name="text2">#333333</color>
     <color name="background">#ffffff</color>
+
+    <color name="search_tab_text_selected_color">#333333</color>
+    <color name="search_tab_text_unselected_color">#C1C1C1</color>
 </resources>

@@ -3,37 +3,61 @@ package com.kekemei.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.flexbox.FlexboxLayout;
+import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.base.BasePagerAdapter;
+import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
+import com.kekemei.kekemei.adapter.MyGridAdapter;
+import com.kekemei.kekemei.adapter.ShopListAdapter;
+import com.kekemei.kekemei.bean.BaseBean;
+import com.kekemei.kekemei.bean.BeauticianBean;
+import com.kekemei.kekemei.bean.DetailEnum;
+import com.kekemei.kekemei.bean.HotSearchBean;
+import com.kekemei.kekemei.bean.SearchResultBean;
+import com.kekemei.kekemei.bean.ShopBean;
+import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
-import com.kekemei.kekemei.fragment.SearchAllFragment;
-import com.kekemei.kekemei.fragment.SearchBeauticianFragment;
-import com.kekemei.kekemei.fragment.SearchIPage;
-import com.kekemei.kekemei.fragment.SearchProjectFragment;
-import com.kekemei.kekemei.fragment.SearchTradeNameFragment;
-import com.kekemei.kekemei.view.PagerSlidingTabStrip;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
+import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.XEditText;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.Optional;
 
 /**
  * 搜索结果页
@@ -48,11 +72,61 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     XEditText editTextSearch;
     @BindView(R.id.txtSearch)
     TextView txtSearch;
-    @BindView(R.id.searchIndictor)
-    PagerSlidingTabStrip searchIndictor;
-    @BindView(R.id.searchPage)
-    ViewPager searchPager;
+
+    @BindView(R.id.tabAllText)
+    TextView tabAllText;
+    @BindView(R.id.indicatorTabAll)
+    ImageView indicatorTabAll;
+
+    @BindView(R.id.tabProjectText)
+    TextView tabProjectText;
+    @BindView(R.id.indicatorProject)
+    ImageView indicatorProject;
+
+    @BindView(R.id.tabShopNameText)
+    TextView tabShopNameText;
+    @BindView(R.id.indicatorShopName)
+    ImageView indicatorShopName;
+
+    @BindView(R.id.tabBeauticianText)
+    TextView tabBeauticianText;
+    @BindView(R.id.indicatorBeautician)
+    ImageView indicatorBeautician;
+
+    @BindView(R.id.searchAllLayout)
+    LinearLayout searchAllLayout;
+    @BindView(R.id.layoutHistoryFlowLayout)
+    FlexboxLayout layoutHistoryFlowLayout;
+    @BindView(R.id.historyEmpty)
+    TextView historyEmpty;
+    @BindView(R.id.layoutHotSearchFlowLayout)
+    FlexboxLayout layoutHotSearchFlowLayout;
+
+    @BindView(R.id.searchListLayout)
+    LinearLayout searchListLayout;
+    @BindView(R.id.project_rfresh_layout)
+    SmartRefreshLayout project_rfresh_layout;
+    @BindView(R.id.projectList)
+    RecyclerView projectList;
+    @BindView(R.id.shop_rfresh_layout)
+    SmartRefreshLayout shop_rfresh_layout;
+    @BindView(R.id.shopList)
+    RecyclerView shopList;
+    @BindView(R.id.beautician_rfresh_layout)
+    SmartRefreshLayout beautician_rfresh_layout;
+    @BindView(R.id.beauticianList)
+    RecyclerView beauticianList;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
+    private MyGridAdapter projectAdapter;
+    private ShopListAdapter shopAdapter;
+    private MeiRongShiListAdapter beauticianAdapter;
+    private int jPageNum = 1;
+
     private String keyWord = "";
+    private SearchResultBean searchResultBean;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
@@ -93,61 +167,497 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                 return false;
             }
         });
-        BasePagerAdapter BasePagerAdapter = new BasePagerAdapter(this, getSupportFragmentManager(),R.array.search_tabs);
-        BasePagerAdapter.addFragment(SearchAllFragment.newInstance());
-        BasePagerAdapter.addFragment(SearchProjectFragment.newInstance(keyWord));
-        BasePagerAdapter.addFragment(SearchTradeNameFragment.newInstance(keyWord));
-        BasePagerAdapter.addFragment(SearchBeauticianFragment.newInstance(keyWord));
 
-        searchPager.setAdapter(BasePagerAdapter);
-        searchIndictor.setViewPager(searchPager);
+        indicatorTabAll.setVisibility(View.VISIBLE);
+        tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
+        searchAllLayout.setVisibility(View.VISIBLE);
+        searchListLayout.setVisibility(View.GONE);
 
-        searchPager.setOffscreenPageLimit(BasePagerAdapter.getCount() - 1);
-
-        searchPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                keyWord = editTextSearch.getText().toString();
-                mCurrentTab = position;
-                searchPager.setCurrentItem(mCurrentTab, false);
-                setOnEnter(mCurrentTab, keyWord);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        txtSearch.setOnClickListener(new View.OnClickListener() {
+        multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                keyWord = editTextSearch.getText().toString();
-                searchPager.setCurrentItem(1);
+                loadData(false);
+            }
+        });
+        multipleStatusView.showOutContentView(project_rfresh_layout);
+
+        project_rfresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
+        project_rfresh_layout.setRefreshHeader(new ClassicsHeader(this));
+
+        shop_rfresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
+        shop_rfresh_layout.setRefreshHeader(new ClassicsHeader(this));
+
+        beautician_rfresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
+        beautician_rfresh_layout.setRefreshHeader(new ClassicsHeader(this));
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        projectList.setLayoutManager(new GridLayoutManager(this, 2));
+        projectAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
+        projectList.setAdapter(projectAdapter);
+
+        shopList.setLayoutManager(new LinearLayoutManager(this));
+        shopAdapter = new ShopListAdapter(this, R.layout.list_shop, null);
+        shopList.setAdapter(shopAdapter);
+
+        beauticianList.setLayoutManager(new LinearLayoutManager(this));
+        beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi, null);
+        beauticianList.setAdapter(beauticianAdapter);
+
+        beauticianAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BeauticianBean beauticianBean = (BeauticianBean) adapter.getItem(position);
+                switch (view.getId()) {
+                    case R.id.ll_meirongshi:
+                        ShopActivity.start(SearchActivity.this, beauticianBean.getId(),
+                                beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
+                        break;
+                    case R.id.btn_buy_now:
+                        OkGo.<String>get(URLs.ORDER_GENERATING)
+                                .params("user_id", UserHelp.getUserId(SearchActivity.this))
+                                .params("name", beauticianBean.getName())
+                                .params("project_id", beauticianBean.getId())
+                                .params("count", 1)
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+
+                                    }
+                                });
+                        break;
+                }
             }
         });
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    @Optional
+    @OnClick({R.id.txtSearch, R.id.tabAll, R.id.tabProject, R.id.tabBeautician, R.id.tabShopName})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txtSearch:
+                keyWord = editTextSearch.getText().toString();
+                loadData(true);
+                onSearchBtnClick();
+                break;
+            case R.id.tabAll:
+                indicatorTabAll.setVisibility(View.VISIBLE);
+                indicatorProject.setVisibility(View.GONE);
+                indicatorShopName.setVisibility(View.GONE);
+                indicatorBeautician.setVisibility(View.GONE);
+                tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
+                tabProjectText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabShopNameText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabBeauticianText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                searchAllLayout.setVisibility(View.VISIBLE);
+                searchListLayout.setVisibility(View.GONE);
+                break;
+            case R.id.tabProject:
+                onSearchBtnClick();
+                if (searchResultBean != null && searchResultBean.getData() != null) {
+                    replaceData(searchResultBean);
+                }
+                break;
+            case R.id.tabShopName:
+                indicatorTabAll.setVisibility(View.GONE);
+                indicatorProject.setVisibility(View.GONE);
+                indicatorShopName.setVisibility(View.VISIBLE);
+                indicatorBeautician.setVisibility(View.GONE);
+                tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabProjectText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabShopNameText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
+                tabBeauticianText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                searchAllLayout.setVisibility(View.GONE);
+                searchListLayout.setVisibility(View.VISIBLE);
+                mCurrentTab = 1;
+                project_rfresh_layout.setVisibility(View.GONE);
+                shop_rfresh_layout.setVisibility(View.VISIBLE);
+                beautician_rfresh_layout.setVisibility(View.GONE);
+                if (searchResultBean != null && searchResultBean.getData() != null) {
+                    replaceData(searchResultBean);
+                }
+                break;
+            case R.id.tabBeautician:
+                indicatorTabAll.setVisibility(View.GONE);
+                indicatorProject.setVisibility(View.GONE);
+                indicatorShopName.setVisibility(View.GONE);
+                indicatorBeautician.setVisibility(View.VISIBLE);
+                tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabProjectText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabShopNameText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+                tabBeauticianText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
+                searchAllLayout.setVisibility(View.GONE);
+                searchListLayout.setVisibility(View.VISIBLE);
+                mCurrentTab = 2;
+                project_rfresh_layout.setVisibility(View.GONE);
+                shop_rfresh_layout.setVisibility(View.GONE);
+                beautician_rfresh_layout.setVisibility(View.VISIBLE);
+                if (searchResultBean != null && searchResultBean.getData() != null) {
+                    replaceData(searchResultBean);
+                }
+                break;
+        }
+    }
 
+    private void onSearchBtnClick() {
+        indicatorTabAll.setVisibility(View.GONE);
+        indicatorProject.setVisibility(View.VISIBLE);
+        indicatorShopName.setVisibility(View.GONE);
+        indicatorBeautician.setVisibility(View.GONE);
+        tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+        tabProjectText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
+        tabShopNameText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+        tabBeauticianText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+        searchAllLayout.setVisibility(View.GONE);
+        searchListLayout.setVisibility(View.VISIBLE);
+        mCurrentTab = 0;
+        project_rfresh_layout.setVisibility(View.VISIBLE);
+        shop_rfresh_layout.setVisibility(View.GONE);
+        beautician_rfresh_layout.setVisibility(View.GONE);
+    }
+
+    private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            jPageNum = 1;
+            showRefreshLoading(isRefresh);
+        }
+        getData(jPageNum);
+    }
+
+    public void loadMoreData() {
+        isLoadMore = true;
+        isRefresh = false;
+        getData(jPageNum);
+    }
+
+    public void getData(int pageNum) {
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
+        OkGo.<String>post(URLs.INDEX_SEARCH)
+                .tag(this)
+                .params("keyword", keyWord)
+                .params("page", pageNum)
+                .params("user_id", UserHelp.getUserId(this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.e("Search", "body:" + response.body());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                onResult(null);
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new Gson();
+                        searchResultBean = gson.fromJson(response.body(), SearchResultBean.class);
+                        onResult(searchResultBean);
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        LogUtil.e("TAGE", response.message());
+                        onResultError(response);
+                    }
+                });
+    }
+
+    public void showRefreshLoading(boolean show) {
+        if (show) {
+            if (mCurrentTab == 0) {
+                project_rfresh_layout.refreshDrawableState();
+            } else if (mCurrentTab == 1) {
+                shop_rfresh_layout.refreshDrawableState();
+            } else if (mCurrentTab == 2) {
+                beautician_rfresh_layout.refreshDrawableState();
+            }
+        } else {
+            if (mCurrentTab == 0) {
+                project_rfresh_layout.finishRefresh();
+            } else if (mCurrentTab == 1) {
+                shop_rfresh_layout.finishRefresh();
+            } else if (mCurrentTab == 2) {
+                beautician_rfresh_layout.finishRefresh();
+            }
+        }
+    }
+
+    public void onResult(Object response) {
+        if (!isLoadMore) {
+            jPageNum++;
+
+            SearchResultBean searchResultBean = (SearchResultBean) response;
+
+            if (response == null) {
+                showEmpty();
+                return;
+            }
+            replaceData(searchResultBean);
+
+            if (searchResultBean.getData().getBeautician().size() < 10)
+                showLoadMoreEnd();
+            else
+                showLoadMoreComplete();
+        } else {
+            jPageNum++;
+            SearchResultBean searchResultBean = (SearchResultBean) response;
+            if (mCurrentTab == 0) {
+                project_rfresh_layout.finishLoadMore();
+                projectAdapter.addData(searchResultBean.getData().getProject());
+            } else if (mCurrentTab == 1) {
+                shop_rfresh_layout.finishLoadMore();
+                shopAdapter.addData(searchResultBean.getData().getShop());
+            } else if (mCurrentTab == 2) {
+                beautician_rfresh_layout.finishLoadMore();
+                beauticianAdapter.addData(searchResultBean.getData().getBeautician());
+            }
+            if (searchResultBean.getData().getBeautician().size() < 10) {
+                showLoadMoreEnd();
+            } else {
+                showLoadMoreComplete();
+            }
+        }
+    }
+
+    private void replaceData(SearchResultBean searchResultBean) {
+        if (mCurrentTab == 0) {
+            if (null == searchResultBean.getData() || searchResultBean.getData().getProject().size() == 0) {
+                showEmpty();
+            } else {
+                if (isRefresh)
+                    showRefreshLoading(false);
+                showProjectData(searchResultBean.getData().getProject());
+            }
+        } else if (mCurrentTab == 1) {
+            if (null == searchResultBean.getData() || searchResultBean.getData().getShop().size() == 0) {
+                showEmpty();
+            } else {
+                if (isRefresh)
+                    showRefreshLoading(false);
+                showShopNameData(searchResultBean.getData().getShop());
+            }
+        } else if (mCurrentTab == 2) {
+            if (null == searchResultBean.getData() || searchResultBean.getData().getBeautician().size() == 0) {
+                showEmpty();
+            } else {
+                if (isRefresh)
+                    showRefreshLoading(false);
+                showBeauticianData(searchResultBean.getData().getBeautician());
+            }
+        }
+    }
+
+    public void onResultError(Object response) {
+        if (!isRefresh && !isLoadMore)
+            showError();
+        if (isLoadMore)
+            showLoadMoreFailed();
+        if (isRefresh)
+            showRefreshLoading(false);
+    }
+
+    public void showError() {
+        multipleStatusView.showError();
+    }
+
+    public void showEmpty() {
+        multipleStatusView.showEmpty();
+    }
+
+    public void showLoadMoreFailed() {
+        if (mCurrentTab == 0) {
+            projectAdapter.loadMoreFail();
+        } else if (mCurrentTab == 1) {
+            shopAdapter.loadMoreFail();
+        } else if (mCurrentTab == 2) {
+            beauticianAdapter.loadMoreFail();
+        }
+    }
+
+    public void showLoadMoreEnd() {
+        if (mCurrentTab == 0) {
+            projectAdapter.loadMoreEnd(false);
+        } else if (mCurrentTab == 1) {
+            shopAdapter.loadMoreEnd(false);
+        } else if (mCurrentTab == 2) {
+            beauticianAdapter.loadMoreEnd(false);
+        }
+    }
+
+    public void showLoadMoreComplete() {
+        if (mCurrentTab == 0) {
+            projectAdapter.loadMoreComplete();
+        } else if (mCurrentTab == 1) {
+            shopAdapter.loadMoreComplete();
+        } else if (mCurrentTab == 2) {
+            beauticianAdapter.loadMoreComplete();
+        }
+    }
+
+    public void showProjectData(List<BaseBean> dataList) {
+        if (isOnDestory)
+            return;
+        multipleStatusView.showOutContentView(project_rfresh_layout);
+        projectAdapter.replaceData(dataList);
+        projectList.scrollToPosition(0);
+    }
+
+    public void showShopNameData(List<ShopBean> dataList) {
+        if (isOnDestory)
+            return;
+        multipleStatusView.showOutContentView(shop_rfresh_layout);
+        shopAdapter.replaceData(dataList);
+        shopList.scrollToPosition(0);
+    }
+
+    public void showBeauticianData(List<BeauticianBean> dataList) {
+        if (isOnDestory)
+            return;
+        multipleStatusView.showOutContentView(beautician_rfresh_layout);
+        beauticianAdapter.replaceData(dataList);
+        beauticianList.scrollToPosition(0);
     }
 
     @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    protected void initData() {
+        super.initData();
+        OkGo.<String>post(URLs.HOT_SEARCH)
+                .tag(this)
+                .params("user_id", UserHelp.getUserId(this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.e("Search", "body:" + response.body());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                onHotSearchResult(null);
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Gson gson = new Gson();
+                        HotSearchBean hotSearchBean = gson.fromJson(response.body(), HotSearchBean.class);
+                        onHotSearchResult(hotSearchBean);
+                    }
 
+                    @Override
+                    public void onError(Response<String> response) {
+                        LogUtil.e("TAG", response.message());
+                        onHotSearchResult(null);
+                    }
+                });
     }
 
-    @Override
-    public void afterTextChanged(Editable editable) {
-
+    private void onHotSearchResult(Object response) {
+        HotSearchBean hotSearchBean = (HotSearchBean) response;
+        if (null == response || null == hotSearchBean.getData()) {
+            historyEmpty.setVisibility(View.VISIBLE);
+        } else {
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHistory())) {
+                fillHistoryWordArea(hotSearchBean.getData().getHistory());
+            } else {
+                historyEmpty.setVisibility(View.VISIBLE);
+            }
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHost())) {
+                fillHotWordArea(hotSearchBean.getData().getHost());
+            } else {
+            }
+        }
     }
 
+    /**
+     * 填充历史搜索区域
+     */
+    private void fillHistoryWordArea(final List<String> result) {
+        if (CollectionUtils.isEmpty(result)) {
+            return;
+        }
+        layoutHistoryFlowLayout.removeAllViews();
+        for (int i = 0; i < result.size(); i++) {
+            final TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_search_history_item, layoutHistoryFlowLayout, false);
+            if (!AppUtil.isEmptyString(result.get(i))) {
+                txt.setText(result.get(i));
+                txt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        keyWord = txt.getText().toString();
+                        editTextSearch.setText(keyWord);
+                        moveEditCursor();
+                        loadData(true);
+                        onSearchBtnClick();
+                    }
+                });
+                layoutHistoryFlowLayout.addView(txt);
+            }
+        }
+    }
+
+    /**
+     * 填充热门搜索区域
+     */
+    private void fillHotWordArea(final List<String> result) {
+        if (CollectionUtils.isEmpty(result)) {
+            return;
+        }
+        layoutHotSearchFlowLayout.removeAllViews();
+        for (int i = 0; i < result.size(); i++) {
+            final TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_search_history_item, layoutHotSearchFlowLayout, false);
+            if (!AppUtil.isEmptyString(result.get(i))) {
+                txt.setText(result.get(i));
+                txt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        keyWord = txt.getText().toString();
+                        editTextSearch.setText(keyWord);
+                        moveEditCursor();
+                        loadData(true);
+                        onSearchBtnClick();
+                    }
+                });
+                layoutHotSearchFlowLayout.addView(txt);
+            }
+        }
+    }
 
     private void moveEditCursor() {
         CharSequence s = editTextSearch.getText();
@@ -157,61 +667,26 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         }
     }
 
-    private void setOnEnter(int position, String keyWord) {
-        LogUtil.d(TAG, "setOnEnter, position is " + position);
-        Fragment fragment = getCurrentFragment(position);
-        if (fragment == null) {
-            LogUtil.w(TAG, "current fragment is null");
-            return;
-        }
-        if (fragment instanceof SearchIPage) {
-            SearchIPage page = (SearchIPage) fragment;
-            page.onEnter(keyWord);
-        }
-    }
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    private void setOnLeave(int position) {
-        LogUtil.d(TAG, "setOnLeave, position is " + position);
-        Fragment fragment = getCurrentFragment(position);
-        if (fragment == null) {
-            LogUtil.w(TAG, "current fragment is null");
-            return;
-        }
-        if (fragment instanceof SearchIPage) {
-            SearchIPage page = (SearchIPage) fragment;
-            page.onLeave();
-        }
-    }
-
-    @Nullable
-    private Fragment getCurrentFragment(int position) {
-        try {
-            if (searchPager == null || searchPager.getAdapter() == null) {
-                return null;
-            }
-            BasePagerAdapter searchAdapter = (BasePagerAdapter) searchPager.getAdapter();
-            return searchAdapter.getItem(position);
-        } catch (Exception e) {
-            LogUtil.e(TAG, e.getMessage(), e);
-            return null;
-        }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        LogUtil.d(TAG, "onResume, mCurrentTab is " + mCurrentTab);
-        if (editTextSearch != null) {
-            keyWord = editTextSearch.getText().toString();
-        }
-        setOnEnter(mCurrentTab, keyWord);
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
     }
 
     @Override
-    protected void onPause() {
-        LogUtil.d(TAG, "onPause, mCurrentTab is " + mCurrentTab);
-        setOnLeave(mCurrentTab);
-        super.onPause();
+    public void afterTextChanged(Editable s) {
+
     }
 
+    private boolean isOnDestory = false;
+
+    @Override
+    protected void onDestroy() {
+        isOnDestory = true;
+        super.onDestroy();
+    }
 }

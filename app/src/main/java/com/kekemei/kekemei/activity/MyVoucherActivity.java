@@ -34,7 +34,7 @@ public class MyVoucherActivity extends BaseActivity {
     ImageView ivShare;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private BaseQuickAdapter adapter;
+    private VoucherDataAdapter adapter;
 
     public static void start(Context context, CouponDataBean couponDataBean) {
         MyVoucherActivity.couponDataBean = couponDataBean;
