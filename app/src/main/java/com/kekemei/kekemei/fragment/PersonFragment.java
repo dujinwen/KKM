@@ -144,7 +144,7 @@ public class PersonFragment extends Fragment {
         });
 
 
-        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", 1).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", UserHelp.getUserId(getActivity())).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -166,7 +166,7 @@ public class PersonFragment extends Fragment {
             }
         });
 
-        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id", 1).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id", UserHelp.getUserId(getActivity())).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
