@@ -858,7 +858,7 @@
     <dimen name="px_533">533px</dimen>
     <dimen name="px_669">669px</dimen>
     <dimen name="px_612">612px</dimen>
-    <dimen name="px_216">216px</dimen>
+    <dimen name="px_216" tools:ignore="MissingDefaultResource">216px</dimen>
     <dimen name="px_141">141px</dimen>
 
 </resources>

@@ -1,8 +1,10 @@
 package com.kekemei.kekemei.fragment;
 
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +17,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
+import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -93,8 +97,11 @@ public class MessageFragment2 extends Fragment {
     Unbinder unbinder;
     private LinearLayoutManager linearLayoutManager;
     private OrderListAdapter jAdapter;
+    private RecyclerView rv_hot_huodong;
 
     private ArrayList<OrderListBean.DataBean> arrayList = new ArrayList<OrderListBean.DataBean>();
+    private LinearLayout llForyou;
+    private MyGridAdapter adapter;
 
     @Nullable
     @Override
@@ -119,6 +126,30 @@ public class MessageFragment2 extends Fragment {
             }
         });
         onViewClicked(talAll);
+
+
+        addHotProject();
+
+
+        getForYouInfo();
+    }
+
+    private void getForYouInfo() {
+        OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+                    llForyou.setVisibility(View.VISIBLE);
+                } else {
+                    llForyou.setVisibility(View.GONE);
+                    return;
+                }
+
+                adapter.addData(forYouBean.getData());
+            }
+        });
     }
 
     @Override
@@ -235,5 +266,22 @@ public class MessageFragment2 extends Fragment {
                     }
                 });
 
+    }
+
+
+    private void addHotProject() {
+        View foot_view = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            foot_view = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
+        } else {
+            foot_view = LayoutInflater.from(getActivity()).inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
+        }
+        jAdapter.addFooterView(foot_view);
+        rv_hot_huodong = (RecyclerView) foot_view.findViewById(R.id.rv_hot_huodong);
+        llForyou = foot_view.findViewById(R.id.ll_foryou);
+        rv_hot_huodong.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        adapter = new MyGridAdapter(getActivity(), MyGridAdapter.ORDER_HOT_BEAN);
+        rv_hot_huodong.setAdapter(adapter);
     }
 }

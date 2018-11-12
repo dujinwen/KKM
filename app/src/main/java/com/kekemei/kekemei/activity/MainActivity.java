@@ -10,21 +10,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.bean.NewPeopleBean;
 import com.kekemei.kekemei.fragment.CityFragment;
 import com.kekemei.kekemei.fragment.HomeFragment;
-import com.kekemei.kekemei.fragment.MessageFragment;
 import com.kekemei.kekemei.fragment.MessageFragment2;
 import com.kekemei.kekemei.fragment.PersonFragment;
-import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,8 +55,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout llOneRed;
     private LinearLayout llTowRed;
     private LinearLayout llThrRed;
-    private TextView tvOneName,tvOneNeirong,tvNameOne2,tvNeirongOne2,tvNeirongTow2,tvNameTow2
-            ,tvNameOne3,tvNeirongOne3,tvNameTow3,tvNeirongTow3,tvNameThr3,tvNeirongThr3;
+    private TextView tvOneName, tvOneNeirong, tvNameOne2, tvNeirongOne2, tvNeirongTow2, tvNameTow2, tvNameOne3, tvNeirongOne3, tvNameTow3, tvNeirongTow3, tvNameThr3, tvNeirongThr3;
     private long isNew;
 
 
@@ -108,30 +106,29 @@ public class MainActivity extends BaseActivity {
         //        }
 
 
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         isNew = UserHelp.getIsNew(getBaseContext());
-        if (isNew != 1){
+        if (isNew != 1) {
             showDIYDialog(3);
         }
     }
 
 
     public void showDIYDialog(int a) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Dialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
         LayoutInflater inflater = getLayoutInflater();
         final View layout = inflater.inflate(R.layout.activity_coupons, null);//获取自定义布局
         builder.setView(layout);
 
-        initDialogViiew(layout,a);
+        initDialogViiew(layout, a);
         iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNew == -1){
+                if (isNew == -1) {
                     LoginActivity.start(MainActivity.this);
                     return;
                 }
@@ -140,7 +137,17 @@ public class MainActivity extends BaseActivity {
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                LogUtil.d("MAINACTIVITY", response.body().toString());
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(response.body());
+                                    Object msg = jsonObject.opt("msg");
+                                    if (msg.equals("你已领取了红包")) {
+                                        UserHelp.setIsNew(MainActivity.this, 1);
+                                        return;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
 
@@ -153,20 +160,20 @@ public class MainActivity extends BaseActivity {
         dlg.show();
     }
 
-    private void initDialogViiew(View layout,int type) {
+    private void initDialogViiew(View layout, int type) {
         llOneRed = layout.findViewById(R.id.ll_one_red);
         llTowRed = layout.findViewById(R.id.ll_tow_red);
         llThrRed = layout.findViewById(R.id.ll_thr_red);
         tvOneName = layout.findViewById(R.id.tv_one_name);
         tvNameTow2 = layout.findViewById(R.id.tv_name_tow_2);
         tvNameOne2 = layout.findViewById(R.id.tv_name_one_2);
-        tvNameOne3 =  layout.findViewById(R.id.tv_name_one_3);
-        tvNameTow3 =  layout.findViewById(R.id.tv_name_tow_3);
+        tvNameOne3 = layout.findViewById(R.id.tv_name_one_3);
+        tvNameTow3 = layout.findViewById(R.id.tv_name_tow_3);
         tvNameThr3 = layout.findViewById(R.id.tv_name_thr_3);
 
         tvOneNeirong = layout.findViewById(R.id.tv_one_neirong);
-        tvNeirongOne2 =  layout.findViewById(R.id.tv_neirong_one_2);
-        tvNeirongTow2 =  layout.findViewById(R.id.tv_neirong_tow_2);
+        tvNeirongOne2 = layout.findViewById(R.id.tv_neirong_one_2);
+        tvNeirongTow2 = layout.findViewById(R.id.tv_neirong_tow_2);
         tvNeirongOne3 = layout.findViewById(R.id.tv_neirong_one_3);
         tvNeirongTow3 = layout.findViewById(R.id.tv_neirong_tow_3);
         tvNeirongThr3 = layout.findViewById(R.id.tv_neirong_thr_3);
@@ -198,6 +205,7 @@ public class MainActivity extends BaseActivity {
 
         setText();
     }
+
     private void setText() {
 
 //        tvOneName.setText(strOneName);

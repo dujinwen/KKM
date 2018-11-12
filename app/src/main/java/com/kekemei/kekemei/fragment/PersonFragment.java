@@ -226,7 +226,7 @@ public class PersonFragment extends Fragment {
                 MyVoucherActivity.start(getActivity(), couponBean);
                 break;
             case R.id.hongbao:
-                if (hongbao == null) return;
+                if (hongBaoBean == null) return;
                 MyRedBaoActivity.start(getActivity(), hongBaoBean);
                 break;
             case R.id.user_message_btn:

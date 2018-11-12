@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/ll_foryou"
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_160"
             android:gravity="center"
@@ -22,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="@dimen/px_30"
-                android:text="热门项目"
+                android:text="为您推荐"
                 android:textColor="#5DBFB2"
                 android:textSize="@dimen/px_46" />
 
