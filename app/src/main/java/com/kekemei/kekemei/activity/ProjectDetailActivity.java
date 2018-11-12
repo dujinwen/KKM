@@ -433,7 +433,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 price.setText("￥" + detailBean.getData().getPrice_discount());
                 marketPrice.setText("￥" + detailBean.getData().getPrice_market());
                 /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
-                displayForWebView("http://www.baidu.com", "http://www.baidu.com");
+                displayForWebView("http://kekemei.ecooth.com/mob/project/details?id=1", null);
                 if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                     contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
                     contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
