@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.PushOrderActivity;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.IndictorWithNumber;
@@ -160,17 +161,23 @@ public class MessageFragment
                 switch (view.getId()) {
                     case R.id.zaicigoumai:
                         DataBean item = jAdapter.getItem(position);
-                        OkGo.<String>get(URLs.ORDER_GENERATING)
-                                .params("user_id", UserHelp.getUserId(getActivity()))
-                                .params("name", item.getName())
-                                .params("project_id", item.getProject_project_id())
-                                .params("count", 1)
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-
-                                    }
-                                });
+//                        OkGo.<String>get(URLs.ORDER_GENERATING)
+//                                .params("user_id", UserHelp.getUserId(getActivity()))
+//                                .params("name", item.getName())
+//                                .params("project_id", item.getProject_project_id())
+//                                .params("count", 1)
+//                                .execute(new StringCallback() {
+//                                    @Override
+//                                    public void onSuccess(Response<String> response) {
+//
+//                                    }
+//                                });
+                        Intent intent = new Intent(getActivity(), PushOrderActivity.class);
+                        intent.putExtra(PushOrderActivity.IMAGE_URL,item.getImage());
+                        intent.putExtra(PushOrderActivity.ORDER_NAME,item.getName());
+                        intent.putExtra(PushOrderActivity.ORDER_PRICE,item.getPrice());
+                        intent.putExtra(PushOrderActivity.PROJECT_ID,item.getProject_project_id());
+                        startActivity(intent);
                         break;
 
                     default:

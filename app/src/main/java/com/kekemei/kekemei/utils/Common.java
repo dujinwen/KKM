@@ -26,6 +26,10 @@ public class Common {
      支付宝帐号 appid = '2018060860352001';
 
      */
+
+    //五金商城测试号
+//        public static final String WX_APP_ID = "wxaee1c5e6124fe6c1";
+//        public static final String WX_APP_SECRET = "8378cf232253a7d612384a7b8bbfca0b";
     //微信平台的正式账号
     public static final String WX_APP_ID =  "wxe4c320e2f157904d";
     public static final String WX_APP_SECRET = "be658f877a34d543d51a612daf2aead8";

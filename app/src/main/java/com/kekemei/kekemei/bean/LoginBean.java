@@ -6,11 +6,12 @@ package com.kekemei.kekemei.bean;
 
 public class LoginBean {
 
+
     /**
      * code : 1
-     * data : {"userinfo":{"avatar":"/assets/img/avatar.png","createtime":1540794366,"expires_in":2592000,"expiretime":1543386366,"id":5,"mobile":"18635073387","nickname":"18635073387","score":0,"token":"2586cb2a-5116-43a7-9b71-9b62e0513443","user_id":5,"username":"18635073387"}}
+     * data : {"userinfo":{"avatar":"/assets/img/avatar.png","createtime":1542004058,"expires_in":2592000,"expiretime":1544596058,"id":5,"isnew":0,"mobile":"18635073387","nickname":"18635073387","score":0,"token":"b9f87774-e7df-4dc3-9fb5-f8d52abbfc56","user_id":5,"username":"18635073387"}}
      * msg : 登录成功
-     * time : 1540794366
+     * time : 1542004058
      */
 
     private int code;
@@ -52,7 +53,7 @@ public class LoginBean {
 
     public static class DataBean {
         /**
-         * userinfo : {"avatar":"/assets/img/avatar.png","createtime":1540794366,"expires_in":2592000,"expiretime":1543386366,"id":5,"mobile":"18635073387","nickname":"18635073387","score":0,"token":"2586cb2a-5116-43a7-9b71-9b62e0513443","user_id":5,"username":"18635073387"}
+         * userinfo : {"avatar":"/assets/img/avatar.png","createtime":1542004058,"expires_in":2592000,"expiretime":1544596058,"id":5,"isnew":0,"mobile":"18635073387","nickname":"18635073387","score":0,"token":"b9f87774-e7df-4dc3-9fb5-f8d52abbfc56","user_id":5,"username":"18635073387"}
          */
 
         private UserinfoBean userinfo;
@@ -68,14 +69,15 @@ public class LoginBean {
         public static class UserinfoBean {
             /**
              * avatar : /assets/img/avatar.png
-             * createtime : 1540794366
+             * createtime : 1542004058
              * expires_in : 2592000
-             * expiretime : 1543386366
+             * expiretime : 1544596058
              * id : 5
+             * isnew : 0
              * mobile : 18635073387
              * nickname : 18635073387
              * score : 0
-             * token : 2586cb2a-5116-43a7-9b71-9b62e0513443
+             * token : b9f87774-e7df-4dc3-9fb5-f8d52abbfc56
              * user_id : 5
              * username : 18635073387
              */
@@ -85,6 +87,7 @@ public class LoginBean {
             private int expires_in;
             private int expiretime;
             private int id;
+            private int isnew;
             private String mobile;
             private String nickname;
             private int score;
@@ -130,6 +133,14 @@ public class LoginBean {
 
             public void setId(int id) {
                 this.id = id;
+            }
+
+            public int getIsnew() {
+                return isnew;
+            }
+
+            public void setIsnew(int isnew) {
+                this.isnew = isnew;
             }
 
             public String getMobile() {

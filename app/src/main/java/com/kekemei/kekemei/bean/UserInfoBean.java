@@ -8,15 +8,15 @@ public class UserInfoBean {
 
     /**
      * code : 1
+     * data : {"avatar":"/assets/img/avatar.png","coupon_count":2,"createtime":1541997489,"expires_in":2592000,"expiretime":1544589489,"id":1,"isnew":0,"mobile":"13269501726","nickname":"admin","redenvelopes_count":0,"score":0,"token":"1a70f31e-6518-4b2d-9d39-10f98312d856","user_id":1,"username":"admin"}
      * msg : 请求成功
-     * time : 1541662437
-     * data : {"id":1,"username":"admin","nickname":"admin","mobile":"13269501726","avatar":"/assets/img/avatar.png","score":0,"token":"ca47b959-661b-4c43-9d5b-26949e4a71f8","user_id":1,"createtime":1541662437,"expiretime":1544254437,"expires_in":2592000,"coupon_count":2,"redenvelopes_count":0}
+     * time : 1541997489
      */
 
     private int code;
+    private DataBean data;
     private String msg;
     private String time;
-    private DataBean data;
 
     public int getCode() {
         return code;
@@ -24,6 +24,14 @@ public class UserInfoBean {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public String getMsg() {
@@ -42,44 +50,78 @@ public class UserInfoBean {
         this.time = time;
     }
 
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
     public static class DataBean {
         /**
-         * id : 1
-         * username : admin
-         * nickname : admin
-         * mobile : 13269501726
          * avatar : /assets/img/avatar.png
-         * score : 0
-         * token : ca47b959-661b-4c43-9d5b-26949e4a71f8
-         * user_id : 1
-         * createtime : 1541662437
-         * expiretime : 1544254437
-         * expires_in : 2592000
          * coupon_count : 2
+         * createtime : 1541997489
+         * expires_in : 2592000
+         * expiretime : 1544589489
+         * id : 1
+         * isnew : 0
+         * mobile : 13269501726
+         * nickname : admin
          * redenvelopes_count : 0
+         * score : 0
+         * token : 1a70f31e-6518-4b2d-9d39-10f98312d856
+         * user_id : 1
+         * username : admin
          */
 
-        private int id;
-        private String username;
-        private String nickname;
-        private String mobile;
         private String avatar;
+        private int coupon_count;
+        private int createtime;
+        private int expires_in;
+        private int expiretime;
+        private int id;
+        private int isnew;
+        private String mobile;
+        private String nickname;
+        private int redenvelopes_count;
         private int score;
         private String token;
         private int user_id;
-        private int createtime;
-        private int expiretime;
-        private int expires_in;
-        private int coupon_count;
-        private int redenvelopes_count;
+        private String username;
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public int getCoupon_count() {
+            return coupon_count;
+        }
+
+        public void setCoupon_count(int coupon_count) {
+            this.coupon_count = coupon_count;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public int getExpires_in() {
+            return expires_in;
+        }
+
+        public void setExpires_in(int expires_in) {
+            this.expires_in = expires_in;
+        }
+
+        public int getExpiretime() {
+            return expiretime;
+        }
+
+        public void setExpiretime(int expiretime) {
+            this.expiretime = expiretime;
+        }
 
         public int getId() {
             return id;
@@ -89,20 +131,12 @@ public class UserInfoBean {
             this.id = id;
         }
 
-        public String getUsername() {
-            return username;
+        public int getIsnew() {
+            return isnew;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getNickname() {
-            return nickname;
-        }
-
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
+        public void setIsnew(int isnew) {
+            this.isnew = isnew;
         }
 
         public String getMobile() {
@@ -113,12 +147,20 @@ public class UserInfoBean {
             this.mobile = mobile;
         }
 
-        public String getAvatar() {
-            return avatar;
+        public String getNickname() {
+            return nickname;
         }
 
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public int getRedenvelopes_count() {
+            return redenvelopes_count;
+        }
+
+        public void setRedenvelopes_count(int redenvelopes_count) {
+            this.redenvelopes_count = redenvelopes_count;
         }
 
         public int getScore() {
@@ -145,44 +187,12 @@ public class UserInfoBean {
             this.user_id = user_id;
         }
 
-        public int getCreatetime() {
-            return createtime;
+        public String getUsername() {
+            return username;
         }
 
-        public void setCreatetime(int createtime) {
-            this.createtime = createtime;
-        }
-
-        public int getExpiretime() {
-            return expiretime;
-        }
-
-        public void setExpiretime(int expiretime) {
-            this.expiretime = expiretime;
-        }
-
-        public int getExpires_in() {
-            return expires_in;
-        }
-
-        public void setExpires_in(int expires_in) {
-            this.expires_in = expires_in;
-        }
-
-        public int getCoupon_count() {
-            return coupon_count;
-        }
-
-        public void setCoupon_count(int coupon_count) {
-            this.coupon_count = coupon_count;
-        }
-
-        public int getRedenvelopes_count() {
-            return redenvelopes_count;
-        }
-
-        public void setRedenvelopes_count(int redenvelopes_count) {
-            this.redenvelopes_count = redenvelopes_count;
+        public void setUsername(String username) {
+            this.username = username;
         }
     }
 }

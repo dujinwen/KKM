@@ -357,17 +357,23 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_buy_now:
-                OkGo.<String>get(URLs.ORDER_GENERATING)
-                        .params("user_id", UserHelp.getUserId(this))
-                        .params("name", detailBean.getData().getName())
-                        .params("project_id", detailBean.getData().getProject_category_id())
-                        .params("count", 1)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-
-                            }
-                        });
+//                OkGo.<String>get(URLs.ORDER_GENERATING)
+//                        .params("user_id", UserHelp.getUserId(this))
+//                        .params("name", detailBean.getData().getName())
+//                        .params("project_id", detailBean.getData().getProject_category_id())
+//                        .params("count", 1)
+//                        .execute(new StringCallback() {
+//                            @Override
+//                            public void onSuccess(Response<String> response) {
+//
+//                            }
+//                        });
+                Intent intent = new Intent(ProjectDetailActivity.this, PushOrderActivity.class);
+                intent.putExtra(PushOrderActivity.IMAGE_URL,detailBean.getData().getImage());
+                intent.putExtra(PushOrderActivity.ORDER_NAME,detailBean.getData().getName());
+                intent.putExtra(PushOrderActivity.ORDER_PRICE,detailBean.getData().getPrice_newmember());
+                intent.putExtra(PushOrderActivity.PROJECT_ID,detailBean.getData().getProject_category_id());
+                startActivity(intent);
                 break;
             case R.id.ll_yuyue:
                 //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);

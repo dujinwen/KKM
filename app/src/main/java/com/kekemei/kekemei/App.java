@@ -74,9 +74,7 @@ public class App extends MultiDexApplication {
         UMConfigure.init(this,"5bd2d515b465f57fa40000dc","Umeng", UMConfigure.DEVICE_TYPE_PHONE,
                 "");
 
-        UMShareConfig config = new UMShareConfig();
-        config.isNeedAuthOnGetUserInfo(true);
-        UMShareAPI.get(mContext).setShareConfig(config);
+
     }
 
     private void initImagePicker() {

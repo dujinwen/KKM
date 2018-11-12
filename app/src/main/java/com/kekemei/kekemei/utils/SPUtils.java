@@ -27,6 +27,7 @@ public class SPUtils {
     public static final String TOKEN = "token";
     public static final String NICK_NAME = "nick_name";
     public static final String AVATAR = "avatar";
+    public static final String IS_NEW = "is_new";
 
     private static SharedPreferences getSp(Context context) {
         SharedPreferences sp = context.getSharedPreferences(name,

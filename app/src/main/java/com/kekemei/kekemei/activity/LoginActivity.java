@@ -29,6 +29,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.json.JSONException;
@@ -88,6 +89,10 @@ public class LoginActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
         baseContext = getBaseContext();
+
+        UMShareConfig config = new UMShareConfig();
+        config.isNeedAuthOnGetUserInfo(true);
+        UMShareAPI.get(LoginActivity.this).setShareConfig(config);
     }
 
     @Override
@@ -127,7 +132,7 @@ public class LoginActivity extends BaseActivity {
                 UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.SINA, authListener);
                 break;
             case R.id.weixin_login:
-                UMShareAPI.get(LoginActivity.this).doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
+                UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
                 break;
             case R.id.qq_login:
                 UMShareAPI.get(LoginActivity.this).getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, authListener);
@@ -296,6 +301,7 @@ public class LoginActivity extends BaseActivity {
         UserHelp.setToken(baseContext, userinfo.getToken());
         UserHelp.setAvatar(baseContext, userinfo.getAvatar());
         UserHelp.setUserId(baseContext, userinfo.getUser_id());
+        UserHelp.setIsNew(baseContext, userinfo.getIsnew());
 
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();

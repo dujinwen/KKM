@@ -152,4 +152,12 @@ public class UserHelp {
     public static void setAvatar(Context context, String avatar) {
         SPUtils.putString(context, SPUtils.AVATAR, avatar);
     }
+
+    public static void setIsNew(Context context, int isnew) {
+        SPUtils.putInt(context, SPUtils.IS_NEW, isnew);
+    }
+
+    public static long getIsNew(Context context) {
+        return SPUtils.getInt(context, SPUtils.IS_NEW, -1);
+    }
 }

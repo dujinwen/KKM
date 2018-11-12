@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout llThrRed;
     private TextView tvOneName,tvOneNeirong,tvNameOne2,tvNeirongOne2,tvNeirongTow2,tvNameTow2
             ,tvNameOne3,tvNeirongOne3,tvNameTow3,tvNeirongTow3,tvNameThr3,tvNeirongThr3;
+    private long isNew;
 
 
     public static void start(Context context, int tab) {
@@ -105,27 +106,20 @@ public class MainActivity extends BaseActivity {
         //            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
         //        }
 
-        initCouponsView();
+
 
     }
 
-    private void initCouponsView() {
-        OkGo.<String>get(URLs.PROJECT_NEW_PEOPLE).params("user_id", UserHelp.getUserId(this)).params("page", 1)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        NewPeopleBean newPeopleBean = gson.fromJson(response.body(), NewPeopleBean.class);
-                        Intent intent = null;
-                        if (newPeopleBean.getData().getIsnew() == 0) {
-                            showDIYDialog(3);
-                        } else {
-
-                        }
-
-                    }
-                });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isNew = UserHelp.getIsNew(getBaseContext());
+        if (isNew != 1){
+            showDIYDialog(3);
+        }
     }
+
+
     public void showDIYDialog(int a) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Dialog);
         LayoutInflater inflater = getLayoutInflater();
@@ -136,6 +130,10 @@ public class MainActivity extends BaseActivity {
         iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isNew == -1){
+                    LoginActivity.start(MainActivity.this);
+                    return;
+                }
                 OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
                         .params("user_id", UserHelp.getUserId(MainActivity.this))
                         .execute(new StringCallback() {
