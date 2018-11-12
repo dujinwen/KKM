@@ -64,6 +64,12 @@ public class URLs {
     public static final String MY_COLLECTION = "http://kekemei.ecooth.com/api/user/mycollection";
     //发布投诉
     public static final String ADD_COMPLAINT = "http://kekemei.ecooth.com/api/complaint/addcomplaint";
+    //修改个人资料
+    public static final String EDIT_USER_INFO = "http://kekemei.ecooth.com/api/user/editUserinfo";
+    //爱好列表
+    public static final String HOBBY_LIST = "http://kekemei.ecooth.com/api/user/hobby";
+    //皮肤列表
+    public static final String SKIN_LIST = "http://kekemei.ecooth.com/api/user/skin";
     /**
      * 首页
      */
@@ -134,7 +140,6 @@ public class URLs {
     public static final String SEND = "http://kekemei.ecooth.com/api/sms/send";
     //修改个人信息
     public static final String USER_PROFILE = "http://kekemei.ecooth.com/api/user/profile";
-
 
 
     /**

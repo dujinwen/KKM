@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -27,123 +28,54 @@
         android:layout_below="@+id/headIcon"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <TextView
-                style="@style/CommonSectionRowView"
-                android:layout_weight="1"
-                android:text="@string/user_info_nick"
-                android:textColor="@color/common_text_grey"
-                android:textSize="@dimen/px_40" />
-
-            <EditText
-                android:id="@+id/txtNick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/px_37"
-                android:background="@null"
-                android:hint="xsjk" />
-
-        </LinearLayout>
+        <com.kekemei.kekemei.view.SectionRowView
+            android:id="@+id/txtNick"
+            style="@style/CommonSectionRowView"
+            app:contentTxtColor="@color/common_text_grey"
+            app:hideRightArrow="true"
+            app:titleTxt="@string/user_info_nick"
+            app:titleTxtSize="@dimen/px_40" />
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/CommonSectionRowView"
-                android:layout_weight="1"
-                android:text="@string/user_info_sex"
-                android:textColor="@color/common_text_grey"
-                android:textSize="@dimen/px_40" />
-
-            <EditText
-                android:id="@+id/txtSex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/px_37"
-                android:background="@null"
-                android:hint="xsjk" />
-
-        </LinearLayout>
+        <com.kekemei.kekemei.view.SectionRowView
+            android:id="@+id/txtSex"
+            style="@style/CommonSectionRowView"
+            app:contentTxtColor="@color/common_text_grey"
+            app:hideRightArrow="true"
+            app:titleTxt="@string/user_info_sex"
+            app:titleTxtSize="@dimen/px_40" />
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/CommonSectionRowView"
-                android:layout_weight="1"
-                android:text="@string/user_info_birth"
-                android:textColor="@color/common_text_grey"
-                android:textSize="@dimen/px_40" />
-
-            <EditText
-                android:id="@+id/txtBirth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/px_37"
-                android:background="@null"
-                android:hint="xsjk" />
-
-        </LinearLayout>
+        <com.kekemei.kekemei.view.SectionRowView
+            android:id="@+id/txtBirth"
+            style="@style/CommonSectionRowView"
+            app:contentTxtColor="@color/common_text_grey"
+            app:hideRightArrow="true"
+            app:titleTxt="@string/user_info_birth"
+            app:titleTxtSize="@dimen/px_40" />
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/CommonSectionRowView"
-                android:layout_weight="1"
-                android:text="@string/user_info_skin"
-                android:textColor="@color/common_text_grey"
-                android:textSize="@dimen/px_40" />
-
-            <EditText
-                android:id="@+id/txtSkin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/px_37"
-                android:background="@null"
-                android:hint="xsjk" />
-
-        </LinearLayout>
+        <com.kekemei.kekemei.view.SectionRowView
+            android:id="@+id/txtSkin"
+            style="@style/CommonSectionRowView"
+            app:contentTxtColor="@color/common_text_grey"
+            app:hideRightArrow="true"
+            app:titleTxt="@string/user_info_skin"
+            app:titleTxtSize="@dimen/px_40" />
 
         <View style="@style/CommonLine.Horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/CommonSectionRowView"
-                android:layout_weight="1"
-                android:text="@string/user_info_hobby"
-                android:textColor="@color/common_text_grey"
-                android:textSize="@dimen/px_40" />
-
-            <EditText
-                android:id="@+id/txtHobby"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/px_37"
-                android:background="@null"
-                android:hint="xsjk" />
-
-        </LinearLayout>
+        <com.kekemei.kekemei.view.SectionRowView
+            android:id="@+id/txtHobby"
+            style="@style/CommonSectionRowView"
+            app:contentTxtColor="@color/common_text_grey"
+            app:hideRightArrow="true"
+            app:titleTxt="@string/user_info_hobby"
+            app:titleTxtSize="@dimen/px_40" />
 
         <View style="@style/CommonLine.Horizontal" />
 

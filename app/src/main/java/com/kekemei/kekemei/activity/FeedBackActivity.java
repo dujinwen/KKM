@@ -5,9 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.utils.StringUtils;
+import com.kekemei.kekemei.utils.ToastUtil;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 
@@ -19,6 +30,10 @@ public class FeedBackActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.edit_content)
+    EditText editContent;
+    @BindView(R.id.txtContactService)
+    TextView txtContactService;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, FeedBackActivity.class);
@@ -45,6 +60,37 @@ public class FeedBackActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        txtContactService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String content = editContent.getText().toString();
+                if (StringUtils.isNotBlank(content)) {
+                    submitFeedBackContent(content);
+                } else {
+                    ToastUtil.showToastMsg(FeedBackActivity.this, "请输入内容");
+                }
+            }
+        });
+    }
+
+    private void submitFeedBackContent(String content) {
+        OkGo.<String>post(URLs.ADD_COMPLAINT).params("user_id", UserHelp.getUserId(this))
+                .params("content", content).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(FeedBackActivity.this, "提交失败");
+                        return;
+                    }
+                    ToastUtil.showToastMsg(FeedBackActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
