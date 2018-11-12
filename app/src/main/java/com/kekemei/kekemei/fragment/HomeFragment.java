@@ -24,6 +24,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.MeiRongShiActivity;
+import com.kekemei.kekemei.activity.MiaoshaActivity;
 import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.SearchActivity;
@@ -401,7 +402,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
-            R.id.iv_place, R.id.place, R.id.ivNewComer})
+            R.id.iv_place, R.id.place, R.id.ivNewComer,R.id.ivSecond})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
@@ -460,6 +461,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 break;
             case R.id.ivNewComer:
                 NewComerActivity.start(getActivity(), "1");
+                break;
+            case R.id.ivSecond:
+                MiaoshaActivity.start(getActivity());
                 break;
         }
     }

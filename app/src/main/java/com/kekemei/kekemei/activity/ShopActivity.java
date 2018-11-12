@@ -67,14 +67,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
     private static final String EXTRA_KEY_USER_ID = "userId";
     private static final String EXTRA_KEY_ENUM_ID = "type";
-    @BindView(R.id.shopHome)
-    RelativeLayout shopHome;
-    @BindView(R.id.hotProject)
-    RelativeLayout hotProject;
-    @BindView(R.id.userEvaluate)
-    RelativeLayout userEvaluate;
-    @BindView(R.id.queding)
-    Button queding;
     private CustomDatePicker startTimePicker;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -167,6 +159,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_date_and_week;
     private TextView tv_can_yuyue;
 
+    private String tel = "";
+
     public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
@@ -217,6 +211,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     MeiRongShiJieShaoActivity.start(ShopActivity.this, beauticianId);
                 }
             });
+            findViewById(R.id.tvAddFriends).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                }
+            });
         }
         iv_share.setVisibility(View.VISIBLE);
         llSelectTime = findViewById(R.id.ll_select_time);
@@ -233,6 +232,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         if (detailEnum == DetailEnum.SHOP) {
             callPhone = findViewById(R.id.callphone);
+            findViewById(R.id.openPictures).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openPhotoPicker();
+                }
+            });
+            findViewById(R.id.onLineService).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (StringUtils.isNotBlank(tel)) {
+                        AppUtil.callPhone(ShopActivity.this, tel);
+                    }
+                }
+            });
         }
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
@@ -478,6 +491,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public static final int REQUEST_ALBUM = 10;
+
     private void openPhotoPicker() {
         Intent intent = new Intent(this, ImageGridActivity.class);
         startActivityForResult(intent, REQUEST_ALBUM);
@@ -554,6 +568,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvDistance.setText(detailBean.getData().getDistance());
                     if (StringUtils.isNotBlank(detailBean.getData().getTel())) {
                         LogUtil.e(TAG, "tel:" + detailBean.getData().getTel());
+                        tel = detailBean.getData().getTel();
                         callPhone.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

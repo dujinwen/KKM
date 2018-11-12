@@ -32,6 +32,7 @@
         android:textSize="32px" />
 
     <TextView
+        android:id="@+id/tvAddFriends"
         android:layout_width="252px"
         android:layout_height="match_parent"
         android:background="#7AD2D2"
