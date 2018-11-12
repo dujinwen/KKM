@@ -218,6 +218,7 @@
                         android:background="@mipmap/home_guangao_xinren_pic" />
 
                     <ImageView
+                        android:id="@+id/ivSecond"
                         android:layout_width="@dimen/px_455"
                         android:layout_height="@dimen/px_369"
                         android:background="@mipmap/home_guangao_miaosha_pic" />
