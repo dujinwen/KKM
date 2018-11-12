@@ -174,8 +174,10 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
 
     private void initData(String latitude, String longitude) {
-        OkGo.<String>post(URLs.INDEX).params("longitude", longitude)
-                .params("latitude", latitude).execute(new StringCallback() {
+        OkGo.<String>post(URLs.INDEX)
+                .params("longitude", longitude)
+                .params("latitude", latitude)
+                .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.d("APPLOCALTION", response.body().toString());

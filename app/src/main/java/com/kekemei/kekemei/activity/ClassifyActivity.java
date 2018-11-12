@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,6 +23,7 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ProjectListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
@@ -91,19 +91,18 @@ public class ClassifyActivity extends BaseActivity {
     RecyclerView rvPinglunbiaoqian;
     @BindView(R.id.ll_pop)
     LinearLayout llPop;
-    @BindView(R.id.btn_queren)
-    Button btnQueren;
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
     @BindView(R.id.rl_list)
     RelativeLayout rlList;
     private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
-    private ArrayList<String> objects;
+    private ArrayList<SelectBean> objects;
     private FindOrderListAdapter listAdapter;
     @SuppressWarnings("unchecked")
     private static HashSet<Integer> positionArrayList = new HashSet<>();
     private LinearLayoutManager linearLayoutManager;
     private int type = R.id.tal_meirong;
+    private int isCheck = -1;
 
     @Override
     protected int setLayoutId() {
@@ -125,7 +124,7 @@ public class ClassifyActivity extends BaseActivity {
     }
 
     @OnClick({R.id.fanhui, R.id.tal_meirong, R.id.tal_meiti, R.id.tal_yangsheng, R.id.tal_qita, R.id.tv_shaixuan,
-            R.id.iv_shaixuan, R.id.btn_queren})
+            R.id.iv_shaixuan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fanhui:
@@ -141,13 +140,7 @@ public class ClassifyActivity extends BaseActivity {
                 break;
             case R.id.tv_shaixuan:
             case R.id.iv_shaixuan:
-
-                setSelect(view.getId());
-
                 tvShaixuan.setSelected(tvShaixuan.isSelected() ? false : true);
-                llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                break;
-            case R.id.btn_queren:
                 llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 break;
         }
@@ -156,13 +149,10 @@ public class ClassifyActivity extends BaseActivity {
     private void getPingLunBiaoQian() {
         //        OkGo.<String>get(URLs.COMMENT_TAG_URL)
         objects = new ArrayList<>();
-        //        objects.add("距离最近");
-        //        objects.add("满意度高");
-        //        objects.add("距离最近");
-        objects.add("订单最多");
-        objects.add("评论最多");
-        objects.add("收藏组多");
 
+        objects.add(new SelectBean("收藏最多", false));
+        objects.add(new SelectBean("评论最多", false));
+        objects.add(new SelectBean("销量最多", false));
         //        pingLunBiaoQianGridViewAdapter.notifyDataSetChanged();
     }
 
@@ -184,22 +174,22 @@ public class ClassifyActivity extends BaseActivity {
             case R.id.tal_meirong:
                 page = 1;
                 category = 1;
-                getData(1, category);
+                getData(page, category, isCheck);
                 break;
             case R.id.tal_meiti:
                 category = 2;
                 page = 1;
-                getData(1, category);
+                getData(page, category, isCheck);
                 break;
             case R.id.tal_yangsheng:
                 category = 3;
                 page = 1;
-                getData(1, category);
+                getData(page, category, isCheck);
                 break;
             case R.id.tal_qita:
                 category = 4;
                 page = 1;
-                getData(1, category);
+                getData(page, category, isCheck);
                 break;
             default:
 
@@ -215,12 +205,6 @@ public class ClassifyActivity extends BaseActivity {
         linearLayoutManager = new LinearLayoutManager(getBaseContext());
         rvList.setLayoutManager(linearLayoutManager);
         listAdapter = new FindOrderListAdapter(getBaseContext());
-        //        listAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-        //            @Override
-        //            public void onLoadMoreRequested() {
-        //                loadMoreData();
-        //            }
-        //        }, rvList);
         rvList.setAdapter(listAdapter);
 
         rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
@@ -249,9 +233,6 @@ public class ClassifyActivity extends BaseActivity {
 
                 break;
         }
-
-
-        //        getData(1, 1);
         rvPinglunbiaoqian.setLayoutManager(new GridLayoutManager(ClassifyActivity.this, 3));
         pingLunBiaoQianGridViewAdapter = new PingLunBiaoQianGridViewAdapter();
         rvPinglunbiaoqian.setAdapter(pingLunBiaoQianGridViewAdapter);
@@ -260,22 +241,45 @@ public class ClassifyActivity extends BaseActivity {
 
     private void loadMoreData() {
         page = page++;
-        getData(page, category);
+        getData(page, category, isCheck);
     }
 
     private int page = 1;
     private int category = 1;
     private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
-    private void getData(final int page, int category) {
-        OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).params("category", category).execute(new StringCallback() {
+    private void getData(final int page, int category, int isCheck) {
+        String latitude = SPUtils.getString(ClassifyActivity.this, "latitude", "");
+        String longitude = SPUtils.getString(ClassifyActivity.this, "longitude", "");
+        String url = "";
+        switch (isCheck) {
+            case -1:
+                url = URLs.DISCOVE;
+                break;
+            case 0:
+                url = URLs.PROJECT_SORT_COLLECTION;
+                break;
+            case 1:
+                url = URLs.PROJECT_SORT;
+                break;
+            case 2:
+                url = URLs.PROJECT_SORT_ORDER;
+                break;
+
+        }
+
+        OkGo.<String>post(url)
+                .params("page", page)
+                .params("longitude", longitude)
+                .params("latitude", latitude)
+                .params("category", category).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ShopActivity", "project list:" + response.body());
 
                 try {
                     JSONObject obj = new JSONObject(response.body());
-                    if (obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                    if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
                         multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                         return;
                     }
@@ -300,7 +304,6 @@ public class ClassifyActivity extends BaseActivity {
 
     private class PingLunBiaoQianGridViewAdapter extends RecyclerView.Adapter<PingLunBiaoQianGridViewAdapter.MyViewHolder> {
         private boolean isClick = false;
-        private ArrayList isC = new ArrayList();
 
         @NonNull
         @Override
@@ -312,21 +315,36 @@ public class ClassifyActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-            holder.tv.setText(objects.get(position));
+            holder.tv.setText(objects.get(position).getName());
+            if (objects.get(position).isSelected()){
+                holder.tv.setBackgroundResource(R.mipmap.classification_shaixuan_xuanze_btn_s);
+                holder.tv.setTextColor(0xFF7AD2D2);
+            }else {
+                holder.tv.setBackgroundResource(R.drawable.btn_line_background);
+                holder.tv.setTextColor(0xFF999999);
+            }
             holder.tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isClick) {
+
+                    for (SelectBean object : objects) {
+                        object.setSelected(false);
                         holder.tv.setBackgroundResource(R.drawable.btn_line_background);
                         holder.tv.setTextColor(0xFF999999);
-                        positionArrayList.remove(position);
-                    } else {
-                        holder.tv.setBackgroundResource(R.mipmap.classification_shaixuan_xuanze_btn_s);
-                        holder.tv.setTextColor(0xFF7AD2D2);
-                        positionArrayList.add(position);
                     }
+                    page = 1;
+                    objects.get(position).setSelected(true);
+                    if (isClick) {
+                        isCheck = -1;
+                    } else {
+                        isCheck = position;
+                    }
+                    notifyDataSetChanged();
                     isClick = !isClick;
+                    getData(page, category, isCheck);
 
+                    tvShaixuan.setSelected(tvShaixuan.isSelected() ? false : true);
+                    llPop.setVisibility(llPop.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 }
             });
         }
@@ -346,6 +364,33 @@ public class ClassifyActivity extends BaseActivity {
                 tv = (TextView) view.findViewById(R.id.btn_pingjia);
             }
 
+        }
+    }
+
+    class SelectBean {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public boolean isSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(boolean selected) {
+            isSelected = selected;
+        }
+
+        private boolean isSelected;
+
+        public SelectBean(String name, boolean isSelected) {
+            this.name = name;
+            this.isSelected = isSelected;
         }
     }
 

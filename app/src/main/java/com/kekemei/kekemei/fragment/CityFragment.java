@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.adapter.FindOrderListAdapter;
@@ -22,12 +23,16 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ProjectListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
+import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -57,6 +62,10 @@ public class CityFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.fanhui)
     ImageView fanhui;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+    @BindView(R.id.ll_fanhui)
+    LinearLayout llFanhui;
     private FindOrderListAdapter listAdapter;
     private LinearLayoutManager linearLayoutManager;
     private XBanner xBanner;
@@ -116,28 +125,44 @@ public class CityFragment extends Fragment {
             }
         });
     }
+
     private int page = 1;
     private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
     private void getData(final int page) {
-        OkGo.<String>post(URLs.PROJECT_LIST).params("page", page).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
-                Gson gson = new Gson();
-                ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
+        String latitude = SPUtils.getString(getActivity(), "latitude", "");
+        String longitude = SPUtils.getString(getActivity(), "longitude", "");
 
-                if (page == 1) {
-                    listAdapter.setNewData(projectListBean.getData());
-                } else {
-                    arrayList.addAll(projectListBean.getData());
-                    listAdapter.setNewData(arrayList);
-                }
-//                xBanner.setData(projectListBean.getBannerBeans(),null);
-//                initBanner();
+        OkGo.<String>post(URLs.DISCOVE)
+                .params("page", page)
+                .params("longitude", longitude)
+                .params("latitude", latitude)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.e("ShopActivity", "project list:" + response.body());
+                        Gson gson = new Gson();
+                        ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(response.body());
+                            if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                                multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-            }
-        });
+                        if (page == 1) {
+                            listAdapter.setNewData(projectListBean.getData());
+                        } else {
+                            arrayList.addAll(projectListBean.getData());
+                            listAdapter.setNewData(arrayList);
+                        }
+
+                    }
+                });
     }
 
     private void loadMoreData() {

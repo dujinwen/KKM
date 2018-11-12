@@ -29,11 +29,11 @@ public class BaseBean {
      * weigh : 100
      * views : 0
      * createtime : 1538449687
-     * like_count : 0
-     * redenvelopes : ["1111","11111"}]
-     * coupon : [{"1111","1111","1111"}]
+     * redenvelopes : ["111111"]
+     * coupon : ["满599减50"]
+     * distance : 0.95
      * quality_text :
-     * state_text : State 2
+     * state_text : 推荐
      */
 
     private int id;
@@ -56,7 +56,7 @@ public class BaseBean {
     private int weigh;
     private int views;
     private int createtime;
-    private int like_count;
+    private double distance;
     private String quality_text;
     private String state_text;
     private List<String> redenvelopes;
@@ -222,12 +222,12 @@ public class BaseBean {
         this.createtime = createtime;
     }
 
-    public int getLike_count() {
-        return like_count;
+    public double getDistance() {
+        return distance;
     }
 
-    public void setLike_count(int like_count) {
-        this.like_count = like_count;
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public String getQuality_text() {

@@ -15,7 +15,11 @@
         android:layout_marginTop="@dimen/px_184">
 
     </android.support.v7.widget.RecyclerView>
-
+    <com.kekemei.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/px_184"/>
     <include
         layout="@layout/faxian_title_layout" />
 
