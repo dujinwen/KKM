@@ -38,6 +38,5 @@
     </LinearLayout>
 
 
-    <include
-        layout="@layout/faxian_title_layout"/>
+    <include layout="@layout/layout_title_bar"/>
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,24 +37,22 @@ import butterknife.OnClick;
  */
 
 public class MeiRongShiActivity extends BaseActivity {
-
-
     @BindView(R.id.xbanner)
     XBanner xbanner;
     @BindView(R.id.rv_meirongshi)
     RecyclerView rvMeirongshi;
     @BindView(R.id.ll_home)
     LinearLayout llHome;
-    @BindView(R.id.fanhui)
-    ImageView fanhui;
-    @BindView(R.id.text_msg)
-    TextView textMsg;
-    @BindView(R.id.ll_search)
-    LinearLayout llSearch;
-    @BindView(R.id.fenlei)
-    ImageView fenlei;
-    @BindView(R.id.ll_fanhui)
-    LinearLayout llFanhui;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+
 
     public static void start(Activity context) {
         Intent intent = new Intent(context, MeiRongShiActivity.class);
@@ -66,11 +65,21 @@ public class MeiRongShiActivity extends BaseActivity {
     }
 
     @Override
+    protected View setTitleBar() {
+        return toolbar;
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        llFanhui.setVisibility(View.VISIBLE);
-
+        tvTitle.setText("美容师");
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

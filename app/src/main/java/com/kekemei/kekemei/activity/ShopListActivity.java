@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BannerBean;
@@ -20,7 +22,6 @@ import com.kekemei.kekemei.bean.ShopListBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -39,14 +40,14 @@ public class ShopListActivity extends BaseActivity {
     RecyclerView rvMeirongshi;
     @BindView(R.id.ll_home)
     LinearLayout llHome;
-    @BindView(R.id.fanhui)
-    ImageView fanhui;
-    @BindView(R.id.text_msg)
-    TextView textMsg;
-    @BindView(R.id.ll_search)
-    LinearLayout llSearch;
-    @BindView(R.id.fenlei)
-    ImageView fenlei;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     public static void start(Activity context) {
         Intent intent = new Intent(context, ShopListActivity.class);
@@ -56,6 +57,24 @@ public class ShopListActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_meirongshi;
+    }
+
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        tvTitle.setText("美容师");
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

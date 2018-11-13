@@ -142,6 +142,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     //申明对象
     CityPickerView mPicker = new CityPickerView();
+    private MeiRongShiAdapter meiRongShiAdapter;
+    private DAVipAdapter adapter_vip;
+    private MyGridAdapter adapter1;
+    private MyGridAdapter adapter4;
+    private MyGridAdapter adapter2;
+    private MyGridAdapter adapter3;
 
     @Nullable
     @Override
@@ -155,7 +161,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
          * 预先加载仿iOS滚轮实现的全部数据
          */
         mPicker.init(getActivity());
-
+        initView();
         initCityList();
         if (latitude != "" && "" != longitude) {
             initData(latitude, longitude);
@@ -165,7 +171,101 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         }
 
         commentTabAll.setSelected(true);
+
         return view;
+    }
+
+    private void initView() {
+        LinearLayoutManager layout_meirongshi = new LinearLayoutManager(getActivity().getBaseContext());
+        layout_meirongshi.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvMeirongshi.setHasFixedSize(true);
+        rvMeirongshi.setNestedScrollingEnabled(false);
+        rvMeirongshi.setLayoutManager(layout_meirongshi);
+        meiRongShiAdapter = new MeiRongShiAdapter(getActivity());
+        rvMeirongshi.setAdapter(meiRongShiAdapter);
+        meiRongShiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BeauticianBean data = meiRongShiAdapter.getItem(position);
+                ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.BEAUTICIAN);
+            }
+        });
+
+        LinearLayoutManager layout_vip = new LinearLayoutManager(getActivity().getBaseContext());
+        layout_vip.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvDavipKkm.setHasFixedSize(true);
+        rvDavipKkm.setNestedScrollingEnabled(false);
+        rvDavipKkm.setLayoutManager(layout_vip);
+        adapter_vip = new DAVipAdapter(getActivity());
+        rvDavipKkm.setAdapter(adapter_vip);
+        adapter_vip.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ShopBean data = adapter_vip.getItem(position);
+                ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.SHOP);
+            }
+        });
+
+        rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+        adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);
+        rvXinren.setHasFixedSize(true);
+        rvXinren.setNestedScrollingEnabled(false);
+        rvXinren.setAdapter(adapter1);
+
+        adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = adapter1.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
+            }
+        });
+
+        rvRemenxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+        adapter4 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.HotdataBean);
+        rvRemenxiangmu.setHasFixedSize(true);
+        rvRemenxiangmu.setNestedScrollingEnabled(false);
+        rvRemenxiangmu.setAdapter(adapter4);
+
+        adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = adapter1.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
+            }
+        });
+
+        rvHuiyuan.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+        adapter2 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.MemberdataBean);
+        rvHuiyuan.setHasFixedSize(true);
+        rvHuiyuan.setNestedScrollingEnabled(false);
+        rvHuiyuan.setAdapter(adapter2);
+
+        adapter2.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = adapter2.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
+            }
+        });
+
+        rvZuixinxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
+        adapter3 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.SpecialdataBean);
+        rvZuixinxiangmu.setHasFixedSize(true);
+        rvZuixinxiangmu.setNestedScrollingEnabled(false);
+        rvZuixinxiangmu.setAdapter(adapter3);
+
+        adapter3.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = adapter3.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
+            }
+        });
+        rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        commentAdapter = new EvaluateListAdapter(getActivity(), false);
+        rvCommentList.setHasFixedSize(true);
+        rvCommentList.setNestedScrollingEnabled(false);
+        rvCommentList.setAdapter(commentAdapter);
     }
 
     private void initCityList() {
@@ -178,126 +278,39 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 .params("longitude", longitude)
                 .params("latitude", latitude)
                 .execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.d("APPLOCALTION", response.body().toString());
-                Gson gson = new Gson();
-                HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
-                xbanner.setData(homeBean.getData().getBanneradv(), null);
-                initBanner();
-
-
-                LinearLayoutManager layout_meirongshi = new LinearLayoutManager(getActivity().getBaseContext());
-                layout_meirongshi.setOrientation(LinearLayoutManager.HORIZONTAL);
-                rvMeirongshi.setHasFixedSize(true);
-                rvMeirongshi.setNestedScrollingEnabled(false);
-                rvMeirongshi.setLayoutManager(layout_meirongshi);
-                final MeiRongShiAdapter meiRongShiAdapter = new MeiRongShiAdapter(getActivity());
-                rvMeirongshi.setAdapter(meiRongShiAdapter);
-                meiRongShiAdapter.addData(homeBean.getData().getBeautician());
-                meiRongShiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        BeauticianBean data = meiRongShiAdapter.getItem(position);
-                        ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.BEAUTICIAN);
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.d("APPLOCALTION", response.body().toString());
+                        Gson gson = new Gson();
+                        HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
+                        xbanner.setData(homeBean.getData().getBanneradv(), null);
+                        initBanner();
+                        meiRongShiAdapter.addData(homeBean.getData().getBeautician());
+                        adapter_vip.addData(homeBean.getData().getShop());
+                        adapter1.addData(homeBean.getData().getNewmemberdata());
+                        adapter2.addData(homeBean.getData().getMemberdata());
+                        adapter3.addData(homeBean.getData().getSpecialdata());
+                        adapter4.addData(homeBean.getData().getHotdata());
+                        if (homeBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getAll())) {
+                            commentLayout.setVisibility(View.VISIBLE);
+                            userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size()
+                                    + homeBean.getData().getCommentdata().getNewX().size() + homeBean.getData().getCommentdata().getHaveimg().size()));
+                            commentdata = homeBean.getData().getCommentdata();
+                            LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
+                            commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
+                        } else {
+                            commentLayout.setVisibility(View.GONE);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        LogUtil.d("APPLOCALTION", response.toString());
                     }
                 });
-
-                LinearLayoutManager layout_vip = new LinearLayoutManager(getActivity().getBaseContext());
-                layout_vip.setOrientation(LinearLayoutManager.HORIZONTAL);
-                rvDavipKkm.setHasFixedSize(true);
-                rvDavipKkm.setNestedScrollingEnabled(false);
-                rvDavipKkm.setLayoutManager(layout_vip);
-                final DAVipAdapter adapter_vip = new DAVipAdapter(getActivity());
-                rvDavipKkm.setAdapter(adapter_vip);
-                adapter_vip.addData(homeBean.getData().getShop());
-                adapter_vip.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        ShopBean data = adapter_vip.getItem(position);
-                        ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.SHOP);
-                    }
-                });
-
-                rvXinren.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                final MyGridAdapter adapter1 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.NewmemberdataBean);
-                rvXinren.setHasFixedSize(true);
-                rvXinren.setNestedScrollingEnabled(false);
-                rvXinren.setAdapter(adapter1);
-                adapter1.addData(homeBean.getData().getNewmemberdata());
-                adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                            BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
-                    }
-                });
-
-                rvRemenxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter4 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.HotdataBean);
-                rvRemenxiangmu.setHasFixedSize(true);
-                rvRemenxiangmu.setNestedScrollingEnabled(false);
-                rvRemenxiangmu.setAdapter(adapter4);
-                adapter4.addData(homeBean.getData().getHotdata());
-                adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                            BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
-                    }
-                });
-
-                rvHuiyuan.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter2 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.MemberdataBean);
-                rvHuiyuan.setHasFixedSize(true);
-                rvHuiyuan.setNestedScrollingEnabled(false);
-                rvHuiyuan.setAdapter(adapter2);
-                adapter2.addData(homeBean.getData().getMemberdata());
-                adapter2.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                            BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
-                    }
-                });
-
-                rvZuixinxiangmu.setLayoutManager(new GridLayoutManager(getActivity().getBaseContext(), 2));
-                MyGridAdapter adapter3 = new MyGridAdapter(getActivity().getBaseContext(), MyGridAdapter.SpecialdataBean);
-                rvZuixinxiangmu.setHasFixedSize(true);
-                rvZuixinxiangmu.setNestedScrollingEnabled(false);
-                rvZuixinxiangmu.setAdapter(adapter3);
-                adapter3.addData(homeBean.getData().getSpecialdata());
-                adapter3.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                            BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
-                    }
-                });
-                rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                commentAdapter = new EvaluateListAdapter(getActivity(), false);
-                rvCommentList.setHasFixedSize(true);
-                rvCommentList.setNestedScrollingEnabled(false);
-                rvCommentList.setAdapter(commentAdapter);
-                if (homeBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getAll())) {
-                    commentLayout.setVisibility(View.VISIBLE);
-                    userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size()
-                            + homeBean.getData().getCommentdata().getNewX().size() + homeBean.getData().getCommentdata().getHaveimg().size()));
-                    commentdata = homeBean.getData().getCommentdata();
-                    LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
-                    commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
-                } else {
-                    commentLayout.setVisibility(View.GONE);
-                }
-
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                LogUtil.d("APPLOCALTION", response.toString());
-            }
-        });
     }
 
     /**
@@ -393,7 +406,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
-            R.id.iv_place, R.id.place, R.id.ivNewComer,R.id.ivSecond})
+            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
