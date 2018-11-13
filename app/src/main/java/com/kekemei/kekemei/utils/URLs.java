@@ -38,6 +38,8 @@ public class URLs {
     /**
      * 我的
      */
+    //删除订单
+    public static final String DEL_ORDER ="http://kekemei.ecooth.com/api/order/delorder";
     //领取新人卡
     public static final String ADD_NEW_PEOPLE = "http://kekemei.ecooth.com/api/user/addNewpople";
     //重置密码

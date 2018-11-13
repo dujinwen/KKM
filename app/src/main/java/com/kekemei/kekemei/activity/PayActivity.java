@@ -207,8 +207,8 @@ public class PayActivity extends BaseActivity {
                 startActivityForResult(intent, PAY_TO_RED_CODE);
                 break;
             case R.id.ll_man_jian:
-                //                intent = new Intent(PayActivity.this, MyRedBaoActivity.class);
-                //                startActivityForResult(intent, PAY_TO_MAN_JIAN_CODE);
+                intent = new Intent(PayActivity.this, MyVoucherActivity.class);
+                startActivityForResult(intent, PAY_TO_MAN_JIAN_CODE);
                 break;
             case R.id.iv_check_wechat:
                 ivCheckWechat.toggle();
@@ -266,5 +266,11 @@ public class PayActivity extends BaseActivity {
         }
 
         money.setText("¥ " + (order_price * order_count - youhuiqunnum - hongbaonum - manjiannum));
+    }
+
+
+    // TODO: 2018/11/13 去预约美容师页面
+    private void toSelectActivity(){
+        PushOrderActivity.start(PayActivity.this);
     }
 }

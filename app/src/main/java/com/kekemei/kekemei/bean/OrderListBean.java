@@ -121,6 +121,15 @@ public class OrderListBean implements Serializable {
         private String state;
         private String state_text;
         private int user_id;
+        private int shop_shop_id;
+
+        public int getShop_shop_id() {
+            return shop_shop_id;
+        }
+
+        public void setShop_shop_id(int shop_shop_id) {
+            this.shop_shop_id = shop_shop_id;
+        }
 
         public int getBeautician_beautician_id() {
             return beautician_beautician_id;

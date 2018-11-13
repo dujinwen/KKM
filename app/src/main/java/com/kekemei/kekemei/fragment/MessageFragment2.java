@@ -16,9 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
+import com.kekemei.kekemei.activity.PayActivity;
+import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.UserEvaluateActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.ForYouBean;
@@ -121,6 +125,47 @@ public class MessageFragment2 extends Fragment {
         rvList.setLayoutManager(linearLayoutManager);
         jAdapter = new OrderListAdapter(getActivity());
         rvList.setAdapter(jAdapter);
+        jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                switch (view.getId()){
+                    case R.id.quxiaodingdan:
+                        OkGo.<String>get(URLs.DEL_ORDER)
+                                .params("user_id",UserHelp.getUserId(getActivity()))
+                                .params("order_id",item.getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+
+                                    }
+                                });
+                        break;
+                    case R.id.lijifukuan:
+                        // TODO: 2018/11/13  去支付页面
+                        PayActivity.start(getActivity(),item.getBeautician_beautician_id(),-1,-1L,
+                                item.getId()+"",item.getCreatetime()+"",null,item.getName()
+                                ,item.getImage(),item.getPrice(),item.getCount());
+                        break;
+                    case R.id.chakan:
+                    case R.id.zaicigoumai:
+                        // TODO: 2018/11/13 去项目
+                        ProjectDetailActivity.start(getActivity(), item.getProject_project_id(),-1,-1L);
+                        break;
+                    case R.id.qupingjia:
+                        // TODO: 2018/11/13 去评价页面
+                        UserEvaluateActivity.start(getActivity(),false,item.getShop_shop_id()+"",
+                                item.getBeautician_beautician_id()+"",
+                                item.getProject_project_id()+"");
+                        break;
+                    case R.id.yuyue:
+                        // TODO: 2018/11/14 去预约界面
+                        break;
+                }
+            }
+        });
+
+
         rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
@@ -149,7 +194,7 @@ public class MessageFragment2 extends Fragment {
                     return;
                 }
 
-                adapter.addData(forYouBean.getData());
+                adapter.setNewData(forYouBean.getData());
             }
         });
     }
@@ -167,7 +212,13 @@ public class MessageFragment2 extends Fragment {
             startActivity(intent);
             return;
         }
-        setSelect(view.getId());
+        if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay
+                || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
+                || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia
+                ){
+
+            setSelect(view.getId());return;
+        }
     }
 
     private void loadMoreData() {
