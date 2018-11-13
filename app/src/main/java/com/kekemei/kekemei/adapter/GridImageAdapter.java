@@ -12,6 +12,8 @@ import com.kekemei.kekemei.adapter.base.BaseListViewAdapter;
 import com.kekemei.kekemei.utils.URLs;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 
+import java.util.List;
+
 /**
  * 提交评价上传图片
  */
@@ -26,6 +28,10 @@ public class GridImageAdapter extends BaseListViewAdapter {
             return AddCommentActivity.MAX_PIC;
         }
         return (infos.size() + 1);
+    }
+
+    public List<Object> getItems(){
+        return infos;
     }
 
     @Override

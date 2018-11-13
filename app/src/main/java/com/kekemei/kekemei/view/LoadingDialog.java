@@ -2,6 +2,7 @@ package com.kekemei.kekemei.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.view.LVCircularRing;
 
 
 /**
@@ -70,6 +70,12 @@ public class LoadingDialog {
             mLoadingView.stopAnim();
             mLoadingDialog.get().dismiss();
             mLoadingDialog.set(null);
+        }
+    }
+
+    public void setCancelListener(DialogInterface.OnCancelListener listener) {
+        if (mLoadingDialog.get() != null) {
+            mLoadingDialog.get().setOnCancelListener(listener);
         }
     }
 }

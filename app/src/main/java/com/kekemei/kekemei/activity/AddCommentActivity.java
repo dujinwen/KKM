@@ -2,13 +2,12 @@ package com.kekemei.kekemei.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,6 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.BaseActivity;
 import com.kekemei.kekemei.adapter.GridImageAdapter;
 import com.kekemei.kekemei.bean.CommentTagsBean;
 import com.kekemei.kekemei.manager.AppFolderManager;
@@ -27,10 +25,12 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.ImageCompressUtil;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.LoadingDialog;
 import com.kekemei.kekemei.view.NoScrollGridView;
+import com.kekemei.kekemei.view.StarBar;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -59,6 +59,11 @@ import butterknife.OnClick;
  */
 public class AddCommentActivity extends BaseActivity {
     private static final String TAG = AddCommentActivity.class.getSimpleName();
+    private static final String EXTRA_KEY_ENUM_ID = "type";
+    private static final String EXTRA_KEY_ORDER_ID = "orderId";
+    private static final int COMMENT_TYPE_ONE = 1;
+    private static final int COMMENT_TYPE_TWO = 2;
+    private static final int COMMENT_TYPE_THREE = 3;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -83,12 +88,22 @@ public class AddCommentActivity extends BaseActivity {
     @BindView(R.id.commentImages)
     NoScrollGridView commentImages;
 
+    @BindView(R.id.starTitle)
+    TextView starTitle;
+    @BindView(R.id.starSubTitle)
+    TextView starSubTitle;
+    @BindView(R.id.star_bar)
+    StarBar starBar;
+
     private GridImageAdapter adapter;
     public static final int MAX_PIC = 4;
     public static final int REQUEST_ALBUM = 10;
     private static final int UPLOAD_IMAGE_COMPRESS_FINISH = 1000;
     private LoadingDialog compressImagesProgressDialog;
     private Thread compressThread;
+
+    private List<String> commentTags;
+    private String satisfaction;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandlers = new Handler() {
@@ -105,8 +120,13 @@ public class AddCommentActivity extends BaseActivity {
         }
     };
 
-    public static void start(Context context) {
+    private int commonType;
+    private String orderId;
+
+    public static void start(Context context, int commonType, String orderId) {
         Intent intent = new Intent(context, AddCommentActivity.class);
+        intent.putExtra(EXTRA_KEY_ENUM_ID, commonType);
+        intent.putExtra(EXTRA_KEY_ORDER_ID, orderId);
         context.startActivity(intent);
     }
 
@@ -123,9 +143,10 @@ public class AddCommentActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        commonType = getIntent().getIntExtra(EXTRA_KEY_ENUM_ID, -1);
+        orderId = super.getStringExtraSecure(EXTRA_KEY_ORDER_ID);
         toolbar.setNavigationIcon(R.mipmap.back);
         tv_title.setText("评价");
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,23 +154,18 @@ public class AddCommentActivity extends BaseActivity {
             }
         });
 
-        etCommentContent.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if (commonType == COMMENT_TYPE_ONE) {
+            starTitle.setText("店铺");
+            starSubTitle.setText("服务评价");
+        } else if (commonType == COMMENT_TYPE_TWO) {
+            starTitle.setText("美容师");
+            starSubTitle.setText("服务技术");
+        } else if (commonType == COMMENT_TYPE_THREE) {
+            starTitle.setText("项目");
+            starSubTitle.setText("体验评价");
+        }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                int detailLength = s.length();
-//                vh.tvLength.setText(detailLength + mContext.getString(R.string.evaluate_product_list_edittext_text_length));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-//                item.setContent(s.toString());
-            }
-        });
+        commentTags = new ArrayList<>();
         adapter = new GridImageAdapter(this);
         commentImages.setAdapter(adapter);
         commentImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -178,7 +194,6 @@ public class AddCommentActivity extends BaseActivity {
      * 打开图片选择器
      */
     private void openPhotoPicker() {
-//        EvaluateSubmitProduct.EvaluateData.EvaluateSku item = (EvaluateSubmitProduct.EvaluateData.EvaluateSku) listAdapter.getItem(position);
         Intent intent = new Intent(this, ImageGridActivity.class);
         startActivityForResult(intent, REQUEST_ALBUM);
     }
@@ -188,7 +203,7 @@ public class AddCommentActivity extends BaseActivity {
         super.initData();
         OkGo.<String>post(URLs.COMMENT_TAG)
                 .tag(this)
-                .params("type", "1")
+                .params("type", commonType)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -200,13 +215,13 @@ public class AddCommentActivity extends BaseActivity {
                                 fillTags(null);
                                 return;
                             }
+                            Gson gson = new Gson();
+                            List<CommentTagsBean> commentTagsBean = gson.fromJson(response.body(), new TypeToken<List<CommentTagsBean>>() {
+                            }.getType());
+                            fillTags(commentTagsBean);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        List<CommentTagsBean> commentTagsBean = gson.fromJson(response.body(), new TypeToken<List<CommentTagsBean>>() {
-                        }.getType());
-                        fillTags(commentTagsBean);
                     }
 
                     @Override
@@ -227,14 +242,24 @@ public class AddCommentActivity extends BaseActivity {
             return;
         }
         commentTagFlowLayout.removeAllViews();
-        for (int i = 0; i < result.size(); i++) {
+        for (final CommentTagsBean resultBean : result) {
             final TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_comment_tag_layout, commentTagFlowLayout, false);
-            if (!AppUtil.isEmptyString(result.get(i).getName())) {
-                txt.setText(result.get(i).getName());
+            if (!AppUtil.isEmptyString(resultBean.getName())) {
+                txt.setText(resultBean.getName());
                 txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String content = txt.getText().toString();
+                        String tagId = resultBean.getId() + "";
+                        if (!commentTags.contains(tagId)) {
+                            commentTags.add(tagId);
+                        } else {
+                            commentTags.remove(tagId);
+                        }
+                        if (txt.isSelected()) {
+                            txt.setSelected(false);
+                        } else {
+                            txt.setSelected(true);
+                        }
                     }
                 });
                 commentTagFlowLayout.addView(txt);
@@ -246,9 +271,18 @@ public class AddCommentActivity extends BaseActivity {
      * 提交评价
      */
     private void submitComment() {
-        OkGo.<String>post(URLs.ADD_COMMENT)
-                .tag(this)
-                .params("type", "1")
+        String content = etCommentContent.getText().toString();
+        if (StringUtils.isEmpty(content)) {
+            content = "该用户暂无评价";
+        }
+        if (CollectionUtils.isEmpty(adapter.getItems())) {
+            ToastUtil.showToastMsg(this, "请上传图片！");
+            return;
+        }
+        OkGo.<String>post(URLs.ADD_COMMENT).tag(this).params("comment_type", commonType)
+                .params("order_id", orderId).params("tags_ids", commentTags.toString())
+                .params("content", content).params("start", starBar.getStarMark())
+                .params("satisfaction", satisfaction).params("images", adapter.getItems().toString())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -257,12 +291,13 @@ public class AddCommentActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
                             if (msg.equals("暂无数据")) {
+                                ToastUtil.showToastMsg(AddCommentActivity.this, "评论失败");
                                 return;
                             }
+                            ToastUtil.showToastMsg(AddCommentActivity.this, msg.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
                     }
 
                     @Override
@@ -280,12 +315,15 @@ public class AddCommentActivity extends BaseActivity {
                 break;
             case R.id.tvVerySatisfied:
                 tvVerySatisfied.setSelected(true);
+                satisfaction = tvVerySatisfied.getText().toString();
                 break;
             case R.id.tvSatisfied:
                 tvSatisfied.setSelected(true);
+                satisfaction = tvSatisfied.getText().toString();
                 break;
             case R.id.tvCommonly:
                 tvCommonly.setSelected(true);
+                satisfaction = tvCommonly.getText().toString();
                 break;
         }
     }
@@ -300,7 +338,6 @@ public class AddCommentActivity extends BaseActivity {
                 if (CollectionUtils.isNotEmpty(images)) {
                     compressImage(images);
                 }
-            } else {
             }
         }
     }
@@ -313,7 +350,7 @@ public class AddCommentActivity extends BaseActivity {
     private void compressImage(final ArrayList<ImageItem> resultImagePath) {
         if (compressImagesProgressDialog == null) {
             compressImagesProgressDialog = new LoadingDialog(AddCommentActivity.this, "压缩中...", false);
-           /* compressImagesProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            compressImagesProgressDialog.setCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     LogUtil.d(TAG, "dialog isCanceled");
@@ -321,7 +358,7 @@ public class AddCommentActivity extends BaseActivity {
                         compressThread.interrupt();
                     }
                 }
-            });*/
+            });
         }
 
         compressImagesProgressDialog.show();
@@ -400,7 +437,6 @@ public class AddCommentActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-//                                fillTags();
                         return;
                     }
                     JSONObject data = jsonObject.optJSONObject("data");
@@ -417,7 +453,6 @@ public class AddCommentActivity extends BaseActivity {
             @Override
             public void onError(Response<String> response) {
                 LogUtil.e("TAG", response.message());
-//                        fillTags();
             }
         });
     }

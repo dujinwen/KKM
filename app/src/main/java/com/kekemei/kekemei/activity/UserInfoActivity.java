@@ -97,6 +97,12 @@ public class UserInfoActivity extends BaseActivity {
         userId = super.getStringExtraSecure(EXTRA_KEY_USER_ID);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_title.setText("个人资料修改");
         tv_submit.setVisibility(View.VISIBLE);
         ImagePicker imagePicker = ImagePicker.getInstance();
@@ -286,7 +292,6 @@ public class UserInfoActivity extends BaseActivity {
         OkGo.<String>post(URLs.UPLOAD_IMAGE).tag(this).params("file", file).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e("comment", "body:" + response.body());
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
