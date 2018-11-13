@@ -16,6 +16,9 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -213,12 +216,19 @@ public class PayActivity extends BaseActivity {
                 ivCheckWechat.setChecked(false);
                 break;
             case R.id.btn_pay:
+                String payUrl = "";
 
                 if (ivCheckAli.isChecked()) {
-                    
+                    payUrl = URLs.ORDER_ALI_PAY;
                 } else {
-
+                    payUrl = URLs.ORDER_WX_PAY;
                 }
+                OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
                 break;
         }
     }
