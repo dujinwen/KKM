@@ -31,7 +31,7 @@
             android:textSize="46px" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/subTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"

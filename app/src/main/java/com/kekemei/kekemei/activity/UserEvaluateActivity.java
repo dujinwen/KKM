@@ -40,6 +40,12 @@ import butterknife.OnClick;
  * 用户评价
  */
 public class UserEvaluateActivity extends BaseActivity {
+    public static final int EVALUATE_STATUS_ALL = 0;     //全部
+    public static final int EVALUATE_STATUS_QUITE_SATISFACTION = 1; //超出期待
+    public static final int EVALUATE_STATUS_SATISFACTION = 2;     //满意
+    public static final int EVALUATE_STATUS_BASICALLY_SATISFACTION = 3; //基本满意
+    public static final int EVALUATE_STATUS_DISSATISFIED = 4;      //不满意
+    private int mCurrentTab = EVALUATE_STATUS_ALL;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -71,9 +77,9 @@ public class UserEvaluateActivity extends BaseActivity {
     private int jPageNum = 1;
 
     private boolean isMyComment;//是否是我的评价
-    public static final String KEY_SHOP_ID = "shopId";     //全部
-    public static final String KEY_BEAUTICIAN_ID = "beauticianId";     //全部
-    public static final String KEY_PROJECT_ID = "projectId";     //全部
+    public static final String KEY_SHOP_ID = "shopId";
+    public static final String KEY_BEAUTICIAN_ID = "beauticianId";
+    public static final String KEY_PROJECT_ID = "projectId";
     private String shopId, beauticianId, projectId;
 
     public static void start(Context context, boolean isMyComment, String shopId, String beauticianId, String projectId) {
@@ -158,6 +164,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(false);
+                mCurrentTab = EVALUATE_STATUS_ALL;
                 loadData(true);
                 break;
             case R.id.tabQuiteSatisfaction:
@@ -166,6 +173,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(false);
+                mCurrentTab = EVALUATE_STATUS_ALL;
                 loadData(true);
                 break;
             case R.id.tabSatisfaction:
@@ -174,6 +182,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(true);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(false);
+                mCurrentTab = EVALUATE_STATUS_ALL;
                 loadData(true);
                 break;
             case R.id.tabBasicallySatisfaction:
@@ -182,6 +191,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(true);
                 tabDissatisfied.setSelected(false);
+                mCurrentTab = EVALUATE_STATUS_ALL;
                 loadData(true);
                 break;
             case R.id.tabDissatisfied:
@@ -190,6 +200,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(true);
+                mCurrentTab = EVALUATE_STATUS_ALL;
                 loadData(true);
                 break;
         }
@@ -247,28 +258,59 @@ public class UserEvaluateActivity extends BaseActivity {
             jPageNum++;
             EvaluateListBean evaluateListBean = (EvaluateListBean) response;
 
-            if (null == response || null == evaluateListBean.getData() || evaluateListBean.getData().size() == 0) {
+            if (null == response || null == evaluateListBean.getData()) {
                 showEmpty();
-            } else {
-                if (isRefresh)
-                    showRefreshLoading(false);
-                showData(evaluateListBean.getData());
             }
-
-            if (null != response && evaluateListBean.getData().size() < 10)
-                showLoadMoreEnd();
-            else
-                showLoadMoreComplete();
+            fillTabText(evaluateListBean.getData().getCount());
+            if (mCurrentTab == EVALUATE_STATUS_ALL) {
+                fillData(evaluateListBean.getData().getAll());
+            } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
+                fillData(evaluateListBean.getData().getQuite());
+            } else if (mCurrentTab == EVALUATE_STATUS_SATISFACTION) {
+                fillData(evaluateListBean.getData().getCommonly());
+            } else if (mCurrentTab == EVALUATE_STATUS_BASICALLY_SATISFACTION) {
+                fillData(evaluateListBean.getData().getBasic());
+            } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
+                fillData(evaluateListBean.getData().getDis());
+            }
         } else {
             jPageNum++;
             EvaluateListBean evaluateListBean = (EvaluateListBean) response;
-            loadMoreSuccess(evaluateListBean.getData());
-            if (evaluateListBean.getData().size() < 10) {
-                showLoadMoreEnd();
-            } else {
-                showLoadMoreComplete();
+            fillTabText(evaluateListBean.getData().getCount());
+            if (mCurrentTab == EVALUATE_STATUS_ALL) {
+                fillData(evaluateListBean.getData().getAll());
+            } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
+                fillData(evaluateListBean.getData().getQuite());
+            } else if (mCurrentTab == EVALUATE_STATUS_SATISFACTION) {
+                fillData(evaluateListBean.getData().getCommonly());
+            } else if (mCurrentTab == EVALUATE_STATUS_BASICALLY_SATISFACTION) {
+                fillData(evaluateListBean.getData().getBasic());
+            } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
+                fillData(evaluateListBean.getData().getDis());
             }
         }
+    }
+
+    private void fillTabText(List<Integer> count) {
+        tabAll.setText("全部\n" + count.get(0));
+        tabQuiteSatisfaction.setText("超出期待\n" + count.get(1));
+        tabSatisfaction.setText("满意\n" + count.get(2));
+        tabBasicallySatisfaction.setText("基本满意\n" + count.get(3));
+        tabDissatisfied.setText("不满意\n" + count.get(4));
+    }
+
+    private void fillData(List<EvaluateBean> listData) {
+        if (listData.size() == 0) {
+            showEmpty();
+        } else {
+            if (isRefresh)
+                showRefreshLoading(false);
+            showData(listData);
+        }
+        if (listData.size() < 10)
+            showLoadMoreEnd();
+        else
+            showLoadMoreComplete();
     }
 
     private void onResultError(Object response) {
@@ -311,6 +353,11 @@ public class UserEvaluateActivity extends BaseActivity {
     private void loadMoreSuccess(List<EvaluateBean> dataList) {
         jSwipeRefreshLayout.finishLoadMore();
         jAdapter.addData(dataList);
+        if (dataList.size() < 10) {
+            showLoadMoreEnd();
+        } else {
+            showLoadMoreComplete();
+        }
     }
 
     private void showLoadMoreFailed() {

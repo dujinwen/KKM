@@ -42,10 +42,10 @@ public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseView
             NoScrollGridView noScrollGridView = helper.getView(R.id.ncgv);
             CommentGridAdapter gridAdapter = new CommentGridAdapter(jContext, Arrays.asList(split));
             noScrollGridView.setAdapter(gridAdapter);
-//            gridAdapter.replaceData(Arrays.asList(split));
         }
-        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getUser_avatar(), (ImageView) helper.getView(R.id.icon));
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getAvatar(), (ImageView) helper.getView(R.id.icon));
         helper.setText(R.id.name, item.getNickname());
+//        helper.setText(R.id.subTitle, item.getNickname());
         helper.setText(R.id.commentContent, item.getContent());
         helper.setText(R.id.date, AppUtil.getFormatTime2(item.getCreatetime()));
         StarBar startBar = helper.getView(R.id.star_bar);

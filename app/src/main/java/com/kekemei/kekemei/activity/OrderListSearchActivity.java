@@ -133,9 +133,11 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initData() {
-        OkGo.<String>post(URLs.HOT_SEARCH)
-                .tag(this)
-                .params("user_id", UserHelp.getUserId(this))
+        initSearchHistory();
+    }
+
+    private void initSearchHistory(){
+        OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", UserHelp.getUserId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -206,10 +208,18 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtSearch:
-                llHistory.setVisibility(View.GONE);
-                refresh_layout.setVisibility(View.VISIBLE);
-                keyWord = editTextSearch.getText().toString();
-                getData(1);
+                if (txtSearch.getText().toString().equals("搜索")) {
+                    txtSearch.setText("取消");
+                    llHistory.setVisibility(View.GONE);
+                    refresh_layout.setVisibility(View.VISIBLE);
+                    keyWord = editTextSearch.getText().toString();
+                    getData(1);
+                } else {
+                    txtSearch.setText("搜索");
+                    llHistory.setVisibility(View.VISIBLE);
+                    refresh_layout.setVisibility(View.GONE);
+                    initSearchHistory();
+                }
                 break;
         }
     }

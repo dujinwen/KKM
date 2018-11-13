@@ -269,20 +269,18 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         switch (view.getId()) {
             case R.id.txtSearch:
                 keyWord = editTextSearch.getText().toString();
-                loadData(true);
-                onSearchBtnClick();
+                if (txtSearch.getText().toString().equals("搜索")) {
+                    txtSearch.setText("取消");
+                    onSearchBtnClick();
+                    loadData(true);
+                } else {
+                    txtSearch.setText("搜索");
+                    onSearchBtnClickCancel();
+                    initSearchHistoryAndHot();
+                }
                 break;
             case R.id.tabAll:
-                indicatorTabAll.setVisibility(View.VISIBLE);
-                indicatorProject.setVisibility(View.GONE);
-                indicatorShopName.setVisibility(View.GONE);
-                indicatorBeautician.setVisibility(View.GONE);
-                tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
-                tabProjectText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
-                tabShopNameText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
-                tabBeauticianText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
-                searchAllLayout.setVisibility(View.VISIBLE);
-                searchListLayout.setVisibility(View.GONE);
+                onSearchBtnClickCancel();
                 break;
             case R.id.tabProject:
                 onSearchBtnClick();
@@ -329,6 +327,19 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                 }
                 break;
         }
+    }
+
+    private void onSearchBtnClickCancel() {
+        indicatorTabAll.setVisibility(View.VISIBLE);
+        indicatorProject.setVisibility(View.GONE);
+        indicatorShopName.setVisibility(View.GONE);
+        indicatorBeautician.setVisibility(View.GONE);
+        tabAllText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_selected_color));
+        tabProjectText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+        tabShopNameText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+        tabBeauticianText.setTextColor(ContextCompat.getColor(this, R.color.search_tab_text_unselected_color));
+        searchAllLayout.setVisibility(View.VISIBLE);
+        searchListLayout.setVisibility(View.GONE);
     }
 
     private void onSearchBtnClick() {
@@ -558,9 +569,11 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.HOT_SEARCH)
-                .tag(this)
-                .params("user_id", UserHelp.getUserId(this))
+        initSearchHistoryAndHot();
+    }
+
+    private void initSearchHistoryAndHot() {
+        OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", UserHelp.getUserId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -679,7 +692,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.toString().isEmpty()){
+        if (s.toString().isEmpty()) {
             initData();
         }
 
