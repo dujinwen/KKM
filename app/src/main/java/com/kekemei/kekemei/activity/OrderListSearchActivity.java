@@ -5,10 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,7 +48,7 @@ import butterknife.BindView;
 /**
  * 订单搜索
  */
-public class OrderListSearchActivity extends BaseActivity implements View.OnClickListener {
+public class OrderListSearchActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
     @BindView(R.id.editTextSearch)
     XEditText editTextSearch;
     @BindView(R.id.txtSearch)
@@ -89,6 +93,24 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             }
         });
         multipleStatusView.showOutContentView(refresh_layout);
+
+
+        editTextSearch.setFocusable(true);
+        editTextSearch.setFocusableInTouchMode(true);
+        editTextSearch.requestFocus();
+        moveEditCursor();
+        editTextSearch.addTextChangedListener(this);
+        editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    editTextSearch.clearFocus();
+                }
+                return false;
+            }
+        });
+
 
         refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -144,12 +166,12 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private void onHotSearchResult(Object response) {
         HotSearchBean hotSearchBean = (HotSearchBean) response;
         if (null == response || null == hotSearchBean.getData()) {
-            historyEmpty.setVisibility(View.VISIBLE);
+            llHistory.setVisibility(View.VISIBLE);
         } else {
             if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHistory())) {
                 fillHistoryWordArea(hotSearchBean.getData().getHistory());
             } else {
-                historyEmpty.setVisibility(View.VISIBLE);
+                llHistory.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -186,7 +208,8 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             case R.id.txtSearch:
                 llHistory.setVisibility(View.GONE);
                 refresh_layout.setVisibility(View.VISIBLE);
-                getData(0);
+                keyWord = editTextSearch.getText().toString();
+                getData(1);
                 break;
         }
     }
@@ -209,7 +232,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private void getData(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.ORDER_SEARCH)
+        OkGo.<String>get(URLs.ORDER_SEARCH)
                 .tag(this)
                 .params("keyword", keyWord)
                 .params("page", pageNum)
@@ -333,5 +356,22 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     protected void onDestroy() {
         isOnDestroy = true;
         super.onDestroy();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (s.toString().isEmpty()){
+            initData();
+        }
     }
 }
