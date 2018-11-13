@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.PayResultBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
@@ -226,7 +228,14 @@ public class PayActivity extends BaseActivity {
                 OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        PayResultBean payResultBean = gson.fromJson(response.body(), PayResultBean.class);
+                        // TODO: 2018/11/13 进行支付操作
+                        if (ivCheckAli.isChecked()) {
 
+                        } else {
+
+                        }
                     }
                 });
                 break;
