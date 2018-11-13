@@ -31,6 +31,16 @@
             app:alignContent="flex_start"
             app:flexDirection="row"
             app:flexWrap="wrap" />
+
+        <TextView
+            android:id="@+id/historyEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:gravity="center"
+            android:text="暂无搜索历史"
+            android:textColor="#999999"
+            android:textSize="29px"
+            android:visibility="gone" />
     </LinearLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
