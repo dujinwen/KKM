@@ -96,6 +96,12 @@ public class UserEvaluateActivity extends BaseActivity implements IndictorWithNu
         super.initView(savedInstanceState);
         isMyComment = getIntent().getBooleanExtra("isMyComment", false);
         toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_title.setText(isMyComment ? "我的评价" : "客户评价");
 
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
