@@ -212,9 +212,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         rvXinren.setNestedScrollingEnabled(false);
         rvXinren.setAdapter(adapter1);
 
-        adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        adapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter1.getItem(position);
                 ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
             }
@@ -226,9 +226,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         rvRemenxiangmu.setNestedScrollingEnabled(false);
         rvRemenxiangmu.setAdapter(adapter4);
 
-        adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        adapter4.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter4.getItem(position);
                 ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
             }
@@ -240,9 +240,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         rvHuiyuan.setNestedScrollingEnabled(false);
         rvHuiyuan.setAdapter(adapter2);
 
-        adapter2.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        adapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter2.getItem(position);
                 ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
             }
@@ -254,9 +254,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         rvZuixinxiangmu.setNestedScrollingEnabled(false);
         rvZuixinxiangmu.setAdapter(adapter3);
 
-        adapter3.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        adapter3.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter3.getItem(position);
                 ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
             }
