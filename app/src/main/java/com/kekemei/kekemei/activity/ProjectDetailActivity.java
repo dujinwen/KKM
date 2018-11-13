@@ -266,7 +266,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         lookMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserEvaluateActivity.start(ProjectDetailActivity.this, false);
+                UserEvaluateActivity.start(ProjectDetailActivity.this, false, "1", "1", "1");
             }
         });
     }

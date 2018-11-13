@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!--android:state_pressed="true"-->
     <item android:color="@color/white" android:state_selected="true">
         <shape android:shape="rectangle">
             <corners android:radius="36px" />
@@ -9,11 +7,11 @@
         </shape>
     </item>
 
-    <item android:color="#999999">
+    <item android:color="@color/common_tx3">
         <shape android:shape="rectangle">
             <corners android:radius="36px" />
             <solid android:color="@color/white" />
-            <stroke android:width="3px" android:color="#CCCCCC" />
+            <stroke android:width="3px" android:color="@color/c_ccc" />
         </shape>
     </item>
 
