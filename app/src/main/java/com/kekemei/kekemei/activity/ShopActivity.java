@@ -419,7 +419,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         yuYueDataListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                List<YuYueDataBean.DataBean> data = adapter.getData();
+                List<YuYueDataBean.DataBean> data = yuYueDataListAdapter.getData();
                 if (view.getId() == R.id.ll_select_data_time) {
 
                     tv_date_and_week = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_date_and_week);
@@ -448,7 +448,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         lookMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserEvaluateActivity.start(ShopActivity.this, false);
+                UserEvaluateActivity.start(ShopActivity.this, false,"1","1","1");
             }
         });
     }
