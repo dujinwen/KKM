@@ -1,6 +1,5 @@
 package com.kekemei.kekemei.bean;
 
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 

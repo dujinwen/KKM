@@ -1,6 +1,7 @@
 package com.kekemei.kekemei.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.ForYouBean;
@@ -158,8 +160,13 @@ public class MessageFragment2 extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia})
+    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia})
     public void onViewClicked(View view) {
+        if (view.getId() == R.id.iv_search) {
+            Intent intent = new Intent(getActivity(), OrderListSearchActivity.class);
+            startActivity(intent);
+            return;
+        }
         setSelect(view.getId());
     }
 
@@ -284,4 +291,5 @@ public class MessageFragment2 extends Fragment {
         adapter = new MyGridAdapter(getActivity(), MyGridAdapter.ORDER_HOT_BEAN);
         rv_hot_huodong.setAdapter(adapter);
     }
+
 }

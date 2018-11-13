@@ -21,6 +21,7 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.FindOrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ProjectListBean;
+import com.kekemei.kekemei.bean.ProjectShaiXuanListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -248,7 +250,7 @@ public class ClassifyActivity extends BaseActivity {
     private int category = 1;
     private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
-    private void getData(final int page, int category, int isCheck) {
+    private void getData(final int page, int category, final int isCheck) {
         String latitude = SPUtils.getString(ClassifyActivity.this, "latitude", "");
         String longitude = SPUtils.getString(ClassifyActivity.this, "longitude", "");
         String url = "";
@@ -279,17 +281,32 @@ public class ClassifyActivity extends BaseActivity {
 
                 try {
                     JSONObject obj = new JSONObject(response.body());
-                    if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
-                        multipleStatusView.showEmpty(R.mipmap.default_dingdan);
-                        return;
+
+
+                    Gson gson = new Gson();
+                    List<BaseBean> baseBeans = null;
+                    if (isCheck == -1) {
+                        ProjectListBean.DataBeanX data = gson.fromJson(response.body(), ProjectListBean.class).getData();
+                        if (data.getData().size() == 0 || data.getData().isEmpty()) {
+                            multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                            return;
+                        }
+                        baseBeans = data.getData();
+                    } else {
+                        if (obj.getString("data").equals("null")
+                                || obj.getString("data") == null
+                                || obj.getString("data").isEmpty()
+                                ) {
+                            multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                            return;
+                        }
+                        baseBeans = gson.fromJson(response.body(), ProjectShaiXuanListBean.class).getData();
                     }
                     multipleStatusView.showOutContentView(rvList);
-                    Gson gson = new Gson();
-                    ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
                     if (page == 1) {
                         arrayList.clear();
                     }
-                    arrayList.addAll(projectListBean.getData().getData());
+                    arrayList.addAll(baseBeans);
                     listAdapter.setNewData(arrayList);
 
                 } catch (JSONException e) {
@@ -316,10 +333,10 @@ public class ClassifyActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
             holder.tv.setText(objects.get(position).getName());
-            if (objects.get(position).isSelected()){
+            if (objects.get(position).isSelected()) {
                 holder.tv.setBackgroundResource(R.mipmap.classification_shaixuan_xuanze_btn_s);
                 holder.tv.setTextColor(0xFF7AD2D2);
-            }else {
+            } else {
                 holder.tv.setBackgroundResource(R.drawable.btn_line_background);
                 holder.tv.setTextColor(0xFF999999);
             }
