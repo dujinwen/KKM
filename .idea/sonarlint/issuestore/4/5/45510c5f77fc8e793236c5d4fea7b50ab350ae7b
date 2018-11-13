@@ -1,19 +1,0 @@
-
-csquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(â·Ú
-Rsquid:S2696o"6Make the enclosing method "static" or remove this set.(£âŠÝùÿÿÿÿ
-Lsquid:S1066Ü"/Merge this if statement with the enclosing one.(˜¥–¹ýÿÿÿÿ
-Ssquid:S2696â"6Make the enclosing method "static" or remove this set.(‘½ÿœýÿÿÿÿ
-"squid:ClassVariableVisibilityCheckA"TMake instance a static final constant or non-public and provide accessors if needed.(¼¤¿b
-Rsquid:S2696]"6Make the enclosing method "static" or remove this set.(Ö ÐÝùÿÿÿÿ
-Dsquid:S1444A".Make this "public static instance" field final(¼¤¿b
-gsquid:CommentedOutCodeLine?"<This block of commented-out lines of code should be removed.(¤¤›ÿÿÿÿÿ
-Esquid:S1172{".Remove this unused method parameter "address".(¯¬Ùß
-jsquid:MaximumInheritanceDepth3"<This class has 7 parents which is greater than 5 authorized.(ÎÕä×øÿÿÿÿ
-osquid:ModifiersOrderCheck5"EReorder the modifiers to comply with the Java Language Specification.(‘¦“³ûÿÿÿÿ
-Rsquid:S2696Y"6Make the enclosing method "static" or remove this set.(ñõîÙþÿÿÿÿ
-Ssquid:S2696³"6Make the enclosing method "static" or remove this set.(Ü‘€ ûÿÿÿÿ
-3squid:S3626ó"Remove this redundant jump.(ûÁÝ…
-‰"squid:ClassVariableVisibilityCheck9"VMake myListener a static final constant or non-public and provide accessors if needed.(° ƒœþÿÿÿÿ
-asquid:CallToDeprecatedMethod¨"3Remove this use of "setAddrType"; it is deprecated.(ïÌÛÙýÿÿÿÿ
-Csquid:S10685"'Remove this unused "TAG" private field.(‘¦“³ûÿÿÿÿ
-Msquid:S2696g"6Make the enclosing method "static" or remove this set.(›–’¼

@@ -1,6 +1,0 @@
-
-isquid:ModifiersOrderCheck,"EReorder the modifiers to comply with the Java Language Specification.(ì…ø!
-=squid:S1068,"'Remove this unused "TAG" private field.(ì…ø!
-Nsquid:S1068J"2Remove this unused "toChatUsername" private field.(îÚ Óÿÿÿÿÿ
-Œ"squid:ClassVariableVisibilityCheckD"YMake itemTypeCount a static final constant or non-public and provide accessors if needed.(ñ±âüÿÿÿÿ
-jsquid:S3776·"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(ù«Œ

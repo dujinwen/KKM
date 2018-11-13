@@ -209,7 +209,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private void getData(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.INDEX_SEARCH)
+        OkGo.<String>post(URLs.ORDER_SEARCH)
                 .tag(this)
                 .params("keyword", keyWord)
                 .params("page", pageNum)
