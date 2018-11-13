@@ -155,11 +155,13 @@ public class CityFragment extends Fragment {
                         }
 
                         if (page == 1) {
-                            listAdapter.setNewData(projectListBean.getData());
+                            listAdapter.setNewData(projectListBean.getData().getData());
                         } else {
-                            arrayList.addAll(projectListBean.getData());
+                            arrayList.addAll(projectListBean.getData().getData());
                             listAdapter.setNewData(arrayList);
                         }
+                        initBanner();
+                        xBanner.setData(projectListBean.getData().getBanner(),null);
 
                     }
                 });

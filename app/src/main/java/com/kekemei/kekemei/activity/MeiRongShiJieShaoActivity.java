@@ -77,9 +77,9 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
 
-    private String beauticianId;
+    private int beauticianId;
 
-    public static void start(Context context, String beauticianId) {
+    public static void start(Context context, int beauticianId) {
         Intent intent = new Intent(context, MeiRongShiJieShaoActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         context.startActivity(intent);
@@ -98,9 +98,8 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         toolbar.setNavigationIcon(R.mipmap.back);
-        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         tvTitle.setText("美容师介绍");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

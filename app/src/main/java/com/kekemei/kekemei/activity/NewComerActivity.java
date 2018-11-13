@@ -250,7 +250,7 @@ public class NewComerActivity extends BaseActivity {
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 LogUtil.e("section", "click:" + position);
                                 BaseBean item = allAdapter.getItem(position);
-                                ProjectDetailActivity.start(NewComerActivity.this, item.getId(), null, null);
+                                ProjectDetailActivity.start(NewComerActivity.this, item.getId(), -1,-1L);
                             }
                         });
                     }
@@ -261,7 +261,7 @@ public class NewComerActivity extends BaseActivity {
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 LogUtil.e("section", "click:" + position);
                                 BaseBean item = forYouAdapter.getItem(position);
-                                ProjectDetailActivity.start(NewComerActivity.this, item.getId(), null, null);
+                                ProjectDetailActivity.start(NewComerActivity.this, item.getId(), -1,-1L);
                             }
                         });
                     }
@@ -276,7 +276,7 @@ public class NewComerActivity extends BaseActivity {
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 LogUtil.e("section", "click:" + position);
                                 BaseBean item = listAdapter.getItem(position);
-                                ProjectDetailActivity.start(NewComerActivity.this, item.getId(), null, null);
+                                ProjectDetailActivity.start(NewComerActivity.this, item.getId(), -1,-1L);
                             }
                         });
                     }

@@ -66,7 +66,7 @@
                 android:background="#FFCCCCCC" />
 
             <LinearLayout
-                android:id="@+id/ll_youhuiquan"
+                android:id="@+id/ll_toyouhuiquan"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/px_160"
                 android:layout_marginLeft="@dimen/px_37"
@@ -84,7 +84,7 @@
                     android:id="@+id/tv_youhuiquan_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="- ¥ 100"
+                    android:text=""
                     android:textColor="#FFFF6C70"
                     android:textSize="@dimen/px_37" />
 
@@ -121,7 +121,7 @@
                     android:id="@+id/tv_red_bao_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="- ¥ 8"
+                    android:text=""
                     android:textColor="#FFFF6C70"
                     android:textSize="@dimen/px_37" />
 
@@ -167,7 +167,7 @@
                     android:id="@+id/tv_man_jian_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="- ¥ 30"
+                    android:text=""
                     android:textColor="#FFFF6C70"
                     android:textSize="@dimen/px_37" />
 
@@ -192,6 +192,7 @@
         android:background="#fff">
 
         <TextView
+            android:id="@+id/tv_wait_to_pay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

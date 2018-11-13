@@ -661,6 +661,11 @@ public class AppUtil {
         return sdf.format(new Date(time));
     }
 
+    public static String getFormatTime3(long time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        return sdf.format(new Date(time));
+    }
+
     /*
      * 将时间转换为时间戳
      */

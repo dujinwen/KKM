@@ -223,11 +223,11 @@ public class PersonFragment extends Fragment {
                 break;
             case R.id.daijinquan:
                 if (couponBean == null) return;
-                MyVoucherActivity.start(getActivity(), couponBean);
+                MyVoucherActivity.start(getActivity());
                 break;
             case R.id.hongbao:
                 if (hongBaoBean == null) return;
-                MyRedBaoActivity.start(getActivity(), hongBaoBean);
+                MyRedBaoActivity.start(getActivity());
                 break;
             case R.id.user_message_btn:
                 MessageActivity.start(getActivity());

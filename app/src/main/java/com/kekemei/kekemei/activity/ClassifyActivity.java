@@ -289,7 +289,7 @@ public class ClassifyActivity extends BaseActivity {
                     if (page == 1) {
                         arrayList.clear();
                     }
-                    arrayList.addAll(projectListBean.getData());
+                    arrayList.addAll(projectListBean.getData().getData());
                     listAdapter.setNewData(arrayList);
 
                 } catch (JSONException e) {

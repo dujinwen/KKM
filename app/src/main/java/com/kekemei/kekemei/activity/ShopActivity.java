@@ -143,7 +143,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout newComerLayout, memberLayout, preferenceLayout;
     private RecyclerView hotProjectRv, newComerRv, memberRv, preferenceRv;
-    private String beauticianId, userId;
+    private String userId;
+    private int beauticianId;
     private MyGridAdapter hotProjectAdapter, newComerAdapter, memberAdapter, preferenceAdapter;
     private EvaluateListAdapter commentAdapter;
     private DetailEnum detailEnum;
@@ -158,11 +159,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_can_yuyue;
 
     private String tel = "";
-    private String timeSelectPosition = null;
-    private Date daySelectPosition = null;
+    private int timeSelectPosition = -1;
+    private long daySelectPosition = -1L;
+
     public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
-        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
+        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_USER_ID, String.valueOf(userId));
         intent.putExtra(EXTRA_KEY_ENUM_ID, detailEnum);
         context.startActivity(intent);
@@ -193,7 +195,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         userId = super.getStringExtraSecure(EXTRA_KEY_USER_ID);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -429,7 +431,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         tv_can_yuyue.setTextColor(0XFF999999);
                     }
                     data.get(position).setSelect(true);
-                    timeSelectPosition=data.get(position).getName();
+                    timeSelectPosition = data.get(position).getId();
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -792,7 +794,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private void initDayTime(String time) {
         final CanlBean canlBean = new CanlBean();
-        daySelectPosition = new Date();
         calList.clear();
         for (int i = 0; i < 30; i++) {
             cal = Calendar.getInstance();
@@ -816,9 +817,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
         canlBean.setDataBean(calList);
 
-        timeData(canlBean.getDataBean().get(0).getTimeInMillis());
-        daySelectPosition = canlBean.getDataBean().get(0).getTime();
-        LogUtil.d("ShopActivity",daySelectPosition.toString());
+        long timeInMillis = canlBean.getDataBean().get(0).getTimeInMillis();
+        timeData(timeInMillis);
+        daySelectPosition = timeInMillis;
+        LogUtil.d("ShopActivity", daySelectPosition + "");
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -829,7 +831,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(View view, TextView textView, int position) {
-                daySelectPosition = canlBean.getDataBean().get(position).getTime();
+                daySelectPosition = canlBean.getDataBean().get(position).getTimeInMillis();
                 timeData(canlBean.getDataBean().get(position).getTimeInMillis());
             }
         });

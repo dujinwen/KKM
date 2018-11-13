@@ -300,15 +300,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     // 从Intent获取String extra的方法，这里增加了catch Exception的代码
-    protected final Date getDateExtraSecure(String key) {
+    protected final int getIntExtraSecure(String key) {
         try {
             Intent intent = getIntent();
             if (intent != null) {
-                return (Date) intent.getExtras().get(key);
+                return intent.getIntExtra(key,-1);
             }
         } catch (Exception e) {
             LogUtil.e(TAG, "exception getStringExtraSecure", e);
         }
-        return null;
+        return -1;
+    }
+    // 从Intent获取String extra的方法，这里增加了catch Exception的代码
+    protected final long getLongExtraSecure(String key) {
+        try {
+            Intent intent = getIntent();
+            if (intent != null) {
+                return intent.getLongExtra(key,-1L);
+            }
+        } catch (Exception e) {
+            LogUtil.e(TAG, "exception getStringExtraSecure", e);
+        }
+        return -1;
     }
 }

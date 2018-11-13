@@ -11,9 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.VoucherDataAdapter;
 import com.kekemei.kekemei.bean.CouponDataBean;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,8 +45,7 @@ public class MyVoucherActivity extends BaseActivity {
     Toolbar toolbar;
     private VoucherDataAdapter adapter;
 
-    public static void start(Context context, CouponDataBean couponDataBean) {
-        MyVoucherActivity.couponDataBean = couponDataBean;
+    public static void start(Context context) {
         Intent intent = new Intent(context, MyVoucherActivity.class);
         context.startActivity(intent);
     }
@@ -80,6 +88,38 @@ public class MyVoucherActivity extends BaseActivity {
         rvList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new VoucherDataAdapter();
         rvList.setAdapter(adapter);
-        adapter.addData(couponDataBean.getData());
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //数据是使用Intent返回
+                Intent intent = new Intent();
+                //把返回数据存入Intent
+                intent.putExtra("result", couponDataBean.getData().get(position).getCoupon().getPrice_reduction());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+
+        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id",
+                UserHelp.getUserId(this)).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                couponDataBean = gson.fromJson(response.body(), CouponDataBean.class);
+                adapter.addData(couponDataBean.getData());
+            }
+        });
     }
 }

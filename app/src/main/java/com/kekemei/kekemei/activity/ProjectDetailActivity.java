@@ -33,6 +33,7 @@ import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.CanlBean;
+import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
@@ -42,6 +43,7 @@ import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -61,9 +63,13 @@ import butterknife.OnClick;
  * 项目详情页面
  */
 public class ProjectDetailActivity extends BaseActivity implements View.OnClickListener {
-    private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
-    private static final String EXTRA_KEY_TIME_SELECT = "timeSelect";
-    private static final String EXTRA_KEY_DAY_SELECT = "daySelect";
+    public static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
+    public static final String EXTRA_KEY_TIME_SELECT = "timeSelect";
+    public static final String EXTRA_KEY_DAY_SELECT = "daySelect";
+    public static final String EXTRA_KEY_ORDER_ID = "orderId";
+    public static final String EXTRA_KEY_PLACE = "place";
+
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -135,13 +141,19 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private RecyclerView rvCommentList;
 
     private RecyclerView hotProjectRv;
-    private String beauticianId;
+
     private MyGridAdapter contentSectionAdapter;
     private EvaluateListAdapter commentAdapter;
 
     private String encoding = "UTF-8";
     private String mimeType = "text/html";
     private ProjectDetailBean detailBean;
+
+
+    private int beauticianId;
+    private int timeSelect;
+    private long dateSelect;
+
 
     @Nullable
     private LinearLayout ll_yuyue;
@@ -151,14 +163,24 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private TextView tv_date_and_week;
     private TextView tv_can_yuyue;
     private HashSet<Integer> hashSet = new HashSet<>();
-    private String timeSelect;
-    private Date dateSelect;
+    private String place;
 
-    public static void start(Context context, int beauticianId, String timeSelectPosition, Date daySelectPosition) {
+
+    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
-        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
+        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
         intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
+        context.startActivity(intent);
+    }
+
+
+    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, String place) {
+        Intent intent = new Intent(context, ProjectDetailActivity.class);
+        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
+        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
+        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
+        intent.putExtra(EXTRA_KEY_PLACE, place);
         context.startActivity(intent);
     }
 
@@ -175,11 +197,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        toolbar.setNavigationIcon(R.mipmap.back);
-        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
-        timeSelect = super.getStringExtraSecure(EXTRA_KEY_TIME_SELECT);
-        dateSelect = super.getDateExtraSecure(EXTRA_KEY_DAY_SELECT);
+        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        timeSelect = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
+        dateSelect = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
+        place = super.getStringExtraSecure(EXTRA_KEY_PLACE);
 
+
+        toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -370,27 +394,33 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_buy_now:
-                //                OkGo.<String>get(URLs.ORDER_GENERATING)
-                //                        .params("user_id", UserHelp.getUserId(this))
-                //                        .params("name", detailBean.getData().getName())
-                //                        .params("project_id", detailBean.getData().getProject_category_id())
-                //                        .params("count", 1)
-                //                        .execute(new StringCallback() {
-                //                            @Override
-                //                            public void onSuccess(Response<String> response) {
-                //
-                //                            }
-                //                        });
-                Intent intent = new Intent(ProjectDetailActivity.this, PushOrderActivity.class);
-                intent.putExtra(PushOrderActivity.IMAGE_URL, detailBean.getData().getImage());
-                intent.putExtra(PushOrderActivity.ORDER_NAME, detailBean.getData().getName());
-                intent.putExtra(PushOrderActivity.ORDER_PRICE, detailBean.getData().getPrice_newmember());
-                intent.putExtra(PushOrderActivity.PROJECT_ID, detailBean.getData().getProject_category_id());
-                startActivity(intent);
+                OkGo.<String>get(URLs.ORDER_GENERATING)
+                        .params("user_id", UserHelp.getUserId(this))
+                        .params("name", detailBean.getData().getName())
+                        .params("project_id", detailBean.getData().getProject_category_id())
+                        .params("count", 1)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Gson gson = new Gson();
+                                OrderGeneratingBean orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
+                                PayActivity.start(ProjectDetailActivity.this,
+                                        beauticianId,
+                                        timeSelect,
+                                        dateSelect,
+                                        orderGeneratingBean.getData().getOrder_id(),
+                                        orderGeneratingBean.getTime(),
+                                        place,
+                                        detailBean.getData().getName(),
+                                        detailBean.getData().getImage(),
+                                        detailBean.getData().getPrice_newmember()
+                                        , 1);
+                            }
+                        });
                 break;
             case R.id.ll_yuyue:
                 //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                if (timeSelect == null || dateSelect == null){
+                if (timeSelect == -1 || dateSelect == -1L) {
                     llSelectTime.setVisibility(View.VISIBLE);
                     llDianpuTab.setVisibility(View.GONE);
                     layoutBottomBar.setVisibility(View.GONE);
@@ -464,7 +494,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             LogUtil.e("section", "click:" + position);
                             BaseBean item = contentSectionAdapter.getItem(position);
-                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId(), null, null);
+                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId(), -1, -1L);
                         }
                     });
                 }
