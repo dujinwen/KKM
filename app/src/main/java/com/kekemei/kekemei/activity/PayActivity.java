@@ -16,6 +16,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.PayResultBean;
 import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
 import com.lzy.okgo.OkGo;
@@ -219,7 +220,10 @@ public class PayActivity extends BaseActivity {
                 break;
             case R.id.btn_pay:
                 String payUrl = "";
-
+                if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()){
+                    ToastUtil.showToastMsg(PayActivity.this,"请选择一种支付方式");
+                    return;
+                }
                 if (ivCheckAli.isChecked()) {
                     payUrl = URLs.ORDER_ALI_PAY;
                 } else {
