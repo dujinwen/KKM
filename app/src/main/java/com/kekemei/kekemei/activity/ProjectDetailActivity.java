@@ -42,7 +42,6 @@ import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -50,6 +49,8 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +62,8 @@ import butterknife.OnClick;
  */
 public class ProjectDetailActivity extends BaseActivity implements View.OnClickListener {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
+    private static final String EXTRA_KEY_TIME_SELECT = "timeSelect";
+    private static final String EXTRA_KEY_DAY_SELECT = "daySelect";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -147,10 +150,15 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private YuYueDataListAdapter yuYueDataListAdapter;
     private TextView tv_date_and_week;
     private TextView tv_can_yuyue;
+    private HashSet<Integer> hashSet = new HashSet<>();
+    private String timeSelect;
+    private Date dateSelect;
 
-    public static void start(Context context, int beauticianId) {
+    public static void start(Context context, int beauticianId, String timeSelectPosition, Date daySelectPosition) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
+        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
+        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
         context.startActivity(intent);
     }
 
@@ -169,6 +177,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
         beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        timeSelect = super.getStringExtraSecure(EXTRA_KEY_TIME_SELECT);
+        dateSelect = super.getDateExtraSecure(EXTRA_KEY_DAY_SELECT);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -307,18 +318,20 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         view.setBackground(ContextCompat.getDrawable(ProjectDetailActivity.this, R.drawable.btn_7ad2d2_background));
                         tv_date_and_week.setTextColor(0XFFFFFFFF);
                         tv_can_yuyue.setTextColor(0XFFFFFFFF);
+                        hashSet.add(position);
                     } else {
                         view.setSelected(false);
                         view.setBackground(ContextCompat.getDrawable(ProjectDetailActivity.this, R.drawable.btn_white_background));
                         tv_date_and_week.setTextColor(0XFF999999);
                         tv_can_yuyue.setTextColor(0XFF999999);
+                        hashSet.remove(position);
                     }
                 }
             }
         });
     }
 
-    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.projectDetail:
@@ -357,29 +370,39 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_buy_now:
-//                OkGo.<String>get(URLs.ORDER_GENERATING)
-//                        .params("user_id", UserHelp.getUserId(this))
-//                        .params("name", detailBean.getData().getName())
-//                        .params("project_id", detailBean.getData().getProject_category_id())
-//                        .params("count", 1)
-//                        .execute(new StringCallback() {
-//                            @Override
-//                            public void onSuccess(Response<String> response) {
-//
-//                            }
-//                        });
+                //                OkGo.<String>get(URLs.ORDER_GENERATING)
+                //                        .params("user_id", UserHelp.getUserId(this))
+                //                        .params("name", detailBean.getData().getName())
+                //                        .params("project_id", detailBean.getData().getProject_category_id())
+                //                        .params("count", 1)
+                //                        .execute(new StringCallback() {
+                //                            @Override
+                //                            public void onSuccess(Response<String> response) {
+                //
+                //                            }
+                //                        });
                 Intent intent = new Intent(ProjectDetailActivity.this, PushOrderActivity.class);
-                intent.putExtra(PushOrderActivity.IMAGE_URL,detailBean.getData().getImage());
-                intent.putExtra(PushOrderActivity.ORDER_NAME,detailBean.getData().getName());
-                intent.putExtra(PushOrderActivity.ORDER_PRICE,detailBean.getData().getPrice_newmember());
-                intent.putExtra(PushOrderActivity.PROJECT_ID,detailBean.getData().getProject_category_id());
+                intent.putExtra(PushOrderActivity.IMAGE_URL, detailBean.getData().getImage());
+                intent.putExtra(PushOrderActivity.ORDER_NAME, detailBean.getData().getName());
+                intent.putExtra(PushOrderActivity.ORDER_PRICE, detailBean.getData().getPrice_newmember());
+                intent.putExtra(PushOrderActivity.PROJECT_ID, detailBean.getData().getProject_category_id());
                 startActivity(intent);
                 break;
             case R.id.ll_yuyue:
                 //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                llSelectTime.setVisibility(View.VISIBLE);
-                llDianpuTab.setVisibility(View.GONE);
-                layoutBottomBar.setVisibility(View.GONE);
+                if (timeSelect == null || dateSelect == null){
+                    llSelectTime.setVisibility(View.VISIBLE);
+                    llDianpuTab.setVisibility(View.GONE);
+                    layoutBottomBar.setVisibility(View.GONE);
+                }
+
+                break;
+            case R.id.queding:
+                llSelectTime.setVisibility(View.GONE);
+                llDianpuTab.setVisibility(View.VISIBLE);
+                layoutBottomBar.setVisibility(View.VISIBLE);
+
+
                 break;
         }
     }
@@ -441,13 +464,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             LogUtil.e("section", "click:" + position);
                             BaseBean item = contentSectionAdapter.getItem(position);
-                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId());
+                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId(), null, null);
                         }
                     });
                 }
                 if (detailBean.getData().getComment() != null && CollectionUtils.isNotEmpty(detailBean.getData().getComment().getAll())) {
                     commentSectionView.setVisibility(View.VISIBLE);
-//                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                    //                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
                     tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
                     commentData = detailBean.getData().getComment();
                     commentAdapter.replaceData(detailBean.getData().getComment().getAll());
@@ -541,6 +564,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private CustomDatePicker startTimePicker;
+
     /*
      *初始化时间选择器
      */
@@ -573,6 +597,4 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
-
 }

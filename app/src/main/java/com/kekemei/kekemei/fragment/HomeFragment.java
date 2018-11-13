@@ -228,10 +228,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 adapter1.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId());
-                        }
+                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
                     }
                 });
 
@@ -244,10 +242,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId());
-                        }
+                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
                     }
                 });
 
@@ -260,10 +256,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 adapter2.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId());
-                        }
+                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
                     }
                 });
 
@@ -276,10 +270,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 adapter3.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        if (view.getId() == R.id.ll_huodong) {
                             BaseBean data = adapter1.getItem(position);
-                            ProjectDetailActivity.start(getActivity(), data.getId());
-                        }
+                            ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
                     }
                 });
                 rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -384,9 +376,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 double longitude = amapLocation.getLongitude();//获取经度
                 SPUtils.putString(getActivity(), "latitude", latitude + "");
                 SPUtils.putString(getActivity(), "longitude", longitude + "");
-                //                mPoint = new DPoint(latitude,longitude);
-                //                loadData();//后续操作
-
                 initData(latitude + "", longitude + "");
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {

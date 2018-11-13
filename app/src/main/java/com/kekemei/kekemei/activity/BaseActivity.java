@@ -23,6 +23,7 @@ import com.kekemei.kekemei.utils.LogUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -291,6 +292,19 @@ public abstract class BaseActivity extends AppCompatActivity {
             Intent intent = getIntent();
             if (intent != null) {
                 return intent.getStringExtra(key);
+            }
+        } catch (Exception e) {
+            LogUtil.e(TAG, "exception getStringExtraSecure", e);
+        }
+        return null;
+    }
+
+    // 从Intent获取String extra的方法，这里增加了catch Exception的代码
+    protected final Date getDateExtraSecure(String key) {
+        try {
+            Intent intent = getIntent();
+            if (intent != null) {
+                return (Date) intent.getExtras().get(key);
             }
         } catch (Exception e) {
             LogUtil.e(TAG, "exception getStringExtraSecure", e);

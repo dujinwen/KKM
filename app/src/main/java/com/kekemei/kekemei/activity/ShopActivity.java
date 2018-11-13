@@ -12,10 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -52,7 +50,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -160,7 +158,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_can_yuyue;
 
     private String tel = "";
-
+    private String timeSelectPosition = null;
+    private Date daySelectPosition = null;
     public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, String.valueOf(beauticianId));
@@ -288,7 +287,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = hotProjectAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition);
             }
         });
         view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
@@ -322,7 +321,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = memberAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition);
             }
         });
         view.findViewById(R.id.lookMoreMember).setOnClickListener(new View.OnClickListener() {
@@ -339,7 +338,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = preferenceAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId());
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition);
             }
         });
         view.findViewById(R.id.lookMorePreference).setOnClickListener(new View.OnClickListener() {
@@ -392,7 +391,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         rvMeirongshi.setAdapter(meiRongShiAdapter);
     }
 
-    private HashSet<Integer> hashSet = new HashSet<>();
 
     private void initCommentView(View view) {
         userCommentNum = view.findViewById(R.id.userCommentNum);
@@ -419,22 +417,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         yuYueDataListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<YuYueDataBean.DataBean> data = adapter.getData();
                 if (view.getId() == R.id.ll_select_data_time) {
+
                     tv_date_and_week = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_date_and_week);
                     tv_can_yuyue = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_can_yuyue);
-                    if (!view.isSelected()) {
-                        view.setSelected(true);
-                        view.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.drawable.btn_7ad2d2_background));
-                        tv_date_and_week.setTextColor(0XFFFFFFFF);
-                        tv_can_yuyue.setTextColor(0XFFFFFFFF);
-                        hashSet.add(position);
-                    } else {
-                        view.setSelected(false);
+                    for (YuYueDataBean.DataBean item : data) {
+                        item.setSelect(false);
                         view.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.drawable.btn_white_background));
                         tv_date_and_week.setTextColor(0XFF999999);
                         tv_can_yuyue.setTextColor(0XFF999999);
-                        hashSet.remove(position);
                     }
+                    data.get(position).setSelect(true);
+                    timeSelectPosition=data.get(position).getName();
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -514,10 +510,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 llSelectTime.setVisibility(View.VISIBLE);
                 llDianpuTab.setVisibility(View.GONE);
                 layoutBottomBar.setVisibility(View.GONE);
+                initDayTime("");
                 break;
 
             case R.id.queding:
-                LogUtil.d("ShopActivity", hashSet.toString());
+                llSelectTime.setVisibility(View.GONE);
+                llDianpuTab.setVisibility(View.VISIBLE);
+                layoutBottomBar.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -783,7 +782,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         }
-        initDayTime("");
+
 
         initDatePicker(this);
     }
@@ -793,7 +792,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private void initDayTime(String time) {
         final CanlBean canlBean = new CanlBean();
-
+        daySelectPosition = new Date();
         calList.clear();
         for (int i = 0; i < 30; i++) {
             cal = Calendar.getInstance();
@@ -818,6 +817,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         canlBean.setDataBean(calList);
 
         timeData(canlBean.getDataBean().get(0).getTimeInMillis());
+        daySelectPosition = canlBean.getDataBean().get(0).getTime();
+        LogUtil.d("ShopActivity",daySelectPosition.toString());
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -828,6 +829,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(View view, TextView textView, int position) {
+                daySelectPosition = canlBean.getDataBean().get(position).getTime();
                 timeData(canlBean.getDataBean().get(position).getTimeInMillis());
             }
         });
@@ -898,7 +900,5 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }, "2018-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         startTimePicker.showSpecificTime(false); // 显示时和分
         startTimePicker.setIsLoop(true); // 允许循环滚动
-
-
     }
 }

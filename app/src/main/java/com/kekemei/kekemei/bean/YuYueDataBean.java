@@ -63,6 +63,16 @@ public class YuYueDataBean {
         private String name;
         private int state;
 
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
+
+        private boolean isSelect;
+
         public int getId() {
             return id;
         }
