@@ -229,7 +229,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         adapter4.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                BaseBean data = adapter1.getItem(position);
+                BaseBean data = adapter4.getItem(position);
                 ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
             }
         });
@@ -261,6 +261,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 ProjectDetailActivity.start(getActivity(), data.getId(), null, null);
             }
         });
+
         rvCommentList.setLayoutManager(new LinearLayoutManager(getActivity()));
         commentAdapter = new EvaluateListAdapter(getActivity(), false);
         rvCommentList.setHasFixedSize(true);
@@ -285,19 +286,19 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                         HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
                         xbanner.setData(homeBean.getData().getBanneradv(), null);
                         initBanner();
-                        meiRongShiAdapter.addData(homeBean.getData().getBeautician());
-                        adapter_vip.addData(homeBean.getData().getShop());
-                        adapter1.addData(homeBean.getData().getNewmemberdata());
-                        adapter2.addData(homeBean.getData().getMemberdata());
-                        adapter3.addData(homeBean.getData().getSpecialdata());
-                        adapter4.addData(homeBean.getData().getHotdata());
+                        meiRongShiAdapter.setNewData(homeBean.getData().getBeautician());
+                        adapter_vip.setNewData(homeBean.getData().getShop());
+                        adapter1.setNewData(homeBean.getData().getNewmemberdata());
+                        adapter2.setNewData(homeBean.getData().getMemberdata());
+                        adapter3.setNewData(homeBean.getData().getSpecialdata());
+                        adapter4.setNewData(homeBean.getData().getHotdata());
                         if (homeBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getAll())) {
                             commentLayout.setVisibility(View.VISIBLE);
                             userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size()
                                     + homeBean.getData().getCommentdata().getNewX().size() + homeBean.getData().getCommentdata().getHaveimg().size()));
                             commentdata = homeBean.getData().getCommentdata();
                             LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
-                            commentAdapter.addData(homeBean.getData().getCommentdata().getAll());
+                            commentAdapter.setNewData(homeBean.getData().getCommentdata().getAll());
                         } else {
                             commentLayout.setVisibility(View.GONE);
                         }

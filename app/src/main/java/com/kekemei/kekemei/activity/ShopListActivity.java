@@ -67,7 +67,7 @@ public class ShopListActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        tvTitle.setText("美容师");
+        tvTitle.setText("店铺");
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,8 +147,4 @@ public class ShopListActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.fenlei)
-    public void onViewClicked() {
-        startActivity(new Intent(this, PayActivity.class));
-    }
 }

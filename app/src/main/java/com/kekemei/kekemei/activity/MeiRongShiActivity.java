@@ -149,16 +149,16 @@ public class MeiRongShiActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
-    @OnClick({R.id.ll_fanhui, R.id.ll_search})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_fanhui:
-                finish();
-                break;
-            case R.id.ll_search:
-                SearchActivity.start(MeiRongShiActivity.this);
-                break;
-        }
-    }
+//
+//    @OnClick({R.id.ll_fanhui, R.id.ll_search})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.ll_fanhui:
+//                finish();
+//                break;
+//            case R.id.ll_search:
+//                SearchActivity.start(MeiRongShiActivity.this);
+//                break;
+//        }
+//    }
 }
