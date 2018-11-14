@@ -131,7 +131,7 @@ public class MessageFragment2 extends Fragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
                 switch (view.getId()) {
-                    case R.id.quxiaodingdan:
+                    case R.id.iv_del_order:
                         OkGo.<String>get(URLs.DEL_ORDER)
                                 .params("user_id", UserHelp.getUserId(getActivity()))
                                 .params("order_id", item.getId())
