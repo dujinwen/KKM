@@ -82,11 +82,8 @@
             android:name=".activity.MainActivity"
             android:clipToPadding="true"
             android:fitsSystemWindows="true"
-
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
 
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.HelpCenterActivity" />
@@ -104,9 +101,10 @@
         <activity android:name=".activity.AddCommentActivity" />
         <activity android:name=".activity.ProjectDetailActivity" />
         <activity android:name=".activity.NewComerActivity" />
+        <activity android:name=".activity.ShopBeauticianActivity" />
         <activity
             android:name=".activity.ChatActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
 
         <!-- 微信 start -->
@@ -124,7 +122,6 @@
         <!-- 微信 end -->
 
 
-
         <!-- 支付宝 start -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -138,9 +135,6 @@
             android:screenOrientation="behind" />
         <activity android:name=".activity.WebActivityNew" />
         <!-- 支付宝 end -->
-
-
-
 
 
         <!-- 设置环信应用的AppKey -->

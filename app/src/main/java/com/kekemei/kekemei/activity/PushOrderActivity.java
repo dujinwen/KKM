@@ -13,9 +13,7 @@ import android.widget.TextView;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
-import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
 import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
@@ -117,11 +115,8 @@ public class PushOrderActivity extends BaseActivity {
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PushOrderActivity.class);
         intent.putExtra(EXTRA_KEY_YUYUE_BEAN, yuYueActivityBean);
-
         context.startActivity(intent);
     }
-
-    ;
 
 
     @Override

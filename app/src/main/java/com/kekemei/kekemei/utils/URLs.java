@@ -104,6 +104,8 @@ public class URLs {
     public static final String BEAUTICIAN_SEARCH ="http://kekemei.ecooth.com/api/beautician/search";
     //预约时间
     public static final String APPOINTMENT_TIME_DATA ="http://kekemei.ecooth.com/api/appointment/timedata";
+    //通过店铺查找美容师
+    public static final String SHOP_BEAUTICIAN ="http://kekemei.ecooth.com/api/shop/shopbeautician";
     /**
      * 搜索
      */
@@ -119,7 +121,8 @@ public class URLs {
     public static final String SHOP_NEAR = "http://kekemei.ecooth.com/api/shop/nearbyShop";
     //店铺主页
     public static final String SHOP_DETAILS = "http://kekemei.ecooth.com/api/shop/details";
-
+    //店铺主页
+    public static final String COORDINATE_SHOP = "http://kekemei.ecooth.com/api/shop/coordinateshop";
 
 
     /**
