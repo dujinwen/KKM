@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -137,7 +138,6 @@ public class PayActivity extends BaseActivity {
     private int hongbaonum, youhuiqunnum, manjiannum = 0;
 
 
-
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
@@ -172,6 +172,7 @@ public class PayActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        registerReciver();
         yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
         order_Id = yuYueActivityBean.getOrderId();
         order_create_time = Long.valueOf(yuYueActivityBean.getOrderCreateTime());
@@ -340,7 +341,7 @@ public class PayActivity extends BaseActivity {
 
     // TODO: 2018/11/13 去预约美容师页面
     private void toSelectActivity() {
-       PushOrderActivity.start(PayActivity.this,yuYueActivityBean);
+        PushOrderActivity.start(PayActivity.this, yuYueActivityBean);
     }
 
 
@@ -365,22 +366,22 @@ public class PayActivity extends BaseActivity {
     private void handleAliPayResult(Message msg) {
         Map<String, String> result = (Map<String, String>) msg.obj;
         int resultStatus = Integer.parseInt(result.get("resultStatus"));
-            switch (resultStatus) {
-                //支付成功
-                case 9000:
-                    toSelectActivity();
-                    break;
-                //未知结果
-                case 8000:
-                case 6004:
-                    break;
-                //取消支付
-                case 6001:
-                    break;
-                //其他情况,支付失败
-                default:
-                    break;
-            }
+        switch (resultStatus) {
+            //支付成功
+            case 9000:
+                toSelectActivity();
+                break;
+            //未知结果
+            case 8000:
+            case 6004:
+                break;
+            //取消支付
+            case 6001:
+                break;
+            //其他情况,支付失败
+            default:
+                break;
+        }
     }
 
 
@@ -401,5 +402,23 @@ public class PayActivity extends BaseActivity {
         message.what = Common.ACTIVITY_REQUEST_CODE_WX_PAY;
         message.obj = errCode;
         handler.sendMessage(message);
+    }
+
+    public void registerReciver() {
+
+        //注册微信支付结果广播
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Common.WX_PAY_RESULT);
+        registerReceiver(mBroadcastReceiver, intentFilter);
+    }
+
+    public void unregisterReciver() {
+        unregisterReceiver(mBroadcastReceiver); //取消监听
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReciver();
     }
 }
