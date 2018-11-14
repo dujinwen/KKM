@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
+import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
 import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
@@ -133,18 +135,24 @@ public class PushOrderActivity extends BaseActivity {
         initOrderData();
 
 
-        if (yuYueActivityBean.getBeauticianDetailBean() == null && yuYueActivityBean.getShopDetailBean() == null) {
-            // TODO: 2018/11/14 从附近的店铺预约
-        } else if (yuYueActivityBean.getShopDetailBean() != null) {
+        if (yuYueActivityBean.getShopDetailBean() != null) {
             // TODO: 2018/11/14  通过店铺查找美容师
-        } else if (yuYueActivityBean.getBeauticianDetailBean() != null) {
+            llShopPlace.setClickable(false);
+            tvPlace.setText(yuYueActivityBean.getShopDetailBean().getData().getCity() + yuYueActivityBean.getShopDetailBean().getData().getAddress());
+        }
+        if (yuYueActivityBean.getBeauticianDetailBean() != null) {
             // TODO: 2018/11/14  店铺主页
+            llMeirongshiSelect.setClickable(false);
+            tvName.setText(yuYueActivityBean.getBeauticianDetailBean().getData().getNickname());
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getData().getImage(), civIcon);
+            sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getData().getState()));
         }
 
 
         if (yuYueActivityBean.getTimeSelect() != -1 && yuYueActivityBean.getDateSelect() != -1L) {
             llServiceTime.setClickable(false);
             tvTime.setText(AppUtil.getFormatTime1(yuYueActivityBean.getDateSelect()) + "  " + yuYueActivityBean.getTimeSelectName());
+
         }
 
     }
@@ -209,19 +217,21 @@ public class PushOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meirongshi_select:
+                ShopBeauticianActivity.start(PushOrderActivity.this, yuYueActivityBean.getBeauticianDetailBean().getData().getShop_shop_ids() + "", false);
                 break;
             case R.id.ll_shop_place:
+                ShopBeauticianActivity.start(PushOrderActivity.this, yuYueActivityBean.getShopDetailBean().getData().getId() + "", false);
                 break;
             case R.id.ll_service_time:
                 break;
             case R.id.btn_yuyue:
                 OkGo.<String>get(URLs.ADD_APPOINTMENT)
-                        .params("user_id",UserHelp.getUserId(PushOrderActivity.this))
-                        .params("shop_id",yuYueActivityBean.getShopDetailBean().getData().getId())
-                        .params("beautician_id",yuYueActivityBean.getBeauticianDetailBean().getData().getId())
-                        .params("timedata",yuYueActivityBean.getTimeSelect())
-                        .params("timedstartdate",yuYueActivityBean.getDateSelect())
-                        .params("order_id",yuYueActivityBean.getOrderId())
+                        .params("user_id", UserHelp.getUserId(PushOrderActivity.this))
+                        .params("shop_id", yuYueActivityBean.getShopDetailBean().getData().getId())
+                        .params("beautician_id", yuYueActivityBean.getBeauticianDetailBean().getData().getId())
+                        .params("timedata", yuYueActivityBean.getTimeSelect())
+                        .params("timedstartdate", yuYueActivityBean.getDateSelect())
+                        .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
