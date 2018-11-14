@@ -173,7 +173,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(false);
-                mCurrentTab = EVALUATE_STATUS_ALL;
+                mCurrentTab = EVALUATE_STATUS_QUITE_SATISFACTION;
                 loadData(true);
                 break;
             case R.id.tabSatisfaction:
@@ -182,7 +182,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(true);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(false);
-                mCurrentTab = EVALUATE_STATUS_ALL;
+                mCurrentTab = EVALUATE_STATUS_SATISFACTION;
                 loadData(true);
                 break;
             case R.id.tabBasicallySatisfaction:
@@ -191,7 +191,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(true);
                 tabDissatisfied.setSelected(false);
-                mCurrentTab = EVALUATE_STATUS_ALL;
+                mCurrentTab = EVALUATE_STATUS_BASICALLY_SATISFACTION;
                 loadData(true);
                 break;
             case R.id.tabDissatisfied:
@@ -200,7 +200,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 tabSatisfaction.setSelected(false);
                 tabBasicallySatisfaction.setSelected(false);
                 tabDissatisfied.setSelected(true);
-                mCurrentTab = EVALUATE_STATUS_ALL;
+                mCurrentTab = EVALUATE_STATUS_DISSATISFIED;
                 loadData(true);
                 break;
         }
@@ -261,25 +261,25 @@ public class UserEvaluateActivity extends BaseActivity {
             if (null == response || null == evaluateListBean.getData()) {
                 showEmpty();
             }
-            fillTabText(evaluateListBean.getData().getCount());
+           /* fillTabText(evaluateListBean.getData().getCount());
             if (mCurrentTab == EVALUATE_STATUS_ALL) {
-                fillData(evaluateListBean.getData().getAll());
+                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
             } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
-                fillData(evaluateListBean.getData().getQuite());
+                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
             } else if (mCurrentTab == EVALUATE_STATUS_SATISFACTION) {
-                fillData(evaluateListBean.getData().getCommonly());
+                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
             } else if (mCurrentTab == EVALUATE_STATUS_BASICALLY_SATISFACTION) {
-                fillData(evaluateListBean.getData().getBasic());
+                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
             } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
-                fillData(evaluateListBean.getData().getDis());
-            }
+            }*/
+            fillData(evaluateListBean.getData().getData().get(mCurrentTab));
         } else {
             jPageNum++;
             EvaluateListBean evaluateListBean = (EvaluateListBean) response;
             fillTabText(evaluateListBean.getData().getCount());
-            if (mCurrentTab == EVALUATE_STATUS_ALL) {
-                fillData(evaluateListBean.getData().getAll());
-            } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
+           /* if (mCurrentTab == EVALUATE_STATUS_ALL) {*/
+            loadMoreSuccess(evaluateListBean.getData().getData().get(mCurrentTab));
+           /* } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
                 fillData(evaluateListBean.getData().getQuite());
             } else if (mCurrentTab == EVALUATE_STATUS_SATISFACTION) {
                 fillData(evaluateListBean.getData().getCommonly());
@@ -287,7 +287,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 fillData(evaluateListBean.getData().getBasic());
             } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
                 fillData(evaluateListBean.getData().getDis());
-            }
+            }*/
         }
     }
 
