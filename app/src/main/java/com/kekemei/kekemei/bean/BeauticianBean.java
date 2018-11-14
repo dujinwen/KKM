@@ -1,11 +1,12 @@
 package com.kekemei.kekemei.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 美容师
  */
-public class BeauticianBean {
+public class BeauticianBean implements Serializable {
     /**
      * content : 3333333
      * distance :

@@ -5,20 +5,18 @@ import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocationClient;
-import com.kekemei.kekemei.utils.AppCompatUtils;
-import com.kekemei.kekemei.utils.Common;
-import com.kekemei.kekemei.init.OkHttpInit;
-import com.kekemei.kekemei.manager.AppFolderManager;
-import com.kekemei.kekemei.view.ImagePickerLoader;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
+import com.kekemei.kekemei.init.OkHttpInit;
+import com.kekemei.kekemei.manager.AppFolderManager;
+import com.kekemei.kekemei.utils.AppCompatUtils;
+import com.kekemei.kekemei.utils.Common;
+import com.kekemei.kekemei.view.ImagePickerLoader;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareConfig;
 
 import java.lang.reflect.Field;
 
@@ -104,7 +102,7 @@ public class App extends MultiDexApplication {
 //         * 设置组件化的Log开关
 //         * 参数: boolean 默认为false，如需查看LOG设置为true
 //         */
-//        UMConfigure.setLogEnabled(true);
+        UMConfigure.setLogEnabled(true);
     }
 
     /**

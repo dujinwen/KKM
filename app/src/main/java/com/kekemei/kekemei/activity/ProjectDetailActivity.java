@@ -53,7 +53,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -518,7 +517,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     int code = jsonObject.optInt("code");
-                    if (code != 200) {
+                    if (code != 1) {
                         multipleStatusView.showNoNetwork();
                         return;
                     }

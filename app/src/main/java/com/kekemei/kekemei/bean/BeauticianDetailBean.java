@@ -44,7 +44,7 @@ public class BeauticianDetailBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
 
         private int id;
         private String name;
@@ -362,7 +362,7 @@ public class BeauticianDetailBean implements Serializable {
             this.commentdata = commentdata;
         }
 
-        public static class CommentdataBean {
+        public static class CommentdataBean implements Serializable{
             private int count;
             private List<CommentTagsBean> tags;
             private List<EvaluateBean> all;
@@ -411,7 +411,7 @@ public class BeauticianDetailBean implements Serializable {
             }
         }
 
-        public static class RedEnvelopes {
+        public static class RedEnvelopes implements Serializable{
 
             /**
              * count : 9
@@ -528,7 +528,7 @@ public class BeauticianDetailBean implements Serializable {
             }
         }
 
-        public static class CouponBean {
+        public static class CouponBean implements Serializable{
             /**
              * id : 1
              * name : 111111
@@ -645,7 +645,7 @@ public class BeauticianDetailBean implements Serializable {
         }
     }
 
-    public static class RecBeauticianBean {
+    public static class RecBeauticianBean implements Serializable {
         /**
          * id : 2
          * name : 专业美容师

@@ -325,18 +325,6 @@ public class AppUtil {
         ctx.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
     }
 
-    public static boolean isWifi(Context ctx) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) ctx
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetInfo != null
-                && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-            return true;
-        }
-
-        return false;
-    }
-
     //获取float两位小数
     public static String getFloatStr(float val) {
         DecimalFormat fnum = new DecimalFormat("##0.00");

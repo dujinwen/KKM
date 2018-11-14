@@ -123,6 +123,7 @@ public final class EaseUI {
         }
         
         sdkInited = true;
+
         return true;
     }
 

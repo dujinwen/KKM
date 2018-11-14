@@ -43,7 +43,7 @@ public class ShopDetailBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         private int id;
         private String name;
         private String image;
@@ -351,7 +351,7 @@ public class ShopDetailBean implements Serializable {
             this.memberdata = memberdata;
         }
 
-        public static class CommentdataBean {
+        public static class CommentdataBean implements Serializable{
 
             /**
              * tags : [{"id":3,"name":"美容师专业","state":"1","weigh":0,"tag_type":"1","state_text":"正常","tag_type_text":"Tag_type 1"},{"id":5,"name":"干净卫生","state":"1","weigh":0,"tag_type":"2","state_text":"正常","tag_type_text":"Tag_type 2"}]
@@ -409,7 +409,7 @@ public class ShopDetailBean implements Serializable {
             }
         }
 
-        public static class ServiceBean {
+        public static class ServiceBean implements Serializable{
             /**
              * id : 1
              * name : 品质保障
@@ -435,7 +435,7 @@ public class ShopDetailBean implements Serializable {
             }
         }
 
-        public static class CouponBean {
+        public static class CouponBean implements Serializable{
             /**
              * id : 1
              * name : 满599减50
@@ -561,7 +561,7 @@ public class ShopDetailBean implements Serializable {
             }
         }
 
-        public static class RedenvelopesBean {
+        public static class RedenvelopesBean implements Serializable{
             /**
              * id : 1
              * name : 111111

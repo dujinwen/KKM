@@ -1,12 +1,13 @@
 package com.kekemei.kekemei.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by peiyangfan on 2018/10/12.
  */
 
-public class BaseBean {
+public class BaseBean implements Serializable {
 
     /**
      * id : 1

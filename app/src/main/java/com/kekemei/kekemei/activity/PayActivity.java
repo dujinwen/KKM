@@ -26,7 +26,6 @@ import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.OrderInfoUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
@@ -37,10 +36,6 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -362,7 +357,7 @@ public class PayActivity extends BaseActivity {
         }
         LogUtil.d("PAY_GET", code + "");
     }
-
+    @SuppressWarnings("unchecked")
     private void handleAliPayResult(Message msg) {
         Map<String, String> result = (Map<String, String>) msg.obj;
         int resultStatus = Integer.parseInt(result.get("resultStatus"));

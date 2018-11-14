@@ -204,13 +204,13 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
      * @param holder
      */
     private void showFragment(ViewHolder holder) {
-        FragmentTransaction transaction = mFragmentActivity.getFragmentManager().beginTransaction();
+        android.support.v4.app.FragmentTransaction transaction = mFragmentActivity.getSupportFragmentManager().beginTransaction();
         if (isFragmentShown(transaction, holder.tag)) {
             return;
         }
         setCurrSelectedTabByTag(holder.tag);
 
-        Fragment fragment = mFragmentActivity.getFragmentManager().findFragmentByTag(holder.tag);
+        android.support.v4.app.Fragment fragment = mFragmentActivity.getSupportFragmentManager().findFragmentByTag(holder.tag);
         if (fragment == null) {
             fragment = getFragmentInstance(holder.tag);
             transaction.add(mMainContentLayoutId, fragment, holder.tag);
@@ -221,7 +221,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
         mCurrentSelectedTab = holder.tabIndex;
     }
 
-    private boolean isFragmentShown(FragmentTransaction transaction, String newTag) {
+    private boolean isFragmentShown( android.support.v4.app.FragmentTransaction transaction, String newTag) {
         if (TextUtils.equals(newTag, mCurrentTag)) {
             return true;
         }
@@ -230,7 +230,7 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
             return false;
         }
 
-        Fragment fragment = mFragmentActivity.getFragmentManager().findFragmentByTag(mCurrentTag);
+        android.support.v4.app.Fragment fragment = mFragmentActivity.getSupportFragmentManager().findFragmentByTag(mCurrentTag);
         if (fragment != null && !fragment.isHidden()) {
             transaction.hide(fragment);
         }
@@ -256,12 +256,12 @@ public class MainNavigateTabBar extends LinearLayout implements View.OnClickList
     }
 
 
-    private Fragment getFragmentInstance(String tag) {
-        Fragment fragment = null;
+    private android.support.v4.app.Fragment getFragmentInstance(String tag) {
+        android.support.v4.app.Fragment fragment = null;
         for (ViewHolder holder : mViewHolderList) {
             if (TextUtils.equals(tag, holder.tag)) {
                 try {
-                    fragment = (Fragment) Class.forName(holder.fragmentClass.getName()).newInstance();
+                    fragment = (android.support.v4.app.Fragment) Class.forName(holder.fragmentClass.getName()).newInstance();
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
