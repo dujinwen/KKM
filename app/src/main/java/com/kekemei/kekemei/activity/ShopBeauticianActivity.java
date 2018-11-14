@@ -1,6 +1,6 @@
 package com.kekemei.kekemei.activity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,7 +40,9 @@ import butterknife.BindView;
 public class ShopBeauticianActivity extends BaseActivity {
     public static final String TAG = ShopBeauticianActivity.class.getSimpleName();
     private static final String EXTRA_KEY_SHOP_ID = "shopId";
-    private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
+    private static final String EXTRA_KEY_SHOW_SHOP = "showShop";
+    public static final int EXTRA_KEY_START_CODE = 1000;
+    public static final int EXTRA_KEY_RESULT_CODE = 1001;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -59,14 +61,15 @@ public class ShopBeauticianActivity extends BaseActivity {
     private boolean isLoadMore = false;
     private int jPageNum = 1;
 
-    private String shopId, beauticianId;
+    private String shopId;
+    private boolean showShop;
     private String latitude, longitude;
 
-    public static void start(Context context, String shopId, String beauticianId) {
-        Intent intent = new Intent(context, ShopBeauticianActivity.class);
+    public static void start(Activity activity, String shopId, boolean showShop) {
+        Intent intent = new Intent(activity, ShopBeauticianActivity.class);
         intent.putExtra(EXTRA_KEY_SHOP_ID, shopId);
-        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
-        context.startActivity(intent);
+        intent.putExtra(EXTRA_KEY_SHOW_SHOP, showShop);
+        activity.startActivityForResult(intent, EXTRA_KEY_START_CODE);
     }
 
     @Override
@@ -83,9 +86,9 @@ public class ShopBeauticianActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         shopId = super.getStringExtraSecure(EXTRA_KEY_SHOP_ID);
-        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        showShop = getIntent().getBooleanExtra(EXTRA_KEY_SHOW_SHOP, false);
         toolbar.setNavigationIcon(R.mipmap.back);
-        tv_title.setText("选择美容师");
+        tv_title.setText(showShop ? "选择店铺" : "选择美容师");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,33 +105,61 @@ public class ShopBeauticianActivity extends BaseActivity {
                 initData();
             }
         });
-
         multipleStatusView.showOutContentView(refresh_layout);
 
-        refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadData(true);
-            }
+        if (showShop) {
+            refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+                @Override
+                public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                    loadData(true);
+                }
 
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                loadMoreData();
-            }
-        });
-        refresh_layout.setRefreshHeader(new ClassicsHeader(this));
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    loadMoreData();
+                }
+            });
+            refresh_layout.setRefreshHeader(new ClassicsHeader(this));
+        } else {
+            refresh_layout.setEnableRefresh(false);
+        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         rvList.setLayoutManager(linearLayoutManager);
 
-        beauticianAdapter = new SelectBeauticianAdapter(getBaseContext());
-        rvList.setAdapter(beauticianAdapter);
+        if (showShop) {
+            shopAdapter = new SelectShopAdapter(getBaseContext());
+            rvList.setAdapter(shopAdapter);
+        } else {
+            beauticianAdapter = new SelectBeauticianAdapter(getBaseContext());
+            rvList.setAdapter(beauticianAdapter);
+        }
     }
 
     @Override
     protected void initData() {
         super.initData();
-        OkGo.<String>post(URLs.SHOP_BEAUTICIAN).params("shop_id", shopId).execute(new StringCallback() {
+        if (showShop) {
+            loadData(true);
+        } else {
+            multipleStatusView.showLoading();
+            loadBeauticianList();
+        }
+    }
+
+    private void loadBeauticianList() {
+        if (shopId.contains(",")) {
+            String[] shopIds = shopId.split(",");
+            for (String id : shopIds) {
+                loadList(true, id);
+            }
+        } else {
+            loadList(false, shopId);
+        }
+    }
+
+    private void loadList(final boolean loadMoreData, String id) {
+        OkGo.<String>post(URLs.SHOP_BEAUTICIAN).params("shop_id", id).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {
@@ -141,7 +172,11 @@ public class ShopBeauticianActivity extends BaseActivity {
                     List<BeauticianBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<BeauticianBean>>() {
                     }.getType());
                     if (CollectionUtils.isNotEmpty(listResult)) {
-                        beauticianAdapter.replaceData(listResult);
+                        if (loadMoreData) {
+                            beauticianAdapter.addData(listResult);
+                        } else {
+                            beauticianAdapter.replaceData(listResult);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
