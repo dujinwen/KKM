@@ -316,7 +316,7 @@ public class PayActivity extends BaseActivity {
                     @Override
                     public void run() {
                         PayTask alipay = new PayTask(PayActivity.this);
-                        Map<String, String> result = alipay.payV2(payResultBean.getData().toString(), true);
+                        Map<String, String> result = alipay.payV2(payResultBean.getData().getInfo(), true);
                         Message msg = handler.obtainMessage();
                         msg.what = Common.ACTIVITY_REQUEST_CODE_ALI_PAY;
                         msg.obj = result;
