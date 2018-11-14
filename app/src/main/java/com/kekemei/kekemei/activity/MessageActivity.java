@@ -81,7 +81,13 @@ public class MessageActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
-        OkGo.<String>get(URLs.NOTICE_LIST).params("user_id",UserHelp.getUserId(this))
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+
+        OkGo.<String>get(URLs.NOTICE_LIST).params("user_id", userId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

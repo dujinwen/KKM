@@ -46,7 +46,8 @@ public class UserHelp {
     }
 
     public static long getUserId(Context context) {
-        return SPUtils.getLong(context, SPUtils.USER_ID, 0l);
+
+        return SPUtils.getLong(context, SPUtils.USER_ID, -1l);
     }
 
     public static void setUserId(Context context, long userId) {

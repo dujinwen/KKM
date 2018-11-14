@@ -132,8 +132,13 @@ public class MainActivity extends BaseActivity {
                     LoginActivity.start(MainActivity.this);
                     return;
                 }
+                long userId = UserHelp.getUserId(MainActivity.this);
+                if (userId==-1L){
+                    LoginActivity.start(getBaseContext());
+                    return;
+                }
                 OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
-                        .params("user_id", UserHelp.getUserId(MainActivity.this))
+                        .params("user_id", userId)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {

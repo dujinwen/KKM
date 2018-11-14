@@ -417,8 +417,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_buy_now:
+                long userId = UserHelp.getUserId(this);
+                if (userId == -1L) {
+                    LoginActivity.start(getBaseContext());
+                    return;
+                }
                 OkGo.<String>get(URLs.ORDER_GENERATING)
-                        .params("user_id", UserHelp.getUserId(this))
+                        .params("user_id", userId)
                         .params("name", detailBean.getData().getName())
                         .params("project_id", detailBean.getData().getProject_category_id())
                         .params("count", 1)

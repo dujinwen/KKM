@@ -225,8 +225,13 @@ public class UserEvaluateActivity extends BaseActivity {
     public void getData(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>get(URLs.COMMENT_LIST)
-                .tag(this).params("shop_id", shopId).params("user_id", UserHelp.getUserId(this))
+                .tag(this).params("shop_id", shopId).params("user_id", userId)
                 .params("beautician_id", beauticianId).params("project_id", projectId)
                 .params("page", pageNum).execute(new StringCallback() {
             @Override

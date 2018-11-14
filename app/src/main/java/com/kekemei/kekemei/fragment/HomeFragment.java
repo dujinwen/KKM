@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
+import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MeiRongShiActivity;
 import com.kekemei.kekemei.activity.MiaoshaActivity;
 import com.kekemei.kekemei.activity.NewComerActivity;
@@ -45,6 +46,7 @@ import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -465,7 +467,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             case R.id.place:
                 break;
             case R.id.ivNewComer:
-                NewComerActivity.start(getActivity(), "1");
+                long userId = UserHelp.getUserId(getActivity());
+                if (userId==-1L){
+                    LoginActivity.start(getActivity());
+                    return;
+                }
+                NewComerActivity.start(getActivity(), userId +"");
                 break;
             case R.id.ivSecond:
                 MiaoshaActivity.start(getActivity());

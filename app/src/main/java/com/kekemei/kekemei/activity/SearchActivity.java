@@ -246,8 +246,13 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                                 beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
                         break;
                     case R.id.btn_buy_now:
+                        long userId = UserHelp.getUserId(SearchActivity.this);
+                        if (userId == -1L) {
+                            LoginActivity.start(getBaseContext());
+                            return;
+                        }
                         OkGo.<String>get(URLs.ORDER_GENERATING)
-                                .params("user_id", UserHelp.getUserId(SearchActivity.this))
+                                .params("user_id", userId)
                                 .params("name", beauticianBean.getName())
                                 .params("project_id", beauticianBean.getId())
                                 .params("count", 1)
@@ -378,11 +383,16 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     public void getData(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>post(URLs.INDEX_SEARCH)
                 .tag(this)
                 .params("keyword", keyWord)
                 .params("page", pageNum)
-                .params("user_id", UserHelp.getUserId(this))
+                .params("user_id", userId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -573,7 +583,12 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     }
 
     private void initSearchHistoryAndHot() {
-        OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", UserHelp.getUserId(this))
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", userId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

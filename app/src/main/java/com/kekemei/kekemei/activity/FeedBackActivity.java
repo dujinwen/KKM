@@ -76,7 +76,12 @@ public class FeedBackActivity extends BaseActivity {
     }
 
     private void submitFeedBackContent(String content) {
-        OkGo.<String>post(URLs.ADD_COMPLAINT).params("user_id", UserHelp.getUserId(this))
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>post(URLs.ADD_COMPLAINT).params("user_id", userId)
                 .params("content", content).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

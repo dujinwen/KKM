@@ -130,6 +130,11 @@ public class PersonFragment extends Fragment {
 
 
     private void initData() {
+        long userId = UserHelp.getUserId(getActivity());
+        if (userId == -1L) {
+            LoginActivity.start(getActivity());
+            return;
+        }
         List<UserBean> list = new ArrayList<>();
 
         for (int i = 0; i < userForwardArray.length; i++) {
@@ -157,7 +162,7 @@ public class PersonFragment extends Fragment {
         });
 
 
-        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", UserHelp.getUserId(getActivity())).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -179,7 +184,7 @@ public class PersonFragment extends Fragment {
             }
         });
 
-        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id", UserHelp.getUserId(getActivity())).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -217,7 +222,12 @@ public class PersonFragment extends Fragment {
                 LoginActivity.start(getActivity());
                 break;
             case R.id.userName:
-                UserInfoActivity.start(getActivity(), UserHelp.getUserId(getActivity()) + "");
+                long userId = UserHelp.getUserId(getActivity());
+                if (userId == -1L) {
+                    LoginActivity.start(getActivity());
+                    return;
+                }
+                UserInfoActivity.start(getActivity(), userId + "");
                 break;
         }
     }
