@@ -92,22 +92,20 @@
             android:textSize="40px" />
     </RelativeLayout>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/replyContent"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="68px"
         android:layout_marginLeft="176px"
         android:layout_marginRight="37px"
         android:layout_marginTop="39px"
         android:background="#ECF9F9"
+        android:orientation="vertical"
         android:paddingBottom="16px"
         android:paddingLeft="9px"
         android:paddingRight="9px"
-        android:paddingTop="10px"
-        android:text="谢谢您，我们会继续努力的谢谢您，我们会继续努力的谢谢您，我们会继续努力的"
-        android:textColor="@color/common_text_dark"
-        android:textSize="40px" />
+        android:paddingTop="10px" />
 
     <View style="@style/CommonLine.Horizontal" />
 

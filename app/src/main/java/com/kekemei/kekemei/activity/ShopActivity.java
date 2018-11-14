@@ -48,6 +48,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -368,6 +371,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView serviceThree;
     private TextView tvAddress;
     private TextView tvDistance;
+    private TextView coupon;
+    private TextView subtract;
+    private TextView redBao;
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
@@ -378,6 +384,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         serviceThree = contentHead.findViewById(R.id.serviceThree);
         tvAddress = contentHead.findViewById(R.id.tvAddress);
         tvDistance = contentHead.findViewById(R.id.tvDistance);
+        coupon = contentHead.findViewById(R.id.coupon);
+        subtract = contentHead.findViewById(R.id.subtract);
+        redBao = contentHead.findViewById(R.id.redBao);
     }
 
     private void initNearbyView(View view) {
@@ -592,6 +601,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "shop detail:" + response.body());
+                    determineResponseCode(response.body());
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
                     shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
@@ -603,7 +613,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, shopDetailBean.getData().getCollection_count()));
                     tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, shopDetailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(shopDetailBean.getData().getAddress());
-                    tvDistance.setText(shopDetailBean.getData().getDistance());
+                    tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getData().getDistance()));
                     if (StringUtils.isNotBlank(shopDetailBean.getData().getTel())) {
                         LogUtil.e(TAG, "tel:" + shopDetailBean.getData().getTel());
                         tel = shopDetailBean.getData().getTel();
@@ -699,6 +709,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "beautician detail:" + response.body());
+                    determineResponseCode(response.body());
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
                     beauticianDetailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
@@ -794,6 +805,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         initDatePicker(this);
     }
 
+    private void determineResponseCode(String body) {
+        try {
+            JSONObject jsonObject = new JSONObject(body);
+            int code = jsonObject.optInt("code");
+            if (code != 200) {
+                multipleStatusView.showNoNetwork();
+                return;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     private ArrayList<Calendar> calList = new ArrayList<>();
 

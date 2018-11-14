@@ -25,7 +25,7 @@
                 app:pageChangeDuration="800"
                 app:pointNormal="@drawable/shape_noraml"
                 app:pointSelect="@drawable/shape_selected"
-                app:pointsPosition="RIGHT"/>
+                app:pointsPosition="RIGHT" />
 
             <LinearLayout
                 android:layout_width="@dimen/px_1005"
@@ -132,76 +132,117 @@
                 android:paddingTop="@dimen/px_32">
 
                 <LinearLayout
-                    android:layout_width="@dimen/px_1010"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/px_217"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px">
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/home_youhuijuan_pic" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="@dimen/px_230"
                         android:layout_height="@dimen/px_217"
-                        android:background="@mipmap/home_youhuijian_lingqu_btn"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:layout_marginLeft="32px">
+
+                        <ImageView
+                            android:id="@+id/couponOneBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/home_youhuijian_lingqu_btn" />
 
                         <TextView
+                            android:id="@+id/nameOne"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="40px"
                             android:text="50"
-                            android:textSize="@dimen/px_53" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_40" />
 
                         <TextView
+                            android:id="@+id/priceOne"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/nameOne"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="19px"
                             android:text="满599立减50"
-                            android:textSize="@dimen/px_26" />
-                    </LinearLayout>
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_29" />
+                    </RelativeLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="@dimen/px_230"
-                        android:layout_height="@dimen/px_217"
-                        android:background="@mipmap/home_youhuijian_lingqu_btn"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/px_217">
+
+                        <ImageView
+                            android:id="@+id/couponTwoBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/home_youhuijian_lingqu_btn" />
 
                         <TextView
+                            android:id="@+id/nameTwo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="80"
-                            android:textSize="@dimen/px_53" />
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="40px"
+                            android:text="50"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_40" />
 
                         <TextView
+                            android:id="@+id/priceTwo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="满899立减80"
-                            android:textSize="@dimen/px_26" />
-                    </LinearLayout>
+                            android:layout_below="@+id/nameTwo"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="19px"
+                            android:text="满599立减50"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_29" />
+                    </RelativeLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="@dimen/px_230"
-                        android:layout_height="@dimen/px_217"
-                        android:background="@mipmap/home_youhuijian_lingqu_btn"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/px_217">
+
+                        <ImageView
+                            android:id="@+id/couponThreeBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@mipmap/home_youhuijian_lingqu_btn" />
 
                         <TextView
+                            android:id="@+id/nameThree"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100"
-                            android:textSize="@dimen/px_53" />
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="40px"
+                            android:text="50"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_40" />
 
                         <TextView
+                            android:id="@+id/priceThree"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="满1099立减100"
-                            android:textSize="@dimen/px_26" />
-                    </LinearLayout>
-
-
+                            android:layout_below="@+id/nameThree"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="19px"
+                            android:text="满599立减50"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/px_29" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -209,12 +250,15 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px"
                     android:paddingTop="@dimen/px_19">
 
                     <ImageView
                         android:id="@+id/ivNewComer"
-                        android:layout_width="@dimen/px_540"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/px_369"
+                        android:layout_weight="1"
                         android:background="@mipmap/home_guangao_xinren_pic" />
 
                     <ImageView
@@ -225,7 +269,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-             <include layout="@layout/section_layout_nearby_beautician"/>
+            <include layout="@layout/section_layout_nearby_beautician" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -275,6 +319,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/px_86">
+
                 <ImageView
                     android:id="@+id/iv_xinrenzhuanqu"
                     android:layout_width="match_parent"

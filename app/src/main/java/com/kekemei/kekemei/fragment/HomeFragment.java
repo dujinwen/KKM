@@ -45,6 +45,8 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.StringUtils;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.lljjcoder.style.citypickerview.CityPickerView;
@@ -52,6 +54,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -83,6 +88,26 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     LinearLayout idMsg;
     @BindView(R.id.xbanner)
     XBanner xbanner;
+
+    @BindView(R.id.couponOneBg)
+    ImageView couponOneBg;
+    @BindView(R.id.nameOne)
+    TextView nameOne;
+    @BindView(R.id.priceOne)
+    TextView priceOne;
+    @BindView(R.id.couponTwoBg)
+    ImageView couponTwoBg;
+    @BindView(R.id.nameTwo)
+    TextView nameTwo;
+    @BindView(R.id.priceTwo)
+    TextView priceTwo;
+    @BindView(R.id.couponThreeBg)
+    ImageView couponThreeBg;
+    @BindView(R.id.nameThree)
+    TextView nameThree;
+    @BindView(R.id.priceThree)
+    TextView priceThree;
+
     @BindView(R.id.rv_meirongshi)
     RecyclerView rvMeirongshi;
     @BindView(R.id.rv_davip_kkm)
@@ -165,7 +190,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         mPicker.init(getActivity());
         initView();
         initCityList();
-        if (latitude != "" && "" != longitude) {
+        if (StringUtils.isNotEmpty(latitude) && StringUtils.isNotEmpty(longitude)) {
             initData(latitude, longitude);
             place.setText(SPUtils.getString(getActivity(), "city", ""));
         } else {
@@ -277,17 +302,16 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
 
     private void initData(String latitude, String longitude) {
-        OkGo.<String>post(URLs.INDEX)
-                .params("longitude", longitude)
-                .params("latitude", latitude)
+        OkGo.<String>post(URLs.INDEX).params("longitude", longitude).params("latitude", latitude)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        LogUtil.d("APPLOCALTION", response.body().toString());
+                        LogUtil.d("APPLOCALTION", response.body());
                         Gson gson = new Gson();
                         HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
                         xbanner.setData(homeBean.getData().getBanneradv(), null);
                         initBanner();
+                        initCoupon(homeBean.getData().getIndexcoupon());
                         meiRongShiAdapter.setNewData(homeBean.getData().getBeautician());
                         adapter_vip.setNewData(homeBean.getData().getShop());
                         adapter1.setNewData(homeBean.getData().getNewmemberdata());
@@ -304,8 +328,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                         } else {
                             commentLayout.setVisibility(View.GONE);
                         }
-
-
                     }
 
                     @Override
@@ -314,6 +336,29 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                         LogUtil.d("APPLOCALTION", response.toString());
                     }
                 });
+    }
+
+    private void initCoupon(List<HomeBean.IndexCoupon> indexCouponList) {
+        if (CollectionUtils.isNotEmpty(indexCouponList)) {
+            for (int i = 0; i < indexCouponList.size(); i++) {
+                if (i == 0) {
+                    displayCoupon(indexCouponList.get(i), couponOneBg, nameOne, priceOne);
+                } else if (i == 1) {
+                    displayCoupon(indexCouponList.get(i), couponTwoBg, nameTwo, priceTwo);
+                } else if (i == 2) {
+                    displayCoupon(indexCouponList.get(i), couponThreeBg, nameThree, priceThree);
+                }
+            }
+        }
+    }
+
+    private void displayCoupon(HomeBean.IndexCoupon indexCoupon, ImageView targetImage,
+                               TextView targetName, TextView targetPrice) {
+        targetImage.setTag(indexCoupon);
+        /*ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL +
+                indexCoupon.getImage(), targetImage);*/
+        targetPrice.setText(indexCoupon.getName());
+        targetName.setText(String.valueOf(indexCoupon.getPrice_satisfy()));
     }
 
     /**
@@ -409,10 +454,19 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
-            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond})
+            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOneBg, R.id.couponTwoBg, R.id.couponThreeBg})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
+            case R.id.couponOneBg:
+                receiveCoupon(couponOneBg);
+                break;
+            case R.id.couponTwoBg:
+                receiveCoupon(couponTwoBg);
+                break;
+            case R.id.couponThreeBg:
+                receiveCoupon(couponThreeBg);
+                break;
             case R.id.ll_meirong:
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -478,5 +532,37 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 MiaoshaActivity.start(getActivity());
                 break;
         }
+    }
+
+    private void receiveCoupon(final ImageView couponImage) {
+        HomeBean.IndexCoupon indexCoupon = (HomeBean.IndexCoupon) couponImage.getTag();
+        OkGo.<String>post(URLs.COUPON_RECEIVE).params("id", indexCoupon.getId())
+                .params("coupon_type", "").params("project_id", "")
+                .params("shop_id", "").params("beautician_id", "")
+                .params("user_id", UserHelp.getUserId(getActivity()))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.d("APPLOCALTION", response.body());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                ToastUtil.showToastMsg(getActivity(), "领取失败");
+                                return;
+                            }
+//                            couponImage.setImageResource(R.mipmap.home_youhuijian_50_pic);换背景
+                            ToastUtil.showToastMsg(getActivity(), msg.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtil.showToastMsg(getActivity(), "领取失败");
+                    }
+                });
     }
 }

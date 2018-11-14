@@ -441,7 +441,7 @@ public class AddCommentActivity extends BaseActivity {
                     }
                     JSONObject data = jsonObject.optJSONObject("data");
                     if (data != null) {
-                        String url = jsonObject.optString("url");
+                        String url = data.optString("url");
                         adapter.addItem(url);
                         adapter.notifyDataSetChanged();
                     }

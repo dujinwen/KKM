@@ -54,6 +54,9 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.io.Serializable;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -378,9 +381,11 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding,R.id.tvCollection})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tvCollection:
+                break;
             case R.id.projectDetail:
                 indicatorProjectDetail.setVisibility(View.VISIBLE);
                 indicatorEvaluate.setVisibility(View.GONE);
@@ -510,6 +515,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ProjectDetailActivity", response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    int code = jsonObject.optInt("code");
+                    if (code != 200) {
+                        multipleStatusView.showNoNetwork();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 multipleStatusView.showOutContentView(scrollLayout);
                 Gson gson = new Gson();
                 detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);

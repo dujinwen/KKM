@@ -1,20 +1,26 @@
 package com.kekemei.kekemei.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.EvaluateBean;
 import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.NoScrollGridView;
 import com.kekemei.kekemei.view.StarBar;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseViewHolder> {
@@ -27,29 +33,43 @@ public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseView
         this.isMyComment = isMyComment;
     }
 
-
     @Override
     protected void convert(BaseViewHolder helper, EvaluateBean item) {
-        if (isMyComment) {
-
-        } else {
-            /*helper.setText(R.id.name, "222");
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.get(), (ImageView) helper.getView(R.id.icon));
-            helper.setText(R.id.content, item.getName());*/
-        }
         if (StringUtils.isNotEmpty(item.getImages())) {
             String[] split = item.getImages().split(",");
+            List<String> urlList = Arrays.asList(split);
+            if (CollectionUtils.isEmpty(urlList)) {
+                urlList.add(item.getImages());
+            }
             NoScrollGridView noScrollGridView = helper.getView(R.id.ncgv);
-            CommentGridAdapter gridAdapter = new CommentGridAdapter(jContext, Arrays.asList(split));
+            CommentGridAdapter gridAdapter = new CommentGridAdapter(jContext, urlList);
             noScrollGridView.setAdapter(gridAdapter);
         }
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getAvatar(), (ImageView) helper.getView(R.id.icon));
         helper.setText(R.id.name, item.getNickname());
-//        helper.setText(R.id.subTitle, item.getNickname());
+        helper.setText(R.id.subTitle, item.getSatisfaction_text());
         helper.setText(R.id.commentContent, item.getContent());
         helper.setText(R.id.date, AppUtil.getFormatTime2(item.getCreatetime()));
         StarBar startBar = helper.getView(R.id.star_bar);
         startBar.setStarMark(Float.parseFloat(item.getStart()));
+        LinearLayout container = helper.getView(R.id.replyContent);
+        if (CollectionUtils.isNotEmpty(item.getReply())) {
+            container.setVisibility(View.VISIBLE);
+            addReplyContent(container, item.getReply());
+        } else {
+            container.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void addReplyContent(LinearLayout container, List<EvaluateBean.ReplyBean> contentList) {
+        container.removeAllViews();
+        for (EvaluateBean.ReplyBean replyBean : contentList) {
+            TextView tvContent = new TextView(jContext);
+            tvContent.setTextSize(40);
+            tvContent.setTextColor(ContextCompat.getColor(jContext, R.color.common_text_dark));
+            tvContent.setText(replyBean.getContent());
+            container.addView(tvContent);
+        }
     }
 }
 

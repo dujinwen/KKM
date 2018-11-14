@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="服务商圈"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -33,9 +33,8 @@
             android:layout_marginLeft="58px"
             android:layout_marginRight="43px"
             android:drawableRight="@mipmap/title_more_btn"
-            android:text="望京SOHO"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
     </LinearLayout>
 
@@ -60,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="可约时间"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -74,9 +73,9 @@
             android:layout_marginLeft="58px"
             android:layout_marginRight="43px"
             android:drawableRight="@mipmap/title_more_btn"
-            android:text="望京SOHO"
+            android:text="3日可预约"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
     </LinearLayout>
 
@@ -90,21 +89,20 @@
 
         <TextView
             android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="北京市大兴区胜利镇马头街22号"
+            android:layout_weight="1"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
         <TextView
             android:id="@+id/tvDistance"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="170px"
             android:layout_marginRight="43px"
-            android:text="离我2.2km"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
     </LinearLayout>
 
@@ -121,25 +119,31 @@
             android:layout_height="wrap_content"
             android:text="优         惠"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/coupon"
             android:layout_width="202px"
             android:layout_height="72px"
             android:layout_marginLeft="43px"
-            android:background="@mipmap/beautician_details_preferential_coupon_ic" />
+            android:background="@mipmap/beautician_details_preferential_coupon_ic"
+            android:textSize="@dimen/px_40" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/subtract"
             android:layout_width="202px"
             android:layout_height="72px"
             android:layout_marginLeft="105px"
-            android:background="@mipmap/beautician_details_preferential_subtract_ic" />
+            android:background="@mipmap/beautician_details_preferential_subtract_ic"
+            android:textSize="@dimen/px_40" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/redBao"
             android:layout_width="202px"
             android:layout_height="72px"
             android:layout_marginLeft="105px"
-            android:background="@mipmap/beautician_details_preferential_money_ic" />
+            android:background="@mipmap/beautician_details_preferential_money_ic"
+            android:textSize="@dimen/px_40" />
 
     </LinearLayout>
 
@@ -162,7 +166,7 @@
             android:layout_height="wrap_content"
             android:text="服         务"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
         <TextView
             android:id="@+id/serviceOne"
@@ -173,7 +177,7 @@
             android:drawablePadding="14px"
             android:text="品质保障"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
         <TextView
             android:id="@+id/serviceTwo"
@@ -184,7 +188,7 @@
             android:drawablePadding="14px"
             android:text="随时调换"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
         <TextView
             android:id="@+id/serviceThree"
@@ -195,7 +199,7 @@
             android:drawablePadding="14px"
             android:text="7天退款"
             android:textColor="#383838"
-            android:textSize="40px" />
+            android:textSize="@dimen/px_40" />
 
     </LinearLayout>
 </LinearLayout>

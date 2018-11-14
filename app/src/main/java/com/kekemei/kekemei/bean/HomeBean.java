@@ -75,6 +75,7 @@ public class HomeBean {
         private List<BaseBean> specialdata;
         private List<BaseBean> newmemberdata;
         private List<BaseBean> memberdata;
+        private List<IndexCoupon> indexcoupon;
 
         public List<BaseBean> getHotdata() {
             return hotdata;
@@ -140,6 +141,14 @@ public class HomeBean {
             this.banneradv = banneradv;
         }
 
+        public List<IndexCoupon> getIndexcoupon() {
+            return indexcoupon;
+        }
+
+        public void setIndexcoupon(List<IndexCoupon> indexcoupon) {
+            this.indexcoupon = indexcoupon;
+        }
+
         public static class CommentdataBean {
             private List<EvaluateBean> all;
             @SerializedName("new")
@@ -170,6 +179,121 @@ public class HomeBean {
                 this.haveimg = haveimg;
             }
         }
+    }
+    public static class IndexCoupon{
 
+        /**
+         * activitytime : 2018-11-01 11:49:37
+         * activitytime_end : 2019-09-28 11:49:37
+         * createtime : 1541044307
+         * id : 3
+         * image : /uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg
+         * name : 满1099减100
+         * price_reduction : 100
+         * price_satisfy : 1099
+         * state : 1
+         * state_text : State 1
+         * weigh : 3
+         */
+
+        private String activitytime;
+        private String activitytime_end;
+        private int createtime;
+        private int id;
+        private String image;
+        private String name;
+        private int price_reduction;
+        private long price_satisfy;
+        private String state;
+        private String state_text;
+        private int weigh;
+
+        public String getActivitytime() {
+            return activitytime;
+        }
+
+        public void setActivitytime(String activitytime) {
+            this.activitytime = activitytime;
+        }
+
+        public String getActivitytime_end() {
+            return activitytime_end;
+        }
+
+        public void setActivitytime_end(String activitytime_end) {
+            this.activitytime_end = activitytime_end;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getPrice_reduction() {
+            return price_reduction;
+        }
+
+        public void setPrice_reduction(int price_reduction) {
+            this.price_reduction = price_reduction;
+        }
+
+        public long getPrice_satisfy() {
+            return price_satisfy;
+        }
+
+        public void setPrice_satisfy(long price_satisfy) {
+            this.price_satisfy = price_satisfy;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getState_text() {
+            return state_text;
+        }
+
+        public void setState_text(String state_text) {
+            this.state_text = state_text;
+        }
+
+        public int getWeigh() {
+            return weigh;
+        }
+
+        public void setWeigh(int weigh) {
+            this.weigh = weigh;
+        }
     }
 }

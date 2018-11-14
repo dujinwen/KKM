@@ -63,7 +63,7 @@ public class BeauticianDetailBean implements Serializable {
         private int isfriend;
         private int friend_count;
         private int order_count;
-        private int average_price;
+        private float average_price;
         private List<String> auth;
         private List<CouponBean> coupon;
         private List<RedEnvelopes> redenvelopes;
@@ -218,11 +218,11 @@ public class BeauticianDetailBean implements Serializable {
             this.order_count = order_count;
         }
 
-        public int getAverage_price() {
+        public float getAverage_price() {
             return average_price;
         }
 
-        public void setAverage_price(int average_price) {
+        public void setAverage_price(float average_price) {
             this.average_price = average_price;
         }
 

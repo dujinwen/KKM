@@ -63,5 +63,6 @@
     <string name="shop_detail_server_number">服务人数:&#160;&#160;%1$d</string>
     <string name="shop_detail_fensi_number">粉丝数:&#160;&#160;%1$d</string>
     <string name="shop_detail_satisfaction">%1$s满意度</string>
+    <string name="shop_detail_distance">离我%1$skm</string>
 
 </resources>
