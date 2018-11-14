@@ -26,6 +26,10 @@ public class Common {
      支付宝帐号 appid = '2018060860352001';
 
      */
+    public static final int ACTIVITY_REQUEST_CODE_ALI_PAY = 1024 + 1;
+    public static final int ACTIVITY_REQUEST_CODE_WX_PAY = ACTIVITY_REQUEST_CODE_ALI_PAY + 1;
+
+
 
     //五金商城测试号
 //        public static final String WX_APP_ID = "wxaee1c5e6124fe6c1";

@@ -1,9 +1,12 @@
 package com.kekemei.kekemei.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -11,18 +14,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alipay.sdk.app.PayTask;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.ALiPayResultBean;
 import com.kekemei.kekemei.bean.WXPayResultBean;
 import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.Common;
+import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +61,10 @@ public class PayActivity extends BaseActivity {
     private static final int PAY_TO_VOUCHER_CODE = 100;
     private static final int PAY_TO_RED_CODE = PAY_TO_VOUCHER_CODE + 1;
     private static final int PAY_TO_MAN_JIAN_CODE = PAY_TO_RED_CODE + 1;
+
+
+    private IWXAPI api;
+
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -125,6 +143,20 @@ public class PayActivity extends BaseActivity {
 
     private int hongbaonum, youhuiqunnum, manjiannum = 0;
 
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == Common.ACTIVITY_REQUEST_CODE_ALI_PAY) {
+                handleAliPayResult(msg);
+            } else if (msg.what == Common.ACTIVITY_REQUEST_CODE_WX_PAY) {
+                handleWxPayResult(msg);
+            }
+        }
+    };
+
+
     public static void start(Context context, int beauticianId,
                              int timeSelectPosition, long daySelectPosition,
                              String order_id, String time, String place,
@@ -193,6 +225,9 @@ public class PayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+
+        api = WXAPIFactory.createWXAPI(PayActivity.this, Common.WX_APP_ID);
+        api.registerApp(Common.WX_APP_ID);
     }
 
     @OnClick({R.id.ll_toyouhuiquan, R.id.ll_red_bao, R.id.ll_man_jian, R.id.iv_check_wechat, R.id.iv_check_ali, R.id.btn_pay})
@@ -221,8 +256,8 @@ public class PayActivity extends BaseActivity {
                 break;
             case R.id.btn_pay:
                 String payUrl = "";
-                if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()){
-                    ToastUtil.showToastMsg(PayActivity.this,"请选择一种支付方式");
+                if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()) {
+                    ToastUtil.showToastMsg(PayActivity.this, "请选择一种支付方式");
                     return;
                 }
                 if (ivCheckAli.isChecked()) {
@@ -238,24 +273,58 @@ public class PayActivity extends BaseActivity {
     }
 
     private void toWXPay(String payUrl) {
-        OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
+        OkGo.<String>get(payUrl).params("order_id", order_Id).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
-                WXPayResultBean payResultBean = gson.fromJson(response.body(), WXPayResultBean.class);
+                WXPayResultBean payResult = gson.fromJson(response.body(), WXPayResultBean.class);
                 // TODO: 2018/11/13 进行支付操作
+                if (null != payResult && null != payResult.getData()) {
+                    PayReq req = new PayReq();
+                    WXPayResultBean.DataBean data = payResult.getData();
+                    req.appId = data.getAppid();
+                    req.partnerId = data.getMch_id();
+                    req.prepayId = data.getPrepay_id();
+                    req.packageValue = "Sign=WXPay";
+                    req.nonceStr = data.getNonce_str();
+                    req.timeStamp = payResult.getTime();
+                    req.sign = data.getSign();
+                    // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+                    LogUtil.d("PAY_GET", req.toString());
+                    if (!api.isWXAppInstalled()) {
+                        ToastUtil.showToastMsg(PayActivity.this, "您还未安装微信客户端,请先安装微信客户端");
+                        return;
+                    }
+                    api.sendReq(req);
+                } else {
+                    LogUtil.d("PAY_GET", "返回错误" + payResult.getMsg());
+                }
 
             }
         });
     }
+
     private void toALiPay(String payUrl) {
-        OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
+        OkGo.<String>get(payUrl).params("order_id", order_Id).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
-                ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
+                final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
                 // TODO: 2018/11/13 进行支付操作
+                Runnable payRunnable = new Runnable() {
 
+                    @Override
+                    public void run() {
+                        PayTask alipay = new PayTask(PayActivity.this);
+                        Map<String, String> result = alipay.payV2(payResultBean.getData().toString(), true);
+                        Message msg = handler.obtainMessage();
+                        msg.what = Common.ACTIVITY_REQUEST_CODE_ALI_PAY;
+                        msg.obj = result;
+                        handler.sendMessage(msg);
+                    }
+                };
+                Thread payThread = new Thread(payRunnable);
+                payThread.start();
             }
         });
     }
@@ -284,7 +353,65 @@ public class PayActivity extends BaseActivity {
 
 
     // TODO: 2018/11/13 去预约美容师页面
-    private void toSelectActivity(){
+    private void toSelectActivity() {
         PushOrderActivity.start(PayActivity.this);
+    }
+
+
+    private void handleWxPayResult(Message msg) {
+        String str = "";
+        int code = (int) msg.obj;
+        switch (code) {
+            case 0:
+                str = "支付成功";
+                break;
+            case -1:
+                str = "订单信息错误";
+                break;
+            case -2:
+                str = "用户取消";
+                break;
+        }
+        LogUtil.d("PAY_GET", code + "");
+    }
+
+    private void handleAliPayResult(Message msg) {
+        Map<String, String> result = (Map<String, String>) msg.obj;
+        int resultStatus = Integer.parseInt(result.get("resultStatus"));
+            switch (resultStatus) {
+                //支付成功
+                case 9000:
+                    break;
+                //未知结果
+                case 8000:
+                case 6004:
+                    break;
+                //取消支付
+                case 6001:
+                    break;
+                //其他情况,支付失败
+                default:
+                    break;
+            }
+    }
+
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            int errCode;
+            if (Common.WX_PAY_RESULT.equals(action)) {
+                errCode = intent.getIntExtra(Common.ERROR_CODE, -9999);
+                onWxPayResult(errCode);
+            }
+        }
+    };
+
+    public void onWxPayResult(int errCode) {
+        Message message = handler.obtainMessage();
+        message.what = Common.ACTIVITY_REQUEST_CODE_WX_PAY;
+        message.obj = errCode;
+        handler.sendMessage(message);
     }
 }
