@@ -38,6 +38,7 @@ import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
 import com.kekemei.kekemei.bean.ShopDetailBean;
+import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
@@ -156,7 +157,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private ProjectDetailBean detailBean;
 
 
-    private int beauticianId;
+    private int projectId;
     private int timeSelect = -1;
     private long dateSelect = -1L;
 
@@ -181,21 +182,11 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         context.startActivity(intent);
     }
 
-    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, String place) {
-        Intent intent = new Intent(context, ProjectDetailActivity.class);
-        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
-        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
-        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
-        intent.putExtra(EXTRA_KEY_PLACE, place);
-        context.startActivity(intent);
-    }
-
     public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, ShopDetailBean shopDetailBean, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
         intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
-        intent.putExtra(EXTRA_KEY_PLACE, shopDetailBean);
         intent.putExtra(EXTRA_KEY_SHOP_DETAIL_BEAN, shopDetailBean);
         intent.putExtra(EXTRA_KEY_DETAIL_ENUM, detailEnum);
         context.startActivity(intent);
@@ -206,7 +197,6 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
         intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
-        intent.putExtra(EXTRA_KEY_PLACE, beauticianDetailBean);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN, beauticianDetailBean);
         intent.putExtra(EXTRA_KEY_DETAIL_ENUM, detailEnum);
         context.startActivity(intent);
@@ -225,18 +215,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        projectId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         timeSelect = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
         dateSelect = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
-        place = super.getStringExtraSecure(EXTRA_KEY_PLACE);
 
         if ((DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_DETAIL_ENUM) == DetailEnum.SHOP) {
             shopDetailBean = (ShopDetailBean) getIntent().getSerializableExtra(EXTRA_KEY_SHOP_DETAIL_BEAN);
-            address = shopDetailBean.getData().getAddress();
         } else if ((DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_DETAIL_ENUM) == DetailEnum.BEAUTICIAN) {
             beauticianDetailBean = (BeauticianDetailBean) getIntent().getSerializableExtra(EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN);
-            address = beauticianDetailBean.getData().getAddress();
         }
+
 
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -439,17 +427,21 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             public void onSuccess(Response<String> response) {
                                 Gson gson = new Gson();
                                 OrderGeneratingBean orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
-                                PayActivity.start(ProjectDetailActivity.this,
-                                        beauticianId,
-                                        timeSelect,
-                                        dateSelect,
-                                        orderGeneratingBean.getData().getOrder_id(),
-                                        orderGeneratingBean.getTime(),
-                                        place,
-                                        detailBean.getData().getName(),
-                                        detailBean.getData().getImage(),
-                                        detailBean.getData().getPrice_discount()
-                                        , 1);
+
+                                YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
+
+                                yuYueActivityBean.setBeauticianDetailBean(beauticianDetailBean);
+                                yuYueActivityBean.setShopDetailBean(shopDetailBean);
+                                yuYueActivityBean.setTimeSelect(timeSelect);
+                                yuYueActivityBean.setDateSelect(dateSelect);
+                                yuYueActivityBean.setOrderId(orderGeneratingBean.getData().getOrder_id());
+                                yuYueActivityBean.setOrderCreateTime(orderGeneratingBean.getTime());
+                                yuYueActivityBean.setOrderCount(1);
+                                yuYueActivityBean.setOrderName(detailBean.getData().getName());
+                                yuYueActivityBean.setOrderIconUrl(detailBean.getData().getImage());
+                                yuYueActivityBean.setOrderPrice(detailBean.getData().getPrice_discount());
+
+                                PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
                             }
                         });
                 break;
@@ -494,7 +486,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      * 预约时间
      */
     public void timeData(long timedstartdate) {
-        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", projectId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -508,7 +500,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     protected void initData() {
         super.initData();
         multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.PROJECT_DETAILS).params("id", beauticianId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.PROJECT_DETAILS).params("id", projectId).execute(new StringCallback() {
             @SuppressLint("StringFormatMatches")
             @Override
             public void onSuccess(Response<String> response) {
@@ -521,7 +513,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 price.setText("￥" + detailBean.getData().getPrice_discount());
                 marketPrice.setText("￥" + detailBean.getData().getPrice_market());
                 /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
-                displayForWebView("http://kekemei.ecooth.com/mob/project/details?id=" + beauticianId, null);
+                displayForWebView("http://kekemei.ecooth.com/mob/project/details?id=" + projectId, null);
                 if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                     contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
                     contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -617,7 +609,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         id_recyclerview_horizontal.setLayoutManager(linearLayoutManager);
-        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(), beauticianId);
+        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(), projectId);
         id_recyclerview_horizontal.setAdapter(dayAdapter);
 
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {

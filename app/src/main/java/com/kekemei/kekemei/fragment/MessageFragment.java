@@ -28,6 +28,7 @@ import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
+import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -143,24 +144,28 @@ public class MessageFragment extends Fragment {
                                 });
                         break;
                     case R.id.lijifukuan:
-                        // TODO: 2018/11/13  去支付页面
-                        PayActivity.start(getActivity(), item.getBeautician_beautician_id(), -1, -1L,
-                                item.getId() + "", item.getCreatetime() + "", null, item.getName()
-                                , item.getImage(), item.getPrice(), item.getCount());
+                        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
+                        yuYueActivityBean.setDateSelect(-1L);
+                        yuYueActivityBean.setTimeSelect(-1);
+                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
+                        yuYueActivityBean.setOrderPrice(item.getPrice());
+                        yuYueActivityBean.setOrderCount(item.getCount());
+                        yuYueActivityBean.setOrderIconUrl(item.getImage());
+                        yuYueActivityBean.setOrderName(item.getName());
+                        yuYueActivityBean.setOrderId(item.getId() + "");
+
+                        PayActivity.start(getActivity(),yuYueActivityBean);
                         break;
                     case R.id.chakan:
                     case R.id.zaicigoumai:
-                        // TODO: 2018/11/13 去项目
                         ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
                         break;
                     case R.id.qupingjia:
-                        // TODO: 2018/11/13 去评价页面
                         UserEvaluateActivity.start(getActivity(), false, item.getShop_shop_id() + "",
                                 item.getBeautician_beautician_id() + "",
                                 item.getProject_project_id() + "");
                         break;
                     case R.id.yuyue:
-                        // TODO: 2018/11/14 去预约界面
                         break;
                 }
             }

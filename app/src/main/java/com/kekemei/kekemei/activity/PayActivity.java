@@ -21,6 +21,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.ALiPayResultBean;
 import com.kekemei.kekemei.bean.WXPayResultBean;
+import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -38,28 +39,22 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.kekemei.kekemei.activity.ProjectDetailActivity.EXTRA_KEY_BEAUTICIAN_ID;
-import static com.kekemei.kekemei.activity.ProjectDetailActivity.EXTRA_KEY_DAY_SELECT;
-import static com.kekemei.kekemei.activity.ProjectDetailActivity.EXTRA_KEY_ORDER_ID;
-import static com.kekemei.kekemei.activity.ProjectDetailActivity.EXTRA_KEY_PLACE;
-import static com.kekemei.kekemei.activity.ProjectDetailActivity.EXTRA_KEY_TIME_SELECT;
 
 /**
  * Created 支付页面 by peiyangfan on 2018/10/23.
  */
 
 public class PayActivity extends BaseActivity {
-    private static final String EXTRA_KEY_TIME = "ORDER_CREATE_TIME";
-    private static final String EXTRA_KEY_ORDER_NAME = "ORDER_NAME";
-    private static final String EXTRA_KEY_ORDER_IMAGE = "ORDER_IMAGE";
-    private static final String EXTRA_KEY_ORDER_PRICE = "ORDER_PRICE";
-    private static final String EXTRA_KEY_ORDER_COUNT = "ORDER_COUNT";
+    public static final String EXTRA_KEY_YUYUE_BEAN = "ORDER_CREATE_TIME";
+
+
     private static final int PAY_TO_VOUCHER_CODE = 100;
     private static final int PAY_TO_RED_CODE = PAY_TO_VOUCHER_CODE + 1;
     private static final int PAY_TO_MAN_JIAN_CODE = PAY_TO_RED_CODE + 1;
@@ -133,11 +128,7 @@ public class PayActivity extends BaseActivity {
     @BindView(R.id.tv_wait_to_pay)
     TextView tvWaitToPay;
 
-    private int beauticianId;
-    private int timeSelect;
-    private long dateSelect;
     private String order_Id;
-    private String place;
     private long order_create_time;
     private int order_price, order_count;
     private String order_image;
@@ -159,25 +150,12 @@ public class PayActivity extends BaseActivity {
             }
         }
     };
+    private YuYueActivityBean yuYueActivityBean;
 
 
-    public static void start(Context context, int beauticianId,
-                             int timeSelectPosition, long daySelectPosition,
-                             String order_id, String time, String place,
-                             String name, String image, int price_newmember
-            , int count) {
+    public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PayActivity.class);
-        intent.putExtra(EXTRA_KEY_ORDER_ID, order_id);
-        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
-        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
-        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
-        intent.putExtra(EXTRA_KEY_PLACE, place);
-        intent.putExtra(EXTRA_KEY_TIME, Long.valueOf(time).longValue());
-        intent.putExtra(EXTRA_KEY_ORDER_NAME, name);
-        intent.putExtra(EXTRA_KEY_ORDER_IMAGE, image);
-        intent.putExtra(EXTRA_KEY_ORDER_PRICE, price_newmember);
-        intent.putExtra(EXTRA_KEY_ORDER_COUNT, count);
-        context.startActivity(intent);
+        intent.putExtra(EXTRA_KEY_YUYUE_BEAN, yuYueActivityBean);
     }
 
     @Override
@@ -193,16 +171,13 @@ public class PayActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        order_Id = super.getStringExtraSecure(EXTRA_KEY_ORDER_ID);
-        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
-        timeSelect = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
-        dateSelect = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
-        place = super.getStringExtraSecure(EXTRA_KEY_PLACE);
-        order_create_time = super.getLongExtraSecure(EXTRA_KEY_TIME);
-        order_name = super.getStringExtraSecure(EXTRA_KEY_ORDER_NAME);
-        order_image = super.getStringExtraSecure(EXTRA_KEY_ORDER_IMAGE);
-        order_price = super.getIntExtraSecure(EXTRA_KEY_ORDER_PRICE);
-        order_count = super.getIntExtraSecure(EXTRA_KEY_ORDER_COUNT);
+        yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
+        order_Id = yuYueActivityBean.getOrderId();
+        order_create_time = Long.valueOf(yuYueActivityBean.getOrderCreateTime());
+        order_name = yuYueActivityBean.getOrderName();
+        order_image = yuYueActivityBean.getOrderIconUrl();
+        order_price = yuYueActivityBean.getOrderPrice();
+        order_count = yuYueActivityBean.getOrderCount();
 
 
         orderId.setText(order_Id + "");
@@ -363,7 +338,7 @@ public class PayActivity extends BaseActivity {
 
     // TODO: 2018/11/13 去预约美容师页面
     private void toSelectActivity() {
-//        PushOrderActivity.start(PayActivity.this);
+       PushOrderActivity.start(PayActivity.this,yuYueActivityBean);
     }
 
 

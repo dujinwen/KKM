@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -24,6 +25,8 @@ import com.lzy.okgo.model.Response;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.kekemei.kekemei.activity.PayActivity.EXTRA_KEY_YUYUE_BEAN;
 
 /**
  * Created 订单提交 by peiyangfan on 2018/10/23.
@@ -93,6 +96,9 @@ public class PushOrderActivity extends BaseActivity {
     private String name = "";
     private int orderNumber = 0;
 
+    private YuYueActivityBean yuYueActivityBean;
+
+
     public static final String PROJECT_ID = "PROJECT_NAME";
     public static final String ICON_URL = "ICON_URL";
     public static final String ICON_NAME = "ICON_NAME";
@@ -102,6 +108,14 @@ public class PushOrderActivity extends BaseActivity {
     public static final String SHOP_PLACE = "SHOP_PLACE";
     public static final String SERVER_TIME = "SERVER_TIME";
     private static int project_id = -1;
+
+    public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
+        Intent intent = new Intent(context, PushOrderActivity.class);
+        intent.putExtra(EXTRA_KEY_YUYUE_BEAN, yuYueActivityBean);
+
+        context.startActivity(intent);
+    }
+
     ;
 
 
@@ -110,14 +124,6 @@ public class PushOrderActivity extends BaseActivity {
         return R.layout.activity_push_order;
     }
 
-    public static void start(Context context,String imageUrl,String orderName,String orderPrice,String projectId) {
-        Intent intent = new Intent(context, PushOrderActivity.class);
-        intent.putExtra(PushOrderActivity.IMAGE_URL,imageUrl);
-        intent.putExtra(PushOrderActivity.ORDER_NAME,orderName);
-        intent.putExtra(PushOrderActivity.ORDER_PRICE,orderPrice);
-        intent.putExtra(PushOrderActivity.PROJECT_ID,projectId);
-        context.startActivity(intent);
-    }
 
     @Override
     protected void initData() {
@@ -149,15 +155,14 @@ public class PushOrderActivity extends BaseActivity {
 
 
         Intent intent = new Intent();
-
+        yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
+        order_name = yuYueActivityBean.getOrderName();
+        image_url = yuYueActivityBean.getOrderIconUrl();
+        order_price = yuYueActivityBean.getOrderPrice()+"";
         //        icon_name = intent.getStringExtra(ICON_NAME);
         //        icon_url = intent.getStringExtra(ICON_URL);
-        order_name = intent.getStringExtra(ORDER_NAME);
-        order_price = intent.getStringExtra(ORDER_PRICE);
-        image_url = intent.getStringExtra(IMAGE_URL);
         //        shop_place = intent.getStringExtra(SHOP_PLACE);
         //        server_time = intent.getLongExtra(SERVER_TIME, -1L);
-        project_id = intent.getIntExtra(PROJECT_ID, -1);
         tvNum.setText(orderNumber + "");
         //        tvPrice.setText(order_price);
         //        tvName.setText(icon_name);
