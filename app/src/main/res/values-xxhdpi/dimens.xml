@@ -746,7 +746,7 @@
     <dimen name="px_6">6px</dimen>
     <dimen name="px_789">789px</dimen>
     <dimen name="px_792">792px</dimen>
-    <dimen name="px_85" tools:ignore="MissingDefaultResource">85px</dimen>
+    <dimen name="px_85" >85px</dimen>
     <dimen name="px_82">82px</dimen>
     <dimen name="px_370">370px</dimen>
     <dimen name="px_301">301px</dimen>
@@ -764,7 +764,7 @@
     <dimen name="px_1021">1021px</dimen>
     <dimen name="px_374">374px</dimen>
     <dimen name="px_281">281px</dimen>
-    <dimen name="px_308" tools:ignore="MissingDefaultResource">308px</dimen>
+    <dimen name="px_308" >308px</dimen>
     <dimen name="px_66">66px</dimen>
     <dimen name="px_33">33px</dimen>
     <dimen name="px_39">39px</dimen>
@@ -858,7 +858,8 @@
     <dimen name="px_533">533px</dimen>
     <dimen name="px_669">669px</dimen>
     <dimen name="px_612">612px</dimen>
-    <dimen name="px_216" tools:ignore="MissingDefaultResource">216px</dimen>
+    <dimen name="px_216" >216px</dimen>
     <dimen name="px_141">141px</dimen>
-
+    <dimen name="px_128">128px</dimen>
+    <dimen name="px_217">217px</dimen>
 </resources>
