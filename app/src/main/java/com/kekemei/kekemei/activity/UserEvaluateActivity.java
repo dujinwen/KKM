@@ -272,6 +272,7 @@ public class UserEvaluateActivity extends BaseActivity {
                 fillData(evaluateListBean.getData().getData().get(mCurrentTab));
             } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
             }*/
+            fillTabText(evaluateListBean.getData().getCount());
             fillData(evaluateListBean.getData().getData().get(mCurrentTab));
         } else {
             jPageNum++;
