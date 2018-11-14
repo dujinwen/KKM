@@ -104,15 +104,8 @@ public class PushOrderActivity extends BaseActivity {
     private YuYueActivityBean yuYueActivityBean;
 
 
-    public static final String PROJECT_ID = "PROJECT_NAME";
-    public static final String ICON_URL = "ICON_URL";
-    public static final String ICON_NAME = "ICON_NAME";
-    public static final String ORDER_NAME = "ORDER_NAME";
-    public static final String ORDER_PRICE = "ORDER_PRICE";
-    public static final String IMAGE_URL = "IMAGE_URL";
-    public static final String SHOP_PLACE = "SHOP_PLACE";
-    public static final String SERVER_TIME = "SERVER_TIME";
-    private static int project_id = -1;
+    public static final int EXTRA_KEY_SHOP_CODE = 1000;
+    public static final int EXTRA_KEY_BEAUTICIAN_CODE = 1001;
 
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PushOrderActivity.class);
@@ -217,10 +210,14 @@ public class PushOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meirongshi_select:
-                ShopBeauticianActivity.start(PushOrderActivity.this, yuYueActivityBean.getBeauticianDetailBean().getData().getShop_shop_ids() + "", false);
+                ShopBeauticianActivity.start(PushOrderActivity.this,
+                        yuYueActivityBean.getBeauticianDetailBean().getData().getId() + "",
+                        false, EXTRA_KEY_SHOP_CODE);
                 break;
             case R.id.ll_shop_place:
-                ShopBeauticianActivity.start(PushOrderActivity.this, yuYueActivityBean.getShopDetailBean().getData().getId() + "", false);
+                ShopBeauticianActivity.start(PushOrderActivity.this,
+                        yuYueActivityBean.getShopDetailBean().getData().getId() + "",
+                        false, EXTRA_KEY_BEAUTICIAN_CODE);
                 break;
             case R.id.ll_service_time:
                 break;
@@ -239,6 +236,19 @@ public class PushOrderActivity extends BaseActivity {
                             }
                         });
                 break;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == EXTRA_KEY_SHOP_CODE) {
+
+        }
+        if (requestCode == EXTRA_KEY_BEAUTICIAN_CODE) {
+
         }
     }
 }

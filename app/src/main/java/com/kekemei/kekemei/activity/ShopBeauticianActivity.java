@@ -65,11 +65,11 @@ public class ShopBeauticianActivity extends BaseActivity {
     private boolean showShop;
     private String latitude, longitude;
 
-    public static void start(Activity activity, String shopId, boolean showShop) {
+    public static void start(Activity activity, String shopId, boolean showShop,int code) {
         Intent intent = new Intent(activity, ShopBeauticianActivity.class);
         intent.putExtra(EXTRA_KEY_SHOP_ID, shopId);
         intent.putExtra(EXTRA_KEY_SHOW_SHOP, showShop);
-        activity.startActivityForResult(intent, EXTRA_KEY_START_CODE);
+        activity.startActivityForResult(intent, code);
     }
 
     @Override
