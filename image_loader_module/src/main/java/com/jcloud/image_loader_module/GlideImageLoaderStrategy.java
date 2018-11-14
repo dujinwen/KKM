@@ -54,7 +54,6 @@ class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
         Glide.with(imageView.getContext()).load(url).dontAnimate()
                 .placeholder(imageView.getDrawable())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.mipmap.common_page_failed)
                 .into(imageView);
     }
 
@@ -63,7 +62,6 @@ class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
         Glide.with(imageView.getContext().getApplicationContext()).load(url).dontAnimate()
                 .placeholder(imageView.getDrawable())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.mipmap.common_page_failed)
                 .into(imageView);
     }
 
@@ -72,7 +70,6 @@ class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
         Glide.with(imageView.getContext().getApplicationContext()).load(url).dontAnimate()
                 .placeholder(imageView.getDrawable())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.mipmap.common_page_failed)
                 .into(imageView);
     }
 

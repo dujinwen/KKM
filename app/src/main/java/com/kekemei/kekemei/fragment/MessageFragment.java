@@ -179,8 +179,8 @@ public class MessageFragment extends Fragment {
         jAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BaseBean data = (BaseBean) adapter.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId());
+                OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), item.getId());
             }
         });
 
