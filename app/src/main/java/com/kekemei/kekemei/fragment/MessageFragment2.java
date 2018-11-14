@@ -25,6 +25,7 @@ import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.UserEvaluateActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
+import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
@@ -129,11 +130,11 @@ public class MessageFragment2 extends Fragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.quxiaodingdan:
                         OkGo.<String>get(URLs.DEL_ORDER)
-                                .params("user_id",UserHelp.getUserId(getActivity()))
-                                .params("order_id",item.getId())
+                                .params("user_id", UserHelp.getUserId(getActivity()))
+                                .params("order_id", item.getId())
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
@@ -143,25 +144,32 @@ public class MessageFragment2 extends Fragment {
                         break;
                     case R.id.lijifukuan:
                         // TODO: 2018/11/13  去支付页面
-                        PayActivity.start(getActivity(),item.getBeautician_beautician_id(),-1,-1L,
-                                item.getId()+"",item.getCreatetime()+"",null,item.getName()
-                                ,item.getImage(),item.getPrice(),item.getCount());
+                        PayActivity.start(getActivity(), item.getBeautician_beautician_id(), -1, -1L,
+                                item.getId() + "", item.getCreatetime() + "", null, item.getName()
+                                , item.getImage(), item.getPrice(), item.getCount());
                         break;
                     case R.id.chakan:
                     case R.id.zaicigoumai:
                         // TODO: 2018/11/13 去项目
-                        ProjectDetailActivity.start(getActivity(), item.getProject_project_id(),-1,-1L);
+                        ProjectDetailActivity.start(getActivity(), item.getProject_project_id(), -1, -1L);
                         break;
                     case R.id.qupingjia:
                         // TODO: 2018/11/13 去评价页面
-                        UserEvaluateActivity.start(getActivity(),false,item.getShop_shop_id()+"",
-                                item.getBeautician_beautician_id()+"",
-                                item.getProject_project_id()+"");
+                        UserEvaluateActivity.start(getActivity(), false, item.getShop_shop_id() + "",
+                                item.getBeautician_beautician_id() + "",
+                                item.getProject_project_id() + "");
                         break;
                     case R.id.yuyue:
                         // TODO: 2018/11/14 去预约界面
                         break;
                 }
+            }
+        });
+        jAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
             }
         });
 
@@ -215,9 +223,10 @@ public class MessageFragment2 extends Fragment {
         if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay
                 || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
                 || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia
-                ){
+                ) {
 
-            setSelect(view.getId());return;
+            setSelect(view.getId());
+            return;
         }
     }
 
@@ -299,7 +308,7 @@ public class MessageFragment2 extends Fragment {
                     public void onSuccess(Response<String> response) {
                         try {
                             JSONObject obj = new JSONObject(response.body());
-                            if (obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                            if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
                                 multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                                 return;
                             }

@@ -16,10 +16,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
+import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.HotSearchBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.utils.AppUtil;
@@ -349,6 +351,14 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             return;
         multipleStatusView.showOutContentView(refresh_layout);
         listAdapter.setNewData(dataList);
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderListBean.DataBean data = (OrderListBean.DataBean) adapter.getItem(position);
+                ProjectDetailActivity.start(OrderListSearchActivity.this, data.getId(), -1,-1L);
+            }
+        });
+
         rvOrderListSearch.scrollToPosition(0);
     }
 

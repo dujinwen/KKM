@@ -27,6 +27,7 @@ public class FindOrderListAdapter extends BaseQuickAdapter<BaseBean, BaseViewHol
         helper.setVisible(R.id.ll_youhuiquan, true);
 
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_order_icon));
+
     }
 
 

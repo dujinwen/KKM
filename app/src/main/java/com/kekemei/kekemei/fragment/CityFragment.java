@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
+import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.adapter.FindOrderListAdapter;
 import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -86,6 +88,15 @@ public class CityFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvRemenxiangmu.setLayoutManager(linearLayoutManager);
         listAdapter = new FindOrderListAdapter(getActivity());
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
+            }
+        });
+
+
         View header_view = getActivity().getLayoutInflater().inflate(R.layout.layout_city_header, (ViewGroup) rvRemenxiangmu.getParent(), false);
         listAdapter.addHeaderView(header_view);
         xBanner = header_view.findViewById(R.id.xbanner);

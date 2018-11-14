@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.bean.PayResultBean;
+import com.kekemei.kekemei.bean.ALiPayResultBean;
+import com.kekemei.kekemei.bean.WXPayResultBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -226,24 +227,37 @@ public class PayActivity extends BaseActivity {
                 }
                 if (ivCheckAli.isChecked()) {
                     payUrl = URLs.ORDER_ALI_PAY;
+                    toWXPay(payUrl);
                 } else {
                     payUrl = URLs.ORDER_WX_PAY;
+                    toALiPay(payUrl);
                 }
-                OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        PayResultBean payResultBean = gson.fromJson(response.body(), PayResultBean.class);
-                        // TODO: 2018/11/13 进行支付操作
-                        if (ivCheckAli.isChecked()) {
 
-                        } else {
-
-                        }
-                    }
-                });
                 break;
         }
+    }
+
+    private void toWXPay(String payUrl) {
+        OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                WXPayResultBean payResultBean = gson.fromJson(response.body(), WXPayResultBean.class);
+                // TODO: 2018/11/13 进行支付操作
+
+            }
+        });
+    }
+    private void toALiPay(String payUrl) {
+        OkGo.<String>get(payUrl).params("order_id",order_Id).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
+                // TODO: 2018/11/13 进行支付操作
+
+            }
+        });
     }
 
     @Override

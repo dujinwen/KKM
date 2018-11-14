@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.FindOrderListAdapter;
@@ -208,6 +209,14 @@ public class ClassifyActivity extends BaseActivity {
         rvList.setLayoutManager(linearLayoutManager);
         listAdapter = new FindOrderListAdapter(getBaseContext());
         rvList.setAdapter(listAdapter);
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = listAdapter.getItem(position);
+                ProjectDetailActivity.start(ClassifyActivity.this, data.getId(), -1,-1L);
+            }
+        });
+
 
         rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
             @Override

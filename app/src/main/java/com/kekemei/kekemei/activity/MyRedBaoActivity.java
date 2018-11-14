@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.HongBaoDataAdapter;
-import com.kekemei.kekemei.bean.CouponDataBean;
 import com.kekemei.kekemei.bean.HongBaoDataBean;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -33,6 +35,14 @@ public class MyRedBaoActivity extends BaseActivity {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     private static HongBaoDataBean hongBaoDataBean;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private HongBaoDataAdapter adapter;
 
     public static void start(Context context) {
@@ -51,6 +61,25 @@ public class MyRedBaoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+
+        tvTitle.setText("红包");
+        toolbar.setNavigationIcon(R.mipmap.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

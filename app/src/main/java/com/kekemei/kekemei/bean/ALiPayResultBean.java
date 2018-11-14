@@ -1,6 +1,6 @@
 package com.kekemei.kekemei.bean;
 
-public class PayResultBean {
+public class ALiPayResultBean {
     /**
      * code : 1
      * msg : 下单成功
