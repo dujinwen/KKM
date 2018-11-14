@@ -301,8 +301,9 @@ public class UserInfoActivity extends BaseActivity {
                     }
                     JSONObject data = jsonObject.optJSONObject("data");
                     if (data != null) {
-                        String url = jsonObject.optString("url");
+                        String url = data.optString("url");
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + url, icon);
+                        UserHelp.setAvatar(getBaseContext(),url);
                     }
                     ToastUtil.showToastMsg(UserInfoActivity.this, msg.toString());
                 } catch (JSONException e) {

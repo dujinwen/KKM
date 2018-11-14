@@ -417,8 +417,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_buy_now:
+                long userId = UserHelp.getUserId(this);
+                if (userId == -1L) {
+                    LoginActivity.start(getBaseContext());
+                    return;
+                }
                 OkGo.<String>get(URLs.ORDER_GENERATING)
-                        .params("user_id", UserHelp.getUserId(this))
+                        .params("user_id", userId)
                         .params("name", detailBean.getData().getName())
                         .params("project_id", detailBean.getData().getProject_category_id())
                         .params("count", 1)
@@ -642,7 +647,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     initDayTime(time);
                 }
             }
-        }, "2018-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, "1950-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         startTimePicker.showSpecificTime(false); // 显示时和分
         startTimePicker.setIsLoop(true); // 允许循环滚动
     }

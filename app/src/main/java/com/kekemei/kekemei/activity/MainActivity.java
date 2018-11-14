@@ -128,12 +128,13 @@ public class MainActivity extends BaseActivity {
         iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNew == -1) {
+                long userId = UserHelp.getUserId(MainActivity.this);
+                if (isNew == -1 || userId == -1L) {
                     LoginActivity.start(MainActivity.this);
                     return;
                 }
                 OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
-                        .params("user_id", UserHelp.getUserId(MainActivity.this))
+                        .params("user_id", userId)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {

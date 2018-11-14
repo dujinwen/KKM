@@ -137,8 +137,13 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
         initSearchHistory();
     }
 
-    private void initSearchHistory(){
-        OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", UserHelp.getUserId(this))
+    private void initSearchHistory() {
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", userId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -243,11 +248,16 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private void getData(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>get(URLs.ORDER_SEARCH)
                 .tag(this)
                 .params("keyword", keyWord)
                 .params("page", pageNum)
-                .params("user_id", UserHelp.getUserId(this))
+                .params("user_id", userId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -389,7 +399,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.toString().isEmpty()){
+        if (s.toString().isEmpty()) {
             initData();
         }
     }

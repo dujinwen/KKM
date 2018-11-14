@@ -104,8 +104,13 @@ public class MyRedBaoActivity extends BaseActivity {
         });
 
 
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id",
-                UserHelp.getUserId(this)).execute(new StringCallback() {
+                userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();

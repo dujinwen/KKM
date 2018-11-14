@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
@@ -133,8 +134,13 @@ public class MessageFragment extends Fragment {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.iv_del_order:
+                        long userId = UserHelp.getUserId(getActivity());
+                        if (userId==-1L){
+                            LoginActivity.start(getActivity());
+                            return;
+                        }
                         OkGo.<String>get(URLs.DEL_ORDER)
-                                .params("user_id", UserHelp.getUserId(getActivity()))
+                                .params("user_id", userId)
                                 .params("order_id", item.getId())
                                 .execute(new StringCallback() {
                                     @Override
@@ -173,8 +179,8 @@ public class MessageFragment extends Fragment {
         jAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BaseBean data = (BaseBean) adapter.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId());
+                OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), item.getId());
             }
         });
 
@@ -303,10 +309,15 @@ public class MessageFragment extends Fragment {
 
 
     public void getData(final int orderStatus, int pageNum) {
+        long userId = UserHelp.getUserId(getActivity());
+        if (userId==-1L){
+            LoginActivity.start(getActivity());
+            return;
+        }
         OkGo.<String>get(URLs.MY_ORDER)
                 .tag(this)
                 .params("state", OrderListBean.ORDER_STATUS_ALL == orderStatus ? "" : orderStatus + "")
-                .params("user_id", UserHelp.getUserId(getActivity()))
+                .params("user_id", userId)
                 .params("page", pageNum)
                 .execute(new StringCallback() {
                     @Override
