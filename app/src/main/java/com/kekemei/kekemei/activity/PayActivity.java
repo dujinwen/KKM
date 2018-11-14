@@ -1,5 +1,6 @@
 package com.kekemei.kekemei.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -146,6 +147,7 @@ public class PayActivity extends BaseActivity {
 
 
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -181,6 +183,11 @@ public class PayActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_pay;
+    }
+
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
     }
 
     @Override
@@ -314,7 +321,7 @@ public class PayActivity extends BaseActivity {
                 final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
                 Runnable payRunnable = new Runnable() {
 
-                    
+
                     @Override
                     public void run() {
                         PayTask alipay = new PayTask(PayActivity.this);
