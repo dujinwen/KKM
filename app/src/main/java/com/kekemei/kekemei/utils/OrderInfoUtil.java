@@ -157,16 +157,15 @@ public class OrderInfoUtil {
         String tailValue = map.get(tailKey);
         authInfo.append(buildKeyValue(tailKey, tailValue, false));
 
-//        String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
-//        String encodedSign = "";
+        String oriSign = SignUtils.sign(authInfo.toString(), rsaKey, rsa2);
+        String encodedSign = "";
 
-//        try {
-//            encodedSign = URLEncoder.encode(oriSign, "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        return "sign=" + encodedSign;
-        return "";
+        try {
+            encodedSign = URLEncoder.encode(oriSign, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "sign=" + encodedSign;
     }
 
     /**
