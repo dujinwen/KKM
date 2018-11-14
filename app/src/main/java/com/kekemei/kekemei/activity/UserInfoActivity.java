@@ -303,6 +303,7 @@ public class UserInfoActivity extends BaseActivity {
                     if (data != null) {
                         String url = data.optString("url");
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + url, icon);
+                        UserHelp.setAvatar(getBaseContext(),url);
                     }
                     ToastUtil.showToastMsg(UserInfoActivity.this, msg.toString());
                 } catch (JSONException e) {
