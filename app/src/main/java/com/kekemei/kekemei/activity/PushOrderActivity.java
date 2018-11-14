@@ -86,7 +86,7 @@ public class PushOrderActivity extends BaseActivity {
     @BindView(R.id.tv_man)
     TextView tvMan;
     @BindView(R.id.ll_youhuiquan)
-    ConstraintLayout llYouhuiquan;
+    LinearLayout llYouhuiquan;
     @BindView(R.id.tv_old_price)
     TextView tvOldPrice;
     @BindView(R.id.tv_juli)
@@ -150,7 +150,7 @@ public class PushOrderActivity extends BaseActivity {
                 finish();
             }
         });
-        llAdd.setVisibility(View.VISIBLE);
+        llAdd.setVisibility(View.GONE);
         tvOrderNum.setVisibility(View.GONE);
 
 
@@ -217,17 +217,6 @@ public class PushOrderActivity extends BaseActivity {
                 break;
             case R.id.btn_yuyue:
 
-                OkGo.<String>get(URLs.ORDER_GENERATING)
-                        .params("user_id", UserHelp.getUserId(PushOrderActivity.this))
-                        .params("name", name)
-                        .params("project_id", project_id)
-                        .params("count", tvNum.getText().toString().trim())
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-
-                            }
-                        });
                 break;
         }
     }

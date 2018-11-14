@@ -156,6 +156,7 @@ public class PayActivity extends BaseActivity {
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PayActivity.class);
         intent.putExtra(EXTRA_KEY_YUYUE_BEAN, yuYueActivityBean);
+        context.startActivity(intent);
     }
 
     @Override
@@ -240,6 +241,7 @@ public class PayActivity extends BaseActivity {
                 break;
             case R.id.btn_pay:
                 String payUrl = "";
+                toSelectActivity();
                 if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()) {
                     ToastUtil.showToastMsg(PayActivity.this, "请选择一种支付方式");
                     return;
