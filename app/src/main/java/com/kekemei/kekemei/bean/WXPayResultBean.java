@@ -1,12 +1,11 @@
 package com.kekemei.kekemei.bean;
 
 public class WXPayResultBean {
-
     /**
      * code : 1
      * msg : 下单成功
-     * time : 1539945260
-     * data : {"appid":"wx5c1c391ac956b658","mch_id":"1515211071","nonce_str":"tbFNfs5dFBuzP8Ns","prepay_id":"wx1918342127169094f0e9268b0510232534","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"9AD5B562E5925C78863F565BACDEF6D4","trade_type":"APP","out_trade_no":"wx14883668731539945260","total_fee":100}
+     * time : 1542172147
+     * data : {"appid":"wx5c1c391ac956b658","mch_id":"1515211071","nonce_str":"iJMsHQkSIoLR1AEn","prepay_id":"wx14130907313992b7d5668f5d2827247289","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"0806D2846C8894E0ED0039A987C5D923","trade_type":"APP","out_trade_no":"wx18774041361542172147","total_fee":100}
      */
 
     private int code;
@@ -50,14 +49,14 @@ public class WXPayResultBean {
         /**
          * appid : wx5c1c391ac956b658
          * mch_id : 1515211071
-         * nonce_str : tbFNfs5dFBuzP8Ns
-         * prepay_id : wx1918342127169094f0e9268b0510232534
+         * nonce_str : iJMsHQkSIoLR1AEn
+         * prepay_id : wx14130907313992b7d5668f5d2827247289
          * result_code : SUCCESS
          * return_code : SUCCESS
          * return_msg : OK
-         * sign : 9AD5B562E5925C78863F565BACDEF6D4
+         * sign : 0806D2846C8894E0ED0039A987C5D923
          * trade_type : APP
-         * out_trade_no : wx14883668731539945260
+         * out_trade_no : wx18774041361542172147
          * total_fee : 100
          */
 
