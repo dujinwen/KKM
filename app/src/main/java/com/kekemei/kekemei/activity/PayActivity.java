@@ -1,5 +1,6 @@
 package com.kekemei.kekemei.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -147,6 +148,7 @@ public class PayActivity extends BaseActivity {
 
     private String RSA_PRIVATE = "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCNYm+oveZOECAjwrH1E+RHznGxVqdAKI/teijarKYIV7RjpNyfMaEaI0ms8vd9aXtN6gEeSPvBQmWVunY1FWfLpAOkSYGJLJ8GJEgiNTAstCgkHw21DaojrD9LxoUZbvfBwWXiDLDAPUGiU6pnG7AkClJuzSETMCTWsrcB35Y9MMprnPaXgNG8+MJ6P2Z1xmN51uNQw4Z99iDrR27lrQH/OXNzLnRDzlj0rwoYFHDSPds58qmjVRTcBXCVpZoLmuf4OfSc8gplNGz/qs/rjOfKEOrcZQeKw1SCkG5U4ZHsMM5XmwbCGg20G9+BokYdHJNKFKu/+kwu69No1Mcy8RTfAgMBAAECggEAIXBCkFo5egT+VPbbN+d4ejMtWI/yBo6RW80klHN44Ug89cQsGcqXG6N07V6ZgiPMceUCVrNUN6UIeZ0cD/n8DoHACr8Hz/Wptr4mAVErD6ecRs7BYyzULJO0dKuDFzzThBPFkO0HcLAMMeQvzSsTQbLfRC1nwS4FyHGELwE+e0IQy3wug7jAid/X2crGC438pwxS7iCjZxsO44WCteCLTjIG/y2AR42wJXSRlPpsGQP6CVgUKa1ATEsoGBDoImDAitnPAyADyOvRMf3jqOcadWq8MtXKPM1KyfM1Sq+NgPawwXxdBHPXB4aDPHmoZm3qb8Nat1VkbTfnmnFNVNiGAQKBgQDGcR0xEI/oP/HRdhKQJCNguUN2dcXIfbfLj4ff9yMtQ+086W3BpJYO5rq6B8mXU66wg3crKJHwpaQ5a6CXb1U757y2J2qPccKdy3ZXed7z0bEkGxwPzwkAiNXM30KvHO9QxVFX3oILDca2qOk7h5vRrRCH9GHdZkYgf7F0WRFwnwKBgQC2ZKYOVPE881ek0SFHURuTN99M+MsciyLzJNeRpopXCBvViRV3rMvyzCRsciJEqQmZnQM7VDkqh3MtutEDnPv2Qux3Qlhk756Q8PdmS9hPl9WK8NGSSA6AQFGqrV16ngjYRm1h+fm6c6K9YFaoJXw/5qYF48X0hXRE39++TXSzwQKBgBnji/Fovb2JCh1PkCBp9ouZ3+lGeCUt8ZqHAS0A6v/uyraVpZILzN/ozheTCIPLkRDKNfPVeSSyF3i+R9c52R7VntMM1WQdbUx0zN2gsquQgdG6D7EoS35cW7g8sFB0L+yTsYcLKmASzgfqhXMUwAlc0LlL8rCVtTRsNFR/gjz1AoGAUiANmSRsHvqe+wpjRp5hoS8mL51Srz6C9SIgomdvoPJ4vfRkoyc+Ccwblmzpuyq1tOI640rwFpM4rF2S4WKdHOxTVvubm489QZwOeZQrCOOf9liqtIgXZ24Ol6BKF/zylJdZhyUsaeTJYSXwvvNp98fd94bwykIQ8TYwo5pyssECgYAZC+l1Ok0VJyisBLgOHoAuwYmWbFRC0RJAwQQoTs4/ozHiR+kFOgiHY6W7sjfgdMej+0U0gNifm2nn0lj1KRuOXiAzkzRBTkiwDChP0PAa2ns9GSbxApRVPJJzeM2NlRX4ptscjKUqWB3tgqPNWDTjW0d7iCYeFWkx0GfRgSwHaQ==";
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -182,6 +184,11 @@ public class PayActivity extends BaseActivity {
     @Override
     protected int setLayoutId() {
         return R.layout.activity_pay;
+    }
+
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
     }
 
     @Override
@@ -326,7 +333,7 @@ public class PayActivity extends BaseActivity {
                 // TODO: 2018/11/13 进行支付操作
                 Runnable payRunnable = new Runnable() {
 
-                    
+
                     @Override
                     public void run() {
                         PayTask alipay = new PayTask(PayActivity.this);

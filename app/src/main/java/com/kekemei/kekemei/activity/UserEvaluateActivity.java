@@ -151,7 +151,7 @@ public class UserEvaluateActivity extends BaseActivity {
 
         jRecyclerView.setAdapter(jAdapter);
 
-        loadData(true);
+        getData(jPageNum);
     }
 
     @OnClick({R.id.tabAll, R.id.tabQuiteSatisfaction, R.id.tabSatisfaction,
@@ -223,7 +223,8 @@ public class UserEvaluateActivity extends BaseActivity {
     }
 
     public void getData(int pageNum) {
-        multipleStatusView.showLoading();
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
         OkGo.<String>get(URLs.COMMENT_LIST)
                 .tag(this).params("shop_id", shopId).params("user_id", UserHelp.getUserId(this))
                 .params("beautician_id", beauticianId).params("project_id", projectId)
@@ -261,34 +262,12 @@ public class UserEvaluateActivity extends BaseActivity {
             if (null == response || null == evaluateListBean.getData()) {
                 showEmpty();
             }
-           /* fillTabText(evaluateListBean.getData().getCount());
-            if (mCurrentTab == EVALUATE_STATUS_ALL) {
-                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
-            } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
-                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
-            } else if (mCurrentTab == EVALUATE_STATUS_SATISFACTION) {
-                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
-            } else if (mCurrentTab == EVALUATE_STATUS_BASICALLY_SATISFACTION) {
-                fillData(evaluateListBean.getData().getData().get(mCurrentTab));
-            } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
-            }*/
             fillTabText(evaluateListBean.getData().getCount());
             fillData(evaluateListBean.getData().getData().get(mCurrentTab));
         } else {
             jPageNum++;
             EvaluateListBean evaluateListBean = (EvaluateListBean) response;
-            fillTabText(evaluateListBean.getData().getCount());
-           /* if (mCurrentTab == EVALUATE_STATUS_ALL) {*/
             loadMoreSuccess(evaluateListBean.getData().getData().get(mCurrentTab));
-           /* } else if (mCurrentTab == EVALUATE_STATUS_QUITE_SATISFACTION) {
-                fillData(evaluateListBean.getData().getQuite());
-            } else if (mCurrentTab == EVALUATE_STATUS_SATISFACTION) {
-                fillData(evaluateListBean.getData().getCommonly());
-            } else if (mCurrentTab == EVALUATE_STATUS_BASICALLY_SATISFACTION) {
-                fillData(evaluateListBean.getData().getBasic());
-            } else if (mCurrentTab == EVALUATE_STATUS_DISSATISFIED) {
-                fillData(evaluateListBean.getData().getDis());
-            }*/
         }
     }
 
