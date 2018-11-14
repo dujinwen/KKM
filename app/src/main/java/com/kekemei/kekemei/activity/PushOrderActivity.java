@@ -3,7 +3,6 @@ package com.kekemei.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +17,7 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
+import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -45,22 +45,48 @@ public class PushOrderActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.iv_share)
+    ImageView ivShare;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.iv_order_icon)
     ImageView ivOrderIcon;
-    @BindView(R.id.tv_price)
-    TextView tvPrice;
+    @BindView(R.id.tv_order_name)
+    TextView tvOrderName;
+    @BindView(R.id.iv_jian)
+    ImageView ivJian;
     @BindView(R.id.tv_jian)
     TextView tvJian;
+    @BindView(R.id.iv_man)
+    ImageView ivMan;
+    @BindView(R.id.tv_man)
+    TextView tvMan;
+    @BindView(R.id.ll_youhuiquan)
+    LinearLayout llYouhuiquan;
+    @BindView(R.id.tv_price)
+    TextView tvPrice;
+    @BindView(R.id.tv_order_num)
+    TextView tvOrderNum;
+    @BindView(R.id.tv_old_price)
+    TextView tvOldPrice;
+    @BindView(R.id.tv_juli)
+    TextView tvJuli;
+    @BindView(R.id.ll_julli)
+    LinearLayout llJulli;
     @BindView(R.id.tv_num)
     TextView tvNum;
     @BindView(R.id.tv_jia)
     TextView tvJia;
+    @BindView(R.id.ll_add)
+    LinearLayout llAdd;
     @BindView(R.id.civ_icon)
     CircleImageView civIcon;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.sb_num)
+    StarBar sbNum;
+    @BindView(R.id.ll_meirongshi_select)
+    LinearLayout llMeirongshiSelect;
     @BindView(R.id.tv_place)
     TextView tvPlace;
     @BindView(R.id.ll_shop_place)
@@ -71,28 +97,7 @@ public class PushOrderActivity extends BaseActivity {
     LinearLayout llServiceTime;
     @BindView(R.id.btn_yuyue)
     Button btnYuyue;
-    @BindView(R.id.tv_order_num)
-    TextView tvOrderNum;
-    @BindView(R.id.ll_add)
-    LinearLayout llAdd;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
-    @BindView(R.id.tv_order_name)
-    TextView tvOrderName;
-    @BindView(R.id.iv_jian)
-    ImageView ivJian;
-    @BindView(R.id.iv_man)
-    ImageView ivMan;
-    @BindView(R.id.tv_man)
-    TextView tvMan;
-    @BindView(R.id.ll_youhuiquan)
-    LinearLayout llYouhuiquan;
-    @BindView(R.id.tv_old_price)
-    TextView tvOldPrice;
-    @BindView(R.id.tv_juli)
-    TextView tvJuli;
-    @BindView(R.id.ll_julli)
-    LinearLayout llJulli;
+
     private String name = "";
     private int orderNumber = 0;
 
@@ -129,6 +134,28 @@ public class PushOrderActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
+        // TODO: 2018/11/14   根據訂單號獲取訂單信息
+        initOrderData();
+
+
+        if (yuYueActivityBean.getBeauticianDetailBean() == null && yuYueActivityBean.getShopDetailBean() == null) {
+            // TODO: 2018/11/14 从附近的店铺预约
+        } else if (yuYueActivityBean.getShopDetailBean() != null) {
+            // TODO: 2018/11/14  通过店铺查找美容师
+        } else if (yuYueActivityBean.getBeauticianDetailBean() != null) {
+            // TODO: 2018/11/14  店铺主页
+        }
+
+
+        if (yuYueActivityBean.getTimeSelect() != -1 && yuYueActivityBean.getDateSelect() != -1L) {
+            llServiceTime.setClickable(false);
+            tvTime.setText(AppUtil.getFormatTime1(yuYueActivityBean.getDateSelect()) + "  " + yuYueActivityBean.getTimeSelectName());
+        }
+
+    }
+
+    private void initOrderData() {
+
     }
 
     @Override
@@ -158,7 +185,7 @@ public class PushOrderActivity extends BaseActivity {
         yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
         order_name = yuYueActivityBean.getOrderName();
         image_url = yuYueActivityBean.getOrderIconUrl();
-        order_price = yuYueActivityBean.getOrderPrice()+"";
+        order_price = yuYueActivityBean.getOrderPrice() + "";
         //        icon_name = intent.getStringExtra(ICON_NAME);
         //        icon_url = intent.getStringExtra(ICON_URL);
         //        shop_place = intent.getStringExtra(SHOP_PLACE);
@@ -182,41 +209,30 @@ public class PushOrderActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_title, R.id.tv_submit, R.id.toolbar, R.id.iv_order_icon, R.id.tv_price, R.id.tv_jian, R.id.tv_num, R.id.tv_jia, R.id.civ_icon, R.id.tv_name, R.id.tv_place, R.id.ll_shop_place, R.id.tv_time, R.id.ll_service_time, R.id.btn_yuyue})
+
+    @OnClick({R.id.ll_meirongshi_select, R.id.ll_shop_place, R.id.ll_service_time, R.id.btn_yuyue})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_title:
-                break;
-            case R.id.tv_submit:
-                break;
-            case R.id.toolbar:
-                break;
-            case R.id.iv_order_icon:
-                break;
-            case R.id.tv_price:
-                break;
-            case R.id.tv_jian:
-                tvNum.setText(--orderNumber + "");
-                break;
-            case R.id.tv_num:
-                break;
-            case R.id.tv_jia:
-                tvNum.setText(++orderNumber + "");
-                break;
-            case R.id.civ_icon:
-                break;
-            case R.id.tv_name:
-                break;
-            case R.id.tv_place:
+            case R.id.ll_meirongshi_select:
                 break;
             case R.id.ll_shop_place:
-                break;
-            case R.id.tv_time:
                 break;
             case R.id.ll_service_time:
                 break;
             case R.id.btn_yuyue:
+                OkGo.<String>get(URLs.ADD_APPOINTMENT)
+                        .params("user_id",UserHelp.getUserId(PushOrderActivity.this))
+                        .params("shop_id",yuYueActivityBean.getShopDetailBean().getData().getId())
+                        .params("beautician_id",yuYueActivityBean.getBeauticianDetailBean().getData().getId())
+                        .params("timedata",yuYueActivityBean.getTimeSelect())
+                        .params("timedstartdate",yuYueActivityBean.getDateSelect())
+                        .params("order_id",yuYueActivityBean.getOrderId())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
 
+                            }
+                        });
                 break;
         }
     }

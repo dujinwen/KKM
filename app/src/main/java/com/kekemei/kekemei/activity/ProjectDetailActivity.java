@@ -70,10 +70,9 @@ import butterknife.OnClick;
  */
 public class ProjectDetailActivity extends BaseActivity implements View.OnClickListener {
     public static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
-    public static final String EXTRA_KEY_TIME_SELECT = "timeSelect";
+    public static final String EXTRA_KEY_TIME_SELECT = "timeSelectId";
     public static final String EXTRA_KEY_DAY_SELECT = "daySelect";
-    public static final String EXTRA_KEY_ORDER_ID = "orderId";
-    public static final String EXTRA_KEY_PLACE = "place";
+    public static final String EXTRA_KEY_TIME_NAME = "timeSelectName";
     public static final String EXTRA_KEY_SHOP_DETAIL_BEAN = "shopDetailBean";
     public static final String EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN = "beauticianDetailBean";
     public static final String EXTRA_KEY_DETAIL_ENUM = "detailEnum";
@@ -162,6 +161,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private int projectId;
     private int timeSelect = -1;
     private long dateSelect = -1L;
+    private String timeSelectName = "";
 
 
     @Nullable
@@ -184,20 +184,22 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         context.startActivity(intent);
     }
 
-    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, ShopDetailBean shopDetailBean, DetailEnum detailEnum) {
+    public static void start(Context context, int beauticianId, int timeSelectPosition, String timeSelectName, long daySelectPosition, ShopDetailBean shopDetailBean, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
+        intent.putExtra(EXTRA_KEY_TIME_NAME, timeSelectName);
         intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
         intent.putExtra(EXTRA_KEY_SHOP_DETAIL_BEAN, shopDetailBean);
         intent.putExtra(EXTRA_KEY_DETAIL_ENUM, detailEnum);
         context.startActivity(intent);
     }
 
-    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, BeauticianDetailBean beauticianDetailBean, DetailEnum detailEnum) {
+    public static void start(Context context, int beauticianId, int timeSelectPosition, String timeSelectName, long daySelectPosition, BeauticianDetailBean beauticianDetailBean, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
+        intent.putExtra(EXTRA_KEY_TIME_NAME, timeSelectName);
         intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN, beauticianDetailBean);
         intent.putExtra(EXTRA_KEY_DETAIL_ENUM, detailEnum);
@@ -220,6 +222,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         projectId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         timeSelect = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
         dateSelect = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
+        timeSelectName = super.getStringExtraSecure(EXTRA_KEY_TIME_NAME);
 
         if ((DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_DETAIL_ENUM) == DetailEnum.SHOP) {
             shopDetailBean = (ShopDetailBean) getIntent().getSerializableExtra(EXTRA_KEY_SHOP_DETAIL_BEAN);
@@ -380,7 +383,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding,R.id.tvCollection})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding, R.id.tvCollection})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvCollection:
@@ -442,6 +445,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 yuYueActivityBean.setBeauticianDetailBean(beauticianDetailBean);
                                 yuYueActivityBean.setShopDetailBean(shopDetailBean);
                                 yuYueActivityBean.setTimeSelect(timeSelect);
+                                yuYueActivityBean.setTimeSelectName(timeSelectName);
                                 yuYueActivityBean.setDateSelect(dateSelect);
                                 yuYueActivityBean.setOrderId(orderGeneratingBean.getData().getOrder_id());
                                 yuYueActivityBean.setOrderCreateTime(orderGeneratingBean.getTime());

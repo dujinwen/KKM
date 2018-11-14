@@ -1,7 +1,6 @@
 package com.kekemei.kekemei.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class YuYueActivityBean implements Serializable {
     private String orderIconUrl;
@@ -13,6 +12,10 @@ public class YuYueActivityBean implements Serializable {
 
     private int timeSelect;
     private long dateSelect;
+
+
+
+    private String timeSelectName;
 
     private BeauticianDetailBean beauticianDetailBean;
     private ShopDetailBean shopDetailBean;
@@ -97,6 +100,12 @@ public class YuYueActivityBean implements Serializable {
     public void setShopDetailBean(ShopDetailBean shopDetailBean) {
         this.shopDetailBean = shopDetailBean;
     }
+    public String getTimeSelectName() {
+        return timeSelectName;
+    }
 
+    public void setTimeSelectName(String timeSelectName) {
+        this.timeSelectName = timeSelectName;
+    }
 
 }

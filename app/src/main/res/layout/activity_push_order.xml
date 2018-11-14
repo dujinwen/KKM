@@ -24,10 +24,12 @@
             android:background="#FFCCCCCC" />
 
         <LinearLayout
+            android:id="@+id/ll_meirongshi_select"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_37"
             android:layout_marginTop="@dimen/px_45"
+            android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -98,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_184"
             android:layout_marginLeft="@dimen/px_37"
+            android:clickable="true"
             android:gravity="center_vertical">
 
             <TextView
@@ -135,6 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_184"
             android:layout_marginLeft="@dimen/px_37"
+            android:clickable="true"
             android:gravity="center_vertical">
 
             <TextView

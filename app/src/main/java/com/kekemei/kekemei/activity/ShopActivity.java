@@ -162,6 +162,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private String tel = "";
     private int timeSelectPosition = -1;
+    private String timeSelectName = "";
     private long daySelectPosition = -1L;
     private ShopDetailBean shopDetailBean;
     private BeauticianDetailBean beauticianDetailBean;
@@ -294,9 +295,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = hotProjectAdapter.getItem(position);
                 if (detailEnum == DetailEnum.SHOP) {
-                    ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition,shopDetailBean,detailEnum);
-                }else {
-                    ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition,beauticianDetailBean,detailEnum);
+                    ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, shopDetailBean, detailEnum);
+                } else {
+                    ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
                 }
             }
         });
@@ -331,7 +332,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = memberAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition, beauticianDetailBean, detailEnum);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
         view.findViewById(R.id.lookMoreMember).setOnClickListener(new View.OnClickListener() {
@@ -348,7 +349,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = preferenceAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition, beauticianDetailBean, detailEnum);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
         view.findViewById(R.id.lookMorePreference).setOnClickListener(new View.OnClickListener() {
@@ -446,6 +447,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     }
                     data.get(position).setSelect(true);
                     timeSelectPosition = data.get(position).getId();
+                    timeSelectName = data.get(position).getName();
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -462,7 +464,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         lookMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserEvaluateActivity.start(ShopActivity.this, false,"1","1","1");
+                UserEvaluateActivity.start(ShopActivity.this, false, "1", "1", "1");
             }
         });
     }
