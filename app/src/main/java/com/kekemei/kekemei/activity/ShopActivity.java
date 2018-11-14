@@ -50,7 +50,6 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -161,6 +160,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private String tel = "";
     private int timeSelectPosition = -1;
     private long daySelectPosition = -1L;
+    private ShopDetailBean shopDetailBean;
+    private BeauticianDetailBean beauticianDetailBean;
 
     public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -289,7 +290,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = hotProjectAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition);
+                if (detailEnum == DetailEnum.SHOP) {
+                    ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition,shopDetailBean,detailEnum);
+                }else {
+                    ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition,beauticianDetailBean,detailEnum);
+                }
             }
         });
         view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
@@ -323,7 +328,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = memberAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
         view.findViewById(R.id.lookMoreMember).setOnClickListener(new View.OnClickListener() {
@@ -340,7 +345,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = preferenceAdapter.getItem(position);
-                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition);
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
         view.findViewById(R.id.lookMorePreference).setOnClickListener(new View.OnClickListener() {
@@ -589,28 +594,28 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     LogUtil.e(TAG, "shop detail:" + response.body());
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
-                    final ShopDetailBean detailBean = gson.fromJson(response.body(), ShopDetailBean.class);
-                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                    tv_title.setText(getString(R.string.shop_detail_name_text, detailBean.getData().getName()));
-                    shopName.setText(detailBean.getData().getName());
-                    shopStar.setStarMark(detailBean.getData().getStart());
-                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
-                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getCollection_count()));
-                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
-                    tvAddress.setText(detailBean.getData().getAddress());
-                    tvDistance.setText(detailBean.getData().getDistance());
-                    if (StringUtils.isNotBlank(detailBean.getData().getTel())) {
-                        LogUtil.e(TAG, "tel:" + detailBean.getData().getTel());
-                        tel = detailBean.getData().getTel();
+                    shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
+                    tv_title.setText(getString(R.string.shop_detail_name_text, shopDetailBean.getData().getName()));
+                    shopName.setText(shopDetailBean.getData().getName());
+                    shopStar.setStarMark(shopDetailBean.getData().getStart());
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, shopDetailBean.getData().getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, shopDetailBean.getData().getCollection_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, shopDetailBean.getData().getSatisfaction() + "%"));
+                    tvAddress.setText(shopDetailBean.getData().getAddress());
+                    tvDistance.setText(shopDetailBean.getData().getDistance());
+                    if (StringUtils.isNotBlank(shopDetailBean.getData().getTel())) {
+                        LogUtil.e(TAG, "tel:" + shopDetailBean.getData().getTel());
+                        tel = shopDetailBean.getData().getTel();
                         callPhone.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                LogUtil.e(TAG, "click tel:" + detailBean.getData().getTel());
-                                AppUtil.callPhone(ShopActivity.this, detailBean.getData().getTel());
+                                LogUtil.e(TAG, "click tel:" + shopDetailBean.getData().getTel());
+                                AppUtil.callPhone(ShopActivity.this, shopDetailBean.getData().getTel());
                             }
                         });
                     }
-                    if (detailBean.getData().getIscollection() == 1) {
+                    if (shopDetailBean.getData().getIscollection() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
                         tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.common_text_dark));
@@ -621,16 +626,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.white));
                         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getStrading())) {
-                        List<String> tradingList = detailBean.getData().getStrading();
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getStrading())) {
+                        List<String> tradingList = shopDetailBean.getData().getStrading();
                         StringBuilder tradingText = new StringBuilder();
                         for (String trading : tradingList) {
                             tradingText.append(trading).append("    ");
                         }
                         tradingArea.setText(tradingText.toString());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getService())) {
-                        List<ShopDetailBean.DataBean.ServiceBean> serviceList = detailBean.getData().getService();
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getService())) {
+                        List<ShopDetailBean.DataBean.ServiceBean> serviceList = shopDetailBean.getData().getService();
                         if (serviceList.get(0) != null) {
                             serviceOne.setVisibility(View.VISIBLE);
                             serviceOne.setText(serviceList.get(0).getName());
@@ -650,32 +655,32 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             serviceThree.setVisibility(View.GONE);
                         }
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
-                        hotProjectAdapter.replaceData(detailBean.getData().getHotdata());
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getHotdata())) {
+                        hotProjectAdapter.replaceData(shopDetailBean.getData().getHotdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getNewmemberdata())) {
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getNewmemberdata())) {
                         newComerLayout.setVisibility(View.VISIBLE);
-                        newComerAdapter.replaceData(detailBean.getData().getNewmemberdata());
+                        newComerAdapter.replaceData(shopDetailBean.getData().getNewmemberdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getMemberdata())) {
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getMemberdata())) {
                         memberLayout.setVisibility(View.VISIBLE);
-                        memberAdapter.replaceData(detailBean.getData().getMemberdata());
+                        memberAdapter.replaceData(shopDetailBean.getData().getMemberdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getSpecialdata())) {
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getSpecialdata())) {
                         preferenceLayout.setVisibility(View.VISIBLE);
-                        preferenceAdapter.replaceData(detailBean.getData().getSpecialdata());
+                        preferenceAdapter.replaceData(shopDetailBean.getData().getSpecialdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getBeautician())) {
-                        meiRongShiAdapter.replaceData(detailBean.getData().getBeautician());
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getBeautician())) {
+                        meiRongShiAdapter.replaceData(shopDetailBean.getData().getBeautician());
                     }
-                    if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
+                    if (shopDetailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(shopDetailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getCount()));
-                        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
-                        commentdata = detailBean.getData().getCommentdata();
-                        commentAdapter.replaceData(detailBean.getData().getCommentdata().getAll());
-                        if (CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getTags())) {
-                            fillTags(detailBean.getData().getCommentdata().getTags());
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, shopDetailBean.getData().getCommentdata().getCount()));
+                        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, shopDetailBean.getData().getPeer() + "%", shopDetailBean.getData().getSatisfaction() + "%"));
+                        commentdata = shopDetailBean.getData().getCommentdata();
+                        commentAdapter.replaceData(shopDetailBean.getData().getCommentdata().getAll());
+                        if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getCommentdata().getTags())) {
+                            fillTags(shopDetailBean.getData().getCommentdata().getTags());
                         }
                     } else {
                         commentSectionView.setVisibility(View.GONE);
@@ -696,16 +701,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     LogUtil.e(TAG, "beautician detail:" + response.body());
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
-                    BeauticianDetailBean detailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
-                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                    shopName.setText(detailBean.getData().getName());
-                    shopStar.setStarMark(detailBean.getData().getStart());
-                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
-                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getFriend_count()));
-                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
-                    tvAddress.setText(detailBean.getData().getAddress());
-                    //                    tvDistance.setText(detailBean.getData().getDistance());
-                    if (detailBean.getData().getIsfriend() == 1) {
+                    beauticianDetailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + beauticianDetailBean.getData().getImage(), shop_detail_icon);
+                    shopName.setText(beauticianDetailBean.getData().getName());
+                    shopStar.setStarMark(beauticianDetailBean.getData().getStart());
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, beauticianDetailBean.getData().getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, beauticianDetailBean.getData().getFriend_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, beauticianDetailBean.getData().getSatisfaction() + "%"));
+                    tvAddress.setText(beauticianDetailBean.getData().getAddress());
+                    //                    tvDistance.setText(beauticianDetailBean.getData().getDistance());
+                    if (beauticianDetailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
                         tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.common_text_dark));
@@ -716,16 +721,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.white));
                         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getStrading())) {
-                        List<String> tradingList = detailBean.getData().getStrading();
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getStrading())) {
+                        List<String> tradingList = beauticianDetailBean.getData().getStrading();
                         StringBuilder tradingText = new StringBuilder();
                         for (String trading : tradingList) {
                             tradingText.append(trading).append("    ");
                         }
                         tradingArea.setText(tradingText.toString());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getAuth())) {
-                        List<String> authList = detailBean.getData().getAuth();
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getAuth())) {
+                        List<String> authList = beauticianDetailBean.getData().getAuth();
                         for (int i = 0; i < authList.size(); i++) {
                             if (StringUtils.isNotEmpty(authList.get(i))) {
                                 if (i == 0) {
@@ -749,28 +754,28 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             }
                         }
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
-                        hotProjectAdapter.replaceData(detailBean.getData().getHotdata());
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getHotdata())) {
+                        hotProjectAdapter.replaceData(beauticianDetailBean.getData().getHotdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getNewmemberdata())) {
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getNewmemberdata())) {
                         newComerLayout.setVisibility(View.VISIBLE);
-                        newComerAdapter.replaceData(detailBean.getData().getNewmemberdata());
+                        newComerAdapter.replaceData(beauticianDetailBean.getData().getNewmemberdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getMemberdata())) {
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getMemberdata())) {
                         memberLayout.setVisibility(View.VISIBLE);
-                        memberAdapter.replaceData(detailBean.getData().getMemberdata());
+                        memberAdapter.replaceData(beauticianDetailBean.getData().getMemberdata());
                     }
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getSpecialdata())) {
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getSpecialdata())) {
                         preferenceLayout.setVisibility(View.VISIBLE);
-                        preferenceAdapter.replaceData(detailBean.getData().getSpecialdata());
+                        preferenceAdapter.replaceData(beauticianDetailBean.getData().getSpecialdata());
                     }
-                    if (detailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getAll())) {
+                    if (beauticianDetailBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getCommentdata().getAll())) {
                         commentSectionView.setVisibility(View.VISIBLE);
-                        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
-                        userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getCommentdata().getCount()));
-                        commentAdapter.addData(detailBean.getData().getCommentdata().getAll());
-                        if (CollectionUtils.isNotEmpty(detailBean.getData().getCommentdata().getTags())) {
-                            fillTags(detailBean.getData().getCommentdata().getTags());
+                        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, beauticianDetailBean.getData().getPeer() + "%", beauticianDetailBean.getData().getSatisfaction() + "%"));
+                        userCommentNum.setText(getString(R.string.home_comment_num_format, beauticianDetailBean.getData().getCommentdata().getCount()));
+                        commentAdapter.addData(beauticianDetailBean.getData().getCommentdata().getAll());
+                        if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getCommentdata().getTags())) {
+                            fillTags(beauticianDetailBean.getData().getCommentdata().getTags());
                         }
                     } else {
                         commentSectionView.setVisibility(View.GONE);

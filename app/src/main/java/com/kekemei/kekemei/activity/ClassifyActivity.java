@@ -213,7 +213,7 @@ public class ClassifyActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = listAdapter.getItem(position);
-                ProjectDetailActivity.start(ClassifyActivity.this, data.getId(), -1,-1L);
+                ProjectDetailActivity.start(ClassifyActivity.this, data.getId());
             }
         });
 

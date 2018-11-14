@@ -110,8 +110,12 @@ public class PushOrderActivity extends BaseActivity {
         return R.layout.activity_push_order;
     }
 
-    public static void start(Context context) {
+    public static void start(Context context,String imageUrl,String orderName,String orderPrice,String projectId) {
         Intent intent = new Intent(context, PushOrderActivity.class);
+        intent.putExtra(PushOrderActivity.IMAGE_URL,imageUrl);
+        intent.putExtra(PushOrderActivity.ORDER_NAME,orderName);
+        intent.putExtra(PushOrderActivity.ORDER_PRICE,orderPrice);
+        intent.putExtra(PushOrderActivity.PROJECT_ID,projectId);
         context.startActivity(intent);
     }
 
@@ -132,7 +136,7 @@ public class PushOrderActivity extends BaseActivity {
 
 
         toolbar.setNavigationIcon(R.mipmap.back);
-        tvTitle.setText("提交订单");
+        tvTitle.setText("预约美容师");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

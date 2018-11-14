@@ -32,9 +32,12 @@ import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
+import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.bean.CanlBean;
+import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
+import com.kekemei.kekemei.bean.ShopDetailBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
@@ -49,9 +52,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -68,6 +71,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     public static final String EXTRA_KEY_DAY_SELECT = "daySelect";
     public static final String EXTRA_KEY_ORDER_ID = "orderId";
     public static final String EXTRA_KEY_PLACE = "place";
+    public static final String EXTRA_KEY_SHOP_DETAIL_BEAN = "shopDetailBean";
+    public static final String EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN = "beauticianDetailBean";
+    public static final String EXTRA_KEY_DETAIL_ENUM = "detailEnum";
 
 
     @BindView(R.id.toolbar)
@@ -151,8 +157,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private int beauticianId;
-    private int timeSelect;
-    private long dateSelect;
+    private int timeSelect = -1;
+    private long dateSelect = -1L;
 
 
     @Nullable
@@ -164,16 +170,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private TextView tv_can_yuyue;
     private HashSet<Integer> hashSet = new HashSet<>();
     private String place;
+    private ShopDetailBean shopDetailBean;
+    private BeauticianDetailBean beauticianDetailBean;
+    private String address;
 
 
-    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition) {
+    public static void start(Context context, int beauticianId) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
-        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
-        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
         context.startActivity(intent);
     }
-
 
     public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, String place) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
@@ -181,6 +187,28 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
         intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
         intent.putExtra(EXTRA_KEY_PLACE, place);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, ShopDetailBean shopDetailBean, DetailEnum detailEnum) {
+        Intent intent = new Intent(context, ProjectDetailActivity.class);
+        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
+        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
+        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
+        intent.putExtra(EXTRA_KEY_PLACE, shopDetailBean);
+        intent.putExtra(EXTRA_KEY_SHOP_DETAIL_BEAN, shopDetailBean);
+        intent.putExtra(EXTRA_KEY_DETAIL_ENUM, detailEnum);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, int beauticianId, int timeSelectPosition, long daySelectPosition, BeauticianDetailBean beauticianDetailBean, DetailEnum detailEnum) {
+        Intent intent = new Intent(context, ProjectDetailActivity.class);
+        intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
+        intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
+        intent.putExtra(EXTRA_KEY_DAY_SELECT, daySelectPosition);
+        intent.putExtra(EXTRA_KEY_PLACE, beauticianDetailBean);
+        intent.putExtra(EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN, beauticianDetailBean);
+        intent.putExtra(EXTRA_KEY_DETAIL_ENUM, detailEnum);
         context.startActivity(intent);
     }
 
@@ -202,6 +230,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         dateSelect = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
         place = super.getStringExtraSecure(EXTRA_KEY_PLACE);
 
+        if ((DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_DETAIL_ENUM) == DetailEnum.SHOP) {
+            shopDetailBean = (ShopDetailBean) getIntent().getSerializableExtra(EXTRA_KEY_SHOP_DETAIL_BEAN);
+            address = shopDetailBean.getData().getAddress();
+        } else if ((DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_DETAIL_ENUM) == DetailEnum.BEAUTICIAN) {
+            beauticianDetailBean = (BeauticianDetailBean) getIntent().getSerializableExtra(EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN);
+            address = beauticianDetailBean.getData().getAddress();
+        }
 
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -494,7 +529,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             LogUtil.e("section", "click:" + position);
                             BaseBean item = contentSectionAdapter.getItem(position);
-                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId(), -1, -1L);
+                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId());
                         }
                     });
                 }

@@ -14,7 +14,7 @@
 
         <include layout="@layout/layout_title_bar" />
 
-        <include layout="@layout/layout_shop_"/>
+        <include layout="@layout/layout_shop_" />
 
         <View
             android:layout_width="match_parent"
@@ -77,6 +77,13 @@
                 android:layout_height="@dimen/px_40"
                 android:layout_marginRight="@dimen/px_53"
                 android:src="@mipmap/orderform_phone_btn" />
+
+            <ImageView
+                android:layout_width="@dimen/px_29"
+                android:layout_height="@dimen/px_49"
+                android:layout_marginLeft="@dimen/px_69"
+                android:layout_marginRight="@dimen/px_50"
+                android:src="@mipmap/my_arrow_right" />
         </LinearLayout>
 
         <View

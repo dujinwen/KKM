@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
@@ -19,10 +20,12 @@ import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
+import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.SettingActivity;
 import com.kekemei.kekemei.activity.UserInfoActivity;
 import com.kekemei.kekemei.adapter.GridAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
+import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.CouponDataBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.HongBaoDataBean;
@@ -95,6 +98,7 @@ public class PersonFragment extends Fragment {
 
     private CouponDataBean couponBean;
     private HongBaoDataBean hongBaoBean;
+    private MyGridAdapter adapter;
 
     @Nullable
     @Override
@@ -109,6 +113,19 @@ public class PersonFragment extends Fragment {
     private void initView() {
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(getActivity()), icon);
         userName.setText(UserHelp.getUserName(getActivity()));
+
+        rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId());
+
+            }
+        });
+        rvTuijian.setAdapter(adapter);
     }
 
 
@@ -135,10 +152,6 @@ public class PersonFragment extends Fragment {
                     return;
                 }
 
-                rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
-                MyGridAdapter adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
-                rvTuijian.setAdapter(adapter);
                 adapter.addData(forYouBean.getData());
             }
         });

@@ -92,7 +92,7 @@ public class CityFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = (BaseBean) adapter.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
+                ProjectDetailActivity.start(getActivity(), data.getId());
             }
         });
 

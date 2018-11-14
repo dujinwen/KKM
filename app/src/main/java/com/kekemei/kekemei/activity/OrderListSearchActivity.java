@@ -21,7 +21,6 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
-import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.HotSearchBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.utils.AppUtil;
@@ -355,7 +354,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean data = (OrderListBean.DataBean) adapter.getItem(position);
-                ProjectDetailActivity.start(OrderListSearchActivity.this, data.getId(), -1,-1L);
+                ProjectDetailActivity.start(OrderListSearchActivity.this, data.getId());
             }
         });
 

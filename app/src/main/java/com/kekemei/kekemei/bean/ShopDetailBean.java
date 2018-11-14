@@ -2,9 +2,10 @@ package com.kekemei.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShopDetailBean {
+public class ShopDetailBean implements Serializable {
     private int code;
     private String msg;
     private String time;

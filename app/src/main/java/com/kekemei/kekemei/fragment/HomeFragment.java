@@ -216,7 +216,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter1.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
+                ProjectDetailActivity.start(getActivity(), data.getId());
             }
         });
 
@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter4.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
+                ProjectDetailActivity.start(getActivity(), data.getId());
             }
         });
 
@@ -244,7 +244,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter2.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
+                ProjectDetailActivity.start(getActivity(), data.getId());
             }
         });
 
@@ -258,7 +258,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean data = adapter3.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId(), -1,-1L);
+                ProjectDetailActivity.start(getActivity(), data.getId());
             }
         });
 
