@@ -3,6 +3,7 @@ package com.kekemei.kekemei.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,10 @@ import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,13 +47,19 @@ public class ShopBeauticianActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
-    @BindView(R.id.multiple_status_view)
-    MultipleStatusView multipleStatusView;
+    @BindView(R.id.swipe_rfresh_layout)
+    SmartRefreshLayout jSwipeRefreshLayout;
     @BindView(R.id.rvList)
     RecyclerView rvList;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
 
     private SelectBeauticianAdapter beauticianAdapter;
     private SelectShopAdapter shopAdapter;
+
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
+    private int jPageNum = 1;
 
     private String id;
     private boolean showShop;
@@ -94,7 +105,22 @@ public class ShopBeauticianActivity extends BaseActivity {
                 initData();
             }
         });
-        multipleStatusView.showOutContentView(rvList);
+        multipleStatusView.showOutContentView(jSwipeRefreshLayout);
+
+        if (!showShop && StringUtils.isEmpty(id)) {
+            jSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+            jSwipeRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+                @Override
+                public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                    loadMoreData();
+                }
+
+                @Override
+                public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                    loadIdIsNullList(true);
+                }
+            });
+        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         rvList.setLayoutManager(linearLayoutManager);
@@ -136,12 +162,28 @@ public class ShopBeauticianActivity extends BaseActivity {
         } else if (!showShop && StringUtils.isNotEmpty(id)) {
             loadBeauticianList();
         } else {
-            loadIdIsNullList();
+            loadIdIsNullList(true);
         }
     }
 
-    private void loadIdIsNullList() {
-        OkGo.<String>get(URLs.COORDINATE_SHOP).params("longitude", longitude).params("page", 1)
+    private void loadIdIsNullList(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            jPageNum = 1;
+            showRefreshLoading(isRefresh);
+        }
+        loadData(jPageNum);
+    }
+
+    private void loadMoreData() {
+        isLoadMore = true;
+        isRefresh = false;
+        loadData(jPageNum);
+    }
+
+    private void loadData(int pageNum) {
+        OkGo.<String>get(URLs.COORDINATE_SHOP).params("longitude", longitude).params("page", pageNum)
                 .params("latitude", latitude).execute(callback);
     }
 
@@ -165,10 +207,14 @@ public class ShopBeauticianActivity extends BaseActivity {
                 Gson gson = new Gson();
                 List<ShopBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<ShopBean>>() {
                 }.getType());
-                if (CollectionUtils.isNotEmpty(listResult)) {
-                    shopAdapter.replaceData(listResult);
+                if (!showShop && StringUtils.isEmpty(id)) {
+                    onResultSuccess(listResult);
                 } else {
-                    multipleStatusView.showEmpty();
+                    if (CollectionUtils.isNotEmpty(listResult)) {
+                        shopAdapter.replaceData(listResult);
+                    } else {
+                        multipleStatusView.showEmpty();
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -178,7 +224,11 @@ public class ShopBeauticianActivity extends BaseActivity {
         @Override
         public void onError(Response<String> response) {
             super.onError(response);
-            multipleStatusView.showError();
+            if (!showShop && StringUtils.isEmpty(id)) {
+                onResultError();
+            } else {
+                multipleStatusView.showError();
+            }
         }
     };
 
@@ -213,5 +263,92 @@ public class ShopBeauticianActivity extends BaseActivity {
                 multipleStatusView.showError();
             }
         });
+    }
+
+
+    private void onResultSuccess(List<ShopBean> response) {
+        if (!isLoadMore) {
+            jPageNum++;
+            if (response.size() == 0) {
+                showEmpty();
+            }
+            fillData(response);
+        } else {
+            jPageNum++;
+            loadMoreSuccess(response);
+        }
+    }
+
+    private void fillData(List<ShopBean> listData) {
+        if (isRefresh)
+            showRefreshLoading(false);
+        showData(listData);
+        if (listData.size() < 10)
+            showLoadMoreEnd();
+        else
+            showLoadMoreComplete();
+    }
+
+    private void onResultError() {
+        if (!isRefresh && !isLoadMore)
+            showError();
+        if (isLoadMore)
+            showLoadMoreFailed();
+        if (isRefresh)
+            showRefreshLoading(false);
+    }
+
+    private void showData(List<ShopBean> dataList) {
+        if (isOnDestroy)
+            return;
+        multipleStatusView.showOutContentView(jSwipeRefreshLayout);
+        shopAdapter.replaceData(dataList);
+        rvList.scrollToPosition(0);
+    }
+
+    private void loadMoreSuccess(List<ShopBean> dataList) {
+        jSwipeRefreshLayout.finishLoadMore();
+        shopAdapter.addData(dataList);
+        if (dataList.size() < 10) {
+            showLoadMoreEnd();
+        } else {
+            showLoadMoreComplete();
+        }
+    }
+
+    private void showRefreshLoading(boolean show) {
+        if (show) {
+            jSwipeRefreshLayout.refreshDrawableState();
+        } else {
+            jSwipeRefreshLayout.finishRefresh();
+        }
+    }
+
+    private void showEmpty() {
+        multipleStatusView.showEmpty();
+    }
+
+    private void showError() {
+        multipleStatusView.showError();
+    }
+
+    private void showLoadMoreFailed() {
+        shopAdapter.loadMoreFail();
+    }
+
+    private void showLoadMoreEnd() {
+        shopAdapter.loadMoreEnd(false);
+    }
+
+    private void showLoadMoreComplete() {
+        shopAdapter.loadMoreComplete();
+    }
+
+    private boolean isOnDestroy = false;
+
+    @Override
+    public void onDestroy() {
+        isOnDestroy = true;
+        super.onDestroy();
     }
 }

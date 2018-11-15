@@ -121,7 +121,7 @@ public class UserEvaluateActivity extends BaseActivity {
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadData(false);
+                initData();
             }
         });
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
@@ -150,8 +150,13 @@ public class UserEvaluateActivity extends BaseActivity {
         });
 
         jRecyclerView.setAdapter(jAdapter);
+    }
 
-        getData(jPageNum);
+    @Override
+    protected void initData() {
+        super.initData();
+        multipleStatusView.showLoading();
+        loadData(true);
     }
 
     @OnClick({R.id.tabAll, R.id.tabQuiteSatisfaction, R.id.tabSatisfaction,
@@ -240,7 +245,7 @@ public class UserEvaluateActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-                        onResultSuccess(null);
+                        jSwipeRefreshLayout.finishLoadMore();
                         return;
                     }
                 } catch (JSONException e) {

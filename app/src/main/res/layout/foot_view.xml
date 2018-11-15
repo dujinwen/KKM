@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_58"
-        android:background="@color/common_background" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
