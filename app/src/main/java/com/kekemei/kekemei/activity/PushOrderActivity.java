@@ -38,7 +38,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -128,6 +127,10 @@ public class PushOrderActivity extends BaseActivity {
     LinearLayout llSelectTime;
     @BindView(R.id.id_recyclerview_horizontal)
     RecyclerView idRecyclerviewHorizontal;
+    @BindView(R.id.ll_meirongshi_info)
+    LinearLayout llMeirongshiInfo;
+    @BindView(R.id.ll_meirongshi_info_hint)
+    LinearLayout llMeirongshiInfoHint;
 
     private String name = "";
     private int orderNumber = 0;
@@ -168,13 +171,20 @@ public class PushOrderActivity extends BaseActivity {
             // TODO: 2018/11/14  通过店铺查找美容师
             llShopPlace.setClickable(false);
             tvPlace.setText(yuYueActivityBean.getShopDetailBean().getData().getCity() + yuYueActivityBean.getShopDetailBean().getData().getAddress());
+        } else {
+            tvPlace.setText("请选择店铺");
         }
         if (yuYueActivityBean.getBeauticianDetailBean() != null) {
+            llMeirongshiInfo.setVisibility(View.VISIBLE);
+            llMeirongshiInfoHint.setVisibility(View.GONE);
             // TODO: 2018/11/14  店铺主页
             llMeirongshiSelect.setClickable(false);
             tvName.setText(yuYueActivityBean.getBeauticianDetailBean().getData().getNickname());
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getData().getImage(), civIcon);
             sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getData().getState()));
+        }else {
+            llMeirongshiInfo.setVisibility(View.GONE);
+            llMeirongshiInfoHint.setVisibility(View.VISIBLE);
         }
 
 
@@ -218,6 +228,11 @@ public class PushOrderActivity extends BaseActivity {
         order_name = yuYueActivityBean.getOrderName();
         image_url = yuYueActivityBean.getOrderIconUrl();
         order_price = yuYueActivityBean.getOrderPrice() + "";
+        timeSelectName = yuYueActivityBean.getTimeSelectName();
+        timeSelectPosition = yuYueActivityBean.getTimeSelect();
+        daySelectPosition = yuYueActivityBean.getDateSelect();
+
+
         if (yuYueActivityBean.getBeauticianDetailBean() != null) {
             beauticianDataBeanData = yuYueActivityBean.getBeauticianDetailBean().getData();
             beauticianId = beauticianDataBeanData.getId();
@@ -226,16 +241,12 @@ public class PushOrderActivity extends BaseActivity {
             shpDataBeanData = yuYueActivityBean.getShopDetailBean().getData();
             shopId = shpDataBeanData.getId();
         }
-        //        icon_name = intent.getStringExtra(ICON_NAME);
-        //        icon_url = intent.getStringExtra(ICON_URL);
-        //        shop_place = intent.getStringExtra(SHOP_PLACE);
-        //        server_time = intent.getLongExtra(SERVER_TIME, -1L);
+
         tvNum.setText(orderNumber + "");
-        //        tvPrice.setText(order_price);
-        //        tvName.setText(icon_name);
-        //        tvOrderName.setText(order_name);
-        //        tvPlace.setText(shop_place);
-        //        tvTime.setText(AppUtil.getFormatTime(server_time));
+        tvPrice.setText("¥ " + order_price);
+        tvName.setText(icon_name);
+        tvOrderName.setText(order_name);
+        tvTime.setText(timeSelectName == null ? "请选择预约时间" : AppUtil.getFormatTime1(daySelectPosition) + "    " + timeSelectName);
 
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + image_url, ivOrderIcon);
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + icon_url, ivMan);
@@ -311,21 +322,22 @@ public class PushOrderActivity extends BaseActivity {
                 if (beauticianDataBeanData != null && beauticianId == -1) {
                     beauticianId = beauticianDataBeanData.getId();
                 }
-                if (shopId == -1 || beauticianId == -1 || yuYueActivityBean.getTimeSelect() == -1 || yuYueActivityBean.getDateSelect() == -1L) {
-                    ToastUtil.showToastMsg(getBaseContext(), "xuan ");
+                if (shopId == -1 || beauticianId == -1 || timeSelectPosition == -1 || daySelectPosition == -1L) {
+                    ToastUtil.showToastMsg(getBaseContext(), "请依次确定预约信息");
                     return;
                 }
                 OkGo.<String>get(URLs.ADD_APPOINTMENT)
                         .params("user_id", UserHelp.getUserId(PushOrderActivity.this))
                         .params("shop_id", shopId)
                         .params("beautician_id", beauticianId)
-                        .params("timedata", beauticianId)
-                        .params("timedstartdate", yuYueActivityBean.getDateSelect())
+                        .params("timedata", timeSelectPosition)
+                        .params("timedstartdate", daySelectPosition)
                         .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-
+                                MainActivity.start(getApplication(), 2);
+                                finish();
                             }
                         });
                 break;
@@ -334,6 +346,9 @@ public class PushOrderActivity extends BaseActivity {
                 break;
             case R.id.queding:
                 llSelectTime.setVisibility(View.GONE);
+                btnYuyue.setVisibility(View.VISIBLE);
+
+                tvTime.setText(AppUtil.getFormatTime1(daySelectPosition) + "  " + timeSelectName);
                 break;
             case R.id.ll_select_time:
                 break;
@@ -365,6 +380,10 @@ public class PushOrderActivity extends BaseActivity {
             beauticianDataBeanData.setName(beauticianBean.getName());
             beauticianDataBeanData.setImage(beauticianBean.getImage());
             beauticianDataBeanData.setStart(beauticianBean.getStart());
+
+
+            llMeirongshiInfo.setVisibility(View.VISIBLE);
+            llMeirongshiInfoHint.setVisibility(View.GONE);
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + beauticianBean.getImage(), civIcon);
             tvName.setText(beauticianBean.getName());
             sbNum.setStarMark(beauticianBean.getStart());
@@ -408,6 +427,9 @@ public class PushOrderActivity extends BaseActivity {
 
 
         llSelectTime.setVisibility(View.VISIBLE);
+
+        btnYuyue.setVisibility(View.GONE);
+        showSelectTime.setVisibility(View.GONE);
     }
 
     private Calendar cal;

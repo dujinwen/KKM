@@ -159,11 +159,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private int projectId;
-    private int timeSelect = -1;
-    private long dateSelect = -1L;
+    private long daySelectPosition = -1L;
+
+    private int timeSelectPosition = -1;
     private String timeSelectName = "";
-
-
     @Nullable
     private LinearLayout ll_yuyue;
     private Calendar cal;
@@ -220,8 +219,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         projectId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
-        timeSelect = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
-        dateSelect = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
+        timeSelectPosition = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
+        daySelectPosition = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
         timeSelectName = super.getStringExtraSecure(EXTRA_KEY_TIME_NAME);
 
         if ((DetailEnum) getIntent().getSerializableExtra(EXTRA_KEY_DETAIL_ENUM) == DetailEnum.SHOP) {
@@ -362,22 +361,21 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         yuYueDataListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<YuYueDataBean.DataBean> data = yuYueDataListAdapter.getData();
                 if (view.getId() == R.id.ll_select_data_time) {
+
                     tv_date_and_week = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_date_and_week);
                     tv_can_yuyue = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_can_yuyue);
-                    if (!view.isSelected()) {
-                        view.setSelected(true);
-                        view.setBackground(ContextCompat.getDrawable(ProjectDetailActivity.this, R.drawable.btn_7ad2d2_background));
-                        tv_date_and_week.setTextColor(0XFFFFFFFF);
-                        tv_can_yuyue.setTextColor(0XFFFFFFFF);
-                        hashSet.add(position);
-                    } else {
-                        view.setSelected(false);
+                    for (YuYueDataBean.DataBean item : data) {
+                        item.setSelect(false);
                         view.setBackground(ContextCompat.getDrawable(ProjectDetailActivity.this, R.drawable.btn_white_background));
                         tv_date_and_week.setTextColor(0XFF999999);
                         tv_can_yuyue.setTextColor(0XFF999999);
-                        hashSet.remove(position);
                     }
+                    data.get(position).setSelect(true);
+                    timeSelectPosition = data.get(position).getId();
+                    timeSelectName = data.get(position).getName();
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -444,9 +442,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
                                 yuYueActivityBean.setBeauticianDetailBean(beauticianDetailBean);
                                 yuYueActivityBean.setShopDetailBean(shopDetailBean);
-                                yuYueActivityBean.setTimeSelect(timeSelect);
+                                yuYueActivityBean.setTimeSelect(timeSelectPosition);
                                 yuYueActivityBean.setTimeSelectName(timeSelectName);
-                                yuYueActivityBean.setDateSelect(dateSelect);
+                                yuYueActivityBean.setDateSelect(daySelectPosition);
                                 yuYueActivityBean.setOrderId(orderGeneratingBean.getData().getOrder_id());
                                 yuYueActivityBean.setOrderCreateTime(orderGeneratingBean.getTime());
                                 yuYueActivityBean.setOrderCount(1);
@@ -460,7 +458,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.ll_yuyue:
                 //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                if (timeSelect == -1 || dateSelect == -1L) {
+                if (timeSelectPosition == -1 || daySelectPosition == -1L) {
                     llSelectTime.setVisibility(View.VISIBLE);
                     llDianpuTab.setVisibility(View.GONE);
                     layoutBottomBar.setVisibility(View.GONE);
