@@ -17,10 +17,6 @@ import com.kekemei.kekemei.bean.UserBean;
 
 import java.util.List;
 
-/**
- * Created by caozhimin on 2018/8/6.
- */
-
 public class GridAdapter extends BaseAdapter {
     private Context mContext;
 
@@ -60,44 +56,6 @@ public class GridAdapter extends BaseAdapter {
         }
         viewHolder.icon.setImageResource(list.get(position).getUserIcon());
         viewHolder.name.setText(list.get(position).getUserName());
-
-        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (position) {
-                    case 0:
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-                        MainActivity.start(mContext,2);
-                        break;
-                    case 5:
-                        mContext.startActivity(new Intent(mContext, JiFenActivity.class));
-                        break;
-                    case 6:
-                        mContext.startActivity(new Intent(mContext, HuiYuanctivity.class));
-                        break;
-                    case 7:
-
-                        break;
-                    case 8:
-
-                        break;
-                    default:
-
-                        break;
-                }
-            }
-        });
         return convertView;
     }
 

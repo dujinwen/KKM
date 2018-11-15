@@ -1,5 +1,6 @@
 package com.kekemei.kekemei.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,8 +18,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.HuiYuanctivity;
+import com.kekemei.kekemei.activity.JiFenActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
+import com.kekemei.kekemei.activity.MainActivity;
 import com.kekemei.kekemei.activity.MessageActivity;
+import com.kekemei.kekemei.activity.MyCollectionActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
@@ -141,8 +147,39 @@ public class PersonFragment extends Fragment {
             UserBean model = new UserBean(userForwardArray[i], userForwardIconArray[i]);
             list.add(model);
         }
-        GridAdapter gridAdapter = new GridAdapter(getActivity(), list);
+        final GridAdapter gridAdapter = new GridAdapter(getActivity(), list);
         ncgv.setAdapter(gridAdapter);
+        ncgv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        break;
+                    case 1:
+                        MyCollectionActivity.start(getActivity(), "2", true);
+                        break;
+                    case 2:
+                        MyCollectionActivity.start(getActivity(), "", false);
+                        break;
+                    case 3:
+                        MyCollectionActivity.start(getActivity(), "1", true);
+                        break;
+                    case 4:
+                        MainActivity.start(getActivity(),2);
+                        break;
+                    case 5:
+                        startActivity(new Intent(getActivity(), JiFenActivity.class));
+                        break;
+                    case 6:
+                        startActivity(new Intent(getActivity(), HuiYuanctivity.class));
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        break;
+                }
+            }
+        });
 
 
         OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {

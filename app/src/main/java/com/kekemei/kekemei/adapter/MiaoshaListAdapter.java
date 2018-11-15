@@ -29,6 +29,5 @@ public class MiaoshaListAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolde
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.icon));
         helper.setText(R.id.price, "￥  "+String.valueOf(item.getPrice_newmember()));
         helper.setText(R.id.costPrice, "￥"+String.valueOf(item.getPrice_market()));
-        helper.addOnClickListener(R.id.rootLayout);
     }
 }

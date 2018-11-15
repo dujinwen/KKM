@@ -61,7 +61,7 @@ public class URLs {
     //为你推荐
     public static final String FOR_YOU = "http://kekemei.ecooth.com/api/project/foryou";
     //我关注的美容师
-    public static final String MY_BEAUTICIAN = "http://kekemei/api/user/myBeautician";
+    public static final String MY_BEAUTICIAN = "http://kekemei.ecooth.com/api/user/myBeautician";
     //我的收藏
     public static final String MY_COLLECTION = "http://kekemei.ecooth.com/api/user/mycollection";
     //发布投诉

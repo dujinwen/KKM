@@ -25,6 +25,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.adapter.FindOrderListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
@@ -120,7 +121,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     MultipleStatusView multipleStatusView;
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
-    private MyGridAdapter projectAdapter;
+    private FindOrderListAdapter projectAdapter;
     private ShopListAdapter shopAdapter;
     private MeiRongShiListAdapter beauticianAdapter;
     private int jPageNum = 1;
@@ -225,7 +226,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
 
     private void initRecyclerView() {
         projectList.setLayoutManager(new GridLayoutManager(this, 2));
-        projectAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
+        projectAdapter = new FindOrderListAdapter(this);
         projectList.setAdapter(projectAdapter);
 
         shopList.setLayoutManager(new LinearLayoutManager(this));

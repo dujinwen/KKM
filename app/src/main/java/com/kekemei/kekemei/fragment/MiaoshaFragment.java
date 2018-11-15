@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.adapter.MiaoshaListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 
@@ -52,6 +54,13 @@ public class MiaoshaFragment extends Fragment {
         miaoshaRv.setHasFixedSize(true);
         miaoshaRv.setNestedScrollingEnabled(false);
         miaoshaRv.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean item = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), item.getId());
+            }
+        });
 
         return view;
     }
