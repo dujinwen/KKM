@@ -75,13 +75,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone">
-
-
-        </LinearLayout>
+            android:visibility="gone"/>
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/px_37">
@@ -133,13 +129,11 @@
         </LinearLayout>
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="@dimen/px_20">
-
 
             <TextView
                 android:id="@+id/tv_manyidu"
@@ -160,8 +154,6 @@
                 ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
                 ratingbar:starFill="@mipmap/beautician_score_full_ic"
                 ratingbar:starSize="40px" />
-
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
