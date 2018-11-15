@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:paddingTop="@dimen/px_58"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/px_58">
 
     <LinearLayout
-        android:id="@+id/ll_hot_huodong"
+        android:id="@+id/ll_foryou"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/px_160"
+        android:background="#fff"
+        android:gravity="center"
         android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/ll_foryou"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/px_160"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:background="#fff">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/px_30"
-                android:text="为您推荐"
-                android:textColor="#5DBFB2"
-                android:textSize="@dimen/px_46" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/px_30"
+            android:text="为您推荐"
+            android:textColor="#5DBFB2"
+            android:textSize="@dimen/px_46" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="@dimen/px_27"
-                android:src="@mipmap/title_more_btn" />
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rv_hot_huodong">
-
-        </android.support.v7.widget.RecyclerView>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/px_27"
+            android:src="@mipmap/title_more_btn" />
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_hot_huodong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

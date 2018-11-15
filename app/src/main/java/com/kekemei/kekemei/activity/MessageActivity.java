@@ -94,8 +94,6 @@ public class MessageActivity extends BaseActivity {
                         Gson gson = new Gson();
                         MsgBean msgBean = gson.fromJson(response.body(), MsgBean.class);
                         adapter.addData(msgBean.getData());
-
-
                     }
                 });
     }

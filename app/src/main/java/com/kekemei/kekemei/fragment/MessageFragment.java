@@ -26,6 +26,7 @@ import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.UserEvaluateActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
+import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
@@ -369,6 +370,14 @@ public class MessageFragment extends Fragment {
 
         adapter = new MyGridAdapter(getActivity(), MyGridAdapter.ORDER_HOT_BEAN);
         rv_hot_huodong.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean item = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), item.getProject_category_id());
+            }
+        });
     }
 
 }
