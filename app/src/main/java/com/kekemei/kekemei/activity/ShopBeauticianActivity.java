@@ -16,11 +16,11 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.SelectBeauticianAdapter;
 import com.kekemei.kekemei.adapter.SelectShopAdapter;
 import com.kekemei.kekemei.bean.BeauticianBean;
-import com.kekemei.kekemei.bean.CoordinateShopBean;
 import com.kekemei.kekemei.bean.ShopBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
@@ -30,7 +30,6 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,8 +38,6 @@ public class ShopBeauticianActivity extends BaseActivity {
     public static final String TAG = ShopBeauticianActivity.class.getSimpleName();
     private static final String EXTRA_KEY_ID = "Id";
     private static final String EXTRA_KEY_SHOW_SHOP = "showShop";
-    public static final int EXTRA_KEY_START_CODE = 1000;
-    public static final int EXTRA_KEY_RESULT_CODE = 1001;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -129,16 +126,14 @@ public class ShopBeauticianActivity extends BaseActivity {
                 }
             });
         }
-
-
     }
 
     @Override
     protected void initData() {
         super.initData();
-        if (showShop && id != null) {
+        if (showShop && StringUtils.isNotEmpty(id)) {
             loadShopList();
-        } else if (!showShop && id != null) {
+        } else if (!showShop && StringUtils.isNotEmpty(id)) {
             loadBeauticianList();
         } else {
             loadIdIsNullList();
@@ -147,84 +142,45 @@ public class ShopBeauticianActivity extends BaseActivity {
 
     private void loadIdIsNullList() {
         OkGo.<String>get(URLs.COORDINATE_SHOP).params("longitude", longitude).params("page", 1)
-                .params("latitude", latitude).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "response:" + response.body());
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
-                        multipleStatusView.showEmpty();
-                        return;
-                    }
-                    multipleStatusView.showOutContentView(rvList);
-                    Gson gson = new Gson();
-                    CoordinateShopBean coordinateShopBean = gson.fromJson(response.body(), CoordinateShopBean.class);
-                    ShopBean shopBean = new ShopBean();
-
-                    List<ShopBean> listResult = new ArrayList<>();
-
-                    for (int i = 0; i < coordinateShopBean.getData().size(); i++) {
-                        CoordinateShopBean.DataBean dataBean = coordinateShopBean.getData().get(i);
-                        shopBean.setName(dataBean.getName());
-                        shopBean.setId(dataBean.getId());
-                        shopBean.setAddress(dataBean.getAddress());
-                        shopBean.setCity(dataBean.getCity());
-                        listResult.add(shopBean);
-                    }
-                    if (CollectionUtils.isNotEmpty(listResult)) {
-                        shopAdapter.replaceData(listResult);
-                    } else {
-                        multipleStatusView.showEmpty();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                multipleStatusView.showError();
-            }
-        });
+                .params("latitude", latitude).execute(callback);
     }
 
     private void loadShopList() {
         OkGo.<String>get(URLs.BEAUTICIAN_SHOP).params("longitude", longitude).params("beautician_id", id)
-                .params("latitude", latitude).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "response:" + response.body());
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
-                        multipleStatusView.showEmpty();
-                        return;
-                    }
-                    multipleStatusView.showOutContentView(rvList);
-                    Gson gson = new Gson();
-                    List<ShopBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<ShopBean>>() {
-                    }.getType());
-                    if (CollectionUtils.isNotEmpty(listResult)) {
-                        shopAdapter.replaceData(listResult);
-                    } else {
-                        multipleStatusView.showEmpty();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                multipleStatusView.showError();
-            }
-        });
+                .params("latitude", latitude).execute(callback);
     }
+
+    StringCallback callback = new StringCallback() {
+        @Override
+        public void onSuccess(Response<String> response) {
+            LogUtil.e(TAG, "response:" + response.body());
+            try {
+                JSONObject jsonObject = new JSONObject(response.body());
+                Object msg = jsonObject.opt("msg");
+                if (msg.equals("暂无数据")) {
+                    multipleStatusView.showEmpty();
+                    return;
+                }
+                multipleStatusView.showOutContentView(rvList);
+                Gson gson = new Gson();
+                List<ShopBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<ShopBean>>() {
+                }.getType());
+                if (CollectionUtils.isNotEmpty(listResult)) {
+                    shopAdapter.replaceData(listResult);
+                } else {
+                    multipleStatusView.showEmpty();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(Response<String> response) {
+            super.onError(response);
+            multipleStatusView.showError();
+        }
+    };
 
     private void loadBeauticianList() {
         OkGo.<String>post(URLs.SHOP_BEAUTICIAN).params("shop_id", id).execute(new StringCallback() {

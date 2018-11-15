@@ -282,7 +282,7 @@ public class NewComerActivity extends BaseActivity {
                 }
             }
 
-            if (null != response && newComerBean.getData().getNewpopledata().size() < 10)//@TODO 需要改条件
+            if (null != response && newComerBean.getData().getNewpopledata().size() < 10)
                 showLoadMoreEnd();
             else
                 showLoadMoreComplete();
@@ -290,7 +290,7 @@ public class NewComerActivity extends BaseActivity {
             jPageNum++;
             NewComerBean newComerBean = (NewComerBean) response;
             loadMoreSuccess(newComerBean.getData().getNewpopledata());
-            if (newComerBean.getData().getNewpopledata().size() < 10) {//@TODO 需要改条件
+            if (newComerBean.getData().getNewpopledata().size() < 10) {
                 showLoadMoreEnd();
             } else {
                 showLoadMoreComplete();
