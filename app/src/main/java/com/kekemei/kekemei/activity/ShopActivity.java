@@ -605,16 +605,17 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "shop detail:" + response.body());
-                    multipleStatusView.showOutContentView(scrollLayout);
                     try {
                         JSONObject jsonObject = new JSONObject(response.body());
                         Object msg = jsonObject.opt("msg");
                         if (msg.equals("暂无数据")) {
+                            multipleStatusView.showEmpty();
                             return;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
                     shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
@@ -721,16 +722,17 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "beautician detail:" + response.body());
-                    multipleStatusView.showOutContentView(scrollLayout);
                     try {
                         JSONObject jsonObject = new JSONObject(response.body());
                         Object msg = jsonObject.opt("msg");
                         if (msg.equals("暂无数据")) {
+                            multipleStatusView.showEmpty();
                             return;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
                     beauticianDetailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + beauticianDetailBean.getData().getImage(), shop_detail_icon);
