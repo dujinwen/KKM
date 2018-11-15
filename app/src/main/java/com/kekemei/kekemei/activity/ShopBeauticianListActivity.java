@@ -190,7 +190,7 @@ public class ShopBeauticianListActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-                        onResultSuccess(null);
+                        jSwipeRefreshLayout.finishLoadMore();
                         return;
                     }
                 } catch (JSONException e) {

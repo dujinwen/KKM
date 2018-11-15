@@ -25,9 +25,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sectionRv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/px_33"
-        android:paddingRight="@dimen/px_43" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/lookMore"
@@ -66,9 +64,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sectionNewRv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/px_33"
-            android:paddingRight="@dimen/px_43" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/lookMoreNew"
@@ -108,9 +104,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sectionMemberRv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/px_33"
-            android:paddingRight="@dimen/px_43" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/lookMoreMember"
@@ -150,9 +144,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sectionPreferenceRv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/px_33"
-            android:paddingRight="@dimen/px_43" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/lookMorePreference"

@@ -142,9 +142,9 @@ public class OrderFragment extends Fragment {
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
-                                        LogUtil.d("AAA",arrayList.toString());
+                                        LogUtil.d("AAA", arrayList.toString());
                                         arrayList.remove(position);
-                                        LogUtil.d("AAA",arrayList.toString());
+                                        LogUtil.d("AAA", arrayList.toString());
                                         jAdapter.setNewData(arrayList);
                                         jAdapter.notifyDataSetChanged();
                                     }
@@ -203,13 +203,12 @@ public class OrderFragment extends Fragment {
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
                 ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-                if (forYouBean.getCode() == 1 && forYouBean.getData().size() > 0) {
-                    jAdapter.getFooterLayout().setVisibility(View.VISIBLE);
-                } else {
-                    jAdapter.getFooterLayout().setVisibility(View.GONE);
-                    return;
-                }
                 forYouAdapter.replaceData(forYouBean.getData());
+                if (forYouAdapter.getData().size() > 0) {
+                    footView.setVisibility(View.VISIBLE);
+                } else {
+                    footView.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -338,15 +337,17 @@ public class OrderFragment extends Fragment {
                 });
     }
 
+    private View footView;
+
     private void addHotProject() {
-        View foot_view = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            foot_view = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
+            footView = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
         } else {
-            foot_view = LayoutInflater.from(getActivity()).inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
+            footView = LayoutInflater.from(getActivity()).inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
         }
-        jAdapter.addFooterView(foot_view);
-        rvForYou = foot_view.findViewById(R.id.rv_hot_huodong);
+        footView.setVisibility(View.GONE);
+        jAdapter.addFooterView(footView);
+        rvForYou = footView.findViewById(R.id.rv_hot_huodong);
         rvForYou.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvForYou.setHasFixedSize(true);
         rvForYou.setNestedScrollingEnabled(false);

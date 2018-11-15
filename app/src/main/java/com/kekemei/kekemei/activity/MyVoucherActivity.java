@@ -3,11 +3,11 @@ package com.kekemei.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,35 +15,41 @@ import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.VoucherDataAdapter;
 import com.kekemei.kekemei.bean.CouponDataBean;
+import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
+import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import java.util.List;
 
-/**
- * Created by peiyangfan on 2018/11/5.
- */
+import butterknife.BindView;
 
 public class MyVoucherActivity extends BaseActivity {
-    private static CouponDataBean couponDataBean;
-    @BindView(R.id.rv_list)
-    RecyclerView rvList;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_submit)
-    TextView tvSubmit;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private VoucherDataAdapter adapter;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.swipe_rfresh_layout)
+    SmartRefreshLayout jSwipeRefreshLayout;
+    @BindView(R.id.rvList)
+    RecyclerView rvList;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+    private VoucherDataAdapter jAdapter;
+
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
+    private int jPageNum = 1;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MyVoucherActivity.class);
@@ -56,9 +62,13 @@ public class MyVoucherActivity extends BaseActivity {
     }
 
     @Override
+    protected int setLayoutId() {
+        return R.layout.activity_my_voucher;
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
         tvTitle.setText("代金券");
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -67,64 +77,194 @@ public class MyVoucherActivity extends BaseActivity {
                 finish();
             }
         });
-    }
 
-    @Override
-    protected int setLayoutId() {
-        return R.layout.activity_my_voucher;
-    }
+        multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initData();
+            }
+        });
+        multipleStatusView.showOutContentView(jSwipeRefreshLayout);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        jSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        jSwipeRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
+
+        rvList.setLayoutManager(new LinearLayoutManager(this));
+        jAdapter = new VoucherDataAdapter();
+        rvList.setAdapter(jAdapter);
+
+        jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                CouponDataBean.DataBean item = jAdapter.getItem(position);
+                //数据是使用Intent返回
+                Intent intent = new Intent();
+                //把返回数据存入Intent
+                intent.putExtra("result", item.getCoupon().getPrice_reduction());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     @Override
     protected void initData() {
         super.initData();
+        multipleStatusView.showLoading();
+        loadData(true);
+    }
 
-        rvList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new VoucherDataAdapter();
-        rvList.setAdapter(adapter);
+    private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            jPageNum = 1;
+            showRefreshLoading(isRefresh);
+        }
+        getData(jPageNum);
+    }
 
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //数据是使用Intent返回
-                Intent intent = new Intent();
-                //把返回数据存入Intent
-                intent.putExtra("result", couponDataBean.getData().get(position).getCoupon().getPrice_reduction());
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+    private void loadMoreData() {
+        isLoadMore = true;
+        isRefresh = false;
+        getData(jPageNum);
+    }
 
-
+    public void getData(int pageNum) {
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
-        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id",
-                userId).execute(new StringCallback() {
+        OkGo.<String>get(URLs.MY_COUPON).tag(this).params("user_id", userId)
+                .params("page", pageNum).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                JSONObject jsonObject = null;
                 try {
-                    jsonObject = new JSONObject(response.body());
+                    JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
+                        jSwipeRefreshLayout.finishLoadMore();
                         return;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                couponDataBean = gson.fromJson(response.body(), CouponDataBean.class);
-                adapter.addData(couponDataBean.getData());
+                Gson gson = new Gson();
+                CouponDataBean couponDataBean = gson.fromJson(response.body(), CouponDataBean.class);
+                onResultSuccess(couponDataBean);
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                LogUtil.e("TAG", response.message());
+                onResultError();
             }
         });
+    }
+
+    private void onResultSuccess(Object response) {
+        if (!isLoadMore) {
+            jPageNum++;
+            CouponDataBean couponDataBean = (CouponDataBean) response;
+
+            if (null == response || null == couponDataBean.getData()) {
+                showEmpty();
+            }
+            fillData(couponDataBean.getData());
+        } else {
+            jPageNum++;
+            CouponDataBean couponDataBean = (CouponDataBean) response;
+            loadMoreSuccess(couponDataBean.getData());
+        }
+    }
+
+    private void fillData(List<CouponDataBean.DataBean> listData) {
+        if (listData.size() == 0) {
+            showEmpty();
+        } else {
+            if (isRefresh)
+                showRefreshLoading(false);
+            showData(listData);
+        }
+        if (listData.size() < 10)
+            showLoadMoreEnd();
+        else
+            showLoadMoreComplete();
+    }
+
+    private void onResultError() {
+        if (!isRefresh && !isLoadMore)
+            showError();
+        if (isLoadMore)
+            showLoadMoreFailed();
+        if (isRefresh)
+            showRefreshLoading(false);
+    }
+
+    private void showRefreshLoading(boolean show) {
+        if (show) {
+            jSwipeRefreshLayout.refreshDrawableState();
+        } else {
+            jSwipeRefreshLayout.finishRefresh();
+        }
+    }
+
+    private void showData(List<CouponDataBean.DataBean> dataList) {
+        if (isOnDestroy)
+            return;
+        multipleStatusView.showOutContentView(jSwipeRefreshLayout);
+        jAdapter.replaceData(dataList);
+        rvList.scrollToPosition(0);
+    }
+
+    private void showEmpty() {
+        multipleStatusView.showEmpty();
+    }
+
+    private void showError() {
+        multipleStatusView.showError();
+    }
+
+    private void loadMoreSuccess(List<CouponDataBean.DataBean> dataList) {
+        jSwipeRefreshLayout.finishLoadMore();
+        jAdapter.addData(dataList);
+        if (dataList.size() < 10) {
+            showLoadMoreEnd();
+        } else {
+            showLoadMoreComplete();
+        }
+    }
+
+    private void showLoadMoreFailed() {
+        jAdapter.loadMoreFail();
+    }
+
+    private void showLoadMoreEnd() {
+        jAdapter.loadMoreEnd(false);
+    }
+
+    private void showLoadMoreComplete() {
+        jAdapter.loadMoreComplete();
+    }
+
+    private boolean isOnDestroy = false;
+
+    @Override
+    public void onDestroy() {
+        isOnDestroy = true;
+        super.onDestroy();
     }
 }
