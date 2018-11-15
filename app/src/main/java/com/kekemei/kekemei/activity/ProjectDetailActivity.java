@@ -512,7 +512,6 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initData() {
         super.initData();
-        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.PROJECT_DETAILS)
                 .params("id", projectId)
                 .execute(new StringCallback() {

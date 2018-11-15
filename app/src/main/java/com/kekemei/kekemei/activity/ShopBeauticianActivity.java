@@ -9,12 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.SelectBeauticianAdapter;
 import com.kekemei.kekemei.adapter.SelectShopAdapter;
 import com.kekemei.kekemei.bean.BeauticianBean;
+import com.kekemei.kekemei.bean.CoordinateShopBean;
 import com.kekemei.kekemei.bean.ShopBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -28,6 +30,7 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -102,25 +105,48 @@ public class ShopBeauticianActivity extends BaseActivity {
         if (showShop) {
             shopAdapter = new SelectShopAdapter(getBaseContext());
             rvList.setAdapter(shopAdapter);
+            shopAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    ShopBean item = (ShopBean) adapter.getItem(position);
+                    Intent intent = new Intent();
+                    intent.putExtra("ShopBean", item);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
         } else {
             beauticianAdapter = new SelectBeauticianAdapter(getBaseContext());
             rvList.setAdapter(beauticianAdapter);
+            beauticianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    BeauticianBean item = (BeauticianBean) adapter.getItem(position);
+                    Intent intent = new Intent();
+                    intent.putExtra("BeauticianBean", item);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
         }
+
+
     }
 
     @Override
     protected void initData() {
         super.initData();
-        if (showShop) {
+        if (showShop && id != null) {
             loadShopList();
-        } else {
+        } else if (!showShop && id != null) {
             loadBeauticianList();
+        } else {
+            loadIdIsNullList();
         }
     }
 
-    private void loadShopList() {
-        multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.BEAUTICIAN_SHOP).params("longitude", longitude).params("beautician_id", id)
+    private void loadIdIsNullList() {
+        OkGo.<String>get(URLs.COORDINATE_SHOP).params("longitude", longitude).params("page", 1)
                 .params("latitude", latitude).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -132,6 +158,53 @@ public class ShopBeauticianActivity extends BaseActivity {
                         multipleStatusView.showEmpty();
                         return;
                     }
+                    multipleStatusView.showOutContentView(rvList);
+                    Gson gson = new Gson();
+                    CoordinateShopBean coordinateShopBean = gson.fromJson(response.body(), CoordinateShopBean.class);
+                    ShopBean shopBean = new ShopBean();
+
+                    List<ShopBean> listResult = new ArrayList<>();
+
+                    for (int i = 0; i < coordinateShopBean.getData().size(); i++) {
+                        CoordinateShopBean.DataBean dataBean = coordinateShopBean.getData().get(i);
+                        shopBean.setName(dataBean.getName());
+                        shopBean.setId(dataBean.getId());
+                        shopBean.setAddress(dataBean.getAddress());
+                        shopBean.setCity(dataBean.getCity());
+                        listResult.add(shopBean);
+                    }
+                    if (CollectionUtils.isNotEmpty(listResult)) {
+                        shopAdapter.replaceData(listResult);
+                    } else {
+                        multipleStatusView.showEmpty();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                multipleStatusView.showError();
+            }
+        });
+    }
+
+    private void loadShopList() {
+        OkGo.<String>get(URLs.BEAUTICIAN_SHOP).params("longitude", longitude).params("beautician_id", id)
+                .params("latitude", latitude).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "response:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        multipleStatusView.showEmpty();
+                        return;
+                    }
+                    multipleStatusView.showOutContentView(rvList);
                     Gson gson = new Gson();
                     List<ShopBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<ShopBean>>() {
                     }.getType());
@@ -154,7 +227,6 @@ public class ShopBeauticianActivity extends BaseActivity {
     }
 
     private void loadBeauticianList() {
-        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.SHOP_BEAUTICIAN).params("shop_id", id).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -165,6 +237,7 @@ public class ShopBeauticianActivity extends BaseActivity {
                         multipleStatusView.showEmpty();
                         return;
                     }
+                    multipleStatusView.showOutContentView(rvList);
                     Gson gson = new Gson();
                     List<BeauticianBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<BeauticianBean>>() {
                     }.getType());

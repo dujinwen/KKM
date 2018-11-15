@@ -115,7 +115,6 @@ public class MiaoshaActivity extends BaseActivity implements ViewPager.OnPageCha
     @Override
     protected void initData() {
         super.initData();
-        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.SECOND).params("id", "1").execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

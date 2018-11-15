@@ -20,7 +20,11 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.DayCheckAdapter2;
 import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
+import com.kekemei.kekemei.bean.BeauticianBean;
+import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.bean.CanlBean;
+import com.kekemei.kekemei.bean.ShopBean;
+import com.kekemei.kekemei.bean.ShopDetailBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
@@ -34,6 +38,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -133,6 +138,10 @@ public class PushOrderActivity extends BaseActivity {
 
     public static final int EXTRA_KEY_SHOP_CODE = 1000;
     public static final int EXTRA_KEY_BEAUTICIAN_CODE = 1001;
+    private BeauticianDetailBean.DataBean beauticianDataBeanData;
+    private ShopDetailBean.DataBean shpDataBeanData;
+    private int shopId = -1;
+    private int beauticianId = -1;
 
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PushOrderActivity.class);
@@ -209,6 +218,14 @@ public class PushOrderActivity extends BaseActivity {
         order_name = yuYueActivityBean.getOrderName();
         image_url = yuYueActivityBean.getOrderIconUrl();
         order_price = yuYueActivityBean.getOrderPrice() + "";
+        if (yuYueActivityBean.getBeauticianDetailBean() != null) {
+            beauticianDataBeanData = yuYueActivityBean.getBeauticianDetailBean().getData();
+            beauticianId = beauticianDataBeanData.getId();
+        }
+        if (yuYueActivityBean.getShopDetailBean() != null) {
+            shpDataBeanData = yuYueActivityBean.getShopDetailBean().getData();
+            shopId = shpDataBeanData.getId();
+        }
         //        icon_name = intent.getStringExtra(ICON_NAME);
         //        icon_url = intent.getStringExtra(ICON_URL);
         //        shop_place = intent.getStringExtra(SHOP_PLACE);
@@ -264,28 +281,45 @@ public class PushOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meirongshi_select:
-                ShopBeauticianActivity.start(PushOrderActivity.this,
-                        yuYueActivityBean.getBeauticianDetailBean().getData().getId() + "",
-                        false, EXTRA_KEY_SHOP_CODE);
+                if (shopId == -1)
+                    ToastUtil.showToastMsg(getBaseContext(), "请先选择店铺");
+                else if (shopId != -1)
+                    ShopBeauticianActivity.start(PushOrderActivity.this,
+                            shopId + "",
+                            false, EXTRA_KEY_BEAUTICIAN_CODE);
                 break;
             case R.id.ll_shop_place:
-                ShopBeauticianActivity.start(PushOrderActivity.this,
-                        yuYueActivityBean.getShopDetailBean().getData().getId() + "",
-                        false, EXTRA_KEY_BEAUTICIAN_CODE);
+                if (beauticianId == -1)
+                    ShopBeauticianActivity.start(PushOrderActivity.this,
+                            null,
+                            true, EXTRA_KEY_SHOP_CODE);
+                else if (beauticianId != -1)
+                    ShopBeauticianActivity.start(PushOrderActivity.this,
+                            beauticianId + "",
+                            true, EXTRA_KEY_SHOP_CODE);
                 break;
             case R.id.ll_service_time:
-                if (yuYueActivityBean.getBeauticianDetailBean() == null || yuYueActivityBean.getShopDetailBean() == null) {
+                if (beauticianId == -1 || shopId == -1) {
                     ToastUtil.showToastMsg(PushOrderActivity.this, "请确认已选择美容师及店铺");
                     return;
                 }
                 initDayTime();
                 break;
             case R.id.btn_yuyue:
+                if (shpDataBeanData != null && shopId == -1)
+                    shopId = shpDataBeanData.getId();
+                if (beauticianDataBeanData != null && beauticianId == -1) {
+                    beauticianId = beauticianDataBeanData.getId();
+                }
+                if (shopId == -1 || beauticianId == -1 || yuYueActivityBean.getTimeSelect() == -1 || yuYueActivityBean.getDateSelect() == -1L) {
+                    ToastUtil.showToastMsg(getBaseContext(), "xuan ");
+                    return;
+                }
                 OkGo.<String>get(URLs.ADD_APPOINTMENT)
                         .params("user_id", UserHelp.getUserId(PushOrderActivity.this))
-                        .params("shop_id", yuYueActivityBean.getShopDetailBean().getData().getId())
-                        .params("beautician_id", yuYueActivityBean.getBeauticianDetailBean().getData().getId())
-                        .params("timedata", yuYueActivityBean.getTimeSelect())
+                        .params("shop_id", shopId)
+                        .params("beautician_id", beauticianId)
+                        .params("timedata", beauticianId)
                         .params("timedstartdate", yuYueActivityBean.getDateSelect())
                         .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
@@ -312,10 +346,28 @@ public class PushOrderActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
         if (requestCode == EXTRA_KEY_SHOP_CODE) {
+            ShopBean shopBean = (ShopBean) data.getSerializableExtra("ShopBean");
+            if (shpDataBeanData == null) {
+                shpDataBeanData = new ShopDetailBean.DataBean();
+            }
+            shpDataBeanData.setAddress(shopBean.getAddress());
+            shopId = shopBean.getId();
+            shpDataBeanData.setId(shopId);
+            tvPlace.setText(shopBean.getCity() + "    " + shopBean.getAddress());
 
         }
         if (requestCode == EXTRA_KEY_BEAUTICIAN_CODE) {
-
+            BeauticianBean beauticianBean = (BeauticianBean) data.getSerializableExtra("BeauticianBean");
+            if (beauticianDataBeanData == null)
+                beauticianDataBeanData = new BeauticianDetailBean.DataBean();
+            beauticianId = beauticianBean.getId();
+            beauticianDataBeanData.setId(beauticianId);
+            beauticianDataBeanData.setName(beauticianBean.getName());
+            beauticianDataBeanData.setImage(beauticianBean.getImage());
+            beauticianDataBeanData.setStart(beauticianBean.getStart());
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + beauticianBean.getImage(), civIcon);
+            tvName.setText(beauticianBean.getName());
+            sbNum.setStarMark(beauticianBean.getStart());
         }
     }
 
@@ -343,7 +395,7 @@ public class PushOrderActivity extends BaseActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         idRecyclerviewHorizontal.setLayoutManager(linearLayoutManager);
         dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(),
-                yuYueActivityBean.getBeauticianDetailBean().getData().getId());
+                beauticianId);
         idRecyclerviewHorizontal.setAdapter(dayAdapter);
 
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
@@ -371,7 +423,7 @@ public class PushOrderActivity extends BaseActivity {
      */
     public void timeData(long timedstartdate) {
         OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA)
-                .params("beautician", yuYueActivityBean.getBeauticianDetailBean().getData().getId())
+                .params("beautician", beauticianId)
                 .params("timedstartdate", timedstartdate).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

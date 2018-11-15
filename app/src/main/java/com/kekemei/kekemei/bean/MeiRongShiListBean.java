@@ -2,6 +2,7 @@ package com.kekemei.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -320,7 +321,7 @@ public class MeiRongShiListBean {
                 this.tag_text = tag_text;
             }
 
-            public static class ShopsBean {
+            public static class ShopsBean implements Serializable{
                 /**
                  * id : 1
                  * name : 西直门店

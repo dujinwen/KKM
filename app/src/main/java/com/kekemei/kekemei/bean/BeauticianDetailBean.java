@@ -67,7 +67,7 @@ public class BeauticianDetailBean implements Serializable {
         private List<String> auth;
         private List<CouponBean> coupon;
         private List<RedEnvelopes> redenvelopes;
-        private int start;
+        private float start;
         private String satisfaction;
         private String peer;
         private String address;
@@ -250,11 +250,11 @@ public class BeauticianDetailBean implements Serializable {
             this.redenvelopes = redenvelopes;
         }
 
-        public int getStart() {
+        public float getStart() {
             return start;
         }
 
-        public void setStart(int start) {
+        public void setStart(float start) {
             this.start = start;
         }
 

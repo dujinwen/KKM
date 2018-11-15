@@ -40,7 +40,7 @@ public class BeauticianBean implements Serializable {
     private int order;
     private double satisfaction;
     private String shop_ids;
-    private int start;
+    private float start;
     private String state;
     private String state_text;
     private long user_id;
@@ -114,11 +114,11 @@ public class BeauticianBean implements Serializable {
         this.shop_ids = shop_ids;
     }
 
-    public int getStart() {
+    public float getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(float start) {
         this.start = start;
     }
 

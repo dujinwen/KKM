@@ -1,11 +1,12 @@
 package com.kekemei.kekemei.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 店铺
  */
-public class ShopBean {
+public class ShopBean implements Serializable{
 
     /**
      * $satisfaction : 1

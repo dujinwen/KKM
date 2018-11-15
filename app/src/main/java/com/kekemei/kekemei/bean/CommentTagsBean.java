@@ -1,6 +1,8 @@
 package com.kekemei.kekemei.bean;
 
-public class CommentTagsBean {
+import java.io.Serializable;
+
+public class CommentTagsBean implements Serializable{
     /**
      * id : 3
      * name : 美容师专业

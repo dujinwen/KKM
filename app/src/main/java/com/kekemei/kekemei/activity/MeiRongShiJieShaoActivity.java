@@ -127,7 +127,6 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).execute(new StringCallback() {
             @SuppressLint("StringFormatMatches")
             @Override

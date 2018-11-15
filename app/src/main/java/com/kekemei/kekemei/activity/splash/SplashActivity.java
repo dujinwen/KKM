@@ -157,7 +157,7 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
                 //                loadData();//后续操作
                 HttpParams commonParams = new HttpParams();
                 commonParams.put("latitude",latitude);
-                commonParams.put("latitude",longitude);
+                commonParams.put("longitude",longitude);
                 OkGo.getInstance().init(getApplication()).addCommonParams(commonParams);
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {

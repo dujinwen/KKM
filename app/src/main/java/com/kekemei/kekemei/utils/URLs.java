@@ -121,9 +121,9 @@ public class URLs {
     public static final String SHOP_NEAR = "http://kekemei.ecooth.com/api/shop/nearbyShop";
     //店铺主页
     public static final String SHOP_DETAILS = "http://kekemei.ecooth.com/api/shop/details";
-    //店铺主页
+    //座标搜索店铺并按距离排序
     public static final String COORDINATE_SHOP = "http://kekemei.ecooth.com/api/shop/coordinateshop";
-    //店铺主页
+    //通过美容师查店铺
     public static final String BEAUTICIAN_SHOP = "http://kekemei.ecooth.com/api/beautician/beauticianshop";
 
 

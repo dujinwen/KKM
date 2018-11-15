@@ -2,9 +2,10 @@ package com.kekemei.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EvaluateBean {
+public class EvaluateBean implements Serializable{
     /**
      * avatar : /assets/img/avatar.png
      * beautician_beautician_id : 2
@@ -240,7 +241,7 @@ public class EvaluateBean {
         this.reply = reply;
     }
 
-    public static class ReplyBean {
+    public static class ReplyBean implements Serializable{
         /**
          * beautician_beautician_id : 2
          * comment_comment_id : 7

@@ -442,7 +442,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
                 HttpParams commonParams = new HttpParams();
                 commonParams.put("latitude",latitude);
-                commonParams.put("latitude",longitude);
+                commonParams.put("longitude",longitude);
                 OkGo.getInstance().init(getActivity().getApplication()).addCommonParams(commonParams);
 
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);

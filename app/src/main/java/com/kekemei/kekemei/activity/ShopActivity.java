@@ -596,7 +596,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
-        multipleStatusView.showLoading();
         if (detailEnum == DetailEnum.SHOP) {
             OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")

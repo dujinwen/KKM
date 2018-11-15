@@ -168,7 +168,6 @@ public class NewComerActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        multipleStatusView.showLoading();
         loadData(true);
     }
 
