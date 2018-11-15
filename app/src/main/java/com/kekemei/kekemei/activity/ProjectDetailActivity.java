@@ -520,7 +520,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ProjectDetailActivity", response.body());
-                try {
+                /*try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     int code = jsonObject.optInt("code");
                     if (code != 1) {
@@ -529,7 +529,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
                 multipleStatusView.showOutContentView(scrollLayout);
                 Gson gson = new Gson();
                 detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);

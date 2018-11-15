@@ -123,6 +123,8 @@ public class URLs {
     public static final String SHOP_DETAILS = "http://kekemei.ecooth.com/api/shop/details";
     //店铺主页
     public static final String COORDINATE_SHOP = "http://kekemei.ecooth.com/api/shop/coordinateshop";
+    //店铺主页
+    public static final String BEAUTICIAN_SHOP = "http://kekemei.ecooth.com/api/beautician/beauticianshop";
 
 
     /**
