@@ -64,6 +64,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_now_use"
             android:layout_width="@dimen/px_202"
             android:layout_height="@dimen/px_58"
             android:layout_marginRight="@dimen/px_75"

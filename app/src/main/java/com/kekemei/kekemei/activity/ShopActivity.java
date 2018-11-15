@@ -847,8 +847,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         canlBean.setDataBean(calList);
 
         long timeInMillis = canlBean.getDataBean().get(0).getTimeInMillis();
-        timeData(timeInMillis);
-        daySelectPosition = timeInMillis;
+        String timestamp = String.format("%010d", timeInMillis);
+        timeData(Long.valueOf(timestamp));
+        daySelectPosition = Long.valueOf(timestamp);
         LogUtil.d("ShopActivity", daySelectPosition + "");
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -860,8 +861,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(View view, TextView textView, int position) {
-                daySelectPosition = canlBean.getDataBean().get(position).getTimeInMillis();
-                timeData(canlBean.getDataBean().get(position).getTimeInMillis());
+                long timeInMillis1 = canlBean.getDataBean().get(position).getTimeInMillis();
+                String format = String.format("%010d", timeInMillis1);
+                timeData(Long.valueOf(format));
+                daySelectPosition = Long.valueOf(format);
             }
         });
     }

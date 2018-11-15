@@ -129,7 +129,7 @@ public class MessageFragment extends Fragment {
         rvList.setAdapter(jAdapter);
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.iv_del_order:
@@ -144,7 +144,11 @@ public class MessageFragment extends Fragment {
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
-
+                                        LogUtil.d("AAA",arrayList.toString());
+                                        arrayList.remove(position);
+                                        LogUtil.d("AAA",arrayList.toString());
+                                        jAdapter.setNewData(arrayList);
+                                        jAdapter.notifyDataSetChanged();
                                     }
                                 });
                         break;

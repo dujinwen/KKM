@@ -22,6 +22,8 @@ public class VoucherDataAdapter extends BaseQuickAdapter<CouponDataBean.DataBean
         helper.setBackgroundRes(R.id.ll_voucher_bg, R.mipmap.orderform_youhuijuan_youhuijuan_);
         helper.setText(R.id.tv_price, item.getCoupon().getPrice_reduction() + "");
         helper.setText(R.id.data, strSub(item.getCoupon().getActivitytime()) + " — " + strSub(item.getCoupon().getActivitytime_end()));
+
+        helper.addOnClickListener(R.id.btn_now_use);
     }
 
 

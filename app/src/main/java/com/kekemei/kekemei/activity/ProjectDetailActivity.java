@@ -626,7 +626,11 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         }
         canlBean.setDataBean(calList);
 
-        timeData(canlBean.getDataBean().get(0).getTimeInMillis());
+        long timeInMillis = canlBean.getDataBean().get(0).getTimeInMillis();
+        String timestamp = String.format("%010d", timeInMillis);
+        timeData(Long.valueOf(timestamp));
+        daySelectPosition = Long.valueOf(timestamp);
+        LogUtil.d("ShopActivity", daySelectPosition + "");
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -637,7 +641,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(View view, TextView textView, int position) {
-                timeData(canlBean.getDataBean().get(position).getTimeInMillis());
+                long timeInMillis1 = canlBean.getDataBean().get(position).getTimeInMillis();
+                String format = String.format("%010d", timeInMillis1);
+                timeData(Long.valueOf(format));
+                daySelectPosition = Long.valueOf(format);
             }
         });
     }

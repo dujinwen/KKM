@@ -20,6 +20,8 @@ public class HongBaoDataAdapter extends BaseQuickAdapter<HongBaoDataBean.DataBea
         helper.setBackgroundRes(R.id.ll_voucher_bg, R.mipmap.orderform_youhuijuan_youhuijuan_);
         helper.setText(R.id.tv_price, item.getRedenvelopes().getPrice_reduction() + "");
         helper.setText(R.id.data, strSub(item.getRedenvelopes().getActivitytime()) + " — " + strSub(item.getRedenvelopes().getActivitytime_end()));
+
+        helper.addOnClickListener(R.id.btn_now_use);
     }
 
 
