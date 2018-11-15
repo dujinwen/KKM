@@ -103,6 +103,7 @@
             android:launchMode="singleTop"/>
         <activity android:name=".activity.NewComerActivity" />
         <activity android:name=".activity.ShopBeauticianActivity" />
+        <activity android:name=".activity.MyCollectionActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
