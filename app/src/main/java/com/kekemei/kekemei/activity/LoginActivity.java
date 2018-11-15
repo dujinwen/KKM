@@ -303,6 +303,7 @@ public class LoginActivity extends BaseActivity {
         UserHelp.setUserId(baseContext, userinfo.getUser_id());
         UserHelp.setIsNew(baseContext, userinfo.getIsnew());
 
+        createAccount(userinfo.getUser_id());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -393,7 +394,7 @@ public class LoginActivity extends BaseActivity {
 
     //    private ProgressDialog mDialog;
 
-    public void createAccount() {
+    public void createAccount(final int user_id) {
 
         //        mDialog = new ProgressDialog(this);
         //        mDialog.setMessage("注册中，请稍后...");
@@ -403,7 +404,7 @@ public class LoginActivity extends BaseActivity {
             public void run() {
                 try {
 
-                    EMClient.getInstance().createAccount("", "");
+                    EMClient.getInstance().createAccount("kekemei_chat" + user_id, "kekemei_chat" + user_id);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -411,6 +412,7 @@ public class LoginActivity extends BaseActivity {
                                 //                                mDialog.dismiss();
                             }
                             Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+                            chatLogin("kekemei_chat" + user_id);
                         }
                     });
                 } catch (final HyphenateException e) {
@@ -439,9 +441,11 @@ public class LoginActivity extends BaseActivity {
                                     break;
                                 // 用户已存在
                                 case EMError.USER_ALREADY_EXIST:
-                                    Toast.makeText(LoginActivity.this,
-                                            "用户已存在 code: " + errorCode + ", message:" + message,
-                                            Toast.LENGTH_LONG).show();
+
+                                    chatLogin("kekemei_chat" + user_id);
+//                                    Toast.makeText(LoginActivity.this,
+//                                            "用户已存在 code: " + errorCode + ", message:" + message,
+//                                            Toast.LENGTH_LONG).show();
                                     break;
                                 // 参数不合法，一般情况是username 使用了uuid导致，不能使用uuid注册
                                 case EMError.USER_ILLEGAL_ARGUMENT:

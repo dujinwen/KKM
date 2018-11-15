@@ -53,7 +53,7 @@ public class URLs {
     //我的优惠券
     public static final String MY_COUPON = " http://kekemei.ecooth.com/api/user/mycoupon";
     //添加收藏
-    public static final String ADD_COLLECTION = "http://kekeme/api/user/addColleciton";
+    public static final String ADD_COLLECTION = "http://kekemei.ecooth.com/api/user/addColleciton";
     //领取优惠券
     public static final String COUPON_RECEIVE = "http://kekemei.ecooth.com/api/coupon/receive";
     //领红包

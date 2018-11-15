@@ -16,14 +16,15 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -31,6 +32,8 @@ import com.lzy.okgo.model.Response;
 import java.util.Arrays;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 美容师介绍
@@ -121,7 +124,7 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
         workPhotoList.setLayoutManager(layout_meirongshi);
         adapter = new WorkPhotoListAdapter();
         workPhotoList.setAdapter(adapter);
-//        setGridView();
+        //        setGridView();
     }
 
     @Override
@@ -171,6 +174,35 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.tvFollow)
+    public void onViewClicked() {
+        if (tvFollow.getText().toString().equals("关注"))
+            follow();
+    }
+
+    /**
+     * 关注
+     */
+    private void follow() {
+        OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
+                .params("beautician_id", beauticianId)
+                .params("user_id", UserHelp.getUserId(MeiRongShiJieShaoActivity.this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.e("Me", "follow beautician:" + response.body());
+                        Gson gson = new Gson();
+                        tvFollow.setText("已关注");
+                    }
+                });
+    }
 
     private class WorkPhotoListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 

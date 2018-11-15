@@ -3,8 +3,11 @@ package com.kekemei.kekemei.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -385,6 +388,19 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvCollection:
+                if (tvCollection.getCompoundDrawables()[0] == null)
+                    //todo 添加收藏
+                    OkGo.<String>get(URLs.ADD_COLLECTION)
+                            .params("user_id", UserHelp.getUserId(ProjectDetailActivity.this))
+                            .params("type", "1")
+                            .params("project_id", detailBean.getData().getId())
+                            .execute(new StringCallback() {
+                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    setTvCollectionLeft();
+                                }
+                            });
                 break;
             case R.id.projectDetail:
                 indicatorProjectDetail.setVisibility(View.VISIBLE);
@@ -475,6 +491,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void setTvCollectionLeft() {
+        Drawable drawable = getResources().getDrawable(R.mipmap.beautician_detail_satisfaction_ic_1, null);
+        tvCollection.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+    }
+
     private void scrollTo(final View view) {
         if (view == null) {
             return;
@@ -513,10 +535,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         OkGo.<String>post(URLs.PROJECT_DETAILS)
                 .params("id", projectId)
                 .execute(new StringCallback() {
-            @SuppressLint("StringFormatMatches")
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("ProjectDetailActivity", response.body());
+                    @SuppressLint("StringFormatMatches")
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.e("ProjectDetailActivity", response.body());
                 /*try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     int code = jsonObject.optInt("code");
@@ -527,46 +549,47 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }*/
-                multipleStatusView.showOutContentView(scrollLayout);
-                Gson gson = new Gson();
-                detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                shopName.setText(detailBean.getData().getName());
-                price.setText("￥" + detailBean.getData().getPrice_discount());
-                marketPrice.setText("￥" + detailBean.getData().getPrice_market());
+                        multipleStatusView.showOutContentView(scrollLayout);
+                        Gson gson = new Gson();
+                        detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
+                        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
+                        shopName.setText(detailBean.getData().getName());
+                        //                if (detailBean.getData().)
+                        price.setText("￥" + detailBean.getData().getPrice_discount());
+                        marketPrice.setText("￥" + detailBean.getData().getPrice_market());
                 /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
-                displayForWebView("http://kekemei.ecooth.com/mob/project/details?id=" + projectId, null);
-                if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
-                    contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
-                    contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            LogUtil.e("section", "click:" + position);
-                            BaseBean item = contentSectionAdapter.getItem(position);
-                            ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId());
+                        displayForWebView("http://kekemei.ecooth.com/mob/project/details?id=" + projectId, null);
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
+                            contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
+                            contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    LogUtil.e("section", "click:" + position);
+                                    BaseBean item = contentSectionAdapter.getItem(position);
+                                    ProjectDetailActivity.start(ProjectDetailActivity.this, item.getId());
+                                }
+                            });
                         }
-                    });
-                }
-                if (detailBean.getData().getComment() != null && CollectionUtils.isNotEmpty(detailBean.getData().getComment().getAll())) {
-                    commentSectionView.setVisibility(View.VISIBLE);
-                    //                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
-                    tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
-                    commentData = detailBean.getData().getComment();
-                    commentAdapter.replaceData(detailBean.getData().getComment().getAll());
-                    if (CollectionUtils.isNotEmpty(detailBean.getData().getComment().getTags())) {
-                        fillTags(detailBean.getData().getComment().getTags());
+                        if (detailBean.getData().getComment() != null && CollectionUtils.isNotEmpty(detailBean.getData().getComment().getAll())) {
+                            commentSectionView.setVisibility(View.VISIBLE);
+                            //                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                            tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
+                            commentData = detailBean.getData().getComment();
+                            commentAdapter.replaceData(detailBean.getData().getComment().getAll());
+                            if (CollectionUtils.isNotEmpty(detailBean.getData().getComment().getTags())) {
+                                fillTags(detailBean.getData().getComment().getTags());
+                            }
+                        } else {
+                            commentSectionView.setVisibility(View.GONE);
+                        }
                     }
-                } else {
-                    commentSectionView.setVisibility(View.GONE);
-                }
-            }
 
-            @Override
-            public void onError(Response<String> response) {
-                super.onError(response);
-                multipleStatusView.showError();
-            }
-        });
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        multipleStatusView.showError();
+                    }
+                });
 
         initDayTime("");
 

@@ -476,7 +476,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvFollow:
-                follow();
+                if (tvFollow.getText().toString().equals("关注"))
+                    follow();
                 break;
             case R.id.shopHome:
                 indicatorShopHome.setVisibility(View.VISIBLE);
@@ -555,6 +556,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
                 Gson gson = new Gson();
+                tvFollow.setText("已关注");
             }
         });
     }

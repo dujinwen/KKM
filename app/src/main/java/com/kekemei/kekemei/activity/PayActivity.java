@@ -26,6 +26,7 @@ import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.OrderInfoUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
@@ -285,13 +286,22 @@ public class PayActivity extends BaseActivity {
             }
         });
     }
-
     private void toALiPay(String payUrl) {
         OkGo.<String>get(payUrl).params("order_id", order_Id).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
                 final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
+                //秘钥验证的类型 true:RSA2 false:RSA
+                boolean rsa = false;
+                //构造支付订单参数列表
+                Map<String, String> params = OrderInfoUtil.buildOrderParamMap(Common.ALI_APP_ID, rsa);
+                //构造支付订单参数信息
+                String orderParam = OrderInfoUtil.buildOrderParam(params);
+                //对支付参数信息进行签名
+                String sign = OrderInfoUtil.getSign(params, Common.RSA_PRIVATE, rsa);
+                //订单信息
+                final String orderInfo = orderParam + "&" + sign;
                 Runnable payRunnable = new Runnable() {
 
 

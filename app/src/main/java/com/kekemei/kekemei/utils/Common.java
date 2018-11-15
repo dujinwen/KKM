@@ -31,7 +31,7 @@ public class Common {
 
 
     public static final String ALI_APP_ID = "2018060860352001";
-
+    public static final String RSA_PRIVATE ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxK2gaWPIxD0ljXfwnJEHl2qMHocTnogew7Tbeiu70ENlfnQyoySYfugPmDSzyTWAF1GAvg8YOqNs6z2Ww8iZ3zI5AxtgX0zX9YIoZP098qhuKmKjTjkb1EAXgl4bds7cqGiZcsm7br8L4CgPgeVaSDK/WIWDE4wTCcOPG96HG4rVNAvdB6FqO0p0Qz7ZpzapEmmNUPyRbKG3XCCLtJAjAC7lH6a4Mhl8in2BChN8OnRa87OaFP/N0KSOZylGuurf/ZaszyXR47ILNfEyCyX6xFlTgyIus5CdR0uTnKmcrCmF3t468sa16HmJct+Xt1Ump2S3db14T8xVwf1npvymIQIDAQAB";
     //五金商城测试号
 //        public static final String WX_APP_ID = "wxaee1c5e6124fe6c1";
 //        public static final String WX_APP_SECRET = "8378cf232253a7d612384a7b8bbfca0b";

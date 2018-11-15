@@ -135,7 +135,6 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" />
-        <activity android:name=".activity.WebActivityNew" />
         <!-- 支付宝 end -->
 
 

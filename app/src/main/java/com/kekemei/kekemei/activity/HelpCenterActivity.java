@@ -77,7 +77,7 @@ public class HelpCenterActivity extends BaseActivity {
                 Intent intent = new Intent(HelpCenterActivity.this, ChatActivity.class);
                 // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
                 intent.putExtra("userId", "hjdudu");
-                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
+                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP);
                 startActivity(intent);
                 break;
         }
