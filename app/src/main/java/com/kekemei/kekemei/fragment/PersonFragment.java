@@ -152,7 +152,7 @@ public class PersonFragment extends Fragment {
         ncgv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
+                switch (i) {
                     case 0:
                         break;
                     case 1:
@@ -165,7 +165,7 @@ public class PersonFragment extends Fragment {
                         MyCollectionActivity.start(getActivity(), "1", true);
                         break;
                     case 4:
-                        MainActivity.start(getActivity(),2);
+                        MainActivity.start(getActivity(), 2);
                         break;
                     case 5:
                         startActivity(new Intent(getActivity(), JiFenActivity.class));
@@ -193,7 +193,6 @@ public class PersonFragment extends Fragment {
                     llForyou.setVisibility(View.GONE);
                     return;
                 }
-
                 adapter.addData(forYouBean.getData());
             }
         });

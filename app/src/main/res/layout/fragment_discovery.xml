@@ -5,11 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_title_bar" />
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/discovery_title_layout" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/titleBar"
         android:fillViewport="true">
 
         <LinearLayout
@@ -30,11 +33,17 @@
                 app:tipTextSize="12sp" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_meirongshi"
+                android:id="@+id/rvList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/px_63" />
+                android:layout_marginTop="@dimen/px_43"
+                android:background="@color/white" />
         </LinearLayout>
     </ScrollView>
+
+    <com.kekemei.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar" />
 </LinearLayout>

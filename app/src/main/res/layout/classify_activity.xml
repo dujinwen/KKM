@@ -5,7 +5,7 @@
     android:background="#E3E6E8"
     android:orientation="vertical">
 
-    <include layout="@layout/faxian_title_layout" />
+    <include layout="@layout/discovery_title_layout" />
 
     <LinearLayout
 

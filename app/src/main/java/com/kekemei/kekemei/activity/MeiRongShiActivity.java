@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,30 +28,21 @@ import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created 美容师 by peiyangfan on 2018/10/16.
  */
 
 public class MeiRongShiActivity extends BaseActivity {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.xbanner)
     XBanner xbanner;
     @BindView(R.id.rv_meirongshi)
     RecyclerView rvMeirongshi;
-    @BindView(R.id.ll_home)
-    LinearLayout llHome;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_submit)
-    TextView tvSubmit;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
-
+    private MeiRongShiListAdapter listAdapter;
 
     public static void start(Activity context) {
         Intent intent = new Intent(context, MeiRongShiActivity.class);
@@ -80,6 +70,21 @@ public class MeiRongShiActivity extends BaseActivity {
                 finish();
             }
         });
+        rvMeirongshi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        rvMeirongshi.setHasFixedSize(true);
+        rvMeirongshi.setNestedScrollingEnabled(false);
+
+        listAdapter = new MeiRongShiListAdapter(MeiRongShiActivity.this, R.layout.list_meirongshi);
+        rvMeirongshi.setAdapter(listAdapter);
+
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BeauticianBean beauticianBean = listAdapter.getItem(position);
+                ShopActivity.start(MeiRongShiActivity.this, beauticianBean.getId(),
+                        beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
+            }
+        });
     }
 
     @Override
@@ -97,29 +102,10 @@ public class MeiRongShiActivity extends BaseActivity {
 
                 xbanner.setData(meiRongShiListBean.getData().getBanner(), null);
                 initBanner();
-
-
-                rvMeirongshi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                MeiRongShiListAdapter adapter = new MeiRongShiListAdapter(MeiRongShiActivity.this, R.layout.list_meirongshi, meiRongShiListBean.getData().getData());
-                rvMeirongshi.setAdapter(adapter);
-
-                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        BeauticianBean beauticianBean = meiRongShiListBean.getData().getData().get(position);
-                        switch (view.getId()) {
-                            case R.id.ll_meirongshi:
-                                ShopActivity.start(MeiRongShiActivity.this, beauticianBean.getId(),
-                                        beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
-                                break;
-                        }
-                    }
-                });
-
+                listAdapter.replaceData(meiRongShiListBean.getData().getData());
             }
         });
     }
-
 
     /**
      * 初始化XBanner
@@ -142,23 +128,4 @@ public class MeiRongShiActivity extends BaseActivity {
             }
         });
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-//
-//    @OnClick({R.id.ll_fanhui, R.id.ll_search})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.ll_fanhui:
-//                finish();
-//                break;
-//            case R.id.ll_search:
-//                SearchActivity.start(MeiRongShiActivity.this);
-//                break;
-//        }
-//    }
 }

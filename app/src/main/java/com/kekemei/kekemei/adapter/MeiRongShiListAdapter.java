@@ -24,8 +24,8 @@ import java.util.List;
 public class MeiRongShiListAdapter extends BaseQuickAdapter<BeauticianBean, BaseViewHolder> {
     private Context mContext;
 
-    public MeiRongShiListAdapter(Context mContext, int layoutResId, @Nullable List<BeauticianBean> data) {
-        super(layoutResId, data);
+    public MeiRongShiListAdapter(Context mContext, int layoutResId) {
+        super(layoutResId, null);
         this.mContext = mContext;
     }
 

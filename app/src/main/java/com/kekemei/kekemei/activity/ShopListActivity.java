@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,6 +17,7 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.DetailEnum;
+import com.kekemei.kekemei.bean.ShopBean;
 import com.kekemei.kekemei.bean.ShopListBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
@@ -29,25 +29,17 @@ import com.stx.xhb.xbanner.XBanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ShopListActivity extends BaseActivity {
-
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.xbanner)
     XBanner xbanner;
     @BindView(R.id.rv_meirongshi)
     RecyclerView rvMeirongshi;
-    @BindView(R.id.ll_home)
-    LinearLayout llHome;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_submit)
-    TextView tvSubmit;
-    @BindView(R.id.iv_share)
-    ImageView ivShare;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    private ShopListAdapter listAdapter;
 
     public static void start(Activity context) {
         Intent intent = new Intent(context, ShopListActivity.class);
@@ -75,6 +67,22 @@ public class ShopListActivity extends BaseActivity {
                 finish();
             }
         });
+
+        rvMeirongshi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        rvMeirongshi.setHasFixedSize(true);
+        rvMeirongshi.setNestedScrollingEnabled(false);
+        listAdapter = new ShopListAdapter(ShopListActivity.this, R.layout.list_shop);
+
+        rvMeirongshi.setAdapter(listAdapter);
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ShopBean item = listAdapter.getItem(position);
+                ShopActivity.start(ShopListActivity.this, item.getId(),
+                        item.getUser_id(), DetailEnum.SHOP);
+            }
+        });
+
     }
 
     @Override
@@ -93,26 +101,7 @@ public class ShopListActivity extends BaseActivity {
                 xbanner.setData(shopListBean.getData().getBanner(), null);
                 initBanner();
 
-
-                rvMeirongshi.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                ShopListAdapter adapter = new ShopListAdapter(ShopListActivity.this, R.layout.list_shop
-
-                        , shopListBean.getData().getData());
-                rvMeirongshi.setAdapter(adapter);
-
-                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        switch (view.getId()) {
-                            case R.id.ll_shop_list_item:
-                                ShopActivity.start(ShopListActivity.this, shopListBean.getData().getData().get(position).getId(),
-                                        shopListBean.getData().getData().get(position).getUser_id(), DetailEnum.SHOP);
-                                break;
-                        }
-                    }
-                });
-
-
+                listAdapter.replaceData(shopListBean.getData().getData());
             }
         });
     }
@@ -139,12 +128,4 @@ public class ShopListActivity extends BaseActivity {
             }
         });
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
 }
