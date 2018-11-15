@@ -230,11 +230,11 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         projectList.setAdapter(projectAdapter);
 
         shopList.setLayoutManager(new LinearLayoutManager(this));
-        shopAdapter = new ShopListAdapter(this, R.layout.list_shop, null);
+        shopAdapter = new ShopListAdapter(this, R.layout.list_shop);
         shopList.setAdapter(shopAdapter);
 
         beauticianList.setLayoutManager(new LinearLayoutManager(this));
-        beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi, null);
+        beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi);
         beauticianList.setAdapter(beauticianAdapter);
 
         beauticianAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

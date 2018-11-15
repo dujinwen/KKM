@@ -55,7 +55,7 @@ import butterknife.Unbinder;
  * Date:2015-10-20
  * Description:
  */
-public class MessageFragment extends Fragment {
+public class OrderFragment extends Fragment {
 
     @BindView(R.id.tv_dingdan)
     TextView tvDingdan;
@@ -106,18 +106,15 @@ public class MessageFragment extends Fragment {
     Unbinder unbinder;
     private LinearLayoutManager linearLayoutManager;
     private OrderListAdapter jAdapter;
-    private RecyclerView rv_hot_huodong;
+    private RecyclerView rvForYou;
 
     private ArrayList<OrderListBean.DataBean> arrayList = new ArrayList<OrderListBean.DataBean>();
-    private LinearLayout llForyou;
-    private MyGridAdapter adapter;
+    private MyGridAdapter forYouAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.work_order_list_frag2, container, false);
-
-
         unbinder = ButterKnife.bind(this, view);
         initData();
         return view;
@@ -135,7 +132,7 @@ public class MessageFragment extends Fragment {
                 switch (view.getId()) {
                     case R.id.iv_del_order:
                         long userId = UserHelp.getUserId(getActivity());
-                        if (userId==-1L){
+                        if (userId == -1L) {
                             LoginActivity.start(getActivity());
                             return;
                         }
@@ -163,8 +160,7 @@ public class MessageFragment extends Fragment {
                         yuYueActivityBean.setOrderIconUrl(item.getImage());
                         yuYueActivityBean.setOrderName(item.getName());
                         yuYueActivityBean.setOrderId(item.getId() + "");
-
-                        PayActivity.start(getActivity(),yuYueActivityBean);
+                        PayActivity.start(getActivity(), yuYueActivityBean);
                         break;
                     case R.id.chakan:
                     case R.id.zaicigoumai:
@@ -188,7 +184,6 @@ public class MessageFragment extends Fragment {
             }
         });
 
-
         rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
@@ -197,9 +192,7 @@ public class MessageFragment extends Fragment {
         });
         onViewClicked(talAll);
 
-
         addHotProject();
-
 
         getForYouInfo();
     }
@@ -210,14 +203,13 @@ public class MessageFragment extends Fragment {
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
                 ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
-                    llForyou.setVisibility(View.VISIBLE);
+                if (forYouBean.getCode() == 1 && forYouBean.getData().size() > 0) {
+                    jAdapter.getFooterLayout().setVisibility(View.VISIBLE);
                 } else {
-                    llForyou.setVisibility(View.GONE);
+                    jAdapter.getFooterLayout().setVisibility(View.GONE);
                     return;
                 }
-
-                adapter.setNewData(forYouBean.getData());
+                forYouAdapter.replaceData(forYouBean.getData());
             }
         });
     }
@@ -237,9 +229,7 @@ public class MessageFragment extends Fragment {
         }
         if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay
                 || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
-                || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia
-                ) {
-
+                || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia) {
             setSelect(view.getId());
             return;
         }
@@ -303,18 +293,13 @@ public class MessageFragment extends Fragment {
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
                 getData(jOrderStatus, page);
                 break;
-            default:
-
-                break;
-
-
         }
     }
 
 
     public void getData(final int orderStatus, int pageNum) {
         long userId = UserHelp.getUserId(getActivity());
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getActivity());
             return;
         }
@@ -343,7 +328,6 @@ public class MessageFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
 
                     @Override
@@ -352,9 +336,7 @@ public class MessageFragment extends Fragment {
                         multipleStatusView.showError();
                     }
                 });
-
     }
-
 
     private void addHotProject() {
         View foot_view = null;
@@ -364,14 +346,14 @@ public class MessageFragment extends Fragment {
             foot_view = LayoutInflater.from(getActivity()).inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
         }
         jAdapter.addFooterView(foot_view);
-        rv_hot_huodong = (RecyclerView) foot_view.findViewById(R.id.rv_hot_huodong);
-        llForyou = foot_view.findViewById(R.id.ll_foryou);
-        rv_hot_huodong.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        rvForYou = foot_view.findViewById(R.id.rv_hot_huodong);
+        rvForYou.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        rvForYou.setHasFixedSize(true);
+        rvForYou.setNestedScrollingEnabled(false);
+        forYouAdapter = new MyGridAdapter(getActivity(), MyGridAdapter.ORDER_HOT_BEAN);
+        rvForYou.setAdapter(forYouAdapter);
 
-        adapter = new MyGridAdapter(getActivity(), MyGridAdapter.ORDER_HOT_BEAN);
-        rv_hot_huodong.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BaseBean item = (BaseBean) adapter.getItem(position);

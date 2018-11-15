@@ -36,8 +36,6 @@ import com.stx.xhb.xbanner.XBanner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,11 +47,11 @@ import butterknife.Unbinder;
  * Date:2015-10-20
  * Description:
  */
-public class CityFragment extends Fragment {
-
-
-    @BindView(R.id.rv_remenxiangmu)
-    RecyclerView rvRemenxiangmu;
+public class DiscoveryFragment extends Fragment {
+    @BindView(R.id.xbanner)
+    XBanner xbanner;
+    @BindView(R.id.rvList)
+    RecyclerView rvList;
 
     @BindView(R.id.text_msg)
     TextView textMsg;
@@ -70,23 +68,21 @@ public class CityFragment extends Fragment {
     LinearLayout llFanhui;
     private FindOrderListAdapter listAdapter;
     private LinearLayoutManager linearLayoutManager;
-    private XBanner xBanner;
-    private View llHotProject;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_city, container, false);
-
+        View inflate = inflater.inflate(R.layout.fragment_discovery, container, false);
         unbinder = ButterKnife.bind(this, inflate);
         initData();
         return inflate;
     }
 
     private void initData() {
-
         linearLayoutManager = new LinearLayoutManager(getActivity());
-        rvRemenxiangmu.setLayoutManager(linearLayoutManager);
+        rvList.setHasFixedSize(true);
+        rvList.setNestedScrollingEnabled(false);
+        rvList.setLayoutManager(linearLayoutManager);
         listAdapter = new FindOrderListAdapter(getActivity());
         listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -96,23 +92,14 @@ public class CityFragment extends Fragment {
             }
         });
 
-
-        View header_view = getActivity().getLayoutInflater().inflate(R.layout.layout_city_header, (ViewGroup) rvRemenxiangmu.getParent(), false);
-        listAdapter.addHeaderView(header_view);
-        xBanner = header_view.findViewById(R.id.xbanner);
-        llHotProject = header_view.findViewById(R.id.ll_hot_project);
-        llHotProject.setVisibility(View.GONE);
-        rvRemenxiangmu.setAdapter(listAdapter);
-        rvRemenxiangmu.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
+        rvList.setAdapter(listAdapter);
+        rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
                 loadMoreData();
             }
         });
-
-
         getData(page);
-
     }
 
     /**
@@ -120,14 +107,14 @@ public class CityFragment extends Fragment {
      */
     private void initBanner() {
         //设置广告图片点击事件
-        xBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+        xbanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
             }
         });
         //加载广告图片
-        xBanner.loadImage(new XBanner.XBannerAdapter() {
+        xbanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
@@ -138,7 +125,6 @@ public class CityFragment extends Fragment {
     }
 
     private int page = 1;
-    private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
     private void getData(final int page) {
         String latitude = SPUtils.getString(getActivity(), "latitude", "");
@@ -152,28 +138,24 @@ public class CityFragment extends Fragment {
                     @Override
                     public void onSuccess(Response<String> response) {
                         LogUtil.e("ShopActivity", "project list:" + response.body());
-                        Gson gson = new Gson();
-                        ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
-                        JSONObject obj = null;
                         try {
-                            obj = new JSONObject(response.body());
+                            JSONObject obj = new JSONObject(response.body());
                             if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
                                 multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                                 return;
                             }
+                            Gson gson = new Gson();
+                            ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
+                            if (page == 1) {
+                                listAdapter.setNewData(projectListBean.getData().getData());
+                            } else {
+                                listAdapter.addData(projectListBean.getData().getData());
+                            }
+                            initBanner();
+                            xbanner.setData(projectListBean.getData().getBanner(), null);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                        if (page == 1) {
-                            listAdapter.setNewData(projectListBean.getData().getData());
-                        } else {
-                            arrayList.addAll(projectListBean.getData().getData());
-                            listAdapter.setNewData(arrayList);
-                        }
-                        initBanner();
-                        xBanner.setData(projectListBean.getData().getBanner(),null);
-
                     }
                 });
     }

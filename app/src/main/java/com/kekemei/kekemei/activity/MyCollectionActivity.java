@@ -139,7 +139,7 @@ public class MyCollectionActivity extends BaseActivity {
                     }
                 });
             } else {
-                shopAdapter = new ShopListAdapter(this, R.layout.list_shop, null);
+                shopAdapter = new ShopListAdapter(this, R.layout.list_shop);
                 rvList.setAdapter(shopAdapter);
                 shopAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -150,7 +150,7 @@ public class MyCollectionActivity extends BaseActivity {
                 });
             }
         } else {
-            beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi, null);
+            beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi);
             rvList.setAdapter(beauticianAdapter);
             beauticianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override

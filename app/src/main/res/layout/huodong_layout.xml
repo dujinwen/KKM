@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/px_449"
+    android:id="@+id/ll_huodong"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/px_832"
-    android:layout_marginLeft="@dimen/px_35"
-    android:layout_marginRight="@dimen/px_35"
+    android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    android:id="@+id/ll_huodong">
+    android:paddingBottom="25px"
+    android:paddingLeft="@dimen/px_35"
+    android:paddingRight="@dimen/px_35"
+    android:paddingTop="@dimen/px_30">
 
     <ImageView
         android:id="@+id/iv_beautician_photo"
         android:layout_width="@dimen/px_449"
         android:layout_height="@dimen/px_478"
+        android:scaleType="fitXY"
         android:src="@mipmap/beautician_photo" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="@dimen/px_361"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/px_81"
         android:layout_marginBottom="@dimen/px_26"
         android:layout_marginTop="@dimen/px_53"
@@ -50,7 +54,7 @@
 
     <include
         layout="@layout/layout_llingqu_youhui"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"

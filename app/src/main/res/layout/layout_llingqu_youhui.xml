@@ -2,11 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_youhuiquan"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:visibility="gone">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|left"
@@ -25,6 +23,10 @@
             android:layout_marginLeft="@dimen/px_14"
             android:layout_marginRight="@dimen/px_22"
             android:background="@drawable/btn_blue_background"
+            android:paddingBottom="4px"
+            android:paddingLeft="7px"
+            android:paddingRight="7px"
+            android:paddingTop="4px"
             android:text="领红包减"
             android:textSize="@dimen/px_29" />
 
@@ -41,6 +43,10 @@
             android:layout_marginLeft="@dimen/px_14"
             android:layout_marginRight="@dimen/px_22"
             android:background="@drawable/btn_blue_background"
+            android:paddingBottom="4px"
+            android:paddingLeft="7px"
+            android:paddingRight="7px"
+            android:paddingTop="4px"
             android:text="满200减50"
             android:textSize="@dimen/px_29" />
     </LinearLayout>

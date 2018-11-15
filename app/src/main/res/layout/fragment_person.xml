@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:myspace="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F8F9"
@@ -45,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我不叫张三"
-                        android:textColor="#fff"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/px_49" />
 
                     <RelativeLayout
@@ -63,7 +62,7 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/px_65"
                             android:text="普通会员"
-                            android:textColor="#fff"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/px_36" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -169,50 +168,37 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_foryou"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/px_1168"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/ll_foryou"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/px_160"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="@dimen/px_30"
-                        android:text="为您推荐"
-                        android:textColor="#5DBFB2"
-                        android:textSize="@dimen/px_46" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="@dimen/px_27"
-                        android:src="@mipmap/title_more_btn" />
-                </LinearLayout>
+                    android:background="@color/white"
+                    android:drawableRight="@mipmap/title_more_btn"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/px_30"
+                    android:paddingRight="@dimen/px_27"
+                    android:text="为您推荐"
+                    android:textColor="#5DBFB2"
+                    android:textSize="@dimen/px_46" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_tuijian"
-                    android:layout_width="@dimen/px_1005"
-                    android:layout_gravity="center"
-                    android:layout_height="match_parent">
-
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/px_81"
                 android:layout_marginRight="@dimen/px_37"
+                android:layout_marginTop="@dimen/px_81"
                 android:orientation="horizontal">
 
                 <ImageView

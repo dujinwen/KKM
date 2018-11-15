@@ -20,8 +20,8 @@ import java.util.List;
 public class ShopListAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> {
     private Context mContext;
 
-    public ShopListAdapter(Context mContext, int layoutResId, @Nullable List<ShopBean> data) {
-        super(layoutResId, data);
+    public ShopListAdapter(Context mContext, int layoutResId) {
+        super(layoutResId, null);
         this.mContext = mContext;
     }
 
@@ -57,7 +57,6 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> 
 //            view.setVisibility(View.GONE);
 //        }
 
-        helper.addOnClickListener(R.id.ll_shop_list_item);
         StarBar star_bar = helper.getView(R.id.star_bar);
         star_bar.setStarMark(2.5f);
     }
