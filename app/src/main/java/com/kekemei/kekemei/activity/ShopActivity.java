@@ -598,14 +598,23 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
+        multipleStatusView.showLoading();
         if (detailEnum == DetailEnum.SHOP) {
             OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "shop detail:" + response.body());
-                    /*determineResponseCode(response.body());*/
                     multipleStatusView.showOutContentView(scrollLayout);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        Object msg = jsonObject.opt("msg");
+                        if (msg.equals("暂无数据")) {
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Gson gson = new Gson();
                     shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getData().getImage(), shop_detail_icon);
@@ -712,8 +721,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "beautician detail:" + response.body());
-                    /*determineResponseCode(response.body());*/
                     multipleStatusView.showOutContentView(scrollLayout);
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
+                        Object msg = jsonObject.opt("msg");
+                        if (msg.equals("暂无数据")) {
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Gson gson = new Gson();
                     beauticianDetailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + beauticianDetailBean.getData().getImage(), shop_detail_icon);
@@ -806,19 +823,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
 
         initDatePicker(this);
-    }
-
-    private void determineResponseCode(String body) {
-        try {
-            JSONObject jsonObject = new JSONObject(body);
-            int code = jsonObject.optInt("code");
-            if (code != 200) {
-                multipleStatusView.showNoNetwork();
-                return;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     private ArrayList<Calendar> calList = new ArrayList<>();

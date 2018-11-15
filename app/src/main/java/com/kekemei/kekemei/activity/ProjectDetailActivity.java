@@ -532,6 +532,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initData() {
         super.initData();
+        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.PROJECT_DETAILS)
                 .params("id", projectId)
                 .execute(new StringCallback() {
@@ -539,17 +540,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onSuccess(Response<String> response) {
                         LogUtil.e("ProjectDetailActivity", response.body());
-                /*try {
-                    JSONObject jsonObject = new JSONObject(response.body());
-                    int code = jsonObject.optInt("code");
-                    if (code != 1) {
-                        multipleStatusView.showNoNetwork();
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
                         multipleStatusView.showOutContentView(scrollLayout);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Gson gson = new Gson();
                         detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
@@ -557,7 +557,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         //                if (detailBean.getData().)
                         price.setText("￥" + detailBean.getData().getPrice_discount());
                         marketPrice.setText("￥" + detailBean.getData().getPrice_market());
-                /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
+                        /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
                         displayForWebView("http://kekemei.ecooth.com/mob/project/details?id=" + projectId, null);
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                             contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
