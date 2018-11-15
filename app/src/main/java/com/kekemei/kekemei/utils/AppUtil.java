@@ -178,42 +178,13 @@ public class AppUtil {
     }
 
 
-    // 判断手机是否连接网络
-    public static boolean isConnectNetwork(Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (manager != null) {
-            NetworkInfo info = manager.getActiveNetworkInfo();
-            if (info == null || !info.isConnected()) {
-                return false;
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     // 获取资源字符串
     public static String getString(Context context, int strId) {
         return context.getResources().getString(strId);
     }
 
-    public static boolean emailFormat(String email) {
-        boolean tag = true;
-        final String pattern1 = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
-        final Pattern pattern = Pattern.compile(pattern1);
-        final Matcher mat = pattern.matcher(email);
-        if (!mat.find()) {
-            tag = false;
-        }
-        return tag;
-    }
 
-    //判断是否存在SDCard
-    public static boolean isExistSDCard() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
-            return true;
-        return false;
-    }
 
     public static String encodeURL(String url) {
         String encodeURL = null;
@@ -233,18 +204,6 @@ public class AppUtil {
             e.printStackTrace();
         }
         return decodeURL;
-    }
-
-    public static boolean mobileFormat(String password) {
-        boolean tag = true;
-        //        String pattern1 = "^[1]+\\d{10}";
-        String pattern1 = "^((13[0-9])|(15[^4,\\D])|(18[01236789]))\\d{8}$";
-        final Pattern pattern = Pattern.compile(pattern1);
-        final Matcher mat = pattern.matcher(password);
-        if (!mat.find()) {
-            tag = false;
-        }
-        return tag;
     }
 
     /**
@@ -410,26 +369,6 @@ public class AppUtil {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
-    }
-
-
-    /**
-     * 获取code版本号 版本是否更新的依据
-     *
-     * @param context 上下文
-     * @return code版本号
-     * @author lilw
-     * @CrateTime
-     */
-    public static int getVersionCode(Context context) {
-        int verCode = -1;
-        try {
-            verCode = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0).versionCode;
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return verCode;
     }
 
     /**

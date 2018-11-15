@@ -3,6 +3,10 @@ package com.kekemei.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -10,10 +14,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.adapter.DayCheckAdapter2;
+import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
+import com.kekemei.kekemei.bean.CanlBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
+import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
@@ -21,6 +33,10 @@ import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,12 +113,23 @@ public class PushOrderActivity extends BaseActivity {
     LinearLayout llServiceTime;
     @BindView(R.id.btn_yuyue)
     Button btnYuyue;
+    @BindView(R.id.show_select_time)
+    LinearLayout showSelectTime;
+    @BindView(R.id.rv_list_yuyue)
+    RecyclerView rvListYuyue;
+    @BindView(R.id.queding)
+    Button queding;
+    @BindView(R.id.ll_select_time)
+    LinearLayout llSelectTime;
+    @BindView(R.id.id_recyclerview_horizontal)
+    RecyclerView idRecyclerviewHorizontal;
 
     private String name = "";
     private int orderNumber = 0;
 
     private YuYueActivityBean yuYueActivityBean;
-
+    private TextView tv_date_and_week;
+    private TextView tv_can_yuyue;
 
     public static final int EXTRA_KEY_SHOP_CODE = 1000;
     public static final int EXTRA_KEY_BEAUTICIAN_CODE = 1001;
@@ -195,6 +222,32 @@ public class PushOrderActivity extends BaseActivity {
 
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + image_url, ivOrderIcon);
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + icon_url, ivMan);
+
+
+        rvListYuyue.setLayoutManager(new GridLayoutManager(getBaseContext(), 4));
+        yuYueDataListAdapter = new YuYueDataListAdapter(this);
+        rvListYuyue.setAdapter(yuYueDataListAdapter);
+        yuYueDataListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                List<YuYueDataBean.DataBean> data = yuYueDataListAdapter.getData();
+                if (view.getId() == R.id.ll_select_data_time) {
+
+                    tv_date_and_week = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_date_and_week);
+                    tv_can_yuyue = (TextView) adapter.getViewByPosition(rvListYuyue, position, R.id.tv_can_yuyue);
+                    for (YuYueDataBean.DataBean item : data) {
+                        item.setSelect(false);
+                        view.setBackground(ContextCompat.getDrawable(PushOrderActivity.this, R.drawable.btn_white_background));
+                        tv_date_and_week.setTextColor(0XFF999999);
+                        tv_can_yuyue.setTextColor(0XFF999999);
+                    }
+                    data.get(position).setSelect(true);
+                    timeSelectPosition = data.get(position).getId();
+                    timeSelectName = data.get(position).getName();
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     @Override
@@ -206,7 +259,8 @@ public class PushOrderActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_meirongshi_select, R.id.ll_shop_place, R.id.ll_service_time, R.id.btn_yuyue})
+    @OnClick({R.id.ll_meirongshi_select, R.id.ll_shop_place, R.id.ll_service_time, R.id.btn_yuyue
+            , R.id.show_select_time, R.id.queding, R.id.ll_select_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meirongshi_select:
@@ -220,6 +274,11 @@ public class PushOrderActivity extends BaseActivity {
                         false, EXTRA_KEY_BEAUTICIAN_CODE);
                 break;
             case R.id.ll_service_time:
+                if (yuYueActivityBean.getBeauticianDetailBean() == null || yuYueActivityBean.getShopDetailBean() == null) {
+                    ToastUtil.showToastMsg(PushOrderActivity.this, "请确认已选择美容师及店铺");
+                    return;
+                }
+                initDayTime();
                 break;
             case R.id.btn_yuyue:
                 OkGo.<String>get(URLs.ADD_APPOINTMENT)
@@ -236,6 +295,14 @@ public class PushOrderActivity extends BaseActivity {
                             }
                         });
                 break;
+
+            case R.id.show_select_time:
+                break;
+            case R.id.queding:
+                llSelectTime.setVisibility(View.GONE);
+                break;
+            case R.id.ll_select_time:
+                break;
         }
     }
 
@@ -250,5 +317,70 @@ public class PushOrderActivity extends BaseActivity {
         if (requestCode == EXTRA_KEY_BEAUTICIAN_CODE) {
 
         }
+    }
+
+    private ArrayList<Calendar> calList = new ArrayList<>();
+
+    private void initDayTime() {
+        final CanlBean canlBean = new CanlBean();
+        calList.clear();
+        for (int i = 0; i < 30; i++) {
+            cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, i);
+            calList.add(cal);
+
+        }
+        canlBean.setDataBean(calList);
+
+        long timeInMillis = canlBean.getDataBean().get(0).getTimeInMillis();
+        timeData(timeInMillis);
+        daySelectPosition = timeInMillis;
+
+
+        LogUtil.d("ShopActivity", daySelectPosition + "");
+        //设置布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        idRecyclerviewHorizontal.setLayoutManager(linearLayoutManager);
+        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(),
+                yuYueActivityBean.getBeauticianDetailBean().getData().getId());
+        idRecyclerviewHorizontal.setAdapter(dayAdapter);
+
+        dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, TextView textView, int position) {
+                daySelectPosition = canlBean.getDataBean().get(position).getTimeInMillis();
+                timeData(canlBean.getDataBean().get(position).getTimeInMillis());
+            }
+        });
+
+
+        llSelectTime.setVisibility(View.VISIBLE);
+    }
+
+    private Calendar cal;
+    private DayCheckAdapter2 dayAdapter;
+    private YuYueDataListAdapter yuYueDataListAdapter;
+
+    private int timeSelectPosition = -1;
+    private String timeSelectName = "";
+    private long daySelectPosition = -1L;
+
+    /**
+     * 预约时间
+     */
+    public void timeData(long timedstartdate) {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA)
+                .params("beautician", yuYueActivityBean.getBeauticianDetailBean().getData().getId())
+                .params("timedstartdate", timedstartdate).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e("PushOrderActivity", "follow beautician:" + response.body());
+                Gson gson = new Gson();
+                YuYueDataBean yuYueDataBean = gson.fromJson(response.body(), YuYueDataBean.class);
+                yuYueDataListAdapter.setNewData(yuYueDataBean.getData());
+                //
+            }
+        });
     }
 }

@@ -26,7 +26,7 @@ import java.lang.reflect.Field;
 
 public class App extends MultiDexApplication {
 
-    private Context mContext;
+    public Context mContext;
     private static App instance = null;
     // 记录是否已经初始化
     private boolean isInit = false;
@@ -47,7 +47,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        mContext = this;
+
         AppCompatUtils.init(this);
         init();
 
@@ -55,6 +55,11 @@ public class App extends MultiDexApplication {
         // 初始化环信SDK
         initEasemob();
         initUM();
+    }
+
+    public Context getContext(){
+        mContext = this;
+        return mContext;
     }
 
     private void initUM() {
@@ -110,7 +115,7 @@ public class App extends MultiDexApplication {
      */
     private void initEasemob() {
 
-        if (EaseUI.getInstance().init(mContext, initOptions())) {
+        if (EaseUI.getInstance().init(getContext(), initOptions())) {
 
             // 设置开启debug模式
             EMClient.getInstance().setDebugMode(true);

@@ -24,6 +24,8 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.UserHelp;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +155,10 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
                 SPUtils.putString(getBaseContext(), "city", city);
                 //                mPoint = new DPoint(latitude,longitude);
                 //                loadData();//后续操作
-
+                HttpParams commonParams = new HttpParams();
+                commonParams.put("latitude",latitude);
+                commonParams.put("latitude",longitude);
+                OkGo.getInstance().init(getApplication()).addCommonParams(commonParams);
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。

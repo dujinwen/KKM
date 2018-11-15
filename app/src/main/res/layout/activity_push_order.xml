@@ -165,6 +165,7 @@
                 android:src="@mipmap/my_arrow_right" />
         </LinearLayout>
     </LinearLayout>
+    <include layout="@layout/section_detail_select_time_layout"/>
 
     <Button
         android:id="@+id/btn_yuyue"

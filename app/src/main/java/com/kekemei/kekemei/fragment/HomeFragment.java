@@ -52,6 +52,7 @@ import com.kekemei.kekemei.utils.UserHelp;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.stx.xhb.xbanner.XBanner;
 
@@ -438,6 +439,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 SPUtils.putString(getActivity(), "latitude", latitude + "");
                 SPUtils.putString(getActivity(), "longitude", longitude + "");
                 initData(latitude + "", longitude + "");
+
+                HttpParams commonParams = new HttpParams();
+                commonParams.put("latitude",latitude);
+                commonParams.put("latitude",longitude);
+                OkGo.getInstance().init(getActivity().getApplication()).addCommonParams(commonParams);
+
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。

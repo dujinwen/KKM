@@ -513,7 +513,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     protected void initData() {
         super.initData();
         multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.PROJECT_DETAILS).params("id", projectId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.PROJECT_DETAILS)
+                .params("id", projectId)
+                .execute(new StringCallback() {
             @SuppressLint("StringFormatMatches")
             @Override
             public void onSuccess(Response<String> response) {
