@@ -396,7 +396,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         fujinMeirongshi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MeiRongShiActivity.start(ShopActivity.this);
+                ShopBeauticianListActivity.start(ShopActivity.this, false);
             }
         });
         LinearLayoutManager layout_meirongshi = new LinearLayoutManager(this);

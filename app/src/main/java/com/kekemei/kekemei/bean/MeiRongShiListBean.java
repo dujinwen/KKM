@@ -1,13 +1,7 @@
 package com.kekemei.kekemei.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.List;
-
-/**
- * Created by peiyangfan on 2018/10/16.
- */
 
 public class MeiRongShiListBean {
 

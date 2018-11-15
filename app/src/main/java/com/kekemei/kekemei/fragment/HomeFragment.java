@@ -24,13 +24,12 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
-import com.kekemei.kekemei.activity.MeiRongShiActivity;
 import com.kekemei.kekemei.activity.MiaoshaActivity;
 import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.SearchActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
-import com.kekemei.kekemei.activity.ShopListActivity;
+import com.kekemei.kekemei.activity.ShopBeauticianListActivity;
 import com.kekemei.kekemei.adapter.DAVipAdapter;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiAdapter;
@@ -441,8 +440,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 initData(latitude + "", longitude + "");
 
                 HttpParams commonParams = new HttpParams();
-                commonParams.put("latitude",latitude);
-                commonParams.put("longitude",longitude);
+                commonParams.put("latitude", latitude);
+                commonParams.put("longitude", longitude);
                 OkGo.getInstance().init(getActivity().getApplication()).addCommonParams(commonParams);
 
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
@@ -518,10 +517,10 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 SearchActivity.start(getActivity());
                 break;
             case R.id.fujin_dianpu:
-                ShopListActivity.start(getActivity());
+                ShopBeauticianListActivity.start(getActivity(), true);
                 break;
             case R.id.fujin_meirongshi:
-                MeiRongShiActivity.start(getActivity());
+                ShopBeauticianListActivity.start(getActivity(), false);
                 break;
 
             case R.id.iv_place:
@@ -529,11 +528,11 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 break;
             case R.id.ivNewComer:
                 long userId = UserHelp.getUserId(getActivity());
-                if (userId==-1L){
+                if (userId == -1L) {
                     LoginActivity.start(getActivity());
                     return;
                 }
-                NewComerActivity.start(getActivity(), userId +"");
+                NewComerActivity.start(getActivity(), userId + "");
                 break;
             case R.id.ivSecond:
                 MiaoshaActivity.start(getActivity());
