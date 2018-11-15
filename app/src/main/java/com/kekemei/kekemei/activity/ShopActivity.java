@@ -603,7 +603,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "shop detail:" + response.body());
-                    determineResponseCode(response.body());
+                    /*determineResponseCode(response.body());*/
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
                     shopDetailBean = gson.fromJson(response.body(), ShopDetailBean.class);
@@ -711,7 +711,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onSuccess(Response<String> response) {
                     LogUtil.e(TAG, "beautician detail:" + response.body());
-                    determineResponseCode(response.body());
+                    /*determineResponseCode(response.body());*/
                     multipleStatusView.showOutContentView(scrollLayout);
                     Gson gson = new Gson();
                     beauticianDetailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
