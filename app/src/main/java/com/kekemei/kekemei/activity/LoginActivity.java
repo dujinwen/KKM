@@ -500,14 +500,18 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if (btnYanzhengma != null)
+            if (btnYanzhengma != null){
+                btnYanzhengma.setEnabled(false);
                 btnYanzhengma.setText((millisUntilFinished / 1000) + "秒后可重发");
+            }
         }
 
         @Override
         public void onFinish() {
-            btnYanzhengma.setEnabled(true);
-            btnYanzhengma.setText("获取验证码");
+            if (btnYanzhengma!=null){
+                btnYanzhengma.setEnabled(true);
+                btnYanzhengma.setText("获取验证码");
+            }
         }
     };
 
