@@ -2,11 +2,7 @@ package com.kekemei.kekemei.bean;
 
 import java.util.List;
 
-/**
- * Created by peiyangfan on 2018/11/5.
- */
-
-public class JiFenBean {
+public class CreditBean {
     private String zongfen;
 
     public String getZongfen() {

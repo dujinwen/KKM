@@ -18,8 +18,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.HuiYuanctivity;
-import com.kekemei.kekemei.activity.JiFenActivity;
+import com.kekemei.kekemei.activity.MemberActivity;
+import com.kekemei.kekemei.activity.CreditActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MainActivity;
 import com.kekemei.kekemei.activity.MessageActivity;
@@ -168,10 +168,10 @@ public class PersonFragment extends Fragment {
                         MainActivity.start(getActivity(), 2);
                         break;
                     case 5:
-                        startActivity(new Intent(getActivity(), JiFenActivity.class));
+                        startActivity(new Intent(getActivity(), CreditActivity.class));
                         break;
                     case 6:
-                        startActivity(new Intent(getActivity(), HuiYuanctivity.class));
+                        startActivity(new Intent(getActivity(), MemberActivity.class));
                         break;
                     case 7:
                         break;

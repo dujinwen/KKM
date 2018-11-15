@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.JiFenAdapter;
-import com.kekemei.kekemei.bean.JiFenBean;
+import com.kekemei.kekemei.adapter.CreditAdapter;
+import com.kekemei.kekemei.bean.CreditBean;
 
 import java.util.ArrayList;
 
@@ -20,10 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by peiyangfan on 2018/11/5.
+ * 积分页面
  */
 
-public class JiFenActivity extends BaseActivity {
+public class CreditActivity extends BaseActivity {
     @BindView(R.id.rv_jifen_list)
     RecyclerView rvJifenList;
     @BindView(R.id.tv_title)
@@ -34,11 +34,11 @@ public class JiFenActivity extends BaseActivity {
     ImageView ivShare;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    private JiFenAdapter adapter;
+    private CreditAdapter adapter;
 
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_jifen;
+        return R.layout.activity_credit;
     }
 
     @Override
@@ -72,10 +72,10 @@ public class JiFenActivity extends BaseActivity {
         super.initData();
 
 
-        JiFenBean jiFenBean = new JiFenBean();
+        CreditBean jiFenBean = new CreditBean();
         jiFenBean.setZongfen("192929");
-        ArrayList<JiFenBean.JIFEN> jifens = new ArrayList<>();
-        JiFenBean.JIFEN e = new JiFenBean.JIFEN();
+        ArrayList<CreditBean.JIFEN> jifens = new ArrayList<>();
+        CreditBean.JIFEN e = new CreditBean.JIFEN();
         for (int i = 0; i < 10; i++) {
 
             e.setData("2019-12-12   12:30");
@@ -83,7 +83,7 @@ public class JiFenActivity extends BaseActivity {
             jifens.add(e);
         }
         jiFenBean.setJifens(jifens);
-        adapter = new JiFenAdapter();
+        adapter = new CreditAdapter();
         rvJifenList.setLayoutManager(new LinearLayoutManager(this));
         rvJifenList.setAdapter(adapter);
         rvJifenList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

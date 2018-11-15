@@ -39,7 +39,7 @@ import butterknife.OnClick;
  * 美容师介绍
  */
 
-public class MeiRongShiJieShaoActivity extends BaseActivity {
+public class BeauticianInfoActivity extends BaseActivity {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -83,7 +83,7 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
     private int beauticianId;
 
     public static void start(Context context, int beauticianId) {
-        Intent intent = new Intent(context, MeiRongShiJieShaoActivity.class);
+        Intent intent = new Intent(context, BeauticianInfoActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         context.startActivity(intent);
     }
@@ -95,7 +95,7 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
 
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_meirongshijieshao;
+        return R.layout.activity_beautician_info;
     }
 
     @Override
@@ -152,13 +152,13 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
                 if (detailBean.getData().getIsfriend() == 1) {
                     tvFollow.setText("已关注");
                     tvFollow.setClickable(false);
-                    tvFollow.setTextColor(ContextCompat.getColor(MeiRongShiJieShaoActivity.this, R.color.common_text_dark));
-                    tvFollow.setBackground(ContextCompat.getDrawable(MeiRongShiJieShaoActivity.this, R.mipmap.orderform_determine_btn_1));
+                    tvFollow.setTextColor(ContextCompat.getColor(BeauticianInfoActivity.this, R.color.common_text_dark));
+                    tvFollow.setBackground(ContextCompat.getDrawable(BeauticianInfoActivity.this, R.mipmap.orderform_determine_btn_1));
                 } else {
                     tvFollow.setText("关注");
                     tvFollow.setClickable(true);
-                    tvFollow.setTextColor(ContextCompat.getColor(MeiRongShiJieShaoActivity.this, R.color.white));
-                    tvFollow.setBackground(ContextCompat.getDrawable(MeiRongShiJieShaoActivity.this, R.mipmap.orderform_determine_btn));
+                    tvFollow.setTextColor(ContextCompat.getColor(BeauticianInfoActivity.this, R.color.white));
+                    tvFollow.setBackground(ContextCompat.getDrawable(BeauticianInfoActivity.this, R.mipmap.orderform_determine_btn));
                 }
                 if (StringUtils.isNotEmpty(detailBean.getData().getImages())) {
                     String[] split = detailBean.getData().getImages().split(",");
@@ -193,7 +193,7 @@ public class MeiRongShiJieShaoActivity extends BaseActivity {
     private void follow() {
         OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
                 .params("beautician_id", beauticianId)
-                .params("user_id", UserHelp.getUserId(MeiRongShiJieShaoActivity.this))
+                .params("user_id", UserHelp.getUserId(BeauticianInfoActivity.this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

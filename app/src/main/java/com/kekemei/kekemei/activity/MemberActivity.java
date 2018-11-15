@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by peiyangfan on 2018/11/6.
  */
 
-public class HuiYuanctivity extends BaseActivity {
+public class MemberActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_submit)
@@ -44,7 +44,7 @@ public class HuiYuanctivity extends BaseActivity {
 
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_huiyuan;
+        return R.layout.activity_member;
     }
 
     @Override
@@ -70,5 +70,6 @@ public class HuiYuanctivity extends BaseActivity {
             public void onClick(View v) {
                 finish();
             }
-        });}
+        });
+    }
 }

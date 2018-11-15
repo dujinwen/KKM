@@ -214,7 +214,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             findViewById(R.id.tvBeauticianInfo).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MeiRongShiJieShaoActivity.start(ShopActivity.this, beauticianId);
+                    BeauticianInfoActivity.start(ShopActivity.this, beauticianId);
                 }
             });
             findViewById(R.id.tvAddFriends).setOnClickListener(new View.OnClickListener() {

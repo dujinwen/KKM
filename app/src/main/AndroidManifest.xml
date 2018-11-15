@@ -151,7 +151,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
-        <activity android:name=".activity.MeiRongShiJieShaoActivity" />
+        <activity android:name=".activity.BeauticianInfoActivity" />
         <activity android:name=".activity.PushOrderActivity" />
         <activity android:name=".activity.PayActivity" />
         <activity android:name=".activity.ClassifyActivity" />
@@ -232,8 +232,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.JiFenActivity" />
-        <activity android:name=".activity.HuiYuanctivity" />
+        <activity android:name=".activity.CreditActivity" />
+        <activity android:name=".activity.MemberActivity" />
         <activity android:name=".activity.MyRedBaoActivity" />
         <activity android:name=".activity.MyVoucherActivity" />
         <activity android:name=".activity.MessageActivity" />
