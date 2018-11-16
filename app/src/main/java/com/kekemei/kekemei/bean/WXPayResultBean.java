@@ -1,11 +1,12 @@
 package com.kekemei.kekemei.bean;
 
 public class WXPayResultBean {
+
     /**
      * code : 1
      * msg : 下单成功
-     * time : 1542172147
-     * data : {"appid":"wx5c1c391ac956b658","mch_id":"1515211071","nonce_str":"iJMsHQkSIoLR1AEn","prepay_id":"wx14130907313992b7d5668f5d2827247289","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"0806D2846C8894E0ED0039A987C5D923","trade_type":"APP","out_trade_no":"wx18774041361542172147","total_fee":100}
+     * time : 1542335796
+     * data : {"appid":"wx5c1c391ac956b658","mch_id":"1515211071","nonce_str":"xdxNIPjOlq484CCD","prepay_id":"wx1610363719182831a50da6d74000669691","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"ED8C27C3A82ADD7B67C9B25A6DD18890","trade_type":"APP","out_trade_no":"wx3057918471542335796","total_fee":66,"pay_time":1542335796,"sign2":"d879665ed2d8ee777e4304f7cfce7a21"}
      */
 
     private int code;
@@ -49,15 +50,17 @@ public class WXPayResultBean {
         /**
          * appid : wx5c1c391ac956b658
          * mch_id : 1515211071
-         * nonce_str : iJMsHQkSIoLR1AEn
-         * prepay_id : wx14130907313992b7d5668f5d2827247289
+         * nonce_str : xdxNIPjOlq484CCD
+         * prepay_id : wx1610363719182831a50da6d74000669691
          * result_code : SUCCESS
          * return_code : SUCCESS
          * return_msg : OK
-         * sign : 0806D2846C8894E0ED0039A987C5D923
+         * sign : ED8C27C3A82ADD7B67C9B25A6DD18890
          * trade_type : APP
-         * out_trade_no : wx18774041361542172147
-         * total_fee : 100
+         * out_trade_no : wx3057918471542335796
+         * total_fee : 66
+         * pay_time : 1542335796
+         * sign2 : d879665ed2d8ee777e4304f7cfce7a21
          */
 
         private String appid;
@@ -71,7 +74,9 @@ public class WXPayResultBean {
         private String trade_type;
         private String out_trade_no;
         private int total_fee;
+        private int pay_time;
         private String sign2;
+
         public String getAppid() {
             return appid;
         }
@@ -158,6 +163,14 @@ public class WXPayResultBean {
 
         public void setTotal_fee(int total_fee) {
             this.total_fee = total_fee;
+        }
+
+        public int getPay_time() {
+            return pay_time;
+        }
+
+        public void setPay_time(int pay_time) {
+            this.pay_time = pay_time;
         }
 
         public String getSign2() {
