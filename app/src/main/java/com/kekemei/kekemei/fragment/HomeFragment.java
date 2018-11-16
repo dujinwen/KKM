@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -48,6 +49,7 @@ import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
+import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -158,6 +160,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     LinearLayout markLayout;
     @BindView(R.id.lookMore)
     TextView lookMore;
+    @BindView(R.id.ivNewComer)
+    ImageView ivNewComer;
+    @BindView(R.id.ivSecond)
+    ImageView ivSecond;
+    @BindView(R.id.multiple_status_view)
+    MultipleStatusView multipleStatusView;
+    @BindView(R.id.sc_all)
+    ScrollView scAll;
     private HomeBean.DataBean.CommentdataBean commentdata;
     private EvaluateListAdapter commentAdapter;
 
@@ -302,10 +312,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
 
     private void initData(String latitude, String longitude) {
+        multipleStatusView.showLoading();
         OkGo.<String>post(URLs.INDEX).params("longitude", longitude).params("latitude", latitude)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        multipleStatusView.showOutContentView(scAll);
                         LogUtil.d("APPLOCALTION", response.body());
                         Gson gson = new Gson();
                         HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
@@ -334,6 +346,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     public void onError(Response<String> response) {
                         super.onError(response);
                         LogUtil.d("APPLOCALTION", response.toString());
+                        multipleStatusView.showError();
                     }
                 });
     }

@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/sc_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -369,4 +370,9 @@
         layout="@layout/home_title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_184" />
+
+    <com.kekemei.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>
