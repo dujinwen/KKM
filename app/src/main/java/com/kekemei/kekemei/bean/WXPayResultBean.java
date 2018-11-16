@@ -71,7 +71,7 @@ public class WXPayResultBean {
         private String trade_type;
         private String out_trade_no;
         private int total_fee;
-
+        private String sign2;
         public String getAppid() {
             return appid;
         }
@@ -158,6 +158,14 @@ public class WXPayResultBean {
 
         public void setTotal_fee(int total_fee) {
             this.total_fee = total_fee;
+        }
+
+        public String getSign2() {
+            return sign2;
+        }
+
+        public void setSign2(String sign2) {
+            this.sign2 = sign2;
         }
     }
 }

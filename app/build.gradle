@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-                applicationId "com.kekemei.kekemei"
-//        applicationId "com.umeng.soexample"
+//                applicationId "com.kekemei.kekemei"
+        applicationId "com.jdeccb2b.hnc"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 4
@@ -25,18 +25,25 @@ android {
     }
 
     signingConfigs {
-        debug {
-            storeFile file('../KKMkey.jks')
-            storePassword "s3EtsGCN"
-            keyAlias "key0"
-            keyPassword "s3EtsGCN"
-        }
+//        debug {
+//            storeFile file('../KKMkey.jks')
+//            storePassword "s3EtsGCN"
+//            keyAlias "key0"
+//            keyPassword "s3EtsGCN"
+//        }
 //        debug {
 //            storeFile file('../debug.keystore')
 //            storePassword "android"
 //            keyAlias "androiddebugkey"
 //            keyPassword "android"
 //        }
+
+        debug {
+            storeFile file('../appKey.jks')
+            storePassword "hnc20170320"
+            keyAlias "huanancheng"
+            keyPassword "hnc20170320"
+        }
     }
 
     sourceSets {

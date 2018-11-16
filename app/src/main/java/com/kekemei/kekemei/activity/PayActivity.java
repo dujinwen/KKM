@@ -271,7 +271,7 @@ public class PayActivity extends BaseActivity {
                     req.packageValue = "Sign=WXPay";
                     req.nonceStr = data.getNonce_str();
                     req.timeStamp = payResult.getTime();
-                    req.sign = data.getSign();
+                    req.sign = data.getSign2();
                     // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
                     LogUtil.d("PAY_GET", req.toString());
                     if (!api.isWXAppInstalled()) {
