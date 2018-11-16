@@ -27,6 +27,9 @@ public class MeiRongShiAdapter extends BaseQuickAdapter<BeauticianBean, BaseView
         helper.setText(R.id.name, item.getName());
         helper.setText(R.id.num, item.getContent());
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.icon_pic));
+
+
+        helper.addOnClickListener(R.id.btn_guanzhu);
     }
 
 }

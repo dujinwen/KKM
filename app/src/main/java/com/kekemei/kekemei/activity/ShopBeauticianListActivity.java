@@ -141,7 +141,7 @@ public class ShopBeauticianListActivity extends BaseActivity {
                 }
             });
         } else {
-            beauticianListAdapter = new MeiRongShiListAdapter(ShopBeauticianListActivity.this, R.layout.list_shop);
+            beauticianListAdapter = new MeiRongShiListAdapter(ShopBeauticianListActivity.this, R.layout.list_meirongshi);
             jRecyclerView.setAdapter(beauticianListAdapter);
             beauticianListAdapter.addHeaderView(header);
             beauticianListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

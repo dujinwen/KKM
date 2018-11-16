@@ -37,27 +37,8 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> 
                                 Double.parseDouble(SPUtils.getString(mContext, "longitude", "")),
                                 Double.parseDouble(item.getLatitude()),
                                 Double.parseDouble(item.getLongitude())) + "M");
-//        LinearLayout view = helper.getView(R.id.ll_pingjia);
-//        int size = item.getTag_text().size();
-//        if (size != 0) {
-//            view.setVisibility(View.VISIBLE);
-//            for (int i = 0; i < size; i++) {
-//                TextView textView = new TextView(mContext);
-//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                params.setMargins(0,AppUtil.px2dip(mContext,27),AppUtil.px2dip(mContext,30),0);
-//                textView.setLayoutParams(params);
-//                textView.setText(item.getTag_text().get(i));
-//                textView.setTextSize(AppUtil.px2dip(mContext,29));
-//                textView.setPadding(AppUtil.px2dip(mContext,7), AppUtil.px2dip(mContext,4), AppUtil.px2dip(mContext,9), AppUtil.px2dip(mContext,4));
-//                textView.setTextColor(mContext.getResources().getColor(R.color.FF7AD2D2, null));
-//                textView.setBackgroundResource(R.drawable.btn_blue_with_corners_background);
-//                view.addView(textView);
-//            }
-//        } else {
-//            view.setVisibility(View.GONE);
-//        }
 
         StarBar star_bar = helper.getView(R.id.star_bar);
-        star_bar.setStarMark(2.5f);
+        star_bar.setStarMark(item.getStart());
     }
 }

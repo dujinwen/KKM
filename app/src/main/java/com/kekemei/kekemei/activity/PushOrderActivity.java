@@ -181,7 +181,7 @@ public class PushOrderActivity extends BaseActivity {
             llMeirongshiSelect.setClickable(false);
             tvName.setText(yuYueActivityBean.getBeauticianDetailBean().getData().getNickname());
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getData().getImage(), civIcon);
-            sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getData().getState()));
+            sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getData().getStart()));
         }else {
             llMeirongshiInfo.setVisibility(View.GONE);
             llMeirongshiInfoHint.setVisibility(View.VISIBLE);

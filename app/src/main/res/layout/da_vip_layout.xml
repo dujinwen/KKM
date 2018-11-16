@@ -50,6 +50,7 @@
             android:layout_marginLeft="@dimen/px_36"
             android:layout_weight="1"
             android:text="4.9  棒极啦"
+            android:maxLines="1"
             android:textColor="#FF7AD2D2"
             android:textSize="@dimen/px_35" />
 
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/px_30"
             android:text="42条评论"
+            android:maxLines="1"
             android:textColor="#FF999999"
             android:textSize="@dimen/px_26" />
     </LinearLayout>

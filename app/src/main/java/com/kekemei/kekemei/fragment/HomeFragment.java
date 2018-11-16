@@ -1,6 +1,7 @@
 package com.kekemei.kekemei.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,6 +25,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.BeauticianInfoActivity;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MiaoshaActivity;
@@ -225,6 +228,29 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BeauticianBean data = meiRongShiAdapter.getItem(position);
                 ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.BEAUTICIAN);
+            }
+        });
+
+        meiRongShiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, final View view, int position) {
+                BeauticianBean data = meiRongShiAdapter.getItem(position);
+                final Button guanzhu = (Button) adapter.getViewByPosition(rvMeirongshi, position, R.id.btn_guanzhu);
+                if (view.getId() == R.id.btn_guanzhu){
+
+                    OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
+                            .params("beautician_id", data.getId())
+                            .params("user_id", UserHelp.getUserId(getActivity()))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    LogUtil.e("Me", "follow beautician:" + response.body());
+                                    Gson gson = new Gson();
+                                    guanzhu.setText("已关注");
+                                    guanzhu.setBackgroundColor(Color.RED);
+                                }
+                            });
+                }
             }
         });
 
