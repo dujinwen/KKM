@@ -231,28 +231,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             }
         });
 
-        meiRongShiAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, final View view, int position) {
-                BeauticianBean data = meiRongShiAdapter.getItem(position);
-                final Button guanzhu = (Button) adapter.getViewByPosition(rvMeirongshi, position, R.id.btn_guanzhu);
-                if (view.getId() == R.id.btn_guanzhu){
-
-                    OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
-                            .params("beautician_id", data.getId())
-                            .params("user_id", UserHelp.getUserId(getActivity()))
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onSuccess(Response<String> response) {
-                                    LogUtil.e("Me", "follow beautician:" + response.body());
-                                    Gson gson = new Gson();
-                                    guanzhu.setText("已关注");
-                                    guanzhu.setBackgroundColor(Color.RED);
-                                }
-                            });
-                }
-            }
-        });
 
         LinearLayoutManager layout_vip = new LinearLayoutManager(getActivity().getBaseContext());
         layout_vip.setOrientation(LinearLayoutManager.HORIZONTAL);
