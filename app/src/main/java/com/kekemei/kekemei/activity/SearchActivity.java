@@ -237,34 +237,12 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi);
         beauticianList.setAdapter(beauticianAdapter);
 
-        beauticianAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        beauticianAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BeauticianBean beauticianBean = (BeauticianBean) adapter.getItem(position);
-                switch (view.getId()) {
-                    case R.id.ll_meirongshi:
-                        ShopActivity.start(SearchActivity.this, beauticianBean.getId(),
-                                beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
-                        break;
-                    case R.id.btn_buy_now:
-                        long userId = UserHelp.getUserId(SearchActivity.this);
-                        if (userId == -1L) {
-                            LoginActivity.start(getBaseContext());
-                            return;
-                        }
-                        OkGo.<String>get(URLs.ORDER_GENERATING)
-                                .params("user_id", userId)
-                                .params("name", beauticianBean.getName())
-                                .params("project_id", beauticianBean.getId())
-                                .params("count", 1)
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-
-                                    }
-                                });
-                        break;
-                }
+                ShopActivity.start(SearchActivity.this, beauticianBean.getId(),
+                        beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
             }
         });
     }
