@@ -11,10 +11,7 @@ public class EvaluateListBean {
      * time : 1542162611
      */
 
-    private int code;
     private DataBean data;
-    private String msg;
-    private String time;
 
     public DataBean getData() {
         return data;

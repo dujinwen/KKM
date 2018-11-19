@@ -20,7 +20,7 @@
             android:layout_height="376px"
             android:layout_marginLeft="36px"
             android:layout_marginTop="27px"
-            android:src="@mipmap/shop_detail_photo_pic" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tvSatisfaction"

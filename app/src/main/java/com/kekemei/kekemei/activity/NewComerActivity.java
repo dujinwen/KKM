@@ -168,6 +168,7 @@ public class NewComerActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        multipleStatusView.showLoading();
         loadData(true);
     }
 
@@ -222,7 +223,7 @@ public class NewComerActivity extends BaseActivity {
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
-                onResultError(response);
+                onResultError();
             }
         });
     }
@@ -298,7 +299,7 @@ public class NewComerActivity extends BaseActivity {
         }
     }
 
-    public void onResultError(Object response) {
+    public void onResultError() {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showError();
         if (isLoadMore)

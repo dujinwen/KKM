@@ -41,6 +41,7 @@ import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianBean;
+import com.kekemei.kekemei.bean.CommentTagsBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.HomeBean;
 import com.kekemei.kekemei.bean.ShopBean;
@@ -71,14 +72,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-/**
- * User:Shine
- * Date:2015-10-20
- * Description:
- */
 public class HomeFragment extends Fragment implements AMapLocationListener {
-
-
     @BindView(R.id.iv_place)
     ImageView ivPlace;
     @BindView(R.id.place)
@@ -219,8 +213,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
         commentTabAll.setSelected(true);
 
-
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -230,7 +222,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 }
             }
         });
-
         return view;
     }
 
@@ -334,15 +325,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     }
 
-
     private void initData(String latitude, String longitude) {
         multipleStatusView.showLoading();
-
 
         if (swipeRefreshLayout.isRefreshing()){
             swipeRefreshLayout.setRefreshing(false);//设置不刷新
         }
-
 
         OkGo.<String>post(URLs.INDEX).params("longitude", longitude).params("latitude", latitude)
                 .execute(new StringCallback() {
@@ -363,11 +351,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                         adapter4.setNewData(homeBean.getData().getHotdata());
                         if (homeBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getAll())) {
                             commentLayout.setVisibility(View.VISIBLE);
-                            userCommentNum.setText(getActivity().getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getAll().size()
-                                    + homeBean.getData().getCommentdata().getNewX().size() + homeBean.getData().getCommentdata().getHaveimg().size()));
+                            userCommentNum.setText(getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getCount()));
                             commentdata = homeBean.getData().getCommentdata();
-                            LogUtil.e("CommentHome", "comment all size:" + homeBean.getData().getCommentdata().getAll().size());
                             commentAdapter.setNewData(homeBean.getData().getCommentdata().getAll());
+                            if (CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getTags())) {
+                                fillTags(homeBean.getData().getCommentdata().getTags());
+                            }
                         } else {
                             commentLayout.setVisibility(View.GONE);
                         }
@@ -410,15 +399,15 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
      *
      * @param result
      */
-    private void fillTags(final List<String> result) {
+    private void fillTags(final List<CommentTagsBean> result) {
         if (CollectionUtils.isEmpty(result)) {
             return;
         }
         commentTagFlowLayout.removeAllViews();
         for (int i = 0; i < result.size(); i++) {
             final TextView txt = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.item_comment_tag_layout, commentTagFlowLayout, false);
-            if (!AppUtil.isEmptyString(result.get(i))) {
-                txt.setText(result.get(i));
+            if (!AppUtil.isEmptyString(result.get(i).getName())) {
+                txt.setText(result.get(i).getName());
                 txt.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -479,9 +468,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
                 double latitude = amapLocation.getLatitude();//获取纬度
                 double longitude = amapLocation.getLongitude();//获取经度
-                SPUtils.putString(getActivity(), "latitude", latitude + "");
-                SPUtils.putString(getActivity(), "longitude", longitude + "");
-                initData(latitude + "", longitude + "");
+                SPUtils.putString(getActivity(), "latitude", String.valueOf(latitude));
+                SPUtils.putString(getActivity(), "longitude", String.valueOf(longitude));
+                initData(String.valueOf(latitude), String.valueOf(longitude));
 
                 HttpParams commonParams = new HttpParams();
                 commonParams.put("latitude", latitude);
@@ -492,12 +481,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 LogUtil.d("APPLOCALTION  HomeFragment", "location Error, ErrCode:"
-                        + amapLocation.getErrorCode() + ", errInfo:"
-                        + amapLocation.getErrorInfo());
-
+                        + amapLocation.getErrorCode() + ", errInfo:" + amapLocation.getErrorInfo());
             }
         }
-
     }
 
     Intent intent;
@@ -505,7 +491,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
             R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOneBg, R.id.couponTwoBg,
-            R.id.couponThreeBg,R.id.id_msg,R.id.lookMore})
+            R.id.couponThreeBg, R.id.id_msg, R.id.lookMore, R.id.layoutUserComment})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
@@ -567,7 +553,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             case R.id.fujin_meirongshi:
                 ShopBeauticianListActivity.start(getActivity(), false);
                 break;
-
             case R.id.iv_place:
             case R.id.place:
                 break;
@@ -582,15 +567,12 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             case R.id.ivSecond:
                 MiaoshaActivity.start(getActivity());
                 break;
-
-
             case R.id.id_msg:
                 MessageActivity.start(getActivity());
                 break;
-
+            case R.id.layoutUserComment:
             case R.id.lookMore:
-                UserEvaluateActivity.start(getActivity(),
-                        false,
+                UserEvaluateActivity.start(getActivity(), false,
                         "", "", "");
                 break;
         }

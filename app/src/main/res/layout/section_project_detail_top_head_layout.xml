@@ -9,7 +9,7 @@
         android:id="@+id/shop_detail_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@mipmap/beautician_detail_photo_pic" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/shopName"

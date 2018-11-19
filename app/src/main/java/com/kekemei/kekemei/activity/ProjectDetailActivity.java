@@ -135,6 +135,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     LinearLayout llSelectTime;
     @BindView(R.id.rv_list_yuyue)
     RecyclerView rvListYuyue;
+    @BindView(R.id.tvToShopDetail)
+    TextView tvToShopDetail;
     @BindView(R.id.layoutBottomBar)
     LinearLayout layoutBottomBar;
 
@@ -285,10 +287,11 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 return true;
             }
         });
-        if (StringUtils.isEmpty(baseUrl)) {
+        /*if (StringUtils.isEmpty(baseUrl)) {
             baseUrl = "about:blank";
         }
-        webContainer.loadDataWithBaseURL(baseUrl, html, mimeType, encoding, "about:blank");
+        webContainer.loadDataWithBaseURL(baseUrl, html, mimeType, encoding, "about:blank");*/
+        webContainer.loadUrl(html);
         webContainer.scrollTo(0, 0);
     }
 
@@ -384,7 +387,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding, R.id.tvCollection})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding, R.id.tvCollection, R.id.tvToShopDetail})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvCollection:
@@ -436,7 +439,6 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     commentAdapter.replaceData(commentData.getHaveimg());
                 }
                 break;
-
             case R.id.tv_buy_now:
                 long userId = UserHelp.getUserId(this);
                 if (userId == -1L) {
@@ -473,20 +475,21 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         });
                 break;
             case R.id.ll_yuyue:
-                //                llSelectTime.setVisibility(llSelectTime.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 if (timeSelectPosition == -1 || daySelectPosition == -1L) {
                     llSelectTime.setVisibility(View.VISIBLE);
                     llDianpuTab.setVisibility(View.GONE);
                     layoutBottomBar.setVisibility(View.GONE);
                 }
-
                 break;
             case R.id.queding:
                 llSelectTime.setVisibility(View.GONE);
                 llDianpuTab.setVisibility(View.VISIBLE);
                 layoutBottomBar.setVisibility(View.VISIBLE);
-
-
+                break;
+            case R.id.tvToShopDetail:
+                if (detailBean != null && detailBean.getData() != null) {
+                    ShopActivity.start(this, detailBean.getData().getId(), UserHelp.getUserId(this), DetailEnum.SHOP);
+                }
                 break;
         }
     }
@@ -559,7 +562,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         price.setText("￥" + detailBean.getData().getPrice_discount());
                         marketPrice.setText("￥" + detailBean.getData().getPrice_market());
                         /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
-//                        displayForWebView(URLs.BASE_URL+"/mob/project/details?id=" + projectId, null);
+                        displayForWebView(URLs.BASE_URL+"/mob/project/details?id=" + projectId, null);
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                             contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
                             contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

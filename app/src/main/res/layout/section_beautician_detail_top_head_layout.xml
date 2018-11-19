@@ -85,7 +85,7 @@
             android:id="@+id/shop_detail_icon"
             android:layout_width="@dimen/px_382"
             android:layout_height="@dimen/px_462"
-            android:src="@mipmap/beautician_detail_photo_pic" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tvSatisfaction"
@@ -95,8 +95,8 @@
             android:layout_marginTop="@dimen/px_418"
             android:background="@drawable/shape_grey_shop_detail"
             android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
-            android:gravity="center_vertical"
             android:drawablePadding="10px"
+            android:gravity="center_vertical"
             android:paddingLeft="29px"
             android:text="95%满意度"
             android:textColor="#333333"
