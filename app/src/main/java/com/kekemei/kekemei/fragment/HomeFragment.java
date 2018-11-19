@@ -1,17 +1,16 @@
 package com.kekemei.kekemei.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,15 +24,16 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.BeauticianInfoActivity;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
+import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MiaoshaActivity;
 import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.SearchActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
 import com.kekemei.kekemei.activity.ShopBeauticianListActivity;
+import com.kekemei.kekemei.activity.UserEvaluateActivity;
 import com.kekemei.kekemei.adapter.DAVipAdapter;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiAdapter;
@@ -171,6 +171,10 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     MultipleStatusView multipleStatusView;
     @BindView(R.id.sc_all)
     ScrollView scAll;
+    @BindView(R.id.tvCommentPeer)
+    TextView tvCommentPeer;
+    @BindView(R.id.main_srl)
+    SwipeRefreshLayout swipeRefreshLayout;
     private HomeBean.DataBean.CommentdataBean commentdata;
     private EvaluateListAdapter commentAdapter;
 
@@ -188,6 +192,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     private MyGridAdapter adapter4;
     private MyGridAdapter adapter2;
     private MyGridAdapter adapter3;
+    private String latitude;
+    private String longitude;
+    private HomeBean homeBean;
 
     @Nullable
     @Override
@@ -195,8 +202,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         unbinder = ButterKnife.bind(this, view);
-        String latitude = SPUtils.getString(getActivity(), "latitude", "");
-        String longitude = SPUtils.getString(getActivity(), "longitude", "");
+        latitude = SPUtils.getString(getActivity(), "latitude", "");
+        longitude = SPUtils.getString(getActivity(), "longitude", "");
         /**
          * 预先加载仿iOS滚轮实现的全部数据
          */
@@ -211,6 +218,18 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         }
 
         commentTabAll.setSelected(true);
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (StringUtils.isNotEmpty(latitude) && StringUtils.isNotEmpty(longitude)) {
+                    initData(latitude, longitude);
+                    place.setText(SPUtils.getString(getActivity(), "city", ""));
+                }
+            }
+        });
 
         return view;
     }
@@ -308,6 +327,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         rvCommentList.setHasFixedSize(true);
         rvCommentList.setNestedScrollingEnabled(false);
         rvCommentList.setAdapter(commentAdapter);
+
     }
 
     private void initCityList() {
@@ -317,6 +337,13 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     private void initData(String latitude, String longitude) {
         multipleStatusView.showLoading();
+
+
+        if (swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);//设置不刷新
+        }
+
+
         OkGo.<String>post(URLs.INDEX).params("longitude", longitude).params("latitude", latitude)
                 .execute(new StringCallback() {
                     @Override
@@ -324,7 +351,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                         multipleStatusView.showOutContentView(scAll);
                         LogUtil.d("APPLOCALTION", response.body());
                         Gson gson = new Gson();
-                        HomeBean homeBean = gson.fromJson(response.body(), HomeBean.class);
+                        homeBean = gson.fromJson(response.body(), HomeBean.class);
                         xbanner.setData(homeBean.getData().getBanneradv(), null);
                         initBanner();
                         initCoupon(homeBean.getData().getIndexcoupon());
@@ -477,7 +504,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
-            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOneBg, R.id.couponTwoBg, R.id.couponThreeBg})
+            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOneBg, R.id.couponTwoBg,
+            R.id.couponThreeBg,R.id.id_msg,R.id.lookMore})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
@@ -553,6 +581,17 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 break;
             case R.id.ivSecond:
                 MiaoshaActivity.start(getActivity());
+                break;
+
+
+            case R.id.id_msg:
+                MessageActivity.start(getActivity());
+                break;
+
+            case R.id.lookMore:
+                UserEvaluateActivity.start(getActivity(),
+                        false,
+                        "", "", "");
                 break;
         }
     }

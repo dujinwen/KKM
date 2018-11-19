@@ -6,6 +6,11 @@
     android:background="#e5e6e8"
     android:orientation="vertical">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/main_srl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <ScrollView
         android:id="@+id/sc_all"
         android:layout_width="match_parent"
@@ -365,7 +370,7 @@
 
     </ScrollView>
 
-
+    </android.support.v4.widget.SwipeRefreshLayout>
     <include
         layout="@layout/home_title_layout"
         android:layout_width="match_parent"
