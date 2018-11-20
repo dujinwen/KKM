@@ -26,8 +26,8 @@ public class SettingActivity extends BaseActivity {
     TextView tv_title;
     @BindView(R.id.txtSafely)
     SectionRowView safelySetting;
-    @BindView(R.id.txtFeedBack)
-    SectionRowView feedBack;
+//    @BindView(R.id.txtFeedBack)
+//    SectionRowView feedBack;
     @BindView(R.id.txtHelpCenter)
     SectionRowView helpCenter;
     @BindView(R.id.txtAboutUs)
@@ -67,12 +67,12 @@ public class SettingActivity extends BaseActivity {
 
         version.setContentTxt("V" + AppUtil.getVersionName(this));
 
-        feedBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FeedBackActivity.start(SettingActivity.this);
-            }
-        });
+//        feedBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FeedBackActivity.start(SettingActivity.this);
+//            }
+//        });
 
         helpCenter.setOnClickListener(new View.OnClickListener() {
             @Override
