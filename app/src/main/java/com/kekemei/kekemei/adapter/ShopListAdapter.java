@@ -39,6 +39,6 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> 
                                 Double.parseDouble(item.getLongitude())) + "M");
 
         StarBar star_bar = helper.getView(R.id.star_bar);
-        star_bar.setStarMark(item.getStart());
+        star_bar.setStarMark(item.getStarts());
     }
 }
