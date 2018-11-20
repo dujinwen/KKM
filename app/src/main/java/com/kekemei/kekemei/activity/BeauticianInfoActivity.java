@@ -80,9 +80,9 @@ public class BeauticianInfoActivity extends BaseActivity {
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
 
-    private int beauticianId;
+    private String beauticianId;
 
-    public static void start(Context context, int beauticianId) {
+    public static void start(Context context, String beauticianId) {
         Intent intent = new Intent(context, BeauticianInfoActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         context.startActivity(intent);
@@ -101,7 +101,7 @@ public class BeauticianInfoActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         toolbar.setNavigationIcon(R.mipmap.back);
         tvTitle.setText("美容师介绍");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -84,7 +84,7 @@ public class ProjectDetailBean implements Serializable {
          * weigh : 100
          */
 
-        private int id;
+        private String id;
         private String name;
         private String image;
         private String images;
@@ -167,11 +167,11 @@ public class ProjectDetailBean implements Serializable {
             this.createtime = createtime;
         }
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 

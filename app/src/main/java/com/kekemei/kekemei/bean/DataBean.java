@@ -55,7 +55,7 @@ public class DataBean extends BaseBean implements Serializable, MultiItemEntity 
      * pay_type_text :
      */
 
-    private int id;
+    private String id;
     private String name;
     private int price;
     private int user_id;
@@ -69,11 +69,11 @@ public class DataBean extends BaseBean implements Serializable, MultiItemEntity 
     private String state_text;
     private String pay_type_text;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

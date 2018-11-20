@@ -241,8 +241,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BeauticianBean beauticianBean = (BeauticianBean) adapter.getItem(position);
-                ShopActivity.start(SearchActivity.this, beauticianBean.getId(),
-                        beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
+                ShopActivity.start(SearchActivity.this, beauticianBean.getId(), DetailEnum.BEAUTICIAN);
             }
         });
     }

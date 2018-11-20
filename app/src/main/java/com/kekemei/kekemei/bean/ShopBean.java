@@ -46,7 +46,7 @@ public class ShopBean implements Serializable{
     private int coupon_ids;
     private int createtime;
     private double distance;
-    private int id;
+    private String id;
     private String image;
     private String images;
     private String latitude;
@@ -136,11 +136,11 @@ public class ShopBean implements Serializable{
         this.distance = distance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

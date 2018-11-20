@@ -37,9 +37,9 @@ public class BaseBean implements Serializable {
      * state_text : 推荐
      */
 
-    private int id;
+    private String id;
     private String name;
-    private int project_category_id;
+    private String project_category_id;
     private String image;
     private String images;
     private int price_market;
@@ -63,11 +63,11 @@ public class BaseBean implements Serializable {
     private List<String> redenvelopes;
     private List<String> coupon;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,11 +79,11 @@ public class BaseBean implements Serializable {
         this.name = name;
     }
 
-    public int getProject_category_id() {
+    public String getProject_category_id() {
         return project_category_id;
     }
 
-    public void setProject_category_id(int project_category_id) {
+    public void setProject_category_id(String project_category_id) {
         this.project_category_id = project_category_id;
     }
 

@@ -38,7 +38,7 @@ public class HotdataBean extends BaseBean {
     private int createtime;
     private String flag;
     private String flag_text;
-    private int id;
+    private String id;
     private String image;
     private String images;
     private String name;
@@ -48,7 +48,7 @@ public class HotdataBean extends BaseBean {
     private int price_member;
     private int price_newmember;
     private int price_second;
-    private int project_category_id;
+    private String project_category_id;
     private String quality;
     private String quality_text;
     private String redenvelopes_ids;
@@ -109,11 +109,11 @@ public class HotdataBean extends BaseBean {
         this.flag_text = flag_text;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -189,11 +189,11 @@ public class HotdataBean extends BaseBean {
         this.price_second = price_second;
     }
 
-    public int getProject_category_id() {
+    public String getProject_category_id() {
         return project_category_id;
     }
 
-    public void setProject_category_id(int project_category_id) {
+    public void setProject_category_id(String project_category_id) {
         this.project_category_id = project_category_id;
     }
 

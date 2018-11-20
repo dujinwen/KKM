@@ -145,7 +145,7 @@ public class MyCollectionActivity extends BaseActivity {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         ShopBean item = shopAdapter.getItem(position);
-                        ShopActivity.start(MyCollectionActivity.this, item.getId(), item.getUser_id(), DetailEnum.SHOP);
+                        ShopActivity.start(MyCollectionActivity.this, item.getId(), DetailEnum.SHOP);
                     }
                 });
             }
@@ -156,7 +156,7 @@ public class MyCollectionActivity extends BaseActivity {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     BeauticianBean item = beauticianAdapter.getItem(position);
-                    ShopActivity.start(MyCollectionActivity.this, item.getId(), item.getUser_id(), DetailEnum.BEAUTICIAN);
+                    ShopActivity.start(MyCollectionActivity.this, item.getId(), DetailEnum.BEAUTICIAN);
                 }
             });
         }

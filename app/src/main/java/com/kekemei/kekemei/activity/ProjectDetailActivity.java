@@ -163,7 +163,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private ProjectDetailBean detailBean;
 
 
-    private int projectId;
+    private String beauticianId;
     private long daySelectPosition = -1L;
 
     private int timeSelectPosition = -1;
@@ -182,13 +182,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private String address;
 
 
-    public static void start(Context context, int beauticianId) {
+    public static void start(Context context, String beauticianId) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         context.startActivity(intent);
     }
 
-    public static void start(Context context, int beauticianId, int timeSelectPosition, String timeSelectName, long daySelectPosition, ShopDetailBean shopDetailBean, DetailEnum detailEnum) {
+    public static void start(Context context, String beauticianId, int timeSelectPosition, String timeSelectName, long daySelectPosition, ShopDetailBean shopDetailBean, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
@@ -199,7 +199,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         context.startActivity(intent);
     }
 
-    public static void start(Context context, int beauticianId, int timeSelectPosition, String timeSelectName, long daySelectPosition, BeauticianDetailBean beauticianDetailBean, DetailEnum detailEnum) {
+    public static void start(Context context, String beauticianId, int timeSelectPosition, String timeSelectName, long daySelectPosition, BeauticianDetailBean beauticianDetailBean, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ProjectDetailActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
         intent.putExtra(EXTRA_KEY_TIME_SELECT, timeSelectPosition);
@@ -223,7 +223,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        projectId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
+        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         timeSelectPosition = super.getIntExtraSecure(EXTRA_KEY_TIME_SELECT);
         daySelectPosition = super.getLongExtraSecure(EXTRA_KEY_DAY_SELECT);
         timeSelectName = super.getStringExtraSecure(EXTRA_KEY_TIME_NAME);
@@ -362,8 +362,11 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         tvAddress = contentHead.findViewById(R.id.tvAddress);
         tvDistance = contentHead.findViewById(R.id.tvDistance);
         coupon = contentHead.findViewById(R.id.coupon);
+        coupon.setOnClickListener(this);
         subtract = contentHead.findViewById(R.id.subtract);
+        subtract.setOnClickListener(this);
         redBao = contentHead.findViewById(R.id.redBao);
+        redBao.setOnClickListener(this);
         ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
         ll_yuyue.setOnClickListener(this);
 
@@ -494,10 +497,114 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tvToShopDetail:
                 if (detailBean != null && detailBean.getData() != null) {
-                    ShopActivity.start(this, detailBean.getData().getId(), UserHelp.getUserId(this), DetailEnum.SHOP);
+                    ShopActivity.start(this, detailBean.getData().getId(), DetailEnum.SHOP);
                 }
                 break;
+            case R.id.coupon:
+                int tagId = (int) coupon.getTag();
+                receiveCoupon(tagId);
+                break;
+            case R.id.subtract:
+                receiveFull();
+                break;
+            case R.id.redBao:
+                int redBaoId = (int) redBao.getTag();
+                receiveRedBao(redBaoId);
+                break;
         }
+    }
+
+    /**
+     * 领取红包
+     *
+     * @param redBaoId
+     */
+    private void receiveRedBao(int redBaoId) {
+        String projectId = shopDetailBean.getData().getId();
+        OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("red_type", "1")
+                .params("project_id", projectId).params("id", redBaoId)
+                .params("shop_id", "").params("beautician_id", beauticianId)
+                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "领取失败");
+                        return;
+                    }
+                    ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ProjectDetailActivity.this, "领取失败");
+            }
+        });
+    }
+
+    /**
+     * 领取满减券
+     *
+     * @TODO 满减领取URL？
+     */
+    private void receiveFull() {
+       /* OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "follow beautician:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                        return;
+                    }
+                    tvFollow.setText("已关注");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
+    }
+
+    /**
+     * 领取优惠券
+     *
+     * @param couponId
+     */
+    private void receiveCoupon(int couponId) {
+        String projectId = detailBean.getData().getId();
+        OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", "1")
+                .params("project_id", projectId).params("id", couponId)
+                .params("shop_id", "").params("beautician_id", beauticianId)
+                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "领取失败");
+                        return;
+                    }
+                    ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ProjectDetailActivity.this, "领取失败");
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -528,7 +635,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      * 预约时间
      */
     public void timeData(long timedstartdate) {
-        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", projectId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -543,7 +650,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         super.initData();
         multipleStatusView.showLoading();
         OkGo.<String>post(URLs.PROJECT_DETAILS)
-                .params("id", projectId)
+                .params("id", beauticianId)
                 .execute(new StringCallback() {
                     @SuppressLint("StringFormatMatches")
                     @Override
@@ -573,6 +680,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getData().getDistance()));
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getCoupon())) {
                             coupon.setVisibility(View.VISIBLE);
+                            coupon.setTag(detailBean.getData().getCoupon().get(0).getId());
                             coupon.setText(String.valueOf(detailBean.getData().getCoupon().get(0).getPrice_satisfy()));
                         } else {
                             coupon.setVisibility(View.GONE);
@@ -582,12 +690,14 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             String name = detailBean.getData().getFull().get(0).getName();
                             String[] split = name.split("减");
                             String subtractText = "-" + split[1] + "\n" + detailBean.getData().getFull().get(0).getPrice_satisfy() + "元";
+                            subtract.setTag(detailBean.getData().getFull().get(0).getId());
                             subtract.setText(String.valueOf(subtractText));
                         } else {
                             subtract.setVisibility(View.GONE);
                         }
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getRedenvelopes())) {
                             redBao.setVisibility(View.VISIBLE);
+                            redBao.setTag(detailBean.getData().getRedenvelopes().get(0).getId());
                             redBao.setText(String.valueOf(detailBean.getData().getRedenvelopes().get(0).getPrice_reduction()));
                         } else {
                             redBao.setVisibility(View.GONE);
@@ -623,7 +733,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 serviceThree.setVisibility(View.GONE);
                             }
                         }
-                        displayForWebView(URLs.BASE_URL + "/mob/project/details?id=" + projectId, null);
+                        displayForWebView(URLs.BASE_URL + "/mob/project/details?id=" + beauticianId, null);
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                             contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
                             contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -723,7 +833,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         id_recyclerview_horizontal.setLayoutManager(linearLayoutManager);
-        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(), projectId);
+        dayAdapter = new DayCheckAdapter2(this, canlBean.getDataBean(), beauticianId);
         id_recyclerview_horizontal.setAdapter(dayAdapter);
 
         dayAdapter.setOnItemClickLitener(new DayCheckAdapter2.OnItemClickListener() {

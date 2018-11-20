@@ -41,6 +41,7 @@ import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -65,7 +66,6 @@ import butterknife.Optional;
 public class ShopActivity extends BaseActivity implements View.OnClickListener {
     public static final String TAG = ShopActivity.class.getSimpleName();
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
-    private static final String EXTRA_KEY_USER_ID = "userId";
     private static final String EXTRA_KEY_ENUM_ID = "type";
     private CustomDatePicker startTimePicker;
     @BindView(R.id.toolbar)
@@ -145,8 +145,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout newComerLayout, memberLayout, preferenceLayout;
     private RecyclerView hotProjectRv, newComerRv, memberRv, preferenceRv;
-    private String userId;
-    private int beauticianId;
+    private String beauticianId;
     private MyGridAdapter hotProjectAdapter, newComerAdapter, memberAdapter, preferenceAdapter;
     private EvaluateListAdapter commentAdapter;
     private DetailEnum detailEnum;
@@ -167,10 +166,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private ShopDetailBean shopDetailBean;
     private BeauticianDetailBean beauticianDetailBean;
 
-    public static void start(Context context, int beauticianId, long userId, DetailEnum detailEnum) {
+    public static void start(Context context, String beauticianId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
         intent.putExtra(EXTRA_KEY_BEAUTICIAN_ID, beauticianId);
-        intent.putExtra(EXTRA_KEY_USER_ID, String.valueOf(userId));
         intent.putExtra(EXTRA_KEY_ENUM_ID, detailEnum);
         context.startActivity(intent);
     }
@@ -200,8 +198,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
-        beauticianId = super.getIntExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
-        userId = super.getStringExtraSecure(EXTRA_KEY_USER_ID);
+        beauticianId = super.getStringExtraSecure(EXTRA_KEY_BEAUTICIAN_ID);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -386,8 +383,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         tvAddress = contentHead.findViewById(R.id.tvAddress);
         tvDistance = contentHead.findViewById(R.id.tvDistance);
         coupon = contentHead.findViewById(R.id.coupon);
+        coupon.setOnClickListener(this);
         subtract = contentHead.findViewById(R.id.subtract);
+        subtract.setOnClickListener(this);
         redBao = contentHead.findViewById(R.id.redBao);
+        redBao.setOnClickListener(this);
     }
 
     private void initNearbyView(View view) {
@@ -537,6 +537,17 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 llDianpuTab.setVisibility(View.VISIBLE);
                 layoutBottomBar.setVisibility(View.VISIBLE);
                 break;
+            case R.id.coupon:
+                int tagId = (int) coupon.getTag();
+                receiveCoupon(tagId);
+                break;
+            case R.id.subtract:
+                receiveFull();
+                break;
+            case R.id.redBao:
+                int redBaoId = (int) redBao.getTag();
+                receiveRedBao(redBaoId);
+                break;
         }
     }
 
@@ -551,7 +562,76 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      * 关注
      */
     private void follow() {
-        OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+        OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId)
+                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "follow beautician:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ShopActivity.this, "关注失败");
+                        return;
+                    }
+                    tvFollow.setText("已关注");
+                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ShopActivity.this, "关注失败");
+            }
+        });
+    }
+
+    /**
+     * 领取红包
+     *
+     * @param redBaoId
+     */
+    private void receiveRedBao(int redBaoId) {
+        String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getData().getId() : "";
+        String redType = detailEnum == DetailEnum.SHOP ? "3" : "2";
+        OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("red_type", redType)
+                .params("project_id", "").params("id", redBaoId)
+                .params("shop_id", shopId).params("beautician_id", beauticianId)
+                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "follow beautician:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ShopActivity.this, "领取失败");
+                        return;
+                    }
+                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ShopActivity.this, "领取失败");
+            }
+        });
+    }
+
+    /**
+     * 领取满减券
+     *
+     * @TODO 满减领取URL？
+     */
+    private void receiveFull() {
+       /* OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId).params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
@@ -566,6 +646,41 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });*/
+    }
+
+    /**
+     * 领取优惠券
+     *
+     * @param couponId
+     */
+    private void receiveCoupon(int couponId) {
+        String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getData().getId() : "";
+        String couponType = detailEnum == DetailEnum.SHOP ? "3" : "2";
+        OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", couponType)
+                .params("project_id", "").params("id", couponId)
+                .params("shop_id", shopId).params("beautician_id", beauticianId)
+                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ShopActivity.this, "领取失败");
+                        return;
+                    }
+                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ShopActivity.this, "领取失败");
             }
         });
     }
@@ -637,6 +752,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getData().getDistance()));
                     if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getCoupon())) {
                         coupon.setVisibility(View.VISIBLE);
+                        coupon.setTag(shopDetailBean.getData().getCoupon().get(0).getId());
                         coupon.setText(String.valueOf(shopDetailBean.getData().getCoupon().get(0).getPrice_satisfy()));
                     } else {
                         coupon.setVisibility(View.GONE);
@@ -646,12 +762,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         String name = shopDetailBean.getData().getFull().get(0).getName();
                         String[] split = name.split("减");
                         String subtractText = "-" + split[1] + "\n" + shopDetailBean.getData().getFull().get(0).getPrice_satisfy() + "元";
+                        subtract.setTag(shopDetailBean.getData().getFull().get(0).getId());
                         subtract.setText(String.valueOf(subtractText));
                     } else {
                         subtract.setVisibility(View.GONE);
                     }
                     if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getRedenvelopes())) {
                         redBao.setVisibility(View.VISIBLE);
+                        redBao.setTag(shopDetailBean.getData().getRedenvelopes().get(0).getId());
                         redBao.setText(String.valueOf(shopDetailBean.getData().getRedenvelopes().get(0).getPrice_reduction()));
                     } else {
                         redBao.setVisibility(View.GONE);
@@ -748,7 +866,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         } else {
-            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
@@ -776,6 +894,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvDistance.setText(getString(R.string.shop_detail_distance, beauticianDetailBean.getData().getDistance()));
                     if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getCoupon())) {
                         coupon.setVisibility(View.VISIBLE);
+                        coupon.setTag(beauticianDetailBean.getData().getCoupon().get(0).getId());
                         coupon.setText(String.valueOf(beauticianDetailBean.getData().getCoupon().get(0).getPrice_satisfy()));
                     } else {
                         coupon.setVisibility(View.GONE);
@@ -785,12 +904,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         String name = beauticianDetailBean.getData().getFull().get(0).getName();
                         String[] split = name.split("减");
                         String subtractText = "-" + split[1] + "\n" + beauticianDetailBean.getData().getFull().get(0).getPrice_satisfy() + "元";
+                        subtract.setTag(beauticianDetailBean.getData().getFull().get(0).getId());
                         subtract.setText(String.valueOf(subtractText));
                     } else {
                         subtract.setVisibility(View.GONE);
                     }
                     if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getRedenvelopes())) {
                         redBao.setVisibility(View.VISIBLE);
+                        redBao.setTag(beauticianDetailBean.getData().getRedenvelopes().get(0).getId());
                         redBao.setText(String.valueOf(beauticianDetailBean.getData().getRedenvelopes().get(0).getPrice_reduction()));
                     } else {
                         redBao.setVisibility(View.GONE);

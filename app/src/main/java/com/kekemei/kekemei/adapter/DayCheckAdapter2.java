@@ -28,12 +28,12 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
 
     private LayoutInflater mInflater;
     private List<Calendar> mDatas;
-    private int beauticianId;
+    private String beauticianId;
     private boolean isFirst = true;
     private List<Boolean> isClicks;//控件是否被点击,默认为false，如果被点击，改变值，控件根据值改变自身颜色
     private Calendar calendar;
 
-    public DayCheckAdapter2(Context context, List<Calendar> datas, int beauticianId) {
+    public DayCheckAdapter2(Context context, List<Calendar> datas, String beauticianId) {
         mInflater = LayoutInflater.from(context);
         mDatas = datas;
         this.beauticianId = beauticianId;

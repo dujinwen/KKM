@@ -29,6 +29,7 @@ import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -143,8 +144,8 @@ public class PushOrderActivity extends BaseActivity {
     public static final int EXTRA_KEY_BEAUTICIAN_CODE = 1001;
     private BeauticianDetailBean.DataBean beauticianDataBeanData;
     private ShopDetailBean.DataBean shpDataBeanData;
-    private int shopId = -1;
-    private int beauticianId = -1;
+    private String shopId;
+    private String beauticianId;
 
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PushOrderActivity.class);
@@ -292,37 +293,37 @@ public class PushOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_meirongshi_select:
-                if (shopId == -1)
+                if (StringUtils.isEmpty(shopId))
                     ToastUtil.showToastMsg(getBaseContext(), "请先选择店铺");
-                else if (shopId != -1)
+                else
                     ShopBeauticianActivity.start(PushOrderActivity.this,
                             shopId + "",
                             false, EXTRA_KEY_BEAUTICIAN_CODE);
                 break;
             case R.id.ll_shop_place:
-                if (beauticianId == -1)
+                if (StringUtils.isEmpty(beauticianId))
                     ShopBeauticianActivity.start(PushOrderActivity.this,
                             null,
                             true, EXTRA_KEY_SHOP_CODE);
-                else if (beauticianId != -1)
+                else
                     ShopBeauticianActivity.start(PushOrderActivity.this,
                             beauticianId + "",
                             true, EXTRA_KEY_SHOP_CODE);
                 break;
             case R.id.ll_service_time:
-                if (beauticianId == -1 || shopId == -1) {
+                if (StringUtils.isEmpty(beauticianId) || StringUtils.isEmpty(shopId)) {
                     ToastUtil.showToastMsg(PushOrderActivity.this, "请确认已选择美容师及店铺");
                     return;
                 }
                 initDayTime();
                 break;
             case R.id.btn_yuyue:
-                if (shpDataBeanData != null && shopId == -1)
+                if (shpDataBeanData != null && StringUtils.isEmpty(shopId))
                     shopId = shpDataBeanData.getId();
-                if (beauticianDataBeanData != null && beauticianId == -1) {
+                if (beauticianDataBeanData != null && StringUtils.isEmpty(beauticianId)) {
                     beauticianId = beauticianDataBeanData.getId();
                 }
-                if (shopId == -1 || beauticianId == -1 || timeSelectPosition == -1 || daySelectPosition == -1L) {
+                if (StringUtils.isEmpty(shopId) || StringUtils.isEmpty(beauticianId) || timeSelectPosition == -1 || daySelectPosition == -1L) {
                     ToastUtil.showToastMsg(getBaseContext(), "请依次确定预约信息");
                     return;
                 }

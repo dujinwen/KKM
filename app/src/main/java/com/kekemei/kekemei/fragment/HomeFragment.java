@@ -237,7 +237,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 BeauticianBean data = meiRongShiAdapter.getItem(position);
-                ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.BEAUTICIAN);
+                ShopActivity.start(getActivity(), data.getId(), DetailEnum.BEAUTICIAN);
             }
         });
 
@@ -253,7 +253,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ShopBean data = adapter_vip.getItem(position);
-                ShopActivity.start(getActivity(), data.getId(), data.getUser_id(), DetailEnum.SHOP);
+                ShopActivity.start(getActivity(), data.getId(), DetailEnum.SHOP);
             }
         });
 

@@ -35,7 +35,7 @@ public class BeauticianBean implements Serializable {
 
     private String content;
     private String distance;
-    private int id;
+    private String id;
     private String name;
     private int order;
     private double satisfaction;
@@ -74,11 +74,11 @@ public class BeauticianBean implements Serializable {
         this.distance = distance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

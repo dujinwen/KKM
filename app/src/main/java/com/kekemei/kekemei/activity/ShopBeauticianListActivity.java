@@ -136,8 +136,7 @@ public class ShopBeauticianListActivity extends BaseActivity {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     ShopBean item = shopListAdapter.getItem(position);
-                    ShopActivity.start(ShopBeauticianListActivity.this, item.getId(),
-                            item.getUser_id(), DetailEnum.SHOP);
+                    ShopActivity.start(ShopBeauticianListActivity.this, item.getId(), DetailEnum.SHOP);
                 }
             });
         } else {
@@ -148,8 +147,7 @@ public class ShopBeauticianListActivity extends BaseActivity {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     BeauticianBean beauticianBean = beauticianListAdapter.getItem(position);
-                    ShopActivity.start(ShopBeauticianListActivity.this, beauticianBean.getId(),
-                            beauticianBean.getUser_id(), DetailEnum.BEAUTICIAN);
+                    ShopActivity.start(ShopBeauticianListActivity.this, beauticianBean.getId(), DetailEnum.BEAUTICIAN);
                 }
             });
         }

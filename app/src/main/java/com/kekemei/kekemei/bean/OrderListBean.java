@@ -112,12 +112,12 @@ public class OrderListBean implements Serializable {
         private int beautician_beautician_id;
         private int count;
         private int createtime;
-        private int id;
+        private String id;
         private String image;
         private String name;
         private String pay_type_text;
         private int price;
-        private int project_project_id;
+        private String project_project_id;
         private String state;
         private String state_text;
         private int user_id;
@@ -155,11 +155,11 @@ public class OrderListBean implements Serializable {
             this.createtime = createtime;
         }
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -195,11 +195,11 @@ public class OrderListBean implements Serializable {
             this.price = price;
         }
 
-        public int getProject_project_id() {
+        public String getProject_project_id() {
             return project_project_id;
         }
 
-        public void setProject_project_id(int project_project_id) {
+        public void setProject_project_id(String project_project_id) {
             this.project_project_id = project_project_id;
         }
 
