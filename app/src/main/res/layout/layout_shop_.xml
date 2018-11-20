@@ -31,7 +31,7 @@
             android:textSize="@dimen/px_42" />
 
         <include
-            layout="@layout/layout_llingqu_youhui"
+            layout="@layout/layout_receive_coupon"
             android:visibility="gone" />
 
         <LinearLayout

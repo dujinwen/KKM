@@ -126,23 +126,31 @@
             android:layout_width="202px"
             android:layout_height="72px"
             android:layout_marginLeft="43px"
+            android:layout_marginRight="62px"
             android:background="@mipmap/beautician_details_preferential_coupon_ic"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/px_40" />
 
         <TextView
             android:id="@+id/subtract"
             android:layout_width="202px"
             android:layout_height="72px"
-            android:layout_marginLeft="105px"
+            android:layout_marginLeft="43px"
+            android:layout_marginRight="62px"
             android:background="@mipmap/beautician_details_preferential_subtract_ic"
-            android:textSize="@dimen/px_40" />
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_26" />
 
         <TextView
             android:id="@+id/redBao"
             android:layout_width="202px"
             android:layout_height="72px"
-            android:layout_marginLeft="105px"
+            android:layout_marginLeft="43px"
             android:background="@mipmap/beautician_details_preferential_money_ic"
+            android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/px_40" />
 
     </LinearLayout>

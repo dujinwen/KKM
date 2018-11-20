@@ -3,6 +3,7 @@ package com.kekemei.kekemei.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,7 +48,6 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.CustomDatePicker;
 import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -350,6 +350,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private TextView serviceThree;
     private TextView tvAddress;
     private TextView tvDistance;
+    private TextView coupon;
+    private TextView subtract;
+    private TextView redBao;
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
@@ -358,6 +361,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         serviceThree = contentHead.findViewById(R.id.serviceThree);
         tvAddress = contentHead.findViewById(R.id.tvAddress);
         tvDistance = contentHead.findViewById(R.id.tvDistance);
+        coupon = contentHead.findViewById(R.id.coupon);
+        subtract = contentHead.findViewById(R.id.subtract);
+        redBao = contentHead.findViewById(R.id.redBao);
         ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
         ll_yuyue.setOnClickListener(this);
 
@@ -558,11 +564,66 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         detailBean = gson.fromJson(response.body(), ProjectDetailBean.class);
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
                         shopName.setText(detailBean.getData().getName());
-                        //                if (detailBean.getData().)
                         price.setText("￥" + detailBean.getData().getPrice_discount());
+                        marketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
+                        marketPrice.getPaint().setAntiAlias(true);// 抗锯齿
                         marketPrice.setText("￥" + detailBean.getData().getPrice_market());
-                        /*tvFollowNum.setText("已有"+detailBean.getData().getTreatment_count()+"人关注");*/
-                        displayForWebView(URLs.BASE_URL+"/mob/project/details?id=" + projectId, null);
+                        tvFollowNum.setText("已有" + detailBean.getData().getTreatment_count() + "人关注");
+                        tvAddress.setText(shopDetailBean.getData().getAddress());
+                        tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getData().getDistance()));
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getCoupon())) {
+                            coupon.setVisibility(View.VISIBLE);
+                            coupon.setText(String.valueOf(detailBean.getData().getCoupon().get(0).getPrice_satisfy()));
+                        } else {
+                            coupon.setVisibility(View.GONE);
+                        }
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getFull())) {
+                            subtract.setVisibility(View.VISIBLE);
+                            String name = detailBean.getData().getFull().get(0).getName();
+                            String[] split = name.split("减");
+                            String subtractText = "-" + split[1] + "\n" + detailBean.getData().getFull().get(0).getPrice_satisfy() + "元";
+                            subtract.setText(String.valueOf(subtractText));
+                        } else {
+                            subtract.setVisibility(View.GONE);
+                        }
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getRedenvelopes())) {
+                            redBao.setVisibility(View.VISIBLE);
+                            redBao.setText(String.valueOf(detailBean.getData().getRedenvelopes().get(0).getPrice_reduction()));
+                        } else {
+                            redBao.setVisibility(View.GONE);
+                        }
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getStrading())) {
+                            List<String> tradingList = detailBean.getData().getStrading();
+                            StringBuilder tradingText = new StringBuilder();
+                            if (tradingList.size() >= 2) {
+                                tradingText.append(tradingList.get(0)).append("    ").append(tradingList.get(1)).append("等");
+                            } else {
+                                tradingText.append(tradingList.get(0));
+                            }
+                            tradingArea.setText(tradingText.toString());
+                        }
+                        if (CollectionUtils.isNotEmpty(detailBean.getData().getService())) {
+                            List<String> serviceList = detailBean.getData().getService();
+                            if (serviceList.get(0) != null) {
+                                serviceOne.setVisibility(View.VISIBLE);
+                                serviceOne.setText(serviceList.get(0));
+                            } else {
+                                serviceOne.setVisibility(View.GONE);
+                            }
+                            if (serviceList.get(1) != null) {
+                                serviceTwo.setVisibility(View.VISIBLE);
+                                serviceTwo.setText(serviceList.get(1));
+                            } else {
+                                serviceTwo.setVisibility(View.GONE);
+                            }
+                            if (serviceList.get(2) != null) {
+                                serviceThree.setVisibility(View.VISIBLE);
+                                serviceThree.setText(serviceList.get(2));
+                            } else {
+                                serviceThree.setVisibility(View.GONE);
+                            }
+                        }
+                        displayForWebView(URLs.BASE_URL + "/mob/project/details?id=" + projectId, null);
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getHotdata())) {
                             contentSectionAdapter.replaceData(detailBean.getData().getHotdata());
                             contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -576,7 +637,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         }
                         if (detailBean.getData().getComment() != null && CollectionUtils.isNotEmpty(detailBean.getData().getComment().getAll())) {
                             commentSectionView.setVisibility(View.VISIBLE);
-                            //                    userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment_count()));
+                            userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getData().getComment().getCount()));
                             tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getData().getPeer() + "%", detailBean.getData().getSatisfaction() + "%"));
                             commentData = detailBean.getData().getComment();
                             commentAdapter.replaceData(detailBean.getData().getComment().getAll());

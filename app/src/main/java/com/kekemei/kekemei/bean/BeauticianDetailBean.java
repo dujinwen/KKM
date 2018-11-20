@@ -44,7 +44,7 @@ public class BeauticianDetailBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
 
         private int id;
         private String name;
@@ -66,11 +66,13 @@ public class BeauticianDetailBean implements Serializable {
         private float average_price;
         private List<String> auth;
         private List<CouponBean> coupon;
+        private List<FullBean> full;
         private List<RedEnvelopes> redenvelopes;
         private float start;
         private String satisfaction;
         private String peer;
         private String address;
+        private String distance;
         private int like_people;
         private String state_text;
         private List<String> shop_text;
@@ -112,6 +114,22 @@ public class BeauticianDetailBean implements Serializable {
 
         public void setRedenvelopes_ids(int redenvelopes_ids) {
             this.redenvelopes_ids = redenvelopes_ids;
+        }
+
+        public List<FullBean> getFull() {
+            return full;
+        }
+
+        public void setFull(List<FullBean> full) {
+            this.full = full;
+        }
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
         }
 
         public int getCoupon_ids() {
@@ -362,7 +380,7 @@ public class BeauticianDetailBean implements Serializable {
             this.commentdata = commentdata;
         }
 
-        public static class CommentdataBean implements Serializable{
+        public static class CommentdataBean implements Serializable {
             private int count;
             private List<CommentTagsBean> tags;
             private List<EvaluateBean> all;
@@ -411,7 +429,7 @@ public class BeauticianDetailBean implements Serializable {
             }
         }
 
-        public static class RedEnvelopes implements Serializable{
+        public static class RedEnvelopes implements Serializable {
 
             /**
              * count : 9
@@ -528,7 +546,124 @@ public class BeauticianDetailBean implements Serializable {
             }
         }
 
-        public static class CouponBean implements Serializable{
+        public static class FullBean implements Serializable {
+
+            /**
+             * activitytime : 2018-10-07 12:53:59
+             * activitytime_end : 2019-07-27 12:53:59
+             * createtime : 1538888184
+             * id : 1
+             * image : /uploads/20181001/8cf03f354750e3e38664485e647c4af4.jpeg
+             * name : 满599减50
+             * price_reduction : 1
+             * price_satisfy : 599
+             * state : 1
+             * state_text : 正常
+             * weigh : 1
+             */
+
+            private String activitytime;
+            private String activitytime_end;
+            private int createtime;
+            private int id;
+            private String image;
+            private String name;
+            private int price_reduction;
+            private int price_satisfy;
+            private String state;
+            private String state_text;
+            private int weigh;
+
+            public String getActivitytime() {
+                return activitytime;
+            }
+
+            public void setActivitytime(String activitytime) {
+                this.activitytime = activitytime;
+            }
+
+            public String getActivitytime_end() {
+                return activitytime_end;
+            }
+
+            public void setActivitytime_end(String activitytime_end) {
+                this.activitytime_end = activitytime_end;
+            }
+
+            public int getCreatetime() {
+                return createtime;
+            }
+
+            public void setCreatetime(int createtime) {
+                this.createtime = createtime;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getPrice_reduction() {
+                return price_reduction;
+            }
+
+            public void setPrice_reduction(int price_reduction) {
+                this.price_reduction = price_reduction;
+            }
+
+            public int getPrice_satisfy() {
+                return price_satisfy;
+            }
+
+            public void setPrice_satisfy(int price_satisfy) {
+                this.price_satisfy = price_satisfy;
+            }
+
+            public String getState() {
+                return state;
+            }
+
+            public void setState(String state) {
+                this.state = state;
+            }
+
+            public String getState_text() {
+                return state_text;
+            }
+
+            public void setState_text(String state_text) {
+                this.state_text = state_text;
+            }
+
+            public int getWeigh() {
+                return weigh;
+            }
+
+            public void setWeigh(int weigh) {
+                this.weigh = weigh;
+            }
+        }
+
+        public static class CouponBean implements Serializable {
             /**
              * id : 1
              * name : 111111

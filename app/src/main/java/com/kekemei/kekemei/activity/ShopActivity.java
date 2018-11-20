@@ -555,8 +555,17 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
-                Gson gson = new Gson();
-                tvFollow.setText("已关注");
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ShopActivity.this, "关注失败");
+                        return;
+                    }
+                    tvFollow.setText("已关注");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -572,7 +581,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 Gson gson = new Gson();
                 YuYueDataBean yuYueDataBean = gson.fromJson(response.body(), YuYueDataBean.class);
                 yuYueDataListAdapter.setNewData(yuYueDataBean.getData());
-                //
             }
         });
     }
@@ -627,6 +635,27 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, shopDetailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(shopDetailBean.getData().getAddress());
                     tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getData().getDistance()));
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getCoupon())) {
+                        coupon.setVisibility(View.VISIBLE);
+                        coupon.setText(String.valueOf(shopDetailBean.getData().getCoupon().get(0).getPrice_satisfy()));
+                    } else {
+                        coupon.setVisibility(View.GONE);
+                    }
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getFull())) {
+                        subtract.setVisibility(View.VISIBLE);
+                        String name = shopDetailBean.getData().getFull().get(0).getName();
+                        String[] split = name.split("减");
+                        String subtractText = "-" + split[1] + "\n" + shopDetailBean.getData().getFull().get(0).getPrice_satisfy() + "元";
+                        subtract.setText(String.valueOf(subtractText));
+                    } else {
+                        subtract.setVisibility(View.GONE);
+                    }
+                    if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getRedenvelopes())) {
+                        redBao.setVisibility(View.VISIBLE);
+                        redBao.setText(String.valueOf(shopDetailBean.getData().getRedenvelopes().get(0).getPrice_reduction()));
+                    } else {
+                        redBao.setVisibility(View.GONE);
+                    }
                     if (StringUtils.isNotBlank(shopDetailBean.getData().getTel())) {
                         LogUtil.e(TAG, "tel:" + shopDetailBean.getData().getTel());
                         tel = shopDetailBean.getData().getTel();
@@ -652,8 +681,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getStrading())) {
                         List<String> tradingList = shopDetailBean.getData().getStrading();
                         StringBuilder tradingText = new StringBuilder();
-                        for (String trading : tradingList) {
-                            tradingText.append(trading).append("    ");
+                        if (tradingList.size() >= 2) {
+                            tradingText.append(tradingList.get(0)).append("    ").append(tradingList.get(1)).append("等");
+                        } else {
+                            tradingText.append(tradingList.get(0));
                         }
                         tradingArea.setText(tradingText.toString());
                     }
@@ -742,7 +773,28 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, beauticianDetailBean.getData().getFriend_count()));
                     tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, beauticianDetailBean.getData().getSatisfaction() + "%"));
                     tvAddress.setText(beauticianDetailBean.getData().getAddress());
-                    //                    tvDistance.setText(beauticianDetailBean.getData().getDistance());
+                    tvDistance.setText(getString(R.string.shop_detail_distance, beauticianDetailBean.getData().getDistance()));
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getCoupon())) {
+                        coupon.setVisibility(View.VISIBLE);
+                        coupon.setText(String.valueOf(beauticianDetailBean.getData().getCoupon().get(0).getPrice_satisfy()));
+                    } else {
+                        coupon.setVisibility(View.GONE);
+                    }
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getFull())) {
+                        subtract.setVisibility(View.VISIBLE);
+                        String name = beauticianDetailBean.getData().getFull().get(0).getName();
+                        String[] split = name.split("减");
+                        String subtractText = "-" + split[1] + "\n" + beauticianDetailBean.getData().getFull().get(0).getPrice_satisfy() + "元";
+                        subtract.setText(String.valueOf(subtractText));
+                    } else {
+                        subtract.setVisibility(View.GONE);
+                    }
+                    if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getRedenvelopes())) {
+                        redBao.setVisibility(View.VISIBLE);
+                        redBao.setText(String.valueOf(beauticianDetailBean.getData().getRedenvelopes().get(0).getPrice_reduction()));
+                    } else {
+                        redBao.setVisibility(View.GONE);
+                    }
                     if (beauticianDetailBean.getData().getIsfriend() == 1) {
                         tvFollow.setText("已关注");
                         tvFollow.setClickable(false);
@@ -757,8 +809,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                     if (CollectionUtils.isNotEmpty(beauticianDetailBean.getData().getStrading())) {
                         List<String> tradingList = beauticianDetailBean.getData().getStrading();
                         StringBuilder tradingText = new StringBuilder();
-                        for (String trading : tradingList) {
-                            tradingText.append(trading).append("    ");
+                        if (tradingList.size() >= 2) {
+                            tradingText.append(tradingList.get(0)).append("    ").append(tradingList.get(1)).append("等");
+                        } else {
+                            tradingText.append(tradingList.get(0));
                         }
                         tradingArea.setText(tradingText.toString());
                     }
@@ -822,7 +876,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         }
-
 
         initDatePicker(this);
     }

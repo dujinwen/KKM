@@ -27,7 +27,7 @@ public class MeiRongShiAdapter extends BaseQuickAdapter<BeauticianBean, BaseView
     private Context context;
 
     public MeiRongShiAdapter(Context context) {
-        super(R.layout.meirongshi_layout, null);
+        super(R.layout.beautician_layout, null);
         this.context = context;
     }
 

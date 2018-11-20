@@ -28,6 +28,7 @@
             android:paddingRight="7px"
             android:paddingTop="4px"
             android:text="领红包减"
+            android:textColor="#7AD2D2"
             android:textSize="@dimen/px_29" />
 
         <ImageView
@@ -48,6 +49,7 @@
             android:paddingRight="7px"
             android:paddingTop="4px"
             android:text="满200减50"
+            android:textColor="#7AD2D2"
             android:textSize="@dimen/px_29" />
     </LinearLayout>
 </LinearLayout>
