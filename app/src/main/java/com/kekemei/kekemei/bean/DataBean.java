@@ -57,17 +57,25 @@ public class DataBean extends BaseBean implements Serializable, MultiItemEntity 
 
     private String id;
     private String name;
-    private int price;
-    private int user_id;
-    private int project_project_id;
-    private int shop_id;
+    private float price;
+    private String user_id;
+    private String project_project_id;
+    private String shop_id;
     private String state;
     private Object pay_type;
-    private int beautician_id;
-    private int createtime;
+    private String beautician_id;
     private String image;
     private String state_text;
     private String pay_type_text;
+    private float createtime;
+
+    public float getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(float createtime) {
+        this.createtime = createtime;
+    }
 
     public String getId() {
         return id;
@@ -85,35 +93,35 @@ public class DataBean extends BaseBean implements Serializable, MultiItemEntity 
         this.name = name;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public int getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 
-    public int getProject_project_id() {
+    public String getProject_project_id() {
         return project_project_id;
     }
 
-    public void setProject_project_id(int project_project_id) {
+    public void setProject_project_id(String project_project_id) {
         this.project_project_id = project_project_id;
     }
 
-    public int getShop_id() {
+    public String getShop_id() {
         return shop_id;
     }
 
-    public void setShop_id(int shop_id) {
+    public void setShop_id(String shop_id) {
         this.shop_id = shop_id;
     }
 
@@ -133,20 +141,12 @@ public class DataBean extends BaseBean implements Serializable, MultiItemEntity 
         this.pay_type = pay_type;
     }
 
-    public int getBeautician_id() {
+    public String getBeautician_id() {
         return beautician_id;
     }
 
-    public void setBeautician_id(int beautician_id) {
+    public void setBeautician_id(String beautician_id) {
         this.beautician_id = beautician_id;
-    }
-
-    public int getCreatetime() {
-        return createtime;
-    }
-
-    public void setCreatetime(int createtime) {
-        this.createtime = createtime;
     }
 
     public String getImage() {
