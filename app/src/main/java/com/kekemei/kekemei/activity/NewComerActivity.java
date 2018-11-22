@@ -25,6 +25,7 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.NewComerBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
@@ -208,16 +209,17 @@ public class NewComerActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         onResult(null);
                         return;
                     }
+                    Gson gson = new Gson();
+                    NewComerBean newComerBean = gson.fromJson(data, NewComerBean.class);
+                    onResult(newComerBean);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Gson gson = new Gson();
-                NewComerBean newComerBean = gson.fromJson(response.body(), NewComerBean.class);
-                onResult(newComerBean);
             }
 
             @Override
@@ -234,17 +236,17 @@ public class NewComerActivity extends BaseActivity {
 
             NewComerBean newComerBean = (NewComerBean) response;
 
-            if (null == response || null == newComerBean.getData()) {
+            if (null == response || null == newComerBean) {
                 showEmpty();
             } else {
                 if (isRefresh)
                     showRefreshLoading(false);
-                if (newComerBean.getData().getIsnew() == 0) {
+                if (newComerBean.getIsnew() == 0) {
                     scrollContent.setVisibility(View.VISIBLE);
                     multipleStatusView.showOutContentView(scrollContent);
-                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + newComerBean.getData().getBanner().getImage(), topBanner);
-                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getProjectall())) {
-                        allAdapter.replaceData(newComerBean.getData().getProjectall());
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + newComerBean.getBanner().getImage(), topBanner);
+                    if (CollectionUtils.isNotEmpty(newComerBean.getProjectall())) {
+                        allAdapter.replaceData(newComerBean.getProjectall());
                         allAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -254,8 +256,8 @@ public class NewComerActivity extends BaseActivity {
                             }
                         });
                     }
-                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getForyou())) {
-                        forYouAdapter.replaceData(newComerBean.getData().getForyou());
+                    if (CollectionUtils.isNotEmpty(newComerBean.getForyou())) {
+                        forYouAdapter.replaceData(newComerBean.getForyou());
                         forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -269,8 +271,8 @@ public class NewComerActivity extends BaseActivity {
                     toolbar.setBackgroundColor(Color.parseColor("#7AD2D2"));
                     scrollContent.setVisibility(View.GONE);
                     multipleStatusView.showOutContentView(refresh_layout);
-                    if (CollectionUtils.isNotEmpty(newComerBean.getData().getNewpopledata())) {
-                        listAdapter.replaceData(newComerBean.getData().getNewpopledata());
+                    if (CollectionUtils.isNotEmpty(newComerBean.getNewpopledata())) {
+                        listAdapter.replaceData(newComerBean.getNewpopledata());
                         listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -283,15 +285,15 @@ public class NewComerActivity extends BaseActivity {
                 }
             }
 
-            if (null != response && newComerBean.getData().getNewpopledata().size() < 10)
+            if (null != response && newComerBean.getNewpopledata().size() < 10)
                 showLoadMoreEnd();
             else
                 showLoadMoreComplete();
         } else {
             jPageNum++;
             NewComerBean newComerBean = (NewComerBean) response;
-            loadMoreSuccess(newComerBean.getData().getNewpopledata());
-            if (newComerBean.getData().getNewpopledata().size() < 10) {
+            loadMoreSuccess(newComerBean.getNewpopledata());
+            if (newComerBean.getNewpopledata().size() < 10) {
                 showLoadMoreEnd();
             } else {
                 showLoadMoreComplete();

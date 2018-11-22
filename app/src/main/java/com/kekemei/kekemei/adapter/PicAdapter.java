@@ -57,7 +57,7 @@ public class PicAdapter extends PagerAdapter {
 
     public PicAdapter(Activity activity, HomeBean homeBean) {
         mActivity = activity;
-        mSize = homeBean.getData().getBanneradv().size();
+        mSize = homeBean.getBanneradv().size();
         this.homeBean = homeBean;
     }
 
@@ -83,7 +83,7 @@ public class PicAdapter extends PagerAdapter {
         TextView textView = (TextView) view.findViewById(R.id.image_desc);
         //        textView.setText(TextIds[position]);
         //                imageView.setImageResource(ResIds[position]);
-        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + homeBean.getData().getBanneradv().get(position).getImage(), imageView);
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + homeBean.getBanneradv().get(position).getImage(), imageView);
         if (imageView != null) {
 
             Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();

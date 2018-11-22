@@ -27,6 +27,7 @@ import com.kekemei.kekemei.bean.ShopListBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
@@ -187,28 +188,30 @@ public class ShopBeauticianListActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         jSwipeRefreshLayout.finishLoadMore();
+                        multipleStatusView.showEmpty();
                         return;
+                    }
+                    Gson gson = new Gson();
+                    if (showShopList) {
+                        ShopListBean shopListBean = gson.fromJson(data, ShopListBean.class);
+                        if (isRefresh) {
+                            xbanner.setData(shopListBean.getBanner(), null);
+                            initBanner();
+                        }
+                        onResultSuccess(shopListBean);
+                    } else {
+                        MeiRongShiListBean meiRongShiListBean = gson.fromJson(data, MeiRongShiListBean.class);
+                        if (isRefresh) {
+                            xbanner.setData(meiRongShiListBean.getBanner(), null);
+                            initBanner();
+                        }
+                        onResultSuccess(meiRongShiListBean);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-                Gson gson = new Gson();
-                if (showShopList) {
-                    ShopListBean shopListBean = gson.fromJson(response.body(), ShopListBean.class);
-                    if (isRefresh) {
-                        xbanner.setData(shopListBean.getData().getBanner(), null);
-                        initBanner();
-                    }
-                    onResultSuccess(shopListBean);
-                } else {
-                    MeiRongShiListBean meiRongShiListBean = gson.fromJson(response.body(), MeiRongShiListBean.class);
-                    if (isRefresh) {
-                        xbanner.setData(meiRongShiListBean.getData().getBanner(), null);
-                        initBanner();
-                    }
-                    onResultSuccess(meiRongShiListBean);
                 }
             }
 
@@ -228,13 +231,13 @@ public class ShopBeauticianListActivity extends BaseActivity {
                 if (null == response || null == shopListBean.getData()) {
                     showEmpty();
                 }
-                fillData(shopListBean.getData().getData());
+                fillData(shopListBean.getData());
             } else {
                 MeiRongShiListBean meiRongShiListBean = (MeiRongShiListBean) response;
                 if (null == response || null == meiRongShiListBean.getData()) {
                     showEmpty();
                 }
-                fillBeauticianData(meiRongShiListBean.getData().getData());
+                fillBeauticianData(meiRongShiListBean.getData());
             }
         } else {
             jPageNum++;
@@ -244,14 +247,14 @@ public class ShopBeauticianListActivity extends BaseActivity {
                     jSwipeRefreshLayout.finishLoadMore();
                     return;
                 }
-                loadMoreSuccess(shopListBean.getData().getData());
+                loadMoreSuccess(shopListBean.getData());
             } else {
                 MeiRongShiListBean meiRongShiListBean = (MeiRongShiListBean) response;
                 if (null == response || null == meiRongShiListBean.getData()) {
                     jSwipeRefreshLayout.finishLoadMore();
                     return;
                 }
-                loadMoreBeauticianSuccess(meiRongShiListBean.getData().getData());
+                loadMoreBeauticianSuccess(meiRongShiListBean.getData());
             }
         }
     }

@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.FindOrderListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
-import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianBean;
@@ -267,7 +266,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                 break;
             case R.id.tabProject:
                 onSearchBtnClick();
-                if (searchResultBean != null && searchResultBean.getData() != null) {
+                if (searchResultBean != null) {
                     replaceData(searchResultBean);
                 }
                 break;
@@ -286,7 +285,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                 project_rfresh_layout.setVisibility(View.GONE);
                 shop_rfresh_layout.setVisibility(View.VISIBLE);
                 beautician_rfresh_layout.setVisibility(View.GONE);
-                if (searchResultBean != null && searchResultBean.getData() != null) {
+                if (searchResultBean != null) {
                     replaceData(searchResultBean);
                 }
                 break;
@@ -305,7 +304,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                 project_rfresh_layout.setVisibility(View.GONE);
                 shop_rfresh_layout.setVisibility(View.GONE);
                 beautician_rfresh_layout.setVisibility(View.VISIBLE);
-                if (searchResultBean != null && searchResultBean.getData() != null) {
+                if (searchResultBean != null) {
                     replaceData(searchResultBean);
                 }
                 break;
@@ -378,16 +377,17 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                                 onResult(null);
                                 return;
                             }
+                            Gson gson = new Gson();
+                            searchResultBean = gson.fromJson(data, SearchResultBean.class);
+                            onResult(searchResultBean);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        searchResultBean = gson.fromJson(response.body(), SearchResultBean.class);
-                        onResult(searchResultBean);
                     }
 
                     @Override
@@ -430,7 +430,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
             }
             replaceData(searchResultBean);
 
-            if (searchResultBean.getData().getBeautician().size() < 10)
+            if (searchResultBean.getBeautician().size() < 10)
                 showLoadMoreEnd();
             else
                 showLoadMoreComplete();
@@ -439,15 +439,15 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
             SearchResultBean searchResultBean = (SearchResultBean) response;
             if (mCurrentTab == 0) {
                 project_rfresh_layout.finishLoadMore();
-                projectAdapter.addData(searchResultBean.getData().getProject());
+                projectAdapter.addData(searchResultBean.getProject());
             } else if (mCurrentTab == 1) {
                 shop_rfresh_layout.finishLoadMore();
-                shopAdapter.addData(searchResultBean.getData().getShop());
+                shopAdapter.addData(searchResultBean.getShop());
             } else if (mCurrentTab == 2) {
                 beautician_rfresh_layout.finishLoadMore();
-                beauticianAdapter.addData(searchResultBean.getData().getBeautician());
+                beauticianAdapter.addData(searchResultBean.getBeautician());
             }
-            if (searchResultBean.getData().getBeautician().size() < 10) {
+            if (searchResultBean.getBeautician().size() < 10) {
                 showLoadMoreEnd();
             } else {
                 showLoadMoreComplete();
@@ -457,28 +457,28 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
 
     private void replaceData(SearchResultBean searchResultBean) {
         if (mCurrentTab == 0) {
-            if (null == searchResultBean.getData() || searchResultBean.getData().getProject().size() == 0) {
+            if (null == searchResultBean || searchResultBean.getProject().size() == 0) {
                 showEmpty();
             } else {
                 if (isRefresh)
                     showRefreshLoading(false);
-                showProjectData(searchResultBean.getData().getProject());
+                showProjectData(searchResultBean.getProject());
             }
         } else if (mCurrentTab == 1) {
-            if (null == searchResultBean.getData() || searchResultBean.getData().getShop().size() == 0) {
+            if (null == searchResultBean || searchResultBean.getShop().size() == 0) {
                 showEmpty();
             } else {
                 if (isRefresh)
                     showRefreshLoading(false);
-                showShopNameData(searchResultBean.getData().getShop());
+                showShopNameData(searchResultBean.getShop());
             }
         } else if (mCurrentTab == 2) {
-            if (null == searchResultBean.getData() || searchResultBean.getData().getBeautician().size() == 0) {
+            if (null == searchResultBean || searchResultBean.getBeautician().size() == 0) {
                 showEmpty();
             } else {
                 if (isRefresh)
                     showRefreshLoading(false);
-                showBeauticianData(searchResultBean.getData().getBeautician());
+                showBeauticianData(searchResultBean.getBeautician());
             }
         }
     }
@@ -574,16 +574,17 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                                 onHotSearchResult(null);
                                 return;
                             }
+                            Gson gson = new Gson();
+                            HotSearchBean hotSearchBean = gson.fromJson(data, HotSearchBean.class);
+                            onHotSearchResult(hotSearchBean);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        HotSearchBean hotSearchBean = gson.fromJson(response.body(), HotSearchBean.class);
-                        onHotSearchResult(hotSearchBean);
                     }
 
                     @Override
@@ -596,16 +597,16 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
 
     private void onHotSearchResult(Object response) {
         HotSearchBean hotSearchBean = (HotSearchBean) response;
-        if (null == response || null == hotSearchBean.getData()) {
+        if (null == response || null == hotSearchBean) {
             historyEmpty.setVisibility(View.VISIBLE);
         } else {
-            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHistory())) {
-                fillHistoryWordArea(hotSearchBean.getData().getHistory());
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getHistory())) {
+                fillHistoryWordArea(hotSearchBean.getHistory());
             } else {
                 historyEmpty.setVisibility(View.VISIBLE);
             }
-            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHost())) {
-                fillHotWordArea(hotSearchBean.getData().getHost());
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getHost())) {
+                fillHotWordArea(hotSearchBean.getHost());
             } else {
             }
         }
