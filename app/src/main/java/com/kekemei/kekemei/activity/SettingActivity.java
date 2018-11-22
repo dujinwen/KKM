@@ -8,12 +8,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.FeedBackActivity;
-import com.kekemei.kekemei.activity.HelpCenterActivity;
 import com.kekemei.kekemei.utils.AppUtil;
+import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.SectionRowView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
+
+import java.net.URL;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 设置页面
@@ -26,8 +32,8 @@ public class SettingActivity extends BaseActivity {
     TextView tv_title;
     @BindView(R.id.txtSafely)
     SectionRowView safelySetting;
-//    @BindView(R.id.txtFeedBack)
-//    SectionRowView feedBack;
+    //    @BindView(R.id.txtFeedBack)
+    //    SectionRowView feedBack;
     @BindView(R.id.txtHelpCenter)
     SectionRowView helpCenter;
     @BindView(R.id.txtAboutUs)
@@ -67,18 +73,35 @@ public class SettingActivity extends BaseActivity {
 
         version.setContentTxt("V" + AppUtil.getVersionName(this));
 
-//        feedBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FeedBackActivity.start(SettingActivity.this);
-//            }
-//        });
+    }
 
-        helpCenter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick({R.id.txtSafely, R.id.txtHelpCenter, R.id.txtAboutUs, R.id.txtCleanMemory, R.id.txtVersion})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.txtSafely:
+                break;
+            case R.id.txtHelpCenter:
                 HelpCenterActivity.start(SettingActivity.this);
-            }
-        });
+                break;
+            case R.id.txtAboutUs:
+                OkGo.<String>get(URLs.ABOUT_LIST).execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
+                break;
+            case R.id.txtCleanMemory:
+                break;
+            case R.id.txtVersion:
+                break;
+        }
     }
 }

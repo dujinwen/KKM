@@ -68,6 +68,8 @@ public class URLs {
     public static final String MY_COLLECTION = BASE_URL+"/api/user/mycollection";
     //发布投诉
     public static final String ADD_COMPLAINT = BASE_URL+"/api/complaint/addcomplaint";
+    //关于我们
+    public static final String ABOUT_LIST = BASE_URL+"/api/abous/abousList";
     //修改个人资料
     public static final String EDIT_USER_INFO = BASE_URL+"/api/user/editUserinfo";
     //爱好列表
