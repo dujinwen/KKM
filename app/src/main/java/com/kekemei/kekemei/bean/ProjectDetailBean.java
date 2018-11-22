@@ -1,6 +1,7 @@
 package com.kekemei.kekemei.bean;
 
 import com.google.gson.annotations.SerializedName;
+import com.kekemei.kekemei.utils.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -312,7 +313,7 @@ public class ProjectDetailBean implements Serializable {
         }
 
         public String getSatisfaction() {
-            if (satisfaction.contains(".")) {
+            if (StringUtils.isNotEmpty(satisfaction) && satisfaction.contains(".")) {
                 String[] split = satisfaction.split("\\.");
                 return split[1];
             }
@@ -324,7 +325,7 @@ public class ProjectDetailBean implements Serializable {
         }
 
         public String getPeer() {
-            if (peer.contains(".")) {
+            if (StringUtils.isNotEmpty(peer) && peer.contains(".")) {
                 String[] split = peer.split("\\.");
                 return split[1];
             }
