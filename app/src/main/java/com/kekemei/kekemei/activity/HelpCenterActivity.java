@@ -7,7 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.MyInfoBean;
+import com.kekemei.kekemei.bean.WaiterBean;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
@@ -36,6 +39,7 @@ public class HelpCenterActivity extends BaseActivity {
     TextView txtSectionThree;
     @BindView(R.id.txtContactService)
     TextView txtContactService;
+    private WaiterBean admin;
 
     @Override
     protected View setTitleBar() {
@@ -83,7 +87,9 @@ public class HelpCenterActivity extends BaseActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-
+                        Gson gson = new Gson();
+                        MyInfoBean myInfoBean = gson.fromJson(response.body(), MyInfoBean.class);
+                        admin = myInfoBean.getData().getAdmin();
                     }
                 });
 
@@ -93,7 +99,7 @@ public class HelpCenterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.txtContactService:
-//                ChatActivity.start(this, "kekemei_chat2");
+                ChatActivity.start(this, admin);
                 break;
         }
     }

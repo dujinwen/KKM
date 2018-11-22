@@ -606,11 +606,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             LoginActivity.start(getBaseContext());
             return;
         }
-        String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getId() : "";
-        String redType = detailEnum == DetailEnum.SHOP ? "3" : "2";
-        OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("red_type", redType)
-                .params("project_id", "").params("id", redBaoId)
-                .params("shop_id", shopId).params("beautician_id", beauticianId)
+        OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("id", redBaoId)
                 .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {

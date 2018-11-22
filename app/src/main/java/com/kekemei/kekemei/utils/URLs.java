@@ -47,7 +47,7 @@ public class URLs {
     //重置密码
     public static final String RESET_PASSWORD = BASE_URL+"/api/user/resetpwd";
     //我的首页
-    public static final String MY_INFO = BASE_URL+"/api/order/myinfo";
+    public static final String MY_INFO = BASE_URL+"/api/user/myinfo";
     //我的红包
     public static final String MY_RED_ENVELOPES = BASE_URL+"/api/user/myRedenvelopes";
     //我的订单
@@ -59,7 +59,7 @@ public class URLs {
     //领取优惠券
     public static final String COUPON_RECEIVE = BASE_URL+"/api/coupon/receive";
     //领红包
-    public static final String RED_ENVELOPES_RECEIVE = BASE_URL+"/api/Redenvelopes/receive";
+    public static final String RED_ENVELOPES_RECEIVE = BASE_URL+"/api/Redenvelopes/robred";
     //为你推荐
     public static final String FOR_YOU = BASE_URL+"/api/project/foryou";
     //我关注的美容师

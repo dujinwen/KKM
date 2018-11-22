@@ -532,9 +532,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             LoginActivity.start(getBaseContext());
             return;
         }
-        OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("red_type", "1")
-                .params("project_id", projectId).params("id", redBaoId)
-                .params("shop_id", "").params("beautician_id", beauticianId)
+        OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE)
+                .params("id", redBaoId)
                 .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
