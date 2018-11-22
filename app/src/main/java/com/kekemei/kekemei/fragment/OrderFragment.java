@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
@@ -172,7 +173,7 @@ public class OrderFragment extends Fragment {
 //                        UserEvaluateActivity.start(getActivity(), false, item.getShop_shop_id() + "",
                         //                                item.getBeautician_beautician_id() + "",
                         //                                item.getProject_project_id() + "");
-//                        AddCommentActivity.start(getActivity(),item.getSource(),item.getId()+"");
+                        AddCommentActivity.start(getActivity(),item.getSource(),item.getId()+"");
                         break;
                     case R.id.yuyue:
                         break;

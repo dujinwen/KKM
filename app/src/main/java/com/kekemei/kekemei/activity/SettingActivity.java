@@ -7,15 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.SectionRowView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-
-import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +83,8 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.txtSafely, R.id.txtHelpCenter, R.id.txtAboutUs, R.id.txtCleanMemory, R.id.txtVersion})
+    @OnClick({R.id.txtSafely, R.id.txtHelpCenter, R.id.txtAboutUs,
+            R.id.txtCleanMemory, R.id.txtVersion, R.id.txt_quit_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.txtSafely:
@@ -100,8 +102,51 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.txtCleanMemory:
                 break;
-            case R.id.txtVersion:
+            case R.id.txt_quit_login:
+                chatOut();
+                loginOut();
                 break;
         }
+
+
+    }
+
+    private void loginOut() {
+        UserHelp.setMobile(SettingActivity.this, "");
+        UserHelp.setUserName(SettingActivity.this, "");
+        UserHelp.setNickName(SettingActivity.this, "");
+        UserHelp.setToken(SettingActivity.this, "");
+        UserHelp.setAvatar(SettingActivity.this, "");
+        UserHelp.setUserId(SettingActivity.this, -1L);
+        UserHelp.setIsNew(SettingActivity.this, -1);
+    }
+
+    private void chatOut() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                EMClient.getInstance().logout(true, new EMCallBack() {
+
+                    @Override
+                    public void onSuccess() {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+            }
+
+        }).start();
     }
 }

@@ -122,6 +122,15 @@ public class OrderListBean implements Serializable {
         private String state_text;
         private int user_id;
         private int shop_shop_id;
+        private String source;
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
 
         public int getShop_shop_id() {
             return shop_shop_id;

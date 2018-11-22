@@ -80,4 +80,18 @@
 
         <View style="@style/CommonLine.Horizontal" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/txt_quit_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_130"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/help_center_page_custom_service_bottom_margin"
+        android:layout_marginLeft="@dimen/px_37"
+        android:layout_marginRight="@dimen/px_37"
+        android:layout_marginTop="@dimen/px_46"
+            android:background="#FF7AD2D2"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_50" />
 </LinearLayout>

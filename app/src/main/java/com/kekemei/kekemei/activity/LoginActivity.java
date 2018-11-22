@@ -363,34 +363,6 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    public void chatLoginOut() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                EMClient.getInstance().logout(true, new EMCallBack() {
-
-                    @Override
-                    public void onSuccess() {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void onProgress(int progress, String status) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void onError(int code, String message) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
-            }
-
-        }).start();
-    }
 
     //    private ProgressDialog mDialog;
 
