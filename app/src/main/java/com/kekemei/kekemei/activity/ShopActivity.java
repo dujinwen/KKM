@@ -245,9 +245,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onClick(View view) {
                     if (shopDetailBean != null && shopDetailBean.getWaiter() != null) {
-                        if (StringUtils.isNotEmpty(shopDetailBean.getWaiter().getNickname())) {
-                            ChatActivity.start(ShopActivity.this, shopDetailBean.getWaiter().getNickname());
-                        }
+                        ChatActivity.start(ShopActivity.this, shopDetailBean.getWaiter());
                     }
                 }
             });
@@ -903,7 +901,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             multipleStatusView.showEmpty();
                             return;
                         }
-
                         multipleStatusView.showOutContentView(scrollLayout);
                         Gson gson = new Gson();
                         beauticianDetailBean = gson.fromJson(data, BeauticianDetailBean.class);
