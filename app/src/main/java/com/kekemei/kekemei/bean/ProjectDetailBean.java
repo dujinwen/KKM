@@ -54,7 +54,7 @@ public class ProjectDetailBean implements Serializable {
     private float price_member;
     private float price_newmember;
     private float price_second;
-    private float project_category_id;
+    private int project_category_id;
     private String quality;
     private String quality_text;
     private String state_text;
@@ -195,11 +195,11 @@ public class ProjectDetailBean implements Serializable {
         this.price_second = price_second;
     }
 
-    public float getProject_category_id() {
+    public int getProject_category_id() {
         return project_category_id;
     }
 
-    public void setProject_category_id(float project_category_id) {
+    public void setProject_category_id(int project_category_id) {
         this.project_category_id = project_category_id;
     }
 

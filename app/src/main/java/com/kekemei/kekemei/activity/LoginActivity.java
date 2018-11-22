@@ -411,7 +411,7 @@ public class LoginActivity extends BaseActivity {
                             if (!LoginActivity.this.isFinishing()) {
                                 //                                mDialog.dismiss();
                             }
-                            Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
                             chatLogin("kekemei_chat" + user_id);
                         }
                     });

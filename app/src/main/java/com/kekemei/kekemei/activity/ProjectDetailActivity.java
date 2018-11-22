@@ -463,7 +463,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 OkGo.<String>get(URLs.ORDER_GENERATING)
                         .params("user_id", userId)
                         .params("name", detailBean.getName())
-                        .params("project_id", detailBean.getProject_category_id())
+                        .params("project_id", detailBean.getId())
                         .params("count", 1)
                         .execute(new StringCallback() {
                             @Override
@@ -484,6 +484,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 yuYueActivityBean.setOrderName(detailBean.getName());
                                 yuYueActivityBean.setOrderIconUrl(detailBean.getImage());
                                 yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
+                                yuYueActivityBean.setProject_id(detailBean.getId()+"");
 
                                 PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
                             }

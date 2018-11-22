@@ -26,7 +26,6 @@ import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.OrderInfoUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.CheckBoxSample;
@@ -148,6 +147,7 @@ public class PayActivity extends BaseActivity {
         }
     };
     private YuYueActivityBean yuYueActivityBean;
+    private String project_id;
 
 
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
@@ -177,6 +177,7 @@ public class PayActivity extends BaseActivity {
         order_image = yuYueActivityBean.getOrderIconUrl();
         order_price = yuYueActivityBean.getOrderPrice();
         order_count = yuYueActivityBean.getOrderCount();
+        project_id = yuYueActivityBean.getProject_id();
 
 
         orderId.setText(order_Id + "");
@@ -257,9 +258,13 @@ public class PayActivity extends BaseActivity {
     }
 
     private void toWXPay(String payUrl) {
-        OkGo.<String>get(payUrl).params("order_id", order_Id).execute(new StringCallback() {
+        OkGo.<String>get(payUrl)
+                .params("order_id", order_Id)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                LogUtil.d("aaaa",response.body());
                 Gson gson = new Gson();
                 WXPayResultBean payResult = gson.fromJson(response.body(), WXPayResultBean.class);
                 // TODO: 2018/11/13 进行支付操作
@@ -288,7 +293,10 @@ public class PayActivity extends BaseActivity {
         });
     }
     private void toALiPay(String payUrl) {
-        OkGo.<String>get(payUrl).params("order_id", order_Id).execute(new StringCallback() {
+        OkGo.<String>get(payUrl)
+                .params("order_id", order_Id)
+                .params("project_id",project_id)
+                .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();

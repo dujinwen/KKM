@@ -10,6 +10,8 @@ public class YuYueActivityBean implements Serializable {
     private int orderCount;
     private String orderId;
 
+    private String project_id;
+
     private int timeSelect;
     private long dateSelect;
 
@@ -108,4 +110,11 @@ public class YuYueActivityBean implements Serializable {
         this.timeSelectName = timeSelectName;
     }
 
+    public String getProject_id() {
+        return project_id;
+    }
+
+    public void setProject_id(String project_id) {
+        this.project_id = project_id;
+    }
 }

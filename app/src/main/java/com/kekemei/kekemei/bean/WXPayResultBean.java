@@ -5,8 +5,8 @@ public class WXPayResultBean {
     /**
      * code : 1
      * msg : 下单成功
-     * time : 1542335796
-     * data : {"appid":"wx5c1c391ac956b658","mch_id":"1515211071","nonce_str":"xdxNIPjOlq484CCD","prepay_id":"wx1610363719182831a50da6d74000669691","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"ED8C27C3A82ADD7B67C9B25A6DD18890","trade_type":"APP","out_trade_no":"wx3057918471542335796","total_fee":66,"pay_time":1542335796,"sign2":"d879665ed2d8ee777e4304f7cfce7a21"}
+     * time : 1542893071
+     * data : {"appid":"wx4181c60d8bf82265","mch_id":"1518992301","nonce_str":"aNMv3WCsze22UkXl","prepay_id":"wx2221243207229366f8ccb67f0760578489","result_code":"SUCCESS","return_code":"SUCCESS","return_msg":"OK","sign":"CE370BB5FB48DA1A69659EE23366F557","trade_type":"APP","out_trade_no":"wx3505027451542893071","total_fee":0.01,"pay_time":1542893071,"sign2":"6710a6101e67214e42f476c5a1e92f51"}
      */
 
     private int code;
@@ -48,19 +48,19 @@ public class WXPayResultBean {
 
     public static class DataBean {
         /**
-         * appid : wx5c1c391ac956b658
-         * mch_id : 1515211071
-         * nonce_str : xdxNIPjOlq484CCD
-         * prepay_id : wx1610363719182831a50da6d74000669691
+         * appid : wx4181c60d8bf82265
+         * mch_id : 1518992301
+         * nonce_str : aNMv3WCsze22UkXl
+         * prepay_id : wx2221243207229366f8ccb67f0760578489
          * result_code : SUCCESS
          * return_code : SUCCESS
          * return_msg : OK
-         * sign : ED8C27C3A82ADD7B67C9B25A6DD18890
+         * sign : CE370BB5FB48DA1A69659EE23366F557
          * trade_type : APP
-         * out_trade_no : wx3057918471542335796
-         * total_fee : 66
-         * pay_time : 1542335796
-         * sign2 : d879665ed2d8ee777e4304f7cfce7a21
+         * out_trade_no : wx3505027451542893071
+         * total_fee : 0.01
+         * pay_time : 1542893071
+         * sign2 : 6710a6101e67214e42f476c5a1e92f51
          */
 
         private String appid;
@@ -73,7 +73,7 @@ public class WXPayResultBean {
         private String sign;
         private String trade_type;
         private String out_trade_no;
-        private int total_fee;
+        private double total_fee;
         private int pay_time;
         private String sign2;
 
@@ -157,11 +157,11 @@ public class WXPayResultBean {
             this.out_trade_no = out_trade_no;
         }
 
-        public int getTotal_fee() {
+        public double getTotal_fee() {
             return total_fee;
         }
 
-        public void setTotal_fee(int total_fee) {
+        public void setTotal_fee(double total_fee) {
             this.total_fee = total_fee;
         }
 

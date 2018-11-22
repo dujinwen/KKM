@@ -116,7 +116,7 @@ public class OrderListBean implements Serializable {
         private String image;
         private String name;
         private String pay_type_text;
-        private int price;
+        private float price;
         private String project_project_id;
         private String state;
         private String state_text;
@@ -187,11 +187,11 @@ public class OrderListBean implements Serializable {
             this.pay_type_text = pay_type_text;
         }
 
-        public int getPrice() {
+        public float getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(float price) {
             this.price = price;
         }
 

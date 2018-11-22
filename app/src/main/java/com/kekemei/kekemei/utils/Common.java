@@ -38,9 +38,10 @@ public class Common {
 //    public static final String WX_APP_ID = "wxd48a326938a576da";
 //    public static final String WX_APP_SECRET = "2da388329e861b68405b622c494e5210";
     //微信平台的正式账号
-    public static final String WX_APP_ID =  "wx5c1c391ac956b658";
-    public static final String WX_APP_SECRET = "Wjxscc4qgtrP7Kl1Fea0nrCghGX6fv9G";
-
+//    public static final String WX_APP_ID =  "wx5c1c391ac956b658";
+//    public static final String WX_APP_SECRET = "Wjxscc4qgtrP7Kl1Fea0nrCghGX6fv9G";
+    public static final String WX_APP_ID =  "wx4181c60d8bf82265";
+    public static final String WX_APP_SECRET = "5d23852c39eb01a27b505fafb7952305";
     //腾讯平台相关账号
     public static final String QQ_APP_ID = "1106153887";
     public static final String QQ_APP_SECRET = "eY3OUj77erW5r23J";
