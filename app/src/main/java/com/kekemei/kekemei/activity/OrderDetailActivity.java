@@ -24,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.kekemei.kekemei.activity.AddCommentActivity.EXTRA_KEY_ENUM_ID;
 
 /**
  * 设置页面

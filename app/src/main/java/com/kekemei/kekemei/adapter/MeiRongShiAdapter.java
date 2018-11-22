@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.bean.BeauticianBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -45,9 +46,15 @@ public class MeiRongShiAdapter extends BaseQuickAdapter<BeauticianBean, BaseView
         guanzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                long userId = UserHelp.getUserId(mContext);
+                if (userId == -1L) {
+                    LoginActivity.start(mContext);
+                    return;
+                }
                 OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
                         .params("beautician_id", item.getId())
-                        .params("user_id", UserHelp.getUserId(context))
+                        .params("user_id", userId)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {

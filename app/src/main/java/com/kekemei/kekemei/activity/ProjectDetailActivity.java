@@ -399,12 +399,18 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding, R.id.tvCollection, R.id.tvToShopDetail})
     public void onClick(View view) {
+        long userId = UserHelp.getUserId(this);
+
         switch (view.getId()) {
             case R.id.tvCollection:
+                if (userId == -1L) {
+                    LoginActivity.start(getBaseContext());
+                    return;
+                }
                 if (tvCollection.getCompoundDrawables()[0] == null)
                     //todo 添加收藏
                     OkGo.<String>get(URLs.ADD_COLLECTION)
-                            .params("user_id", UserHelp.getUserId(ProjectDetailActivity.this))
+                            .params("user_id",userId)
                             .params("type", "1")
                             .params("project_id", detailBean.getId())
                             .execute(new StringCallback() {
@@ -450,7 +456,6 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.tv_buy_now:
-                long userId = UserHelp.getUserId(this);
                 if (userId == -1L) {
                     LoginActivity.start(getBaseContext());
                     return;
@@ -522,10 +527,15 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      */
     private void receiveRedBao(int redBaoId) {
         String projectId = shopDetailBean.getId();
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("red_type", "1")
                 .params("project_id", projectId).params("id", redBaoId)
                 .params("shop_id", "").params("beautician_id", beauticianId)
-                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {
@@ -581,10 +591,15 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      */
     private void receiveCoupon(int couponId) {
         String projectId = detailBean.getId();
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", "1")
                 .params("project_id", projectId).params("id", couponId)
                 .params("shop_id", "").params("beautician_id", beauticianId)
-                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {

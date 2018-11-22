@@ -318,6 +318,11 @@ public class PushOrderActivity extends BaseActivity {
                 initDayTime();
                 break;
             case R.id.btn_yuyue:
+                long userId = UserHelp.getUserId(this);
+                if (userId==-1L){
+                    LoginActivity.start(getBaseContext());
+                    return;
+                }
                 if (shpDataBeanData != null && StringUtils.isEmpty(shopId))
                     shopId = shpDataBeanData.getId();
                 if (beauticianDataBeanData != null && StringUtils.isEmpty(beauticianId)) {
@@ -328,7 +333,7 @@ public class PushOrderActivity extends BaseActivity {
                     return;
                 }
                 OkGo.<String>get(URLs.ADD_APPOINTMENT)
-                        .params("user_id", UserHelp.getUserId(PushOrderActivity.this))
+                        .params("user_id", userId)
                         .params("shop_id", shopId)
                         .params("beautician_id", beauticianId)
                         .params("timedata", timeSelectPosition)

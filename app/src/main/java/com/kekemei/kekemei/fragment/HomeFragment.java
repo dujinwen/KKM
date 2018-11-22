@@ -590,11 +590,17 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     }
 
     private void receiveCoupon(final ImageView couponImage) {
+
+        long userId = UserHelp.getUserId(getActivity());
+        if (userId == -1L) {
+            LoginActivity.start(getActivity());
+            return;
+        }
         HomeBean.IndexCoupon indexCoupon = (HomeBean.IndexCoupon) couponImage.getTag();
         OkGo.<String>post(URLs.COUPON_RECEIVE).params("id", indexCoupon.getId())
                 .params("coupon_type", "").params("project_id", "")
                 .params("shop_id", "").params("beautician_id", "")
-                .params("user_id", UserHelp.getUserId(getActivity()))
+                .params("user_id", userId)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

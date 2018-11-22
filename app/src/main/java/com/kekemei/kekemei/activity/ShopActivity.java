@@ -564,8 +564,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      * 关注
      */
     private void follow() {
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId)
-                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
@@ -597,12 +602,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      * @param redBaoId
      */
     private void receiveRedBao(int redBaoId) {
+
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getId() : "";
         String redType = detailEnum == DetailEnum.SHOP ? "3" : "2";
         OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("red_type", redType)
                 .params("project_id", "").params("id", redBaoId)
                 .params("shop_id", shopId).params("beautician_id", beauticianId)
-                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());
@@ -658,12 +669,17 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      * @param couponId
      */
     private void receiveCoupon(int couponId) {
+        long userId = UserHelp.getUserId(this);
+        if (userId==-1L){
+            LoginActivity.start(getBaseContext());
+            return;
+        }
         String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getId() : "";
         String couponType = detailEnum == DetailEnum.SHOP ? "3" : "2";
         OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", couponType)
                 .params("project_id", "").params("id", couponId)
                 .params("shop_id", shopId).params("beautician_id", beauticianId)
-                .params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {
@@ -869,7 +885,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         } else {
-            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", UserHelp.getUserId(this)).execute(new StringCallback() {
+            long userId = UserHelp.getUserId(this);
+            if (userId==-1L){
+                LoginActivity.start(getBaseContext());
+                return;
+            }
+            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {

@@ -196,7 +196,12 @@ public class MyCollectionActivity extends BaseActivity {
     private void loadMyCollectionOrShop(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.MY_COLLECTION).params("user_id", UserHelp.getUserId(this))
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>post(URLs.MY_COLLECTION).params("user_id", userId)
                 .params("type", type).params("page", pageNum)
                 .execute(new StringCallback() {
                     @Override
@@ -287,7 +292,12 @@ public class MyCollectionActivity extends BaseActivity {
     private void loadMyBeautician(int pageNum) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
-        OkGo.<String>post(URLs.MY_BEAUTICIAN).params("user_id", UserHelp.getUserId(this))
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>post(URLs.MY_BEAUTICIAN).params("user_id", userId)
                 .params("page", pageNum).params("longitude", longitude)
                 .params("latitude", latitude).execute(new StringCallback() {
             @Override

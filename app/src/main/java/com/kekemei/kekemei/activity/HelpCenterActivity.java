@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +63,30 @@ public class HelpCenterActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+
+
+        getData();
+    }
+
+    private void getData() {
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>get(URLs.MY_INFO).params("user_id", userId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
+
     }
 
     @OnClick(R.id.txtContactService)
