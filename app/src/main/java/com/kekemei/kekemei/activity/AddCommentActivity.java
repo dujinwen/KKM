@@ -61,9 +61,9 @@ public class AddCommentActivity extends BaseActivity {
     private static final String TAG = AddCommentActivity.class.getSimpleName();
     private static final String EXTRA_KEY_ENUM_ID = "type";
     private static final String EXTRA_KEY_ORDER_ID = "orderId";
-    private static final int COMMENT_TYPE_ONE = 1;
-    private static final int COMMENT_TYPE_TWO = 2;
-    private static final int COMMENT_TYPE_THREE = 3;
+    private static final String COMMENT_TYPE_ONE = "1";
+    private static final String COMMENT_TYPE_TWO = "2";
+    private static final String COMMENT_TYPE_THREE = "3";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -120,10 +120,10 @@ public class AddCommentActivity extends BaseActivity {
         }
     };
 
-    private int commonType;
+    private String commonType;
     private String orderId;
 
-    public static void start(Context context, int commonType, String orderId) {
+    public static void start(Context context, String commonType, String orderId) {
         Intent intent = new Intent(context, AddCommentActivity.class);
         intent.putExtra(EXTRA_KEY_ENUM_ID, commonType);
         intent.putExtra(EXTRA_KEY_ORDER_ID, orderId);
@@ -143,7 +143,7 @@ public class AddCommentActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        commonType = getIntent().getIntExtra(EXTRA_KEY_ENUM_ID, -1);
+        commonType = super.getStringExtraSecure(EXTRA_KEY_ENUM_ID);
         orderId = super.getStringExtraSecure(EXTRA_KEY_ORDER_ID);
         toolbar.setNavigationIcon(R.mipmap.back);
         tv_title.setText("评价");
@@ -154,13 +154,13 @@ public class AddCommentActivity extends BaseActivity {
             }
         });
 
-        if (commonType == COMMENT_TYPE_ONE) {
+        if (commonType.equals(COMMENT_TYPE_ONE)){
             starTitle.setText("店铺");
             starSubTitle.setText("服务评价");
-        } else if (commonType == COMMENT_TYPE_TWO) {
+        } else if (commonType.equals(COMMENT_TYPE_TWO)) {
             starTitle.setText("美容师");
             starSubTitle.setText("服务技术");
-        } else if (commonType == COMMENT_TYPE_THREE) {
+        } else if (commonType.equals(COMMENT_TYPE_THREE)) {
             starTitle.setText("项目");
             starSubTitle.setText("体验评价");
         }

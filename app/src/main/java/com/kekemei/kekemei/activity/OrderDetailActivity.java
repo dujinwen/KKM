@@ -24,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.kekemei.kekemei.activity.AddCommentActivity.EXTRA_KEY_ENUM_ID;
+
 /**
  * 设置页面
  */
@@ -184,9 +186,10 @@ public class OrderDetailActivity extends BaseActivity {
                 ShopActivity.start(OrderDetailActivity.this, data.getProject_id()+"", DetailEnum.SHOP);
                 break;
             case R.id.btn_pay:
-                UserEvaluateActivity.start(OrderDetailActivity.this, false, data.getShop_shop_id() + "",
-                        data.getBeautician_beautician_id() + "",
-                        data.getProject_project_id() + "");
+//                UserEvaluateActivity.start(OrderDetailActivity.this, false, data.getShop_shop_id() + "",
+//                        data.getBeautician_beautician_id() + "",
+//                        data.getProject_project_id() + "");
+                AddCommentActivity.start(OrderDetailActivity.this,data.getSource(),data.getId()+"");
                 break;
         }
     }
