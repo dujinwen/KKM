@@ -2,13 +2,12 @@ package com.kekemei.kekemei.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.widget.GridLayoutManager;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,13 +15,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.ServiceOrderListAdapter;
-import com.kekemei.kekemei.bean.BaseBean;
-import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.bean.ServiceOrderListBean;
-import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
@@ -45,6 +40,13 @@ import butterknife.OnClick;
  * 服务订单
  */
 public class ServiceOrderListActivity extends BaseActivity {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.iv_share)
+    ImageView iv_share;
+
     @BindView(R.id.tabAll)
     LinearLayout tabAll;
     @BindView(R.id.tvAll)
@@ -77,13 +79,15 @@ public class ServiceOrderListActivity extends BaseActivity {
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
     private ServiceOrderListAdapter jAdapter;
-    private RecyclerView rvForYou;
-
-    private MyGridAdapter forYouAdapter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ServiceOrderListActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
     }
 
     @Override
@@ -92,18 +96,21 @@ public class ServiceOrderListActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
-        super.initData();
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        tv_title.setText("我的订单");
+        iv_share.setImageResource(R.mipmap.search_btn);
+        iv_share.setVisibility(View.VISIBLE);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ServiceOrderListActivity.this);
         rvList.setLayoutManager(linearLayoutManager);
-        jAdapter = new ServiceOrderListAdapter(ServiceOrderListActivity.this);
+        jAdapter = new ServiceOrderListAdapter();
         rvList.setAdapter(jAdapter);
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
                 final List<ServiceOrderListBean> data = jAdapter.getData();
                 switch (view.getId()) {
-                    case R.id.iv_del_order:
+                   /* case R.id.iv_del_order:
                         long userId = UserHelp.getUserId(ServiceOrderListActivity.this);
                         if (userId == -1L) {
                             LoginActivity.start(ServiceOrderListActivity.this);
@@ -141,8 +148,9 @@ public class ServiceOrderListActivity extends BaseActivity {
                         //                                item.getBeautician_beautician_id() + "",
                         //                                item.getProject_project_id() + "");
 //                        AddCommentActivity.start(ServiceOrderListActivity.this,item.getSource(),item.getId()+"");
-                        break;
-                    case R.id.yuyue:
+                        break;*/
+                    case R.id.orderDetail:
+                        ServiceOrderDetailActivity.start(ServiceOrderListActivity.this);
                         break;
                 }
             }
@@ -150,7 +158,7 @@ public class ServiceOrderListActivity extends BaseActivity {
         jAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                ServiceOrderListBean item = jAdapter.getItem(position);
                 ProjectDetailActivity.start(ServiceOrderListActivity.this, item.getProject_project_id());
             }
         });
@@ -161,32 +169,17 @@ public class ServiceOrderListActivity extends BaseActivity {
                 loadMoreData();
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
         onViewClicked(tabAll);
-
-        addHotProject();
-
-        getForYouInfo();
     }
 
-    private void getForYouInfo() {
-        OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-                forYouAdapter.replaceData(forYouBean.getData());
-                if (forYouAdapter.getData().size() > 0) {
-                    footView.setVisibility(View.VISIBLE);
-                } else {
-                    footView.setVisibility(View.GONE);
-                }
-            }
-        });
-    }
-
-    @OnClick({R.id.iv_search, R.id.tabAll, R.id.tabAppointment, R.id.tabNotStart, R.id.tabGoing, R.id.tabFinished})
+    @OnClick({R.id.iv_share, R.id.tabAll, R.id.tabAppointment, R.id.tabNotStart, R.id.tabGoing, R.id.tabFinished})
     public void onViewClicked(View view) {
-        if (view.getId() == R.id.iv_search) {
+        if (view.getId() == R.id.iv_share) {
             Intent intent = new Intent(ServiceOrderListActivity.this, OrderListSearchActivity.class);
             startActivity(intent);
             return;
@@ -262,7 +255,7 @@ public class ServiceOrderListActivity extends BaseActivity {
         OkGo.<String>get(URLs.SERVICE_ORDER)
                 .tag(this)
                 .params("state", OrderListBean.ORDER_STATUS_ALL == orderStatus ? "" : orderStatus + "")
-                .params("user_id", userId)
+                .params("user_id", "2")
                 .params("page", pageNum)
                 .execute(new StringCallback() {
                     @Override
@@ -294,31 +287,5 @@ public class ServiceOrderListActivity extends BaseActivity {
                         multipleStatusView.showError();
                     }
                 });
-    }
-
-    private View footView;
-
-    private void addHotProject() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            footView = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
-        } else {
-            footView = LayoutInflater.from(ServiceOrderListActivity.this).inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
-        }
-        footView.setVisibility(View.GONE);
-        jAdapter.addFooterView(footView);
-        rvForYou = footView.findViewById(R.id.rv_hot_huodong);
-        rvForYou.setLayoutManager(new GridLayoutManager(ServiceOrderListActivity.this, 2));
-        rvForYou.setHasFixedSize(true);
-        rvForYou.setNestedScrollingEnabled(false);
-        forYouAdapter = new MyGridAdapter(ServiceOrderListActivity.this, MyGridAdapter.ORDER_HOT_BEAN);
-        rvForYou.setAdapter(forYouAdapter);
-
-        forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BaseBean item = (BaseBean) adapter.getItem(position);
-                ProjectDetailActivity.start(ServiceOrderListActivity.this, item.getProject_category_id());
-            }
-        });
     }
 }

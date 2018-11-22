@@ -5,29 +5,7 @@
     android:background="#E3E6E8"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_184"
-        android:background="#7AD2D2">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="@dimen/px_94"
-            android:text="我的订单"
-            android:textColor="#FFF6EE"
-            android:textSize="@dimen/px_49" />
-
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="@dimen/px_49"
-            android:layout_height="@dimen/px_49"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/px_37"
-            android:layout_marginTop="@dimen/px_94"
-            android:src="@mipmap/search_btn" />
-    </RelativeLayout>
+    <include layout="@layout/layout_title_bar" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -180,11 +158,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/px_29"
-            android:background="#FFF">
-
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent" />
 
         <com.kekemei.kekemei.view.MultipleStatusView
             android:id="@+id/multiple_status_view"

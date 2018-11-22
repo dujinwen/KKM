@@ -104,6 +104,7 @@
         <activity android:name=".activity.ShopBeauticianActivity" />
         <activity android:name=".activity.MyCollectionActivity" />
         <activity android:name=".activity.ServiceOrderListActivity" />
+        <activity android:name=".activity.ServiceOrderDetailActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:launchMode="singleTask"
