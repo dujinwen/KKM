@@ -142,8 +142,8 @@ public class PushOrderActivity extends BaseActivity {
 
     public static final int EXTRA_KEY_SHOP_CODE = 1000;
     public static final int EXTRA_KEY_BEAUTICIAN_CODE = 1001;
-    private BeauticianDetailBean.DataBean beauticianDataBeanData;
-    private ShopDetailBean.DataBean shpDataBeanData;
+    private BeauticianDetailBean beauticianDataBeanData;
+    private ShopDetailBean shpDataBeanData;
     private String shopId;
     private String beauticianId;
 
@@ -171,7 +171,7 @@ public class PushOrderActivity extends BaseActivity {
         if (yuYueActivityBean.getShopDetailBean() != null) {
             // TODO: 2018/11/14  通过店铺查找美容师
             llShopPlace.setClickable(false);
-            tvPlace.setText(yuYueActivityBean.getShopDetailBean().getData().getCity() + yuYueActivityBean.getShopDetailBean().getData().getAddress());
+            tvPlace.setText(yuYueActivityBean.getShopDetailBean().getCity() + yuYueActivityBean.getShopDetailBean().getAddress());
         } else {
             tvPlace.setText("请选择店铺");
         }
@@ -180,9 +180,9 @@ public class PushOrderActivity extends BaseActivity {
             llMeirongshiInfoHint.setVisibility(View.GONE);
             // TODO: 2018/11/14  店铺主页
             llMeirongshiSelect.setClickable(false);
-            tvName.setText(yuYueActivityBean.getBeauticianDetailBean().getData().getNickname());
-            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getData().getImage(), civIcon);
-            sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getData().getStart()));
+            tvName.setText(yuYueActivityBean.getBeauticianDetailBean().getNickname());
+            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getImage(), civIcon);
+            sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getStart()));
         }else {
             llMeirongshiInfo.setVisibility(View.GONE);
             llMeirongshiInfoHint.setVisibility(View.VISIBLE);
@@ -235,11 +235,11 @@ public class PushOrderActivity extends BaseActivity {
 
 
         if (yuYueActivityBean.getBeauticianDetailBean() != null) {
-            beauticianDataBeanData = yuYueActivityBean.getBeauticianDetailBean().getData();
+            beauticianDataBeanData = yuYueActivityBean.getBeauticianDetailBean();
             beauticianId = beauticianDataBeanData.getId();
         }
         if (yuYueActivityBean.getShopDetailBean() != null) {
-            shpDataBeanData = yuYueActivityBean.getShopDetailBean().getData();
+            shpDataBeanData = yuYueActivityBean.getShopDetailBean();
             shopId = shpDataBeanData.getId();
         }
 
@@ -364,7 +364,7 @@ public class PushOrderActivity extends BaseActivity {
         if (requestCode == EXTRA_KEY_SHOP_CODE) {
             ShopBean shopBean = (ShopBean) data.getSerializableExtra("ShopBean");
             if (shpDataBeanData == null) {
-                shpDataBeanData = new ShopDetailBean.DataBean();
+                shpDataBeanData = new ShopDetailBean();
             }
             shpDataBeanData.setAddress(shopBean.getAddress());
             shopId = shopBean.getId();
@@ -375,7 +375,7 @@ public class PushOrderActivity extends BaseActivity {
         if (requestCode == EXTRA_KEY_BEAUTICIAN_CODE) {
             BeauticianBean beauticianBean = (BeauticianBean) data.getSerializableExtra("BeauticianBean");
             if (beauticianDataBeanData == null)
-                beauticianDataBeanData = new BeauticianDetailBean.DataBean();
+                beauticianDataBeanData = new BeauticianDetailBean();
             beauticianId = beauticianBean.getId();
             beauticianDataBeanData.setId(beauticianId);
             beauticianDataBeanData.setName(beauticianBean.getName());
@@ -454,7 +454,6 @@ public class PushOrderActivity extends BaseActivity {
                 Gson gson = new Gson();
                 YuYueDataBean yuYueDataBean = gson.fromJson(response.body(), YuYueDataBean.class);
                 yuYueDataListAdapter.setNewData(yuYueDataBean.getData());
-                //
             }
         });
     }
