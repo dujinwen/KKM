@@ -1,55 +1,63 @@
 package com.kekemei.kekemei.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
-import com.kekemei.kekemei.R;
+import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.ui.EaseBaseActivity;
 import com.hyphenate.easeui.ui.EaseChatFragment;
-import com.hyphenate.util.EasyUtils;
+import com.kekemei.kekemei.R;
 
-/**
- * Created "聊天" by peiyangfan on 2018/10/18.
- */
-
-public class ChatActivity extends AppCompatActivity {
-
-    // 当前聊天的 ID
-    private String mChatId;
+public class ChatActivity extends EaseBaseActivity {
+    public static ChatActivity activityInstance;
     private EaseChatFragment chatFragment;
+    String toChatUsername;
 
+    public static void start(Context context, String chatUsername) {
+        Intent intent = new Intent(context, ChatActivity.class);
+        // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
+        intent.putExtra(EaseConstant.EXTRA_USER_ID, chatUsername);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
-        // 这里直接使用EaseUI封装好的聊天界面
+        activityInstance = this;
+        //user or group id
+        toChatUsername = getIntent().getExtras().getString(EaseConstant.EXTRA_USER_ID);
         chatFragment = new EaseChatFragment();
-        // 将参数传递给聊天界面
+        //set arguments
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.ec_layout_container, chatFragment).commit();
-
-        initView();
-    }
-
-    /**
-     * 初始化界面
-     */
-    private void initView() {
-
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
+        activityInstance = null;
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // enter to chat activity when click notification bar, here make sure only one chat activiy
+        String username = intent.getStringExtra("userId");
+        if (toChatUsername.equals(username))
+            super.onNewIntent(intent);
+        else {
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        chatFragment.onBackPressed();
+    }
+
+    public String getToChatUsername() {
+        return toChatUsername;
+    }
 }

@@ -68,8 +68,10 @@ public class ShopDetailBean implements Serializable {
         private String distance;
         private int start;
         private String state_text;
+        private WaiterBean waiter;
         private CommentdataBean commentdata;
-        private List<ServiceBean> service;
+        private List<RedenvloesDataBean> redenvloesdata;
+        private List<String> service;
         private List<CouponBean> coupon;
         private List<RedenvelopesBean> redenvelopes;
         private List<FullBean> full;
@@ -241,6 +243,10 @@ public class ShopDetailBean implements Serializable {
         }
 
         public String getSatisfaction() {
+            if (satisfaction.contains(".")) {
+                String[] split = satisfaction.split("\\.");
+                return split[1];
+            }
             return satisfaction;
         }
 
@@ -249,6 +255,10 @@ public class ShopDetailBean implements Serializable {
         }
 
         public String getPeer() {
+            if (peer.contains(".")) {
+                String[] split = peer.split("\\.");
+                return split[1];
+            }
             return peer;
         }
 
@@ -272,8 +282,24 @@ public class ShopDetailBean implements Serializable {
             this.start = start;
         }
 
+        public WaiterBean getWaiter() {
+            return waiter;
+        }
+
+        public void setWaiter(WaiterBean waiter) {
+            this.waiter = waiter;
+        }
+
         public CommentdataBean getCommentdata() {
             return commentdata;
+        }
+
+        public List<RedenvloesDataBean> getRedenvloesdata() {
+            return redenvloesdata;
+        }
+
+        public void setRedenvloesdata(List<RedenvloesDataBean> redenvloesdata) {
+            this.redenvloesdata = redenvloesdata;
         }
 
         public void setCommentdata(CommentdataBean commentdata) {
@@ -288,11 +314,11 @@ public class ShopDetailBean implements Serializable {
             this.state_text = state_text;
         }
 
-        public List<ServiceBean> getService() {
+        public List<String> getService() {
             return service;
         }
 
-        public void setService(List<ServiceBean> service) {
+        public void setService(List<String> service) {
             this.service = service;
         }
 
@@ -360,6 +386,79 @@ public class ShopDetailBean implements Serializable {
             this.memberdata = memberdata;
         }
 
+        public static class RedenvloesDataBean implements Serializable{
+
+            /**
+             * id : 1
+             * name : 抢50元
+             * price : 0
+             * type : 1
+             */
+
+            private int id;
+            private String name;
+            private int price;
+            private int type;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getPrice() {
+                return price;
+            }
+
+            public void setPrice(int price) {
+                this.price = price;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+        }
+
+        public static class WaiterBean implements Serializable {
+            /**
+             * id : 2
+             * nickname : 13269501725
+             */
+
+            private int id;
+            private String nickname;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getNickname() {
+                return nickname;
+            }
+
+            public void setNickname(String nickname) {
+                this.nickname = nickname;
+            }
+        }
+
         public static class CommentdataBean implements Serializable {
 
             /**
@@ -415,32 +514,6 @@ public class ShopDetailBean implements Serializable {
 
             public void setHaveimg(List<EvaluateBean> haveimg) {
                 this.haveimg = haveimg;
-            }
-        }
-
-        public static class ServiceBean implements Serializable {
-            /**
-             * id : 1
-             * name : 品质保障
-             */
-
-            private int id;
-            private String name;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
             }
         }
 

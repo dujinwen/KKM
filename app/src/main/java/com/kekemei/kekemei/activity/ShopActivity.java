@@ -244,8 +244,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             findViewById(R.id.onLineService).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (StringUtils.isNotBlank(tel)) {
-                        AppUtil.callPhone(ShopActivity.this, tel);
+                    if (shopDetailBean != null && shopDetailBean.getData() != null && shopDetailBean.getData().getWaiter() != null) {
+                        if (StringUtils.isNotEmpty(shopDetailBean.getData().getWaiter().getNickname())) {
+                            ChatActivity.start(ShopActivity.this, shopDetailBean.getData().getWaiter().getNickname());
+                        }
                     }
                 }
             });
@@ -807,22 +809,22 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         tradingArea.setText(tradingText.toString());
                     }
                     if (CollectionUtils.isNotEmpty(shopDetailBean.getData().getService())) {
-                        List<ShopDetailBean.DataBean.ServiceBean> serviceList = shopDetailBean.getData().getService();
+                        List<String> serviceList = shopDetailBean.getData().getService();
                         if (serviceList.get(0) != null) {
                             serviceOne.setVisibility(View.VISIBLE);
-                            serviceOne.setText(serviceList.get(0).getName());
+                            serviceOne.setText(serviceList.get(0));
                         } else {
                             serviceOne.setVisibility(View.GONE);
                         }
                         if (serviceList.get(1) != null) {
                             serviceTwo.setVisibility(View.VISIBLE);
-                            serviceTwo.setText(serviceList.get(1).getName());
+                            serviceTwo.setText(serviceList.get(1));
                         } else {
                             serviceTwo.setVisibility(View.GONE);
                         }
                         if (serviceList.get(2) != null) {
                             serviceThree.setVisibility(View.VISIBLE);
-                            serviceThree.setText(serviceList.get(2).getName());
+                            serviceThree.setText(serviceList.get(2));
                         } else {
                             serviceThree.setVisibility(View.GONE);
                         }

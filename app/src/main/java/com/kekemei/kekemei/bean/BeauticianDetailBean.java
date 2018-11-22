@@ -277,6 +277,10 @@ public class BeauticianDetailBean implements Serializable {
         }
 
         public String getSatisfaction() {
+            if (satisfaction.contains(".")) {
+                String[] split = satisfaction.split("\\.");
+                return split[1];
+            }
             return satisfaction;
         }
 
@@ -285,6 +289,10 @@ public class BeauticianDetailBean implements Serializable {
         }
 
         public String getPeer() {
+            if (peer.contains(".")) {
+                String[] split = peer.split("\\.");
+                return split[1];
+            }
             return peer;
         }
 

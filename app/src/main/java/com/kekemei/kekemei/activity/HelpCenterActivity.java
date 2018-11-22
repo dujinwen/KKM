@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
-import com.hyphenate.easeui.EaseConstant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,32 +52,19 @@ public class HelpCenterActivity extends BaseActivity {
         super.initView(savedInstanceState);
         toolbar.setNavigationIcon(R.mipmap.back);
         tv_title.setText("帮助中心");
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @OnClick(R.id.txtContactService)
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.txtContactService:
-                Intent intent = new Intent(HelpCenterActivity.this, ChatActivity.class);
-                // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
-                intent.putExtra("userId", "hjdudu");
-                intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
-                startActivity(intent);
+                ChatActivity.start(this, "123");
                 break;
         }
     }
