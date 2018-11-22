@@ -92,6 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableLeft="@mipmap/beautician_detail_address_i"
+            android:drawablePadding="36px"
             android:textColor="#383838"
             android:textSize="@dimen/px_40" />
 

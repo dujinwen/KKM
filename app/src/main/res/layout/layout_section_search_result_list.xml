@@ -3,6 +3,7 @@
     android:id="@+id/searchListLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="65px"
     android:orientation="vertical">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

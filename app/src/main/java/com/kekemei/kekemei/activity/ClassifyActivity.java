@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.FindOrderListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ProjectListBean;
 import com.kekemei.kekemei.bean.ProjectShaiXuanListBean;
@@ -100,7 +100,7 @@ public class ClassifyActivity extends BaseActivity {
     RelativeLayout rlList;
     private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
     private ArrayList<SelectBean> objects;
-    private FindOrderListAdapter listAdapter;
+    private ProjectListAdapter listAdapter;
     @SuppressWarnings("unchecked")
     private static HashSet<Integer> positionArrayList = new HashSet<>();
     private LinearLayoutManager linearLayoutManager;
@@ -207,7 +207,7 @@ public class ClassifyActivity extends BaseActivity {
         super.initData();
         linearLayoutManager = new LinearLayoutManager(getBaseContext());
         rvList.setLayoutManager(linearLayoutManager);
-        listAdapter = new FindOrderListAdapter(getBaseContext());
+        listAdapter = new ProjectListAdapter(getBaseContext());
         rvList.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
