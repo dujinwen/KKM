@@ -64,7 +64,7 @@ public class HelpCenterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.txtContactService:
-                ChatActivity.start(this, "kekemei_chat2");
+//                ChatActivity.start(this, "kekemei_chat2");
                 break;
         }
     }

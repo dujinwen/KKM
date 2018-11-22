@@ -8,16 +8,18 @@ import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseBaseActivity;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.WaiterBean;
 
 public class ChatActivity extends EaseBaseActivity {
     public static ChatActivity activityInstance;
     private EaseChatFragment chatFragment;
-    String toChatUsername;
+    private static final String CHAT_PARAM = "param";
+    private WaiterBean waiterBean;
 
-    public static void start(Context context, String chatUsername) {
+    public static void start(Context context, WaiterBean waiterBean) {
         Intent intent = new Intent(context, ChatActivity.class);
         // EaseUI封装的聊天界面需要这两个参数，聊天者的username，以及聊天类型，单聊还是群聊
-        intent.putExtra(EaseConstant.EXTRA_USER_ID, chatUsername);
+        intent.putExtra(CHAT_PARAM, waiterBean);
         context.startActivity(intent);
     }
 
@@ -27,10 +29,13 @@ public class ChatActivity extends EaseBaseActivity {
         setContentView(R.layout.activity_chat);
         activityInstance = this;
         //user or group id
-        toChatUsername = getIntent().getExtras().getString(EaseConstant.EXTRA_USER_ID);
+        waiterBean = (WaiterBean) getIntent().getSerializableExtra(CHAT_PARAM);
         chatFragment = new EaseChatFragment();
         //set arguments
-        chatFragment.setArguments(getIntent().getExtras());
+        Bundle bundle = new Bundle();
+        bundle.putString(EaseConstant.EXTRA_USER_ID, waiterBean.getId());
+        bundle.putString(EaseConstant.EXTRA_NICK_NAME, waiterBean.getNickname());
+        chatFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.ec_layout_container, chatFragment).commit();
     }
 
@@ -43,8 +48,8 @@ public class ChatActivity extends EaseBaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         // enter to chat activity when click notification bar, here make sure only one chat activiy
-        String username = intent.getStringExtra("userId");
-        if (toChatUsername.equals(username))
+        WaiterBean chatBean = (WaiterBean) intent.getSerializableExtra(CHAT_PARAM);
+        if (waiterBean == chatBean)
             super.onNewIntent(intent);
         else {
             finish();
@@ -55,9 +60,5 @@ public class ChatActivity extends EaseBaseActivity {
     @Override
     public void onBackPressed() {
         chatFragment.onBackPressed();
-    }
-
-    public String getToChatUsername() {
-        return toChatUsername;
     }
 }
