@@ -27,6 +27,7 @@ import com.kekemei.kekemei.activity.MyCollectionActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.ServiceOrderListActivity;
 import com.kekemei.kekemei.activity.SettingActivity;
 import com.kekemei.kekemei.activity.UserInfoActivity;
 import com.kekemei.kekemei.adapter.GridAdapter;
@@ -94,7 +95,7 @@ public class PersonFragment extends Fragment {
     @BindView(R.id.tv_hongbaonum)
     TextView tvHongbaonum;
 
-    private String[] userForwardArray = {"我的好友", "关注的店铺", "我的美容师", "我的收藏",
+    private String[] userForwardArray = {"服务订单", "关注的店铺", "我的美容师", "我的收藏",
             "我的订单", "我的积分", "会员优惠", "客户服务"};
     private int[] userForwardIconArray = {
             R.mipmap.user_haoyou_btn, R.mipmap.user_dianpu_btn,
@@ -154,6 +155,7 @@ public class PersonFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
+                        ServiceOrderListActivity.start(getActivity());
                         break;
                     case 1:
                         MyCollectionActivity.start(getActivity(), "2", true);

@@ -52,6 +52,8 @@ public class URLs {
     public static final String MY_RED_ENVELOPES = BASE_URL+"/api/user/myRedenvelopes";
     //我的订单
     public static final String MY_ORDER = BASE_URL+"/api/order/myorder";
+    //服务订单
+    public static final String SERVICE_ORDER = BASE_URL+"/api/order/serviceOrder";
     //我的优惠券
     public static final String MY_COUPON = BASE_URL+"/api/user/mycoupon";
     //添加收藏
