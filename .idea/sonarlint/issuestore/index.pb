@@ -43,8 +43,6 @@ Y
 +app/src/main/res/layout/list_meirongshi.xml,3\9\392138d40b05cff04860cbaf55cf90b5ae320200
 Y
 )app/src/main/res/layout/activity_shop.xml,a\0\a07e4b3d325ee8dfdb0b4bffe0c0520d68d761bd
-f
-6app/src/main/res/layout/activity_meirongshijieshao.xml,6\6\66df2c72fcac1804df43a8ec3abb058dff4825d1
 c
 3app/src/main/res/layout/layout_comment_top_head.xml,5\d\5df46e1c2344c032a24bc0b3c9682d58bf65325a
 l
@@ -89,8 +87,6 @@ A
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 X
-(app/src/main/res/layout/layout_jifen.xml,d\1\d1434733c00cee2492b0521bd351cc4bced62ae3
-X
 (app/src/main/res/layout/item_pinglun.xml,1\b\1b4ab4c4ebec92fb3d7ab87a57c9f2af184ce0be
 Q
 !app/src/main/res/values/attrs.xml,6\7\67fe4d6109901ba14977f463101f33b426043966
@@ -102,12 +98,6 @@ b
 2app/src/main/res/layout/common_no_network_view.xml,7\1\716bc16e8b5ce3e557ece30ee1aab50f44359f20
 ]
 -app/src/main/res/layout/classify_activity.xml,d\4\d453f57cdbc880554b781e8ad98f9c04a534c0a6
-_
-/app/src/main/res/layout/faxian_title_layout.xml,3\f\3f6dbc9b6a07d4a6e30c72f1c4b7bff8d1b02124
-^
-.app/src/main/res/layout/layout_city_header.xml,8\5\857384ba7fb4ebf723a6d154ac19a26e59f76200
-Y
-)app/src/main/res/layout/fragment_city.xml,e\f\eff2123163b27d21a276f3d4eda46911c32e4a94
 h
 8app/src/main/res/drawable-v24/ic_launcher_foreground.xml,0\7\078508c831007ccb3938b355f0d30a8368f99a8d
 _
@@ -122,8 +112,6 @@ e
 -app/src/main/res/layout/layout_pay_select.xml,0\7\071c9c43f72ef653730777355bd618d6b6a360ab
 X
 (app/src/main/res/layout/activity_pay.xml,6\d\6d0dbbdf64a71f82ed21832d8f7465355c06e961
-\
-,app/src/main/res/layout/activity_huiyuan.xml,3\8\38223767165fbfe8dd9bec37a6d610251031f980
 ^
 .app/src/main/res/layout/activity_user_info.xml,9\b\9bd04ff77ebaea7a6c4c5d88c8fc7b2172e9d90a
 ?
@@ -134,10 +122,6 @@ Q
 !app/src/main/assets/citylist.json,3\1\318dbfd4e591493246f00d7b1bda9c6bb2f961e1
 h
 8app/src/main/java/com/kekemei/kekemei/bean/BaseBean.java,a\e\ae647d237bbf312cc04520825a7f81874b2719b1
-q
-Aapp/src/main/java/com/kekemei/kekemei/activity/BasePresenter.java,3\c\3cbaa7194920c6596508b0c3cedae1a59cfaffe0
-l
-<app/src/main/java/com/kekemei/kekemei/activity/BaseView.java,8\c\8c520823c0579f35d896ece80ed6d9f4f1f4de57
 v
 Fapp/src/main/java/com/kekemei/kekemei/activity/AddCommentActivity.java,3\5\35e4f81d33604df835bed34c6533ab00f363f2f4
 p
@@ -152,16 +136,12 @@ r
 Bapp/src/main/java/com/kekemei/kekemei/activity/SearchActivity.java,0\6\061afab133891de725bf9508aed321fe9c2e162c
 o
 ?app/src/main/java/com/kekemei/kekemei/activity/PayActivity.java,4\c\4c31a8dffedb26a82c808c9bf8075d7063096db9
-v
-Fapp/src/main/java/com/kekemei/kekemei/activity/MeiRongShiActivity.java,3\5\359eec4a9baa9e483a47edf2dad9b7ee4ad0b0c6
 w
 Gapp/src/main/java/com/kekemei/kekemei/manager/SearchHistoryManager.java,0\7\07b26b0d01370d8e9afbb1ace19a74738d83185e
 s
 Capp/src/main/java/com/kekemei/kekemei/manager/AppFolderManager.java,6\8\682eb1cae1a253be860bd5ba5a9ee690114d058c
 x
 Happ/src/main/java/com/kekemei/kekemei/utils/EndLessOnScrollListener.java,6\d\6dc9050cd40b97de5bbbf7dc3a22ea6b0fe01fd1
-o
-?app/src/main/java/com/kekemei/kekemei/adapter/JiFenAdapter.java,3\d\3d9d1bcbc6685ab264511c7e5838ad4ad5c4e9da
 {
 Kapp/src/main/java/com/kekemei/kekemei/adapter/base/BaseListViewAdapter.java,8\b\8b6623c8188346b2d7dffca1e4e45dfaecdad721
 y
@@ -172,8 +152,6 @@ h
 8app/src/main/java/com/kekemei/kekemei/utils/LogUtil.java,7\7\774af2cfd19f44169cb3cd53400d37bcb3eacc33
 m
 =app/src/main/java/com/kekemei/kekemei/bean/OrderListBean.java,3\6\366ef35fd6c53d928264856e3b6eb2bc87a1514a
-i
-9app/src/main/java/com/kekemei/kekemei/bean/JiFenBean.java,0\8\086daaeccb0da0a7d595544127b6b832dac3fc8e
 l
 <app/src/main/java/com/kekemei/kekemei/bean/EvaluateBean.java,9\8\9862a4e650a3a2dfc547e4e880ff1abf8d2d3fb9
 f
@@ -208,8 +186,6 @@ e
 5app/src/main/res/layout/item_evaluate_list_layout.xml,c\e\ce79e6119b7146c8f7896d99c4734f56c56efee8
 b
 2app/src/main/res/layout/layout_search_tool_bar.xml,1\f\1fb05504216012af065710f63a109f8ae4f8f45b
-}
-Mapp/src/main/java/com/kekemei/kekemei/activity/MeiRongShiJieShaoActivity.java,f\2\f2b80edf03bdf304c66f94b6bce2998988de486d
 u
 Eapp/src/main/java/com/kekemei/kekemei/activity/MyVoucherActivity.java,4\2\4243215b3f11f20a5d9712ba2aa321f024c9cef5
 g
@@ -258,8 +234,6 @@ y
 Iapp/src/main/java/com/kekemei/kekemei/utils/SuperAwesomeCardFragment.java,5\6\560d766f198f37124b6e7c6aac8e8a98223f56e7
 |
 Lapp/src/main/java/com/kekemei/kekemei/view/loading/FragmentPagerAdapter.java,3\0\306403887b620775380ab2b5097c6b121ad0597a
-p
-@app/src/main/java/com/kekemei/kekemei/fragment/CityFragment.java,8\8\882bca825d78a063411103ba7c7256719be6ed98
 r
 Bapp/src/main/java/com/kekemei/kekemei/fragment/PersonFragment.java,a\5\a578e7e2791abac96513f08d1f0e00732882c4c2
 h
@@ -314,8 +288,6 @@ u
 Eapp/src/main/java/com/kekemei/kekemei/adapter/HongBaoDataAdapter.java,d\d\ddc638bd30377f2b50f97a6105ed580531ed4dd9
 U
 %app/src/main/res/layout/foot_view.xml,6\0\607e3e91a93b859c0c20fe36fc63855dfa4f273a
-_
-/app/src/main/res/layout/activity_meirongshi.xml,b\3\b3cf3963fc684e406cf139ede50f8e06c14b3c24
 e
 5app/src/main/java/com/kekemei/kekemei/utils/URLs.java,7\f\7f41e1646491135b0d4f6c5d3e30a0fd219c7e28
 s
@@ -332,8 +304,6 @@ i
 0app/src/main/res/layout/activity_help_center.xml,6\0\602448535cb18e27c0c700c30af9f6dcf3b617e3
 x
 Happ/src/main/java/com/kekemei/kekemei/activity/MyCollectionActivity.java,f\6\f62f53e9ad4d9c342dc1c40cfe0a5760e9b58ba5
-s
-Capp/src/main/java/com/kekemei/kekemei/fragment/MessageFragment.java,8\9\89c008365afba8d97f2cd97adc821801a995932b
 n
 >app/src/main/java/com/kekemei/kekemei/utils/OrderInfoUtil.java,a\a\aa540705d85f92d0215dc212ed71c5b8ebc1f319
 v

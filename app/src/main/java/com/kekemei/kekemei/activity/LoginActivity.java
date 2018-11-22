@@ -336,11 +336,11 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    public void chatLogin(String nickName) {
+    public void chatLogin(final String nickName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                EMClient.getInstance().login("pyf", "111111", new EMCallBack() {//回调
+                EMClient.getInstance().login(nickName, "DAWEIKEKEMEI", new EMCallBack() {//回调
                     @Override
                     public void onSuccess() {
                         EMClient.getInstance().groupManager().loadAllGroups();
@@ -404,7 +404,7 @@ public class LoginActivity extends BaseActivity {
             public void run() {
                 try {
 
-                    EMClient.getInstance().createAccount("kekemei_chat" + user_id, "kekemei_chat" + user_id);
+                    EMClient.getInstance().createAccount("kekemei_chat" + user_id, "DAWEIKEKEMEI");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -443,9 +443,9 @@ public class LoginActivity extends BaseActivity {
                                 case EMError.USER_ALREADY_EXIST:
 
                                     chatLogin("kekemei_chat" + user_id);
-//                                    Toast.makeText(LoginActivity.this,
-//                                            "用户已存在 code: " + errorCode + ", message:" + message,
-//                                            Toast.LENGTH_LONG).show();
+                                    //                                    Toast.makeText(LoginActivity.this,
+                                    //                                            "用户已存在 code: " + errorCode + ", message:" + message,
+                                    //                                            Toast.LENGTH_LONG).show();
                                     break;
                                 // 参数不合法，一般情况是username 使用了uuid导致，不能使用uuid注册
                                 case EMError.USER_ILLEGAL_ARGUMENT:
@@ -500,7 +500,7 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if (btnYanzhengma != null){
+            if (btnYanzhengma != null) {
                 btnYanzhengma.setEnabled(false);
                 btnYanzhengma.setText((millisUntilFinished / 1000) + "秒后可重发");
             }
@@ -508,7 +508,7 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onFinish() {
-            if (btnYanzhengma!=null){
+            if (btnYanzhengma != null) {
                 btnYanzhengma.setEnabled(true);
                 btnYanzhengma.setText("获取验证码");
             }

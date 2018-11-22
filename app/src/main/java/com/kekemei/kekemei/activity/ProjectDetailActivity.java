@@ -676,7 +676,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                         marketPrice.getPaint().setAntiAlias(true);// 抗锯齿
                         marketPrice.setText("￥" + detailBean.getData().getPrice_market());
                         tvFollowNum.setText("已有" + detailBean.getData().getTreatment_count() + "人关注");
-                        tvAddress.setText(shopDetailBean.getData().getAddress());
+                        tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getData().getAddress());
                         tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getData().getDistance()));
                         if (CollectionUtils.isNotEmpty(detailBean.getData().getCoupon())) {
                             coupon.setVisibility(View.VISIBLE);
