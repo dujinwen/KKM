@@ -183,8 +183,8 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
-//                ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
-                OrderDetailActivity.start(getActivity(),item.getId());
+                ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
+//                OrderDetailActivity.start(getActivity(),item.getId());
             }
         });
 
