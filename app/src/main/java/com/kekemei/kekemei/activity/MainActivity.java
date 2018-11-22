@@ -131,6 +131,7 @@ public class MainActivity extends BaseActivity {
                 long userId = UserHelp.getUserId(MainActivity.this);
                 if (isNew == -1 || userId == -1L) {
                     LoginActivity.start(MainActivity.this);
+                    dlg.dismiss();
                     return;
                 }
                 OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
