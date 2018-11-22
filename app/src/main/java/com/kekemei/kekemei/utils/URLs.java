@@ -22,7 +22,8 @@ public class URLs {
     public static final String ORDER_GENERATING = BASE_URL+"/api/order/generatingOrder";
     //订单搜索
     public static final String ORDER_SEARCH = BASE_URL+"/api/order/orderSearch";
-
+    //订单详情
+    public static final String ORDER_DETAILS = BASE_URL+"/api/order/details";
     /**
      * 评论
      */

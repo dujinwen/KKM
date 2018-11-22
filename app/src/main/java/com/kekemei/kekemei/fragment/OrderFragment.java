@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.LoginActivity;
+import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
@@ -163,6 +164,8 @@ public class OrderFragment extends Fragment {
                         PayActivity.start(getActivity(), yuYueActivityBean);
                         break;
                     case R.id.chakan:
+                        OrderDetailActivity.start(getActivity(),item.getId());
+                        break;
                     case R.id.zaicigoumai:
                         ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
                         break;
@@ -180,7 +183,8 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
-                ProjectDetailActivity.start(getActivity(), item.getId());
+//                ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
+                OrderDetailActivity.start(getActivity(),item.getId());
             }
         });
 
