@@ -345,7 +345,7 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess() {
                         EMClient.getInstance().groupManager().loadAllGroups();
                         EMClient.getInstance().chatManager().loadAllConversations();
-                        LogUtil.d("main", "pyf 登录聊天服务器成功！");
+                        LogUtil.d("main", nickName + "pyf 登录聊天服务器成功！");
                     }
 
                     @Override
@@ -404,7 +404,7 @@ public class LoginActivity extends BaseActivity {
             public void run() {
                 try {
 
-                    EMClient.getInstance().createAccount("kekemei_chat" + user_id, "DAWEIKEKEMEI");
+                    EMClient.getInstance().createAccount("" + user_id, "DAWEIKEKEMEI");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -412,7 +412,7 @@ public class LoginActivity extends BaseActivity {
                                 //                                mDialog.dismiss();
                             }
 //                            Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
-                            chatLogin("kekemei_chat" + user_id);
+                            chatLogin("" + user_id);
                         }
                     });
                 } catch (final HyphenateException e) {
@@ -442,7 +442,7 @@ public class LoginActivity extends BaseActivity {
                                 // 用户已存在
                                 case EMError.USER_ALREADY_EXIST:
 
-                                    chatLogin("kekemei_chat" + user_id);
+                                    chatLogin("" + user_id);
                                     //                                    Toast.makeText(LoginActivity.this,
                                     //                                            "用户已存在 code: " + errorCode + ", message:" + message,
                                     //                                            Toast.LENGTH_LONG).show();
