@@ -17,6 +17,7 @@ import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.bean.EvaluateBean;
 import com.kekemei.kekemei.bean.EvaluateListBean;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -244,16 +245,17 @@ public class UserEvaluateActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         jSwipeRefreshLayout.finishLoadMore();
                         return;
                     }
+                    Gson gson = new Gson();
+                    EvaluateListBean evaluateListBean = gson.fromJson(data, EvaluateListBean.class);
+                    onResultSuccess(evaluateListBean);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Gson gson = new Gson();
-                EvaluateListBean evaluateListBean = gson.fromJson(response.body(), EvaluateListBean.class);
-                onResultSuccess(evaluateListBean);
             }
 
             @Override
@@ -272,12 +274,12 @@ public class UserEvaluateActivity extends BaseActivity {
             if (null == response || null == evaluateListBean.getData()) {
                 showEmpty();
             }
-            fillTabText(evaluateListBean.getData().getCount());
-            fillData(evaluateListBean.getData().getData().get(mCurrentTab));
+            fillTabText(evaluateListBean.getCount());
+            fillData(evaluateListBean.getData().get(mCurrentTab));
         } else {
             jPageNum++;
             EvaluateListBean evaluateListBean = (EvaluateListBean) response;
-            loadMoreSuccess(evaluateListBean.getData().getData().get(mCurrentTab));
+            loadMoreSuccess(evaluateListBean.getData().get(mCurrentTab));
         }
     }
 

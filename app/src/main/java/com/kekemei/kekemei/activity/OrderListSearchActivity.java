@@ -151,16 +151,17 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                                 onHotSearchResult(null);
                                 return;
                             }
+                            Gson gson = new Gson();
+                            HotSearchBean hotSearchBean = gson.fromJson(response.body(), HotSearchBean.class);
+                            onHotSearchResult(hotSearchBean);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        HotSearchBean hotSearchBean = gson.fromJson(response.body(), HotSearchBean.class);
-                        onHotSearchResult(hotSearchBean);
                     }
 
                     @Override
@@ -173,11 +174,11 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
 
     private void onHotSearchResult(Object response) {
         HotSearchBean hotSearchBean = (HotSearchBean) response;
-        if (null == response || null == hotSearchBean.getData()) {
+        if (null == response || null == hotSearchBean) {
             llHistory.setVisibility(View.VISIBLE);
         } else {
-            if (CollectionUtils.isNotEmpty(hotSearchBean.getData().getHistory())) {
-                fillHistoryWordArea(hotSearchBean.getData().getHistory());
+            if (CollectionUtils.isNotEmpty(hotSearchBean.getHistory())) {
+                fillHistoryWordArea(hotSearchBean.getHistory());
             } else {
                 llHistory.setVisibility(View.VISIBLE);
             }

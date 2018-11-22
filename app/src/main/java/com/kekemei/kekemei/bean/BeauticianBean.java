@@ -45,7 +45,7 @@ public class BeauticianBean implements Serializable {
     private String state_text;
     private long user_id;
     private String user_nickname;
-    private List<MeiRongShiListBean.DataBeanX.DataBean.ShopsBean> shops;
+    private List<MeiRongShiListBean.DataBean.ShopsBean> shops;
     private List<String> tag;
     private List<String> tag_text;
     private String image;
@@ -154,11 +154,11 @@ public class BeauticianBean implements Serializable {
         this.user_nickname = user_nickname;
     }
 
-    public List<MeiRongShiListBean.DataBeanX.DataBean.ShopsBean> getShops() {
+    public List<MeiRongShiListBean.DataBean.ShopsBean> getShops() {
         return shops;
     }
 
-    public void setShops(List<MeiRongShiListBean.DataBeanX.DataBean.ShopsBean> shops) {
+    public void setShops(List<MeiRongShiListBean.DataBean.ShopsBean> shops) {
         this.shops = shops;
     }
 

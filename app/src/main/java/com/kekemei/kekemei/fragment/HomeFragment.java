@@ -169,7 +169,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     TextView tvCommentPeer;
     @BindView(R.id.main_srl)
     SwipeRefreshLayout swipeRefreshLayout;
-    private HomeBean.DataBean.CommentdataBean commentdata;
+    private HomeBean.CommentdataBean commentdata;
     private EvaluateListAdapter commentAdapter;
 
     @BindView(R.id.commentTagFlowLayout)
@@ -328,7 +328,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     private void initData(String latitude, String longitude) {
         multipleStatusView.showLoading();
 
-        if (swipeRefreshLayout.isRefreshing()){
+        if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);//设置不刷新
         }
 
@@ -336,29 +336,40 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        multipleStatusView.showOutContentView(scAll);
                         LogUtil.d("APPLOCALTION", response.body());
-                        Gson gson = new Gson();
-                        homeBean = gson.fromJson(response.body(), HomeBean.class);
-                        xbanner.setData(homeBean.getData().getBanneradv(), null);
-                        initBanner();
-                        initCoupon(homeBean.getData().getIndexcoupon());
-                        meiRongShiAdapter.setNewData(homeBean.getData().getBeautician());
-                        adapter_vip.setNewData(homeBean.getData().getShop());
-                        adapter1.setNewData(homeBean.getData().getNewmemberdata());
-                        adapter2.setNewData(homeBean.getData().getMemberdata());
-                        adapter3.setNewData(homeBean.getData().getSpecialdata());
-                        adapter4.setNewData(homeBean.getData().getHotdata());
-                        if (homeBean.getData().getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getAll())) {
-                            commentLayout.setVisibility(View.VISIBLE);
-                            userCommentNum.setText(getString(R.string.home_comment_num_format, homeBean.getData().getCommentdata().getCount()));
-                            commentdata = homeBean.getData().getCommentdata();
-                            commentAdapter.setNewData(homeBean.getData().getCommentdata().getAll());
-                            if (CollectionUtils.isNotEmpty(homeBean.getData().getCommentdata().getTags())) {
-                                fillTags(homeBean.getData().getCommentdata().getTags());
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
+                                multipleStatusView.showEmpty();
+                                return;
                             }
-                        } else {
-                            commentLayout.setVisibility(View.GONE);
+                            multipleStatusView.showOutContentView(scAll);
+                            Gson gson = new Gson();
+                            homeBean = gson.fromJson(data, HomeBean.class);
+                            xbanner.setData(homeBean.getBanneradv(), null);
+                            initBanner();
+                            initCoupon(homeBean.getIndexcoupon());
+                            meiRongShiAdapter.setNewData(homeBean.getBeautician());
+                            adapter_vip.setNewData(homeBean.getShop());
+                            adapter1.setNewData(homeBean.getNewmemberdata());
+                            adapter2.setNewData(homeBean.getMemberdata());
+                            adapter3.setNewData(homeBean.getSpecialdata());
+                            adapter4.setNewData(homeBean.getHotdata());
+                            if (homeBean.getCommentdata() != null && CollectionUtils.isNotEmpty(homeBean.getCommentdata().getAll())) {
+                                commentLayout.setVisibility(View.VISIBLE);
+                                userCommentNum.setText(getString(R.string.home_comment_num_format, homeBean.getCommentdata().getCount()));
+                                commentdata = homeBean.getCommentdata();
+                                commentAdapter.setNewData(homeBean.getCommentdata().getAll());
+                                if (CollectionUtils.isNotEmpty(homeBean.getCommentdata().getTags())) {
+                                    fillTags(homeBean.getCommentdata().getTags());
+                                }
+                            } else {
+                                commentLayout.setVisibility(View.GONE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
 
