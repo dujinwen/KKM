@@ -22,18 +22,7 @@ public class OrderDetailActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tv_title;
-    @BindView(R.id.txtSafely)
-    SectionRowView safelySetting;
-//    @BindView(R.id.txtFeedBack)
-//    SectionRowView feedBack;
-    @BindView(R.id.txtHelpCenter)
-    SectionRowView helpCenter;
-    @BindView(R.id.txtAboutUs)
-    SectionRowView aboutUs;
-    @BindView(R.id.txtCleanMemory)
-    SectionRowView cleanMemory;
-    @BindView(R.id.txtVersion)
-    SectionRowView version;
+
 
     public static void start(Context context) {
         Intent intent = new Intent(context, OrderDetailActivity.class);
@@ -47,7 +36,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     protected int setLayoutId() {
-        return R.layout.activity_setting;
+        return R.layout.activity_order_detail;
     }
 
     @Override

@@ -239,6 +239,7 @@
         <activity android:name=".activity.MyRedBaoActivity" />
         <activity android:name=".activity.MyVoucherActivity" />
         <activity android:name=".activity.MessageActivity" />
+        <activity android:name=".activity.OrderDetailActivity" />
     </application>
 
 </manifest>

@@ -29,6 +29,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 import butterknife.BindView;
@@ -136,33 +139,44 @@ public class BeauticianInfoActivity extends BaseActivity {
             public void onSuccess(Response<String> response) {
                 LogUtil.e("ProjectDetailActivity", response.body());
                 multipleStatusView.showOutContentView(scrollLayout);
-                Gson gson = new Gson();
-                BeauticianDetailBean detailBean = gson.fromJson(response.body(), BeauticianDetailBean.class);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getData().getImage(), shop_detail_icon);
-                shopName.setText(detailBean.getData().getName());
-                shopStar.setStarMark(detailBean.getData().getStart());
-                tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getData().getOrder_count()));
-                tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getData().getFriend_count()));
-                tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getData().getSatisfaction() + "%"));
-                jiedanNum.setText(detailBean.getData().getOrder_count() + "");
-                tvPrice.setText("￥ " + detailBean.getData().getAverage_price());
-                jiguan.setText(detailBean.getData().getPlace());
-                techang.setText(detailBean.getData().getSpeciality());
-                jianjie.setText(detailBean.getData().getContent());
-                if (detailBean.getData().getIsfriend() == 1) {
-                    tvFollow.setText("已关注");
-                    tvFollow.setClickable(false);
-                    tvFollow.setTextColor(ContextCompat.getColor(BeauticianInfoActivity.this, R.color.common_text_dark));
-                    tvFollow.setBackground(ContextCompat.getDrawable(BeauticianInfoActivity.this, R.mipmap.orderform_determine_btn_1));
-                } else {
-                    tvFollow.setText("关注");
-                    tvFollow.setClickable(true);
-                    tvFollow.setTextColor(ContextCompat.getColor(BeauticianInfoActivity.this, R.color.white));
-                    tvFollow.setBackground(ContextCompat.getDrawable(BeauticianInfoActivity.this, R.mipmap.orderform_determine_btn));
-                }
-                if (StringUtils.isNotEmpty(detailBean.getData().getImages())) {
-                    String[] split = detailBean.getData().getImages().split(",");
-                    adapter.replaceData(Arrays.asList(split));
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
+                        multipleStatusView.showEmpty();
+                        return;
+                    }
+                    Gson gson = new Gson();
+                    BeauticianDetailBean detailBean = gson.fromJson(data, BeauticianDetailBean.class);
+                    ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getImage(), shop_detail_icon);
+                    shopName.setText(detailBean.getName());
+                    shopStar.setStarMark(detailBean.getStart());
+                    tvOrderCount.setText(getString(R.string.shop_detail_server_number, detailBean.getOrder_count()));
+                    tvCollectionCount.setText(getString(R.string.shop_detail_fensi_number, detailBean.getFriend_count()));
+                    tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, detailBean.getSatisfaction() + "%"));
+                    jiedanNum.setText(detailBean.getOrder_count() + "");
+                    tvPrice.setText("￥ " + detailBean.getAverage_price());
+                    jiguan.setText(detailBean.getPlace());
+                    techang.setText(detailBean.getSpeciality());
+                    jianjie.setText(detailBean.getContent());
+                    if (detailBean.getIsfriend() == 1) {
+                        tvFollow.setText("已关注");
+                        tvFollow.setClickable(false);
+                        tvFollow.setTextColor(ContextCompat.getColor(BeauticianInfoActivity.this, R.color.common_text_dark));
+                        tvFollow.setBackground(ContextCompat.getDrawable(BeauticianInfoActivity.this, R.mipmap.orderform_determine_btn_1));
+                    } else {
+                        tvFollow.setText("关注");
+                        tvFollow.setClickable(true);
+                        tvFollow.setTextColor(ContextCompat.getColor(BeauticianInfoActivity.this, R.color.white));
+                        tvFollow.setBackground(ContextCompat.getDrawable(BeauticianInfoActivity.this, R.mipmap.orderform_determine_btn));
+                    }
+                    if (StringUtils.isNotEmpty(detailBean.getImages())) {
+                        String[] split = detailBean.getImages().split(",");
+                        adapter.replaceData(Arrays.asList(split));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
 

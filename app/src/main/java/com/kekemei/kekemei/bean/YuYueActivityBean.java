@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class YuYueActivityBean implements Serializable {
     private String orderIconUrl;
     private String orderName;
-    private int orderPrice;
+    private float orderPrice;
     private String orderCreateTime;
     private int orderCount;
     private String orderId;
@@ -37,11 +37,11 @@ public class YuYueActivityBean implements Serializable {
         this.orderName = orderName;
     }
 
-    public int getOrderPrice() {
+    public float getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(int orderPrice) {
+    public void setOrderPrice(float orderPrice) {
         this.orderPrice = orderPrice;
     }
 

@@ -127,7 +127,8 @@ public class PayActivity extends BaseActivity {
 
     private String order_Id;
     private long order_create_time;
-    private int order_price, order_count;
+    private float order_price;
+    private int order_count;
     private String order_image;
     private String order_name;
 
