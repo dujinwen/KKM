@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.FindOrderListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -59,7 +59,7 @@ public class MyCollectionActivity extends BaseActivity {
 
     private MeiRongShiListAdapter beauticianAdapter;
     private ShopListAdapter shopAdapter;
-    private FindOrderListAdapter collectionAdapter;
+    private ProjectListAdapter collectionAdapter;
 
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
@@ -129,7 +129,7 @@ public class MyCollectionActivity extends BaseActivity {
 
         if (showShop) {
             if (type.equals("1")) {
-                collectionAdapter = new FindOrderListAdapter(getBaseContext());
+                collectionAdapter = new ProjectListAdapter(getBaseContext());
                 rvList.setAdapter(collectionAdapter);
                 collectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override

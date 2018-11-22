@@ -19,7 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.FindOrderListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.NewComerBean;
@@ -66,7 +66,7 @@ public class NewComerActivity extends BaseActivity {
     SmartRefreshLayout refresh_layout;
     @BindView(R.id.newPeopleList)
     RecyclerView newPeopleList;
-    private FindOrderListAdapter listAdapter;
+    private ProjectListAdapter listAdapter;
 
     @BindView(R.id.topBanner)
     ImageView topBanner;
@@ -148,7 +148,7 @@ public class NewComerActivity extends BaseActivity {
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
         newPeopleList.setLayoutManager(linearLayoutManager);
-        listAdapter = new FindOrderListAdapter(getBaseContext());
+        listAdapter = new ProjectListAdapter(getBaseContext());
         newPeopleList.setAdapter(listAdapter);
 
         sectionAllRv.setLayoutManager(new GridLayoutManager(this, 2));

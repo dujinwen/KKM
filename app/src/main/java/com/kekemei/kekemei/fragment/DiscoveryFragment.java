@@ -19,7 +19,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
-import com.kekemei.kekemei.adapter.FindOrderListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ProjectListBean;
@@ -66,7 +66,7 @@ public class DiscoveryFragment extends Fragment {
     MultipleStatusView multipleStatusView;
     @BindView(R.id.ll_fanhui)
     LinearLayout llFanhui;
-    private FindOrderListAdapter listAdapter;
+    private ProjectListAdapter listAdapter;
     private LinearLayoutManager linearLayoutManager;
 
     @Nullable
@@ -83,7 +83,7 @@ public class DiscoveryFragment extends Fragment {
         rvList.setHasFixedSize(true);
         rvList.setNestedScrollingEnabled(false);
         rvList.setLayoutManager(linearLayoutManager);
-        listAdapter = new FindOrderListAdapter(getActivity());
+        listAdapter = new ProjectListAdapter(getActivity());
         listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +24,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.FindOrderListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -120,7 +119,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     MultipleStatusView multipleStatusView;
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
-    private FindOrderListAdapter projectAdapter;
+    private ProjectListAdapter projectAdapter;
     private ShopListAdapter shopAdapter;
     private MeiRongShiListAdapter beauticianAdapter;
     private int jPageNum = 1;
@@ -224,8 +223,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     }
 
     private void initRecyclerView() {
-        projectList.setLayoutManager(new GridLayoutManager(this, 2));
-        projectAdapter = new FindOrderListAdapter(this);
+        projectList.setLayoutManager(new LinearLayoutManager(this));
+        projectAdapter = new ProjectListAdapter(this);
         projectList.setAdapter(projectAdapter);
 
         shopList.setLayoutManager(new LinearLayoutManager(this));
