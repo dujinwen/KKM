@@ -110,7 +110,8 @@ public class MyVoucherActivity extends BaseActivity {
                 //数据是使用Intent返回
                 Intent intent = new Intent();
                 //把返回数据存入Intent
-                intent.putExtra("result", item.getCoupon().getPrice_reduction());
+                intent.putExtra("price", item.getCoupon().getPrice_reduction());
+                intent.putExtra("id",item.getCoupon_id());
                 setResult(RESULT_OK, intent);
                 finish();
             }

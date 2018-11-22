@@ -19,13 +19,11 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
-import com.kekemei.kekemei.activity.UserEvaluateActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -156,12 +154,12 @@ public class OrderFragment extends Fragment {
                         YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
                         yuYueActivityBean.setDateSelect(-1L);
                         yuYueActivityBean.setTimeSelect(-1);
-                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
+//                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
                         yuYueActivityBean.setOrderPrice(item.getPrice());
                         yuYueActivityBean.setOrderCount(item.getCount());
                         yuYueActivityBean.setOrderIconUrl(item.getImage());
                         yuYueActivityBean.setOrderName(item.getName());
-                        yuYueActivityBean.setOrderId(item.getId() + "");
+//                        yuYueActivityBean.setOrderId(item.getId() + "");
                         PayActivity.start(getActivity(), yuYueActivityBean);
                         break;
                     case R.id.chakan:

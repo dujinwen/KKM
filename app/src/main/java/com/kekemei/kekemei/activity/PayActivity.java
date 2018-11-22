@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -21,13 +23,14 @@ import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.ALiPayResultBean;
+import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.WXPayResultBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
-import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CheckBoxSample;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -35,6 +38,9 @@ import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -124,15 +130,13 @@ public class PayActivity extends BaseActivity {
     @BindView(R.id.tv_wait_to_pay)
     TextView tvWaitToPay;
 
-    private String order_Id;
-    private long order_create_time;
     private float order_price;
     private int order_count;
     private String order_image;
     private String order_name;
 
     private int hongbaonum, youhuiqunnum, manjiannum = 0;
-
+    private AlertDialog dlg;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -148,6 +152,9 @@ public class PayActivity extends BaseActivity {
     };
     private YuYueActivityBean yuYueActivityBean;
     private String project_id;
+    private String redId;
+    private String youhuiquanId;
+    private String manjianId;
 
 
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
@@ -171,8 +178,6 @@ public class PayActivity extends BaseActivity {
         super.initData();
         registerReciver();
         yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
-        order_Id = yuYueActivityBean.getOrderId();
-        order_create_time = Long.valueOf(yuYueActivityBean.getOrderCreateTime());
         order_name = yuYueActivityBean.getOrderName();
         order_image = yuYueActivityBean.getOrderIconUrl();
         order_price = yuYueActivityBean.getOrderPrice();
@@ -180,8 +185,6 @@ public class PayActivity extends BaseActivity {
         project_id = yuYueActivityBean.getProject_id();
 
 
-        orderId.setText(order_Id + "");
-        tvTime.setText(AppUtil.getFormatTime3(order_create_time));
         tvOrderName.setText(order_name);
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + order_image, ivOrderIcon);
         tvPrice.setText("¥ " + order_price);
@@ -239,27 +242,54 @@ public class PayActivity extends BaseActivity {
                 ivCheckWechat.setChecked(false);
                 break;
             case R.id.btn_pay:
-                String payUrl = "";
+
 //                toSelectActivity();
                 if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()) {
                     ToastUtil.showToastMsg(PayActivity.this, "请选择一种支付方式");
                     return;
                 }
-                if (ivCheckAli.isChecked()) {
-                    payUrl = URLs.ORDER_ALI_PAY;
-                    toALiPay(payUrl);
-                } else {
-                    payUrl = URLs.ORDER_WX_PAY;
-                    toWXPay(payUrl);
+                long userId = UserHelp.getUserId(this);
+                if (userId == -1L) {
+                    LoginActivity.start(getBaseContext());
+                    return;
                 }
+                OkGo.<String>get(URLs.ORDER_GENERATING)
+                        .params("user_id", userId)
+                        .params("name", yuYueActivityBean.getOrderName())
+                        .params("project_id", yuYueActivityBean.getProject_id())
+                        .params("reden",redId)
+                        .params("coupon",youhuiquanId)
+                        .params("shop_id",
+                                yuYueActivityBean.getShopDetailBean()==null?""
+                                        :yuYueActivityBean.getShopDetailBean().getId())
+                        .params("buautician_id",
+                                yuYueActivityBean.getBeauticianDetailBean()==null?""
+                                        :yuYueActivityBean.getBeauticianDetailBean().getId())
+                        .params("count", 1)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Gson gson = new Gson();
+                                OrderGeneratingBean orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
+                                String payUrl = "";
+                                if (ivCheckAli.isChecked()) {
+                                    payUrl = URLs.ORDER_ALI_PAY;
+                                    toALiPay(payUrl,orderGeneratingBean.getData().getOrder_id(),orderGeneratingBean.getTime());
+                                } else {
+                                    payUrl = URLs.ORDER_WX_PAY;
+                                    toWXPay(payUrl,orderGeneratingBean.getData().getOrder_id(),orderGeneratingBean.getTime());
+                                }
+                            }
+                        });
+
 
                 break;
         }
     }
 
-    private void toWXPay(String payUrl) {
+    private void toWXPay(String payUrl, String order_id, String time) {
         OkGo.<String>get(payUrl)
-                .params("order_id", order_Id)
+                .params("order_id", order_id)
                 .params("project_id",project_id)
                 .execute(new StringCallback() {
             @Override
@@ -292,28 +322,16 @@ public class PayActivity extends BaseActivity {
             }
         });
     }
-    private void toALiPay(String payUrl) {
+    private void toALiPay(String payUrl, String order_id, String time) {
         OkGo.<String>get(payUrl)
-                .params("order_id", order_Id)
+                .params("order_id", order_id)
                 .params("project_id",project_id)
                 .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
                 final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
-//                //秘钥验证的类型 true:RSA2 false:RSA
-//                boolean rsa = false;
-//                //构造支付订单参数列表
-//                Map<String, String> params = OrderInfoUtil.buildOrderParamMap(Common.ALI_APP_ID, rsa);
-//                //构造支付订单参数信息
-//                String orderParam = OrderInfoUtil.buildOrderParam(params);
-//                //对支付参数信息进行签名
-//                String sign = OrderInfoUtil.getSign(params, Common.RSA_PRIVATE, rsa);
-//                //订单信息
-//                final String orderInfo = orderParam + "&" + sign;
                 Runnable payRunnable = new Runnable() {
-
-
                     @Override
                     public void run() {
                         PayTask alipay = new PayTask(PayActivity.this);
@@ -334,18 +352,21 @@ public class PayActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PAY_TO_RED_CODE && resultCode == Activity.RESULT_OK) {
-            hongbaonum = data.getExtras().getInt("result");//得到新Activity 关闭后返回的数据
+            hongbaonum = data.getExtras().getInt("price");//得到新Activity 关闭后返回的数据
+            redId = data.getStringExtra("id");
             tvRedBaoNum.setText("- ¥ " + hongbaonum);
 
         }
 
         if (requestCode == PAY_TO_VOUCHER_CODE && resultCode == Activity.RESULT_OK) {
-            youhuiqunnum = data.getExtras().getInt("result");//得到新Activity 关闭后返回的数据
+            youhuiqunnum = data.getExtras().getInt("price");//得到新Activity 关闭后返回的数据
+            youhuiquanId = data.getStringExtra("id");
             tvYouhuiquanNum.setText("- ¥ " + youhuiqunnum);
         }
 
         if (requestCode == PAY_TO_MAN_JIAN_CODE && resultCode == Activity.RESULT_OK) {
-            manjiannum = data.getExtras().getInt("result");//得到新Activity 关闭后返回的数据
+            manjiannum = data.getExtras().getInt("price");//得到新Activity 关闭后返回的数据
+            manjianId = data.getStringExtra("id");
             tvManJianNum.setText("- ¥ " + manjiannum);
         }
 
@@ -355,7 +376,36 @@ public class PayActivity extends BaseActivity {
 
     // TODO: 2018/11/13 去预约美容师页面
     private void toSelectActivity() {
-        PushOrderActivity.start(PayActivity.this, yuYueActivityBean);
+        OkGo.<String>get(URLs.ORDER_REFUND)
+                .params("out_trade_no",yuYueActivityBean.getOrderId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            String code = (String) jsonObject.opt("code");
+                            if (code.equals("1")){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+                                builder.setTitle("提示");
+                                builder.setMessage("您已支付成功，请预约美容师");
+                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        PushOrderActivity.start(PayActivity.this, yuYueActivityBean);
+                                        dialog.dismiss();
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.setCanceledOnTouchOutside(false);
+                                dialog.show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
 

@@ -17,7 +17,7 @@ public class URLs {
     //微信支付
     public static final String ORDER_WX_PAY = BASE_URL+"/api/order/wxappzf";
     //检查所有支付是否成功，并修改订单状态
-    public static final String ORDER_REFUND = BASE_URL+"/api/order/refund";
+    public static final String ORDER_REFUND = BASE_URL+"/api/order/apprefund";
     //生成订单
     public static final String ORDER_GENERATING = BASE_URL+"/api/order/generatingOrder";
     //订单搜索

@@ -39,7 +39,6 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.bean.CanlBean;
 import com.kekemei.kekemei.bean.DetailEnum;
-import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
 import com.kekemei.kekemei.bean.ShopDetailBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
@@ -456,39 +455,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 break;
             case R.id.tv_buy_now:
-                if (userId == -1L) {
-                    LoginActivity.start(getBaseContext());
-                    return;
-                }
-                OkGo.<String>get(URLs.ORDER_GENERATING)
-                        .params("user_id", userId)
-                        .params("name", detailBean.getName())
-                        .params("project_id", detailBean.getId())
-                        .params("count", 1)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                Gson gson = new Gson();
-                                OrderGeneratingBean orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
-
-                                YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
-
-                                yuYueActivityBean.setBeauticianDetailBean(beauticianDetailBean);
-                                yuYueActivityBean.setShopDetailBean(shopDetailBean);
-                                yuYueActivityBean.setTimeSelect(timeSelectPosition);
-                                yuYueActivityBean.setTimeSelectName(timeSelectName);
-                                yuYueActivityBean.setDateSelect(daySelectPosition);
-                                yuYueActivityBean.setOrderId(orderGeneratingBean.getData().getOrder_id());
-                                yuYueActivityBean.setOrderCreateTime(orderGeneratingBean.getTime());
-                                yuYueActivityBean.setOrderCount(1);
-                                yuYueActivityBean.setOrderName(detailBean.getName());
-                                yuYueActivityBean.setOrderIconUrl(detailBean.getImage());
-                                yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
-                                yuYueActivityBean.setProject_id(detailBean.getId()+"");
-
-                                PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
-                            }
-                        });
+                toPayActivity();
                 break;
             case R.id.ll_yuyue:
                 if (timeSelectPosition == -1 || daySelectPosition == -1L) {
@@ -519,6 +486,23 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 receiveRedBao(redBaoId);
                 break;
         }
+    }
+
+    private void toPayActivity() {
+        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
+
+        yuYueActivityBean.setBeauticianDetailBean(beauticianDetailBean);
+        yuYueActivityBean.setShopDetailBean(shopDetailBean);
+        yuYueActivityBean.setTimeSelect(timeSelectPosition);
+        yuYueActivityBean.setTimeSelectName(timeSelectName);
+        yuYueActivityBean.setDateSelect(daySelectPosition);
+        yuYueActivityBean.setOrderCount(1);
+        yuYueActivityBean.setOrderName(detailBean.getName());
+        yuYueActivityBean.setOrderIconUrl(detailBean.getImage());
+        yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
+        yuYueActivityBean.setProject_id(detailBean.getId()+"");
+
+        PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
     }
 
     /**

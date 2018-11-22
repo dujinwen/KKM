@@ -124,12 +124,10 @@ public class ServiceOrderListActivity extends BaseActivity {
                         YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
                         yuYueActivityBean.setDateSelect(-1L);
                         yuYueActivityBean.setTimeSelect(-1);
-                        yuYueActivityBean.setOrderCreateTime(data.get(position).getCreatetime() + "");
                         yuYueActivityBean.setOrderPrice(data.get(position).getPrice());
                         yuYueActivityBean.setOrderCount(data.get(position).getCount());
                         yuYueActivityBean.setOrderIconUrl(data.get(position).getImage());
                         yuYueActivityBean.setOrderName(data.get(position).getName());
-                        yuYueActivityBean.setOrderId(data.get(position).getId() + "");
                         PayActivity.start(ServiceOrderListActivity.this, yuYueActivityBean);
                         break;
                     case R.id.chakan:

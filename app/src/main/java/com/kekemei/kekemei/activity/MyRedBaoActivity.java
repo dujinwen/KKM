@@ -110,7 +110,8 @@ public class MyRedBaoActivity extends BaseActivity {
                 //数据是使用Intent返回
                 Intent intent = new Intent();
                 //把返回数据存入Intent
-                intent.putExtra("result", item.getRedenvelopes().getPrice_reduction());
+                intent.putExtra("price", item.getPrice_reduction());
+                intent.putExtra("id", item.getRedenvelopes_id());
                 setResult(RESULT_OK, intent);
                 finish();
             }
