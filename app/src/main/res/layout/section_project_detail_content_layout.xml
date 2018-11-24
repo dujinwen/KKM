@@ -64,7 +64,7 @@
 
                 <ImageView
                     android:id="@+id/indicatorEvaluate"
-                    android:layout_width=""@dimen/px_187""
+                    android:layout_width="@dimen/px_189"
                     android:layout_height="@dimen/px_16"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"

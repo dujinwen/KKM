@@ -16,7 +16,6 @@ public class OrderListBean implements Serializable {
     /**
      * 状态值:0=待支付,1=待预约,2=待服务,3=待评价,4=完成
      */
-    public static int ORDER_STATUS = 0;
     public static final int ORDER_STATUS_ALL = -10;     //全部订单
     public static final int ORDER_STATUS_TO_BE_PAID = 0;     //待支付
     public static final int ORDER_STATUS_TO_BE_APPOINTMENT = 1; //待预约
