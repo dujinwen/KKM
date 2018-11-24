@@ -30,7 +30,7 @@ public class MsgListAdapter extends BaseQuickAdapter<MsgBean.DataBean, BaseViewH
                 helper.setImageResource(R.id.iv_msg_icon,R.mipmap.user_xiaoxi_gongao_ic);
                 break;
             case "1":
-                helper.setImageResource(R.id.iv_msg_icon,R.mipmap.user_kefu_btn);
+                helper.setImageResource(R.id.iv_msg_icon,R.mipmap.user_xiaoxi_xiaoxi_ic);
                 break;
             case "2":
                 helper.setImageResource(R.id.iv_msg_icon,R.mipmap.user_xiaoxi_tishi_ic);

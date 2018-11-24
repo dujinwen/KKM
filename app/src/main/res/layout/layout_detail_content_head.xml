@@ -125,7 +125,7 @@
 
         <TextView
             android:id="@+id/coupon"
-            android:layout_width="@dimen/px_202"
+            android:layout_width="@dimen/px_240"
             android:layout_height="@dimen/px_72"
             android:layout_marginLeft="@dimen/px_43"
             android:layout_marginRight="@dimen/px_63"
@@ -137,7 +137,7 @@
 
         <TextView
             android:id="@+id/subtract"
-            android:layout_width="@dimen/px_202"
+            android:layout_width="@dimen/px_240"
             android:layout_height="@dimen/px_72"
             android:layout_marginLeft="@dimen/px_43"
             android:layout_marginRight="@dimen/px_63"
@@ -149,7 +149,7 @@
 
         <TextView
             android:id="@+id/redBao"
-            android:layout_width="@dimen/px_202"
+            android:layout_width="@dimen/px_240"
             android:layout_height="@dimen/px_72"
             android:layout_marginLeft="@dimen/px_43"
             android:background="@mipmap/beautician_details_preferential_money_ic"

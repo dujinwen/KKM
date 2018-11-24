@@ -18,12 +18,10 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.BaseActivity;
-import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MainActivity;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
-import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 
@@ -83,11 +81,11 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
 
     @OnClick(R.id.btn_home)
     public void onViewClicked() {
-        if (UserHelp.getLogin(getBaseContext(),false)) {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        } else {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-        }
+//        if (UserHelp.getLogin(getBaseContext(),false)) {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//        } else {
+//            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+//        }
         finish();
 
     }
@@ -156,8 +154,8 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
                 //                mPoint = new DPoint(latitude,longitude);
                 //                loadData();//后续操作
                 HttpParams commonParams = new HttpParams();
-                commonParams.put("latitude",latitude);
-                commonParams.put("longitude",longitude);
+                commonParams.put("latitude", latitude);
+                commonParams.put("longitude", longitude);
                 OkGo.getInstance().init(getApplication()).addCommonParams(commonParams);
                 LogUtil.d("APPLOCALTION  HomeFragment", "LATITUDE : " + latitude + " --  LONGITUDE : " + longitude);
             } else {

@@ -23,6 +23,7 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.HotSearchBean;
 import com.kekemei.kekemei.bean.OrderListBean;
+import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -42,6 +43,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,6 +76,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private OrderListAdapter listAdapter;
     private String keyWord = "";
 
+    private ArrayList<OrderListBean.DataBean> arrayList = new ArrayList<OrderListBean.DataBean>();
     @Override
     protected int setLayoutId() {
         return R.layout.order_list_search_activity;
@@ -130,6 +133,65 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
         rvOrderListSearch.setLayoutManager(new LinearLayoutManager(this));
         rvOrderListSearch.setAdapter(listAdapter);
         txtSearch.setOnClickListener(this);
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                OrderListBean.DataBean data = (OrderListBean.DataBean) adapter.getItem(position);
+                ProjectDetailActivity.start(OrderListSearchActivity.this, data.getProject_project_id());
+            }
+        });
+        listAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
+                final OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                final List< OrderListBean.DataBean> data = adapter.getData();
+                switch (view.getId()) {
+                    case R.id.iv_del_order:
+                        long userId = UserHelp.getUserId(OrderListSearchActivity.this);
+                        if (userId == -1L) {
+                            LoginActivity.start(OrderListSearchActivity.this);
+                            return;
+                        }
+                        OkGo.<String>get(URLs.DEL_ORDER)
+                                .params("user_id", userId)
+                                .params("order_id", item.getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        data.remove(position);
+                                        listAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                        break;
+                    case R.id.lijifukuan:
+                        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
+                        yuYueActivityBean.setDateSelect(-1L);
+                        yuYueActivityBean.setTimeSelect(-1);
+//                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
+                        yuYueActivityBean.setOrderPrice(item.getPrice());
+                        yuYueActivityBean.setOrderCount(item.getCount());
+                        yuYueActivityBean.setOrderIconUrl(item.getImage());
+                        yuYueActivityBean.setOrderName(item.getName());
+//                        yuYueActivityBean.setOrderId(item.getId() + "");
+                        PayActivity.start(OrderListSearchActivity.this, yuYueActivityBean);
+                        break;
+                    case R.id.chakan:
+                        OrderDetailActivity.start(OrderListSearchActivity.this, item.getId());
+                        break;
+                    case R.id.zaicigoumai:
+                        ProjectDetailActivity.start(OrderListSearchActivity.this, item.getProject_project_id());
+                        break;
+                    case R.id.qupingjia:
+//                        UserEvaluateActivity.start(OrderListSearchActivity.this, false, item.getShop_shop_id() + "",
+                        //                                item.getBeautician_beautician_id() + "",
+                        //                                item.getProject_project_id() + "");
+                        AddCommentActivity.start(OrderListSearchActivity.this, item.getSource(), item.getId() + "");
+                        break;
+                    case R.id.yuyue:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -223,6 +285,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
                     getData(1);
                 } else {
                     txtSearch.setText("搜索");
+                    editTextSearch.setText("");
                     llHistory.setVisibility(View.VISIBLE);
                     refresh_layout.setVisibility(View.GONE);
                     initSearchHistory();
@@ -368,14 +431,6 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             return;
         multipleStatusView.showOutContentView(refresh_layout);
         listAdapter.replaceData(dataList);
-        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                OrderListBean.DataBean data = (OrderListBean.DataBean) adapter.getItem(position);
-                ProjectDetailActivity.start(OrderListSearchActivity.this, data.getId());
-            }
-        });
-
         rvOrderListSearch.scrollToPosition(0);
     }
 

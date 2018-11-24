@@ -226,10 +226,24 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         projectList.setLayoutManager(new LinearLayoutManager(this));
         projectAdapter = new ProjectListAdapter(this);
         projectList.setAdapter(projectAdapter);
+        projectAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(SearchActivity.this, data.getId());
+            }
+        });
 
         shopList.setLayoutManager(new LinearLayoutManager(this));
         shopAdapter = new ShopListAdapter(this, R.layout.list_shop);
         shopList.setAdapter(shopAdapter);
+        shopAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ShopBean shopBean = (ShopBean) adapter.getItem(position);
+                ShopActivity.start(SearchActivity.this, shopBean.getId(), DetailEnum.SHOP);
+            }
+        });
 
         beauticianList.setLayoutManager(new LinearLayoutManager(this));
         beauticianAdapter = new MeiRongShiListAdapter(this, R.layout.list_meirongshi);
@@ -255,6 +269,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
                     onSearchBtnClick();
                     loadData(true);
                 } else {
+                    editTextSearch.setText("");
                     txtSearch.setText("搜索");
                     onSearchBtnClickCancel();
                     initSearchHistoryAndHot();
