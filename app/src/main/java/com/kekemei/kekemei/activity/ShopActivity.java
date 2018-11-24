@@ -139,6 +139,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView commentTabPhoto;
     private TextView tvCommentPeer;
     private LinearLayout markLayout;
+    private TextView starNum;
+    private StarBar starBar;
     private FlexboxLayout commentTagFlowLayout;
     private RecyclerView rvCommentList;
     private ShopDetailBean.CommentdataBean commentdata;
@@ -417,6 +419,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         tvCommentPeer = view.findViewById(R.id.tvCommentPeer);
         markLayout = view.findViewById(R.id.markLayout);
         markLayout.setVisibility(View.VISIBLE);
+        starNum = view.findViewById(R.id.starNum);
+        starBar = view.findViewById(R.id.starBar);
         commentTagFlowLayout = view.findViewById(R.id.commentTagFlowLayout);
         rvCommentList = view.findViewById(R.id.rvCommentList);
         commentTabAll.setSelected(true);
@@ -542,7 +546,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 receiveCoupon(tagId);
                 break;
             case R.id.subtract:
-                receiveFull();
+                int fullId = (int) subtract.getTag();
+                receiveFull(fullId);
                 break;
             case R.id.redBao:
                 int redBaoId = (int) redBao.getTag();
@@ -602,7 +607,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private void receiveRedBao(int redBaoId) {
 
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
@@ -635,26 +640,41 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     /**
      * 领取满减券
      *
-     * @TODO 满减领取URL？
+     * @param fullId
      */
-    private void receiveFull() {
-       /* OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+    private void receiveFull(int fullId) {
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getId() : "";
+        String couponType = detailEnum == DetailEnum.SHOP ? "3" : "2";
+        OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", couponType)
+                .params("project_id", "").params("id", fullId)
+                .params("shop_id", shopId).params("beautician_id", beauticianId)
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "follow beautician:" + response.body());
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-                        ToastUtil.showToastMsg(ShopActivity.this, "关注失败");
+                        ToastUtil.showToastMsg(ShopActivity.this, "领取失败");
                         return;
                     }
-                    tvFollow.setText("已关注");
+                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        });*/
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ShopActivity.this, "领取失败");
+            }
+        });
     }
 
     /**
@@ -664,7 +684,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      */
     private void receiveCoupon(int couponId) {
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
@@ -760,29 +780,29 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, shopDetailBean.getSatisfaction() + "%"));
                         tvAddress.setText(shopDetailBean.getAddress());
                         tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean.getDistance()));
-                        if (CollectionUtils.isNotEmpty(shopDetailBean.getCoupon())) {
-                            coupon.setVisibility(View.VISIBLE);
-                            coupon.setTag(shopDetailBean.getCoupon().get(0).getId());
-                            coupon.setText(String.valueOf(shopDetailBean.getCoupon().get(0).getPrice_satisfy()));
-                        } else {
-                            coupon.setVisibility(View.GONE);
-                        }
-                        if (CollectionUtils.isNotEmpty(shopDetailBean.getFull())) {
-                            subtract.setVisibility(View.VISIBLE);
-                            String name = shopDetailBean.getFull().get(0).getName();
-                            String[] split = name.split("减");
-                            String subtractText = "-" + split[1] + "\n" + shopDetailBean.getFull().get(0).getPrice_satisfy() + "元";
-                            subtract.setTag(shopDetailBean.getFull().get(0).getId());
-                            subtract.setText(String.valueOf(subtractText));
-                        } else {
-                            subtract.setVisibility(View.GONE);
-                        }
-                        if (CollectionUtils.isNotEmpty(shopDetailBean.getRedenvelopes())) {
-                            redBao.setVisibility(View.VISIBLE);
-                            redBao.setTag(shopDetailBean.getRedenvelopes().get(0).getId());
-                            redBao.setText(String.valueOf(shopDetailBean.getRedenvelopes().get(0).getPrice_reduction()));
-                        } else {
-                            redBao.setVisibility(View.GONE);
+                        if (CollectionUtils.isNotEmpty(shopDetailBean.getRedenvloesdata())) {
+                            for (ShopDetailBean.RedenvloesDataBean redenvloesDataBean : shopDetailBean.getRedenvloesdata()) {
+                                if (redenvloesDataBean.getType() == 1) {
+                                    if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                        redBao.setVisibility(View.VISIBLE);
+                                        redBao.setTag(redenvloesDataBean.getId());
+                                        redBao.setText(String.valueOf(redenvloesDataBean.getName()));
+                                    }
+                                }
+                                if (redenvloesDataBean.getType() == 2) {
+                                    if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                        subtract.setTag(redenvloesDataBean.getId());
+                                        subtract.setText(String.valueOf(redenvloesDataBean.getName()));
+                                    }
+                                }
+                                if (redenvloesDataBean.getType() == 3) {
+                                    if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                        coupon.setVisibility(View.VISIBLE);
+                                        coupon.setTag(redenvloesDataBean.getId());
+                                        coupon.setText(String.valueOf(redenvloesDataBean.getName()));
+                                    }
+                                }
+                            }
                         }
                         if (StringUtils.isNotBlank(shopDetailBean.getTel())) {
                             LogUtil.e(TAG, "tel:" + shopDetailBean.getTel());
@@ -857,6 +877,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         }
                         if (shopDetailBean.getCommentdata() != null && CollectionUtils.isNotEmpty(shopDetailBean.getCommentdata().getAll())) {
                             commentSectionView.setVisibility(View.VISIBLE);
+                            starNum.setText(String.valueOf(shopDetailBean.getStart()));
+                            starBar.setStarMark(shopDetailBean.getStart());
                             userCommentNum.setText(getString(R.string.home_comment_num_format, shopDetailBean.getCommentdata().getCount()));
                             tvCommentPeer.setText(getString(R.string.home_comment_peer_format, shopDetailBean.getPeer() + "%", shopDetailBean.getSatisfaction() + "%"));
                             commentdata = shopDetailBean.getCommentdata();
@@ -880,7 +902,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             });
         } else {
             long userId = UserHelp.getUserId(this);
-            if (userId==-1L){
+            if (userId == -1L) {
                 LoginActivity.start(getBaseContext());
                 return;
             }
@@ -908,29 +930,29 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         tvSatisfaction.setText(getString(R.string.shop_detail_satisfaction, beauticianDetailBean.getSatisfaction() + "%"));
                         tvAddress.setText(beauticianDetailBean.getAddress());
                         tvDistance.setText(getString(R.string.shop_detail_distance, beauticianDetailBean.getDistance()));
-                        if (CollectionUtils.isNotEmpty(beauticianDetailBean.getCoupon())) {
-                            coupon.setVisibility(View.VISIBLE);
-                            coupon.setTag(beauticianDetailBean.getCoupon().get(0).getId());
-                            coupon.setText(String.valueOf(beauticianDetailBean.getCoupon().get(0).getPrice_satisfy()));
-                        } else {
-                            coupon.setVisibility(View.GONE);
-                        }
-                        if (CollectionUtils.isNotEmpty(beauticianDetailBean.getFull())) {
-                            subtract.setVisibility(View.VISIBLE);
-                            String name = beauticianDetailBean.getFull().get(0).getName();
-                            String[] split = name.split("减");
-                            String subtractText = "-" + split[1] + "\n" + beauticianDetailBean.getFull().get(0).getPrice_satisfy() + "元";
-                            subtract.setTag(beauticianDetailBean.getFull().get(0).getId());
-                            subtract.setText(String.valueOf(subtractText));
-                        } else {
-                            subtract.setVisibility(View.GONE);
-                        }
-                        if (CollectionUtils.isNotEmpty(beauticianDetailBean.getRedenvelopes())) {
-                            redBao.setVisibility(View.VISIBLE);
-                            redBao.setTag(beauticianDetailBean.getRedenvelopes().get(0).getId());
-                            redBao.setText(String.valueOf(beauticianDetailBean.getRedenvelopes().get(0).getPrice_reduction()));
-                        } else {
-                            redBao.setVisibility(View.GONE);
+                        if (CollectionUtils.isNotEmpty(beauticianDetailBean.getRedenvloesdata())) {
+                            for (BeauticianDetailBean.RedenvloesDataBean redenvloesDataBean : beauticianDetailBean.getRedenvloesdata()) {
+                                if (redenvloesDataBean.getType() == 1) {
+                                    if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                        redBao.setVisibility(View.VISIBLE);
+                                        redBao.setTag(redenvloesDataBean.getId());
+                                        redBao.setText(String.valueOf(redenvloesDataBean.getName()));
+                                    }
+                                }
+                                if (redenvloesDataBean.getType() == 2) {
+                                    if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                        subtract.setTag(redenvloesDataBean.getId());
+                                        subtract.setText(String.valueOf(redenvloesDataBean.getName()));
+                                    }
+                                }
+                                if (redenvloesDataBean.getType() == 3) {
+                                    if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                        coupon.setVisibility(View.VISIBLE);
+                                        coupon.setTag(redenvloesDataBean.getId());
+                                        coupon.setText(String.valueOf(redenvloesDataBean.getName()));
+                                    }
+                                }
+                            }
                         }
                         if (beauticianDetailBean.getIsfriend() == 1) {
                             tvFollow.setText("已关注");
@@ -995,6 +1017,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         }
                         if (beauticianDetailBean.getCommentdata() != null && CollectionUtils.isNotEmpty(beauticianDetailBean.getCommentdata().getAll())) {
                             commentSectionView.setVisibility(View.VISIBLE);
+                            starNum.setText(String.valueOf(beauticianDetailBean.getStart()));
+                            starBar.setStarMark(beauticianDetailBean.getStart());
                             tvCommentPeer.setText(getString(R.string.home_comment_peer_format, beauticianDetailBean.getPeer() + "%", beauticianDetailBean.getSatisfaction() + "%"));
                             userCommentNum.setText(getString(R.string.home_comment_num_format, beauticianDetailBean.getCommentdata().getCount()));
                             commentAdapter.addData(beauticianDetailBean.getCommentdata().getAll());

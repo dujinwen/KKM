@@ -29,7 +29,7 @@ public class ShopDetailBean implements Serializable {
     private String satisfaction;
     private String peer;
     private String distance;
-    private int start;
+    private float start;
     private String state_text;
     private WaiterBean waiter;
     private CommentdataBean commentdata;
@@ -237,11 +237,11 @@ public class ShopDetailBean implements Serializable {
         this.distance = distance;
     }
 
-    public int getStart() {
+    public float getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(float start) {
         this.start = start;
     }
 

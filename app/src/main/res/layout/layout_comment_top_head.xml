@@ -111,6 +111,7 @@
         android:visibility="gone">
 
         <TextView
+            android:id="@+id/starNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4.9"
@@ -131,6 +132,7 @@
                 android:textSize="14sp" />
 
             <com.kekemei.kekemei.view.StarBar
+                android:id="@+id/starBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

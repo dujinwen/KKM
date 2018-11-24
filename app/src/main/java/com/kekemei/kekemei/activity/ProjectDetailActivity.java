@@ -52,6 +52,7 @@ import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
+import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -150,6 +151,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private TextView commentTabPhoto;
     private TextView tvCommentPeer;
     private LinearLayout markLayout;
+    private TextView starNum;
+    private StarBar starBar;
     private FlexboxLayout commentTagFlowLayout;
     private RecyclerView rvCommentList;
 
@@ -301,6 +304,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         commentTabNew = view.findViewById(R.id.commentTabNew);
         commentTabPhoto = view.findViewById(R.id.commentTabPhoto);
         tvCommentPeer = view.findViewById(R.id.tvCommentPeer);
+        starNum = view.findViewById(R.id.starNum);
+        starBar = view.findViewById(R.id.starBar);
         markLayout = view.findViewById(R.id.markLayout);
         markLayout.setVisibility(View.VISIBLE);
         commentTagFlowLayout = view.findViewById(R.id.commentTagFlowLayout);
@@ -409,7 +414,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 if (tvCollection.getCompoundDrawables()[0] == null)
                     //todo 添加收藏
                     OkGo.<String>get(URLs.ADD_COLLECTION)
-                            .params("user_id",userId)
+                            .params("user_id", userId)
                             .params("type", "1")
                             .params("project_id", detailBean.getId())
                             .execute(new StringCallback() {
@@ -479,7 +484,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 receiveCoupon(tagId);
                 break;
             case R.id.subtract:
-                receiveFull();
+                int fullId = (int) subtract.getTag();
+                receiveFull(fullId);
                 break;
             case R.id.redBao:
                 int redBaoId = (int) redBao.getTag();
@@ -500,7 +506,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         yuYueActivityBean.setOrderName(detailBean.getName());
         yuYueActivityBean.setOrderIconUrl(detailBean.getImage());
         yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
-        yuYueActivityBean.setProject_id(detailBean.getId()+"");
+        yuYueActivityBean.setProject_id(detailBean.getId() + "");
 
         PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
     }
@@ -511,9 +517,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      * @param redBaoId
      */
     private void receiveRedBao(int redBaoId) {
-        String projectId = shopDetailBean.getId();
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
@@ -546,26 +551,40 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     /**
      * 领取满减券
      *
-     * @TODO 满减领取URL？
+     * @param fullId
      */
-    private void receiveFull() {
-       /* OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+    private void receiveFull(int fullId) {
+        String projectId = detailBean.getId();
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(getBaseContext());
+            return;
+        }
+        OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", "1")
+                .params("project_id", projectId).params("id", fullId)
+                .params("shop_id", "").params("beautician_id", beauticianId)
+                .params("user_id", userId).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e(TAG, "follow beautician:" + response.body());
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "领取失败");
                         return;
                     }
-                    tvFollow.setText("已关注");
+                    ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        });*/
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ProjectDetailActivity.this, "领取失败");
+            }
+        });
     }
 
     /**
@@ -576,7 +595,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private void receiveCoupon(int couponId) {
         String projectId = detailBean.getId();
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
@@ -675,30 +694,30 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             marketPrice.setText("￥" + detailBean.getPrice_market());
                             tvFollowNum.setText("已有" + detailBean.getTreatment_count() + "人关注");
                             tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getAddress());
-                            tvDistance.setText(getString(R.string.shop_detail_distance,shopDetailBean == null ? "" : shopDetailBean.getDistance()));
-                            if (CollectionUtils.isNotEmpty(detailBean.getCoupon())) {
-                                coupon.setVisibility(View.VISIBLE);
-                                coupon.setTag(detailBean.getCoupon().get(0).getId());
-                                coupon.setText(String.valueOf(detailBean.getCoupon().get(0).getPrice_satisfy()));
-                            } else {
-                                coupon.setVisibility(View.GONE);
-                            }
-                            if (CollectionUtils.isNotEmpty(detailBean.getFull())) {
-                                subtract.setVisibility(View.VISIBLE);
-                                String name = detailBean.getFull().get(0).getName();
-                                String[] split = name.split("减");
-                                String subtractText = "-" + split[1] + "\n" + detailBean.getFull().get(0).getPrice_satisfy() + "元";
-                                subtract.setTag(detailBean.getFull().get(0).getId());
-                                subtract.setText(String.valueOf(subtractText));
-                            } else {
-                                subtract.setVisibility(View.GONE);
-                            }
-                            if (CollectionUtils.isNotEmpty(detailBean.getRedenvelopes())) {
-                                redBao.setVisibility(View.VISIBLE);
-                                redBao.setTag(detailBean.getRedenvelopes().get(0).getId());
-                                redBao.setText(String.valueOf(detailBean.getRedenvelopes().get(0).getPrice_reduction()));
-                            } else {
-                                redBao.setVisibility(View.GONE);
+                            tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean == null ? "" : shopDetailBean.getDistance()));
+                            if (CollectionUtils.isNotEmpty(detailBean.getRedenvloesdata())) {
+                                for (ProjectDetailBean.RedenvloesDataBean redenvloesDataBean : detailBean.getRedenvloesdata()) {
+                                    if (redenvloesDataBean.getType() == 1) {
+                                        if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                            redBao.setVisibility(View.VISIBLE);
+                                            redBao.setTag(redenvloesDataBean.getId());
+                                            redBao.setText(String.valueOf(redenvloesDataBean.getName()));
+                                        }
+                                    }
+                                    if (redenvloesDataBean.getType() == 2) {
+                                        if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                            subtract.setTag(redenvloesDataBean.getId());
+                                            subtract.setText(String.valueOf(redenvloesDataBean.getName()));
+                                        }
+                                    }
+                                    if (redenvloesDataBean.getType() == 3) {
+                                        if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
+                                            coupon.setVisibility(View.VISIBLE);
+                                            coupon.setTag(redenvloesDataBean.getId());
+                                            coupon.setText(String.valueOf(redenvloesDataBean.getName()));
+                                        }
+                                    }
+                                }
                             }
                             if (CollectionUtils.isNotEmpty(detailBean.getStrading())) {
                                 List<String> tradingList = detailBean.getStrading();
@@ -745,6 +764,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             }
                             if (detailBean.getComment() != null && CollectionUtils.isNotEmpty(detailBean.getComment().getAll())) {
                                 commentSectionView.setVisibility(View.VISIBLE);
+                                /*starNum.setText(String.valueOf(detailBean.getStart()));
+                                starBar.setStarMark(detailBean.getStart());*/
                                 userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getComment().getCount()));
                                 tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getPeer() + "%", detailBean.getSatisfaction() + "%"));
                                 commentData = detailBean.getComment();

@@ -132,7 +132,8 @@
             android:background="@mipmap/beautician_details_preferential_coupon_ic"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/px_40" />
+            android:textSize="@dimen/px_40"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/subtract"
@@ -143,7 +144,8 @@
             android:background="@mipmap/beautician_details_preferential_subtract_ic"
             android:gravity="center_horizontal"
             android:textColor="@color/white"
-            android:textSize="@dimen/px_26" />
+            android:textSize="@dimen/px_26"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/redBao"
@@ -153,7 +155,8 @@
             android:background="@mipmap/beautician_details_preferential_money_ic"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/px_40" />
+            android:textSize="@dimen/px_40"
+            android:visibility="gone" />
 
     </LinearLayout>
 
