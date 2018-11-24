@@ -22,7 +22,7 @@
                 android:id="@+id/ll_jieshao"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="492px"
+                android:layout_marginTop="164dp"
                 android:orientation="vertical">
 
                 <LinearLayout

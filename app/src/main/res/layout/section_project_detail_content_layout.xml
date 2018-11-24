@@ -3,7 +3,7 @@
     android:id="@+id/ll_dianpu_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="29px"
+    android:layout_marginTop="@dimen/px_29"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -14,11 +14,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="158px"
+            android:layout_height="53dp"
             android:background="#fff"
             android:orientation="horizontal"
-            android:paddingLeft="100px"
-            android:paddingRight="100px">
+            android:paddingLeft="@dimen/px_101"
+            android:paddingRight="@dimen/px_101">
 
             <RelativeLayout
                 android:id="@+id/projectDetail"
@@ -34,12 +34,12 @@
                     android:gravity="center"
                     android:text="项目详情"
                     android:textColor="#222222"
-                    android:textSize="46px" />
+                    android:textSize="@dimen/px_46" />
 
                 <ImageView
                     android:id="@+id/indicatorProjectDetail"
-                    android:layout_width="187px"
-                    android:layout_height="16px"
+                    android:layout_width="@dimen/px_189"
+                    android:layout_height="@dimen/px_16"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="#7AD2D2"
@@ -60,12 +60,12 @@
                     android:gravity="center"
                     android:text="客户评价"
                     android:textColor="#222222"
-                    android:textSize="46px" />
+                    android:textSize="@dimen/px_46" />
 
                 <ImageView
                     android:id="@+id/indicatorEvaluate"
-                    android:layout_width="187px"
-                    android:layout_height="16px"
+                    android:layout_width=""@dimen/px_187""
+                    android:layout_height="@dimen/px_16"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="#7AD2D2"
@@ -77,8 +77,8 @@
     <View
         style="@style/CommonLine.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="6px"
-        android:layout_marginTop="17px" />
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/px_17" />
 
     <LinearLayout
         android:id="@+id/contentView"
