@@ -45,6 +45,7 @@ public class BeauticianDetailBean implements Serializable {
     private List<BaseBean> memberdata;
     private List<RecBeauticianBean> rec_beautician;
     private CommentdataBean commentdata;
+    private List<RedenvloesDataBean> redenvloesdata;
 
     public String getId() {
         return id;
@@ -348,6 +349,61 @@ public class BeauticianDetailBean implements Serializable {
 
     public void setCommentdata(CommentdataBean commentdata) {
         this.commentdata = commentdata;
+    }
+
+    public List<RedenvloesDataBean> getRedenvloesdata() {
+        return redenvloesdata;
+    }
+
+    public void setRedenvloesdata(List<RedenvloesDataBean> redenvloesdata) {
+        this.redenvloesdata = redenvloesdata;
+    }
+
+    public static class RedenvloesDataBean implements Serializable {
+
+        /**
+         * id : 1
+         * name : 抢50元
+         * price : 0
+         * type : 1
+         */
+
+        private int id;
+        private String name;
+        private int price;
+        private int type;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
     }
 
     public static class CommentdataBean implements Serializable {
