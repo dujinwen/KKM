@@ -5,11 +5,10 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.bean.DataBean;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 
 
 public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, BaseViewHolder> {
@@ -47,7 +46,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, B
 
 
     public void setShowOrHide(String showOrHide, BaseViewHolder helper) {
-        //状态值:0=待支付,1=待预约,2=待服务,3=待评价,4=完成
+        //状态值:0=待支付,1=待预约,2=待服务,3=服务中,4=服务完成,5=待评价,6=完成,10=已取消
         switch (showOrHide) {
             case "0":  //待支付
                 helper.setGone(R.id.quxiaodingdan, true);
@@ -77,7 +76,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, B
                 helper.setGone(R.id.zaicigoumai, false);
                 helper.setGone(R.id.qupingjia, false);
                 helper.setGone(R.id.cuiwuliu, false);
-                helper.setGone(R.id.yuyue, true);
+                helper.setGone(R.id.yuyue, false);
                 break;
             case "3": //待评价
                 helper.setGone(R.id.quxiaodingdan, false);

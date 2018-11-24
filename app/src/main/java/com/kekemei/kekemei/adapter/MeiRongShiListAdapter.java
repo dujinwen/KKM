@@ -2,7 +2,6 @@ package com.kekemei.kekemei.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -11,11 +10,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.bean.BeauticianBean;
 import com.kekemei.kekemei.view.StarBar;
-
-import java.util.List;
 
 /**
  * Created by peiyangfan on 2018/10/16.
@@ -43,11 +39,11 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<BeauticianBean, Base
                     if (text!=null&&!text.isEmpty()&&text!="")
                     {TextView textView = new TextView(mContext);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(0, AppUtil.px2dip(mContext, 27), AppUtil.px2dip(mContext, 30), 0);
+                    params.setMargins(0, 9, 10, 0);
                     textView.setLayoutParams(params);
                     textView.setText(text);
-                    textView.setTextSize(AppUtil.px2dip(mContext, 29));
-                    textView.setPadding(AppUtil.px2dip(mContext, 7), AppUtil.px2dip(mContext, 4), AppUtil.px2dip(mContext, 9), AppUtil.px2dip(mContext, 4));
+                    textView.setTextSize(9);
+                    textView.setPadding(3, 2, 3, 2);
                     textView.setTextColor(mContext.getResources().getColor(R.color.FF7AD2D2, null));
                     textView.setBackgroundResource(R.drawable.btn_blue_with_corners_background);
                     view.addView(textView);}

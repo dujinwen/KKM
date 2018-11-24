@@ -30,7 +30,7 @@
     <TextView
         android:id="@+id/lookMore"
         android:layout_width="match_parent"
-        android:layout_height="115px"
+        android:layout_height="@dimen/px_115"
         android:background="#ECF9F9"
         android:gravity="center"
         android:text="查看更多"
@@ -69,7 +69,7 @@
         <TextView
             android:id="@+id/lookMoreNew"
             android:layout_width="match_parent"
-            android:layout_height="115px"
+            android:layout_height="@dimen/px_115"
             android:background="#ECF9F9"
             android:gravity="center"
             android:text="查看更多"
@@ -109,7 +109,7 @@
         <TextView
             android:id="@+id/lookMoreMember"
             android:layout_width="match_parent"
-            android:layout_height="115px"
+            android:layout_height="@dimen/px_115"
             android:background="#ECF9F9"
             android:gravity="center"
             android:text="查看更多"
@@ -149,7 +149,7 @@
         <TextView
             android:id="@+id/lookMorePreference"
             android:layout_width="match_parent"
-            android:layout_height="115px"
+            android:layout_height="@dimen/px_115"
             android:background="#ECF9F9"
             android:gravity="center"
             android:text="查看更多"

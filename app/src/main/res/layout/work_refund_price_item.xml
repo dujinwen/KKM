@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/goods_price_total"
-        android:text="应付总额："
+        android:text="订单金额："
         android:textColor="@color/work_order_title_text"
         android:textSize="@dimen/work_refund_item_price_deliver_size" />
     <TextView
@@ -39,7 +39,7 @@
         android:text="共2件商品 "
         android:textColor="@color/work_order_title_text"
         android:textSize="@dimen/work_refund_item_price_deliver_size"
-        />
+        android:visibility="gone"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
