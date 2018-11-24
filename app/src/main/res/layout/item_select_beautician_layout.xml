@@ -99,7 +99,7 @@
                 ratingbar:starDistance="10dp"
                 ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
                 ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                ratingbar:starSize="40px" />
+                ratingbar:starSize="14sp" />
 
             <TextView
                 android:id="@+id/tvSatisfaction"

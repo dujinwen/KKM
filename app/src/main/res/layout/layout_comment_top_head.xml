@@ -17,10 +17,10 @@
         android:id="@+id/layoutUserComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="58px"
-        android:paddingLeft="30px"
-        android:paddingRight="40px"
-        android:paddingTop="58px">
+        android:paddingBottom="19dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="14dp"
+        android:paddingTop="19dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,10 +33,10 @@
             android:id="@+id/userCommentNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="248px"
-            android:layout_marginTop="17px"
+            android:layout_marginLeft="83dp"
+            android:layout_marginTop="6dp"
             android:textColor="#CCCCCC"
-            android:textSize="35px" />
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,66 +48,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="107px"
-        android:layout_marginRight="107px"
-        android:layout_marginTop="28px"
+        android:layout_marginLeft="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="9dp"
         android:background="@drawable/shape_blue_home_comment"
         android:orientation="horizontal"
-        android:padding="3px">
+        android:padding="1dp">
 
         <TextView
             android:id="@+id/commentTabAll"
             android:layout_width="match_parent"
-            android:layout_height="86px"
+            android:layout_height="29dp"
             android:layout_weight="1"
             android:background="@drawable/selector_comment_home_tab_all"
             android:gravity="center"
             android:text="全部"
             android:textColor="@drawable/selector_comment_home_tab_all"
-            android:textSize="40px" />
+            android:textSize="14sp" />
 
         <View
-            android:layout_width="3px"
-            android:layout_height="86px"
+            android:layout_width="1dp"
+            android:layout_height="29dp"
             android:background="#7AD2D2" />
 
         <TextView
             android:id="@+id/commentTabNew"
             android:layout_width="match_parent"
-            android:layout_height="86px"
+            android:layout_height="29dp"
             android:layout_weight="1"
             android:background="@drawable/selector_comment_home_tab_new"
             android:gravity="center"
             android:text="最新"
             android:textColor="@drawable/selector_comment_home_tab_new"
-            android:textSize="40px" />
+            android:textSize="14sp" />
 
         <View
-            android:layout_width="3px"
-            android:layout_height="86px"
+            android:layout_width="1dp"
+            android:layout_height="29dp"
             android:background="#7AD2D2" />
 
         <TextView
             android:id="@+id/commentTabPhoto"
             android:layout_width="match_parent"
-            android:layout_height="86px"
+            android:layout_height="29dp"
             android:layout_weight="1"
             android:background="@drawable/selector_comment_home_tab_photo"
             android:gravity="center"
             android:text="晒图评价"
             android:textColor="@drawable/selector_comment_home_tab_photo"
-            android:textSize="40px" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/markLayout"
         android:layout_width="match_parent"
-        android:layout_height="144px"
+        android:layout_height="48dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginTop="32px"
+        android:layout_marginTop="11dp"
         android:orientation="horizontal"
-        android:paddingLeft="100px"
-        android:paddingRight="100px"
+        android:paddingLeft="33dp"
+        android:paddingRight="33dp"
         android:visibility="gone">
 
         <TextView
@@ -115,12 +115,12 @@
             android:layout_height="wrap_content"
             android:text="4.9"
             android:textColor="#FBC914"
-            android:textSize="86px" />
+            android:textSize="29dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50px"
+            android:layout_marginLeft="13dp"
             android:orientation="vertical">
 
             <TextView
@@ -128,35 +128,35 @@
                 android:layout_height="wrap_content"
                 android:text="综合评分"
                 android:textColor="#222222"
-                android:textSize="40px" />
+                android:textSize="14sp" />
 
             <com.kekemei.kekemei.view.StarBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14px"
+                android:layout_marginTop="5dp"
                 ratingbar:changeEnable="false"
                 ratingbar:starCount="5"
                 ratingbar:starDistance="10dp"
                 ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
                 ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                ratingbar:starSize="40px" />
+                ratingbar:starSize="14sp" />
 
         </LinearLayout>
 
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:layout_marginLeft="43px"
+            android:layout_marginLeft="41dp"
             android:background="#CCCCCC" />
 
         <TextView
             android:id="@+id/tvCommentPeer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="46px"
+            android:layout_marginLeft="15dp"
             android:text="高于99%的同行"
             android:textColor="#999999"
-            android:textSize="40px" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -176,11 +176,11 @@
     <TextView
         android:id="@+id/lookMore"
         android:layout_width="match_parent"
-        android:layout_height="115px"
+        android:layout_height="38dp"
         android:background="#ECF9F9"
         android:gravity="center"
         android:text="查看更多"
         android:textColor="#7AD2D2"
-        android:textSize="43px" />
+        android:textSize="14sp" />
 
 </LinearLayout>

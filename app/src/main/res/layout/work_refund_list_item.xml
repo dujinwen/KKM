@@ -44,7 +44,7 @@
             android:textSize="@dimen/px_37"/>
         <View
             android:layout_width="1px"
-            android:layout_height="58px"
+            android:layout_height="19dp"
             android:layout_gravity="center"
             android:textColor="@android:color/darker_gray" />
 
