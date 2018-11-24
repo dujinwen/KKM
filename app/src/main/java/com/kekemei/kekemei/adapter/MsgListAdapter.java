@@ -40,6 +40,8 @@ public class MsgListAdapter extends BaseQuickAdapter<MsgBean.DataBean, BaseViewH
                 break;
         }
 
+        if (!item.getState_text().equals("未读"))
+            helper.setBackgroundColor(R.id.ll_msg,0x999999);
 
 
         helper.setText(R.id.tv_msg_icon,item.getName());
