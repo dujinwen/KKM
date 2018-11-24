@@ -19,9 +19,12 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ClassifyActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.ShopActivity;
+import com.kekemei.kekemei.activity.WebActivity;
 import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BaseBean;
+import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ProjectListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -111,6 +114,20 @@ public class DiscoveryFragment extends Fragment {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
+                BannerBean bannerBean = (BannerBean) model;
+                switch (bannerBean.getJumbdata()) {
+                    case "shop":
+                        ShopActivity.start(getActivity(), bannerBean.getShop_shop_id() + "", DetailEnum.SHOP);
+                        break;
+                    case "project":
+                        ProjectDetailActivity.start(getActivity(), bannerBean.getProject_project_id() + "");
+                        break;
+                    case "web":
+                        WebActivity.start(getActivity(),bannerBean.getUrl());
+                        break;
+                    case "url":
+                        break;
+                }
             }
         });
         //加载广告图片

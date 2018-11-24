@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.MiaoshaPagerAdapter;
+import com.kekemei.kekemei.bean.BannerBean;
+import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.MiaoshaBean;
 import com.kekemei.kekemei.fragment.IPage;
 import com.kekemei.kekemei.fragment.MiaoshaFragment;
@@ -178,6 +180,20 @@ public class MiaoshaActivity extends BaseActivity implements ViewPager.OnPageCha
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
+                BannerBean bannerBean = (BannerBean) model;
+                switch (bannerBean.getJumbdata()) {
+                    case "shop":
+                        ShopActivity.start(MiaoshaActivity.this, bannerBean.getShop_shop_id() + "", DetailEnum.SHOP);
+                        break;
+                    case "project":
+                        ProjectDetailActivity.start(MiaoshaActivity.this, bannerBean.getProject_project_id() + "");
+                        break;
+                    case "web":
+                        WebActivity.start(MiaoshaActivity.this,bannerBean.getUrl());
+                        break;
+                    case "url":
+                        break;
+                }
             }
         });
         //加载广告图片
@@ -186,7 +202,7 @@ public class MiaoshaActivity extends BaseActivity implements ViewPager.OnPageCha
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //在此处使用图片加载框架加载图片，demo中使用glide加载，可替换成自己项目中的图片加载框架
                 //                Glide.with(MainActivity.this).load(((AdvertiseEntity.OthersBean) model).getThumbnail()).placeholder(R.drawable.default_image).error(R.drawable.default_image).into((ImageView) view);
-                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((MiaoshaBean.DataBean.BannerBean) model).getImage(), (ImageView) view);
+                ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((BannerBean) model).getImage(), (ImageView) view);
             }
         });
     }

@@ -34,6 +34,7 @@ import com.kekemei.kekemei.activity.SearchActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
 import com.kekemei.kekemei.activity.ShopBeauticianListActivity;
 import com.kekemei.kekemei.activity.UserEvaluateActivity;
+import com.kekemei.kekemei.activity.WebActivity;
 import com.kekemei.kekemei.adapter.DAVipAdapter;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiAdapter;
@@ -458,6 +459,20 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
+                BannerBean bannerBean = (BannerBean) model;
+                switch (bannerBean.getJumbdata()) {
+                    case "shop":
+                        ShopActivity.start(getActivity(), bannerBean.getShop_shop_id() + "", DetailEnum.SHOP);
+                        break;
+                    case "project":
+                        ProjectDetailActivity.start(getActivity(), bannerBean.getProject_project_id() + "");
+                        break;
+                    case "web":
+                        WebActivity.start(getActivity(),bannerBean.getUrl());
+                        break;
+                    case "url":
+                        break;
+                }
             }
         });
         //加载广告图片

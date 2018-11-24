@@ -15,7 +15,6 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -178,12 +177,10 @@ public class AppUtil {
     }
 
 
-
     // 获取资源字符串
     public static String getString(Context context, int strId) {
         return context.getResources().getString(strId);
     }
-
 
 
     public static String encodeURL(String url) {
@@ -575,21 +572,25 @@ public class AppUtil {
      */
     public static String getFormatTime(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
     public static String getFormatTime1(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
     public static String getFormatTime2(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
     public static String getFormatTime3(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 

@@ -82,11 +82,11 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
     @OnClick(R.id.btn_home)
     public void onViewClicked() {
 //        if (UserHelp.getLogin(getBaseContext(),false)) {
+        finish();
         startActivity(new Intent(SplashActivity.this, MainActivity.class));
 //        } else {
 //            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 //        }
-        finish();
 
     }
 

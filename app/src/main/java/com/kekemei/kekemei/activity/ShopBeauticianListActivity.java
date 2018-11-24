@@ -395,6 +395,20 @@ public class ShopBeauticianListActivity extends BaseActivity {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
+                BannerBean bannerBean = (BannerBean) model;
+                switch (bannerBean.getJumbdata()) {
+                    case "shop":
+                        ShopActivity.start(ShopBeauticianListActivity.this, bannerBean.getShop_shop_id() + "", DetailEnum.SHOP);
+                        break;
+                    case "project":
+                        ProjectDetailActivity.start(ShopBeauticianListActivity.this, bannerBean.getProject_project_id() + "");
+                        break;
+                    case "web":
+                        WebActivity.start(ShopBeauticianListActivity.this,bannerBean.getUrl());
+                        break;
+                    case "url":
+                        break;
+                }
             }
         });
         //加载广告图片

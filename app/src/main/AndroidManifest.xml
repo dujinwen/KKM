@@ -242,6 +242,7 @@
         <activity android:name=".activity.MyVoucherActivity" />
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
+        <activity android:name=".activity.WebActivity" />
     </application>
 
 </manifest>
