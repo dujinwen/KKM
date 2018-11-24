@@ -232,6 +232,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     }
 
     private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
         isLoadMore = false;
         if (isRefresh) {
             jPageNum = 1;
@@ -266,16 +267,22 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
-                                onResult(null);
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
+                                if (isLoadMore) {
+                                    refresh_layout.finishLoadMore();
+                                    showLoadMoreComplete();
+                                    return;
+                                }
+                                multipleStatusView.showEmpty();
                                 return;
                             }
+                            Gson gson = new Gson();
+                            OrderListBean orderListBean = gson.fromJson(response.body(), OrderListBean.class);
+                            onResult(orderListBean);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Gson gson = new Gson();
-                        OrderListBean orderListBean = gson.fromJson(response.body(), OrderListBean.class);
-                        onResult(orderListBean);
                     }
 
                     @Override
@@ -307,7 +314,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
                 showData(orderListBean.getData());
             }
 
-            if (null != response && jPageNum > orderListBean.getData().size())
+            if (null != response && orderListBean.getData().size() < 10)
                 showLoadMoreEnd();
             else
                 showLoadMoreComplete();
@@ -315,7 +322,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             jPageNum++;
             OrderListBean orderListBean = (OrderListBean) response;
             loadMoreSuccess(orderListBean.getData());
-            if (jPageNum > orderListBean.getData().size()) {
+            if (orderListBean.getData().size() < 10) {
                 showLoadMoreEnd();
             } else {
                 showLoadMoreComplete();
@@ -360,7 +367,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
         if (isOnDestroy)
             return;
         multipleStatusView.showOutContentView(refresh_layout);
-        listAdapter.setNewData(dataList);
+        listAdapter.replaceData(dataList);
         listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

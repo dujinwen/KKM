@@ -19,8 +19,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.NewComerBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
@@ -177,6 +177,7 @@ public class NewComerActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lookMoreAll:
+                ShopBeauticianListActivity.start(this, false);
                 break;
             case R.id.lookMoreForYou:
                 break;
