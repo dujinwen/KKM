@@ -219,6 +219,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             findViewById(R.id.tvAddFriends).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    follow();
                 }
             });
         }

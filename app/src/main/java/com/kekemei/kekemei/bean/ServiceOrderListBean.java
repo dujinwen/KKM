@@ -54,7 +54,7 @@ public class ServiceOrderListBean implements Serializable{
     private String user_mobile;
     private String service_address;
     private String project_name;
-    private int project_price;
+    private float project_price;
     private String image;
     private String pay_type_text;
     private String servicetime_text;
@@ -222,11 +222,11 @@ public class ServiceOrderListBean implements Serializable{
         this.project_name = project_name;
     }
 
-    public int getProject_price() {
+    public float getProject_price() {
         return project_price;
     }
 
-    public void setProject_price(int project_price) {
+    public void setProject_price(float project_price) {
         this.project_price = project_price;
     }
 
