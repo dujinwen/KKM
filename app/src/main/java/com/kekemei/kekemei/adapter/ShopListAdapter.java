@@ -33,6 +33,7 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> 
         star_bar.setStarMark(item.getStart());
         helper.setText(R.id.tv_pinglun_num,item.getComment_count()+"");
         helper.setText(R.id.tv_fuwu_num,item.getOrder_count()+"");
-        helper.setText(R.id.tv_num,item.getAppointment());
+        helper.setText(R.id.tv_num,item.getAppointment()+"人预约");
+        helper.setText(R.id.tv_manyidu, "满意度：" + (item.getSatisfaction() * 100) + "%");
     }
 }

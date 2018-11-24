@@ -68,6 +68,7 @@ public class ShopBean implements Serializable{
     private List<String> redenvelopes;
     private List<?> coupon;
     private List<String> full;
+    private double satisfaction;
 
     public int getId() {
         return id;
@@ -220,7 +221,13 @@ public class ShopBean implements Serializable{
     public void setAppointment(int appointment) {
         this.appointment = appointment;
     }
+    public double getSatisfaction() {
+        return satisfaction;
+    }
 
+    public void setSatisfaction(double satisfaction) {
+        this.satisfaction = satisfaction;
+    }
     public int get$satisfaction() {
         return $satisfaction;
     }

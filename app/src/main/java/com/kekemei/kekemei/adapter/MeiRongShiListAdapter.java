@@ -56,10 +56,10 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<BeauticianBean, Base
         helper.setText(R.id.tv_juli, "距离" +
                 item.getDistance() + "KM");
         StarBar star_bar = helper.getView(R.id.star_bar);
-//        star_bar.setStarMark(item.getStart());
         star_bar.setStarMark(item.getStart());
         helper.setText(R.id.tv_pinglun_num, item.getComment_count() + "");
         helper.setText(R.id.tv_fuwu_num, item.getOrder_count() + "");
-        helper.setText(R.id.tv_num, item.getAppointment());
+        helper.setText(R.id.tv_num, item.getAppointment()+"人预约");
+        helper.setText(R.id.tv_manyidu, "满意度：" + (item.getSatisfaction() * 100) + "%");
     }
 }

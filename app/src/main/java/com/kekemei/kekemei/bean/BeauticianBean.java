@@ -49,7 +49,7 @@ public class BeauticianBean implements Serializable {
     private int order_count;
     private String place;
     private int redenvelopes_ids;
-    private int satisfaction;
+    private double satisfaction;
     private String shop_shop_ids;
     private String speciality;
     private String state;
@@ -179,11 +179,11 @@ public class BeauticianBean implements Serializable {
         this.redenvelopes_ids = redenvelopes_ids;
     }
 
-    public int getSatisfaction() {
+    public double getSatisfaction() {
         return satisfaction;
     }
 
-    public void setSatisfaction(int satisfaction) {
+    public void setSatisfaction(double satisfaction) {
         this.satisfaction = satisfaction;
     }
 
