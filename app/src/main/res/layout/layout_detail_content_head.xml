@@ -33,6 +33,7 @@
             android:layout_marginLeft="@dimen/px_58"
             android:layout_marginRight="@dimen/px_43"
             android:drawableRight="@mipmap/title_more_btn"
+            android:text="暂无商圈"
             android:textColor="#383838"
             android:textSize="@dimen/px_40" />
 

@@ -33,6 +33,7 @@ import com.kekemei.kekemei.bean.CanlBean;
 import com.kekemei.kekemei.bean.CommentTagsBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ShopDetailBean;
+import com.kekemei.kekemei.bean.TradingBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
@@ -42,6 +43,7 @@ import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
+import com.kekemei.kekemei.view.CommonDialog;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -167,6 +169,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private long daySelectPosition = -1L;
     private ShopDetailBean shopDetailBean;
     private BeauticianDetailBean beauticianDetailBean;
+
+    private List<TradingBean> tradingBeanList;
 
     public static void start(Context context, String beauticianId, DetailEnum detailEnum) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -315,7 +319,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = newComerAdapter.getItem(position);
-                NewComerActivity.start(ShopActivity.this, item.getId() + "");
+                ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
         view.findViewById(R.id.lookMoreNew).setOnClickListener(new View.OnClickListener() {
@@ -378,6 +382,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
+        tradingArea.setOnClickListener(this);
         ll_yuyue = contentHead.findViewById(R.id.ll_yuyue);
         ll_yuyue.setOnClickListener(this);
         serviceOne = contentHead.findViewById(R.id.serviceOne);
@@ -554,7 +559,33 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 int redBaoId = (int) redBao.getTag();
                 receiveRedBao(redBaoId);
                 break;
+            case R.id.tradingArea:
+                if (CollectionUtils.isEmpty(tradingBeanList)) {
+                    ToastUtil.showToastMsg(ShopActivity.this, "暂无商圈");
+                    return;
+                }
+                new CommonDialog(this, tradingBeanList, new CommonDialog.ItemSelectedClickListener() {
+                    @Override
+                    public void onSelected(List<String> items) {
+                        if (CollectionUtils.isNotEmpty(items)) {
+                            fillTradings(items);
+                        }
+                    }
+                }).show();
+                break;
         }
+    }
+
+    private List<TradingBean> getTradingList(List<String> list) {
+        List<TradingBean> tradingBeanList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(list)) {
+            tradingBeanList.clear();
+            for (String trading : list) {
+                TradingBean tradingBean = new TradingBean(trading, false);
+                tradingBeanList.add(tradingBean);
+            }
+        }
+        return tradingBeanList;
     }
 
     public static final int REQUEST_ALBUM = 10;
@@ -828,14 +859,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
                         }
                         if (CollectionUtils.isNotEmpty(shopDetailBean.getStrading())) {
-                            List<String> tradingList = shopDetailBean.getStrading();
-                            StringBuilder tradingText = new StringBuilder();
-                            if (tradingList.size() >= 2) {
-                                tradingText.append(tradingList.get(0)).append("    ").append(tradingList.get(1)).append("等");
-                            } else {
-                                tradingText.append(tradingList.get(0));
-                            }
-                            tradingArea.setText(tradingText.toString());
+                            tradingBeanList = getTradingList(shopDetailBean.getStrading());
+                            fillTradings(shopDetailBean.getStrading());
                         }
                         if (CollectionUtils.isNotEmpty(shopDetailBean.getService())) {
                             List<String> serviceList = shopDetailBean.getService();
@@ -967,14 +992,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
                         }
                         if (CollectionUtils.isNotEmpty(beauticianDetailBean.getStrading())) {
-                            List<String> tradingList = beauticianDetailBean.getStrading();
-                            StringBuilder tradingText = new StringBuilder();
-                            if (tradingList.size() >= 2) {
-                                tradingText.append(tradingList.get(0)).append("    ").append(tradingList.get(1)).append("等");
-                            } else {
-                                tradingText.append(tradingList.get(0));
-                            }
-                            tradingArea.setText(tradingText.toString());
+                            tradingBeanList = getTradingList(beauticianDetailBean.getStrading());
+                            fillTradings(beauticianDetailBean.getStrading());
                         }
                         if (CollectionUtils.isNotEmpty(beauticianDetailBean.getAuth())) {
                             List<String> authList = beauticianDetailBean.getAuth();
@@ -1043,6 +1062,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
 
         initDatePicker(this);
+    }
+
+    private void fillTradings(List<String> strading) {
+        StringBuilder tradingText = new StringBuilder();
+        if (strading.size() >= 2) {
+            tradingText.append(strading.get(0)).append("    ").append(strading.get(1)).append("等");
+        } else {
+            tradingText.append(strading.get(0));
+        }
+        tradingArea.setText(tradingText.toString());
     }
 
     private ArrayList<Calendar> calList = new ArrayList<>();

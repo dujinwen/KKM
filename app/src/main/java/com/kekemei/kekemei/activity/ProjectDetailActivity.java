@@ -41,6 +41,7 @@ import com.kekemei.kekemei.bean.CanlBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
 import com.kekemei.kekemei.bean.ShopDetailBean;
+import com.kekemei.kekemei.bean.TradingBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
@@ -51,6 +52,7 @@ import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
+import com.kekemei.kekemei.view.CommonDialog;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
@@ -361,6 +363,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     private void initContentHead(View contentHead) {
         tradingArea = contentHead.findViewById(R.id.tradingArea);
+        tradingArea.setOnClickListener(this);
         serviceOne = contentHead.findViewById(R.id.serviceOne);
         serviceTwo = contentHead.findViewById(R.id.serviceTwo);
         serviceThree = contentHead.findViewById(R.id.serviceThree);
@@ -491,7 +494,35 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 int redBaoId = (int) redBao.getTag();
                 receiveRedBao(redBaoId);
                 break;
+            case R.id.tradingArea:
+                if (CollectionUtils.isEmpty(tradingBeanList)) {
+                    ToastUtil.showToastMsg(this, "暂无商圈");
+                    return;
+                }
+                new CommonDialog(this, tradingBeanList, new CommonDialog.ItemSelectedClickListener() {
+                    @Override
+                    public void onSelected(List<String> items) {
+                        if (CollectionUtils.isNotEmpty(items)) {
+                            fillTradings(items);
+                        }
+                    }
+                }).show();
+                break;
         }
+    }
+
+    private List<TradingBean> tradingBeanList;
+
+    private List<TradingBean> getTradingList(List<String> list) {
+        List<TradingBean> tradingBeanList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(list)) {
+            tradingBeanList.clear();
+            for (String trading : list) {
+                TradingBean tradingBean = new TradingBean(trading, false);
+                tradingBeanList.add(tradingBean);
+            }
+        }
+        return tradingBeanList;
     }
 
     private void toPayActivity() {
@@ -720,14 +751,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 }
                             }
                             if (CollectionUtils.isNotEmpty(detailBean.getStrading())) {
-                                List<String> tradingList = detailBean.getStrading();
-                                StringBuilder tradingText = new StringBuilder();
-                                if (tradingList.size() >= 2) {
-                                    tradingText.append(tradingList.get(0)).append("    ").append(tradingList.get(1)).append("等");
-                                } else {
-                                    tradingText.append(tradingList.get(0));
-                                }
-                                tradingArea.setText(tradingText.toString());
+                                tradingBeanList = getTradingList(detailBean.getStrading());
+                                fillTradings(detailBean.getStrading());
                             }
                             if (CollectionUtils.isNotEmpty(detailBean.getService())) {
                                 List<String> serviceList = detailBean.getService();
@@ -791,6 +816,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         initDayTime("");
 
         initDatePicker(this);
+    }
+
+    private void fillTradings(List<String> strading) {
+        StringBuilder tradingText = new StringBuilder();
+        if (strading.size() >= 2) {
+            tradingText.append(strading.get(0)).append("    ").append(strading.get(1)).append("等");
+        } else {
+            tradingText.append(strading.get(0));
+        }
+        tradingArea.setText(tradingText.toString());
     }
 
     /**

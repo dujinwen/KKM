@@ -92,6 +92,8 @@ public class URLs {
     public static final String PROJECT_CATEGORY = BASE_URL+"/api/project/projectcategory";
     //新人专区，新人体验
     public static final String PROJECT_NEW_PEOPLE= BASE_URL+"/api/project/newpeople";
+    //会员专区
+    public static final String NEW_MEMBER_PEOPLE= BASE_URL+"/api/project/memberpeople";
     //红包一健领取
     public static final String COUPON_ONE_RECEIVE = BASE_URL+"/api/coupon/onereceive";
 
