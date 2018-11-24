@@ -695,8 +695,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             tvFollowNum.setText("已有" + detailBean.getTreatment_count() + "人关注");
                             tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getAddress());
                             tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean == null ? "" : shopDetailBean.getDistance()));
-                            if (CollectionUtils.isNotEmpty(beauticianDetailBean.getRedenvloesdata())) {
-                                for (BeauticianDetailBean.RedenvloesDataBean redenvloesDataBean : beauticianDetailBean.getRedenvloesdata()) {
+                            if (CollectionUtils.isNotEmpty(detailBean.getRedenvloesdata())) {
+                                for (ProjectDetailBean.RedenvloesDataBean redenvloesDataBean : detailBean.getRedenvloesdata()) {
                                     if (redenvloesDataBean.getType() == 1) {
                                         if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
                                             redBao.setVisibility(View.VISIBLE);
