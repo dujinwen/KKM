@@ -154,7 +154,7 @@ public class AddCommentActivity extends BaseActivity {
             }
         });
 
-        if (commonType.equals(COMMENT_TYPE_ONE)){
+        if (commonType.equals(COMMENT_TYPE_ONE)) {
             starTitle.setText("店铺");
             starSubTitle.setText("服务评价");
         } else if (commonType.equals(COMMENT_TYPE_TWO)) {
@@ -211,12 +211,13 @@ public class AddCommentActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                                 fillTags(null);
                                 return;
                             }
                             Gson gson = new Gson();
-                            List<CommentTagsBean> commentTagsBean = gson.fromJson(response.body(), new TypeToken<List<CommentTagsBean>>() {
+                            List<CommentTagsBean> commentTagsBean = gson.fromJson(data, new TypeToken<List<CommentTagsBean>>() {
                             }.getType());
                             fillTags(commentTagsBean);
                         } catch (JSONException e) {
