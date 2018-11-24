@@ -161,9 +161,9 @@ public class OrderDetailActivity extends BaseActivity {
                         tvPlace.setText(data.getAddress() == null ? "" : data.getAddress().toString());
                         tvTime.setText(data.getServicetime() + "");
                         tvPrice.setText("¥ " + data.getProject_price() + " ");
-                        tvInfoOrderCreTime.setText(data.getCreatetime());
-                        tvInfoOrderFinTime.setText(data.getFinishtime());
-                        tvInfoOrderNum.setText(data.getId());
+                        tvInfoOrderCreTime.setText(data.getCreatetime()+"");
+                        tvInfoOrderFinTime.setText(data.getFinishtime()+"");
+                        tvInfoOrderNum.setText(data.getId()+"");
                         tvInfoOrderYouhui.setText(data.getConpou() == null ? "" : data.getConpou() + "");
                         tvInfoOrderRed.setText(data.getRedenvelopes() == null ? "" : data.getRedenvelopes() + "");
                         tvInfoOrderManjian.setText(data.getFull() == null ? "" : data.getFull() + "");
