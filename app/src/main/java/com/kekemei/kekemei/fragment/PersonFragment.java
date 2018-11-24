@@ -18,10 +18,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.MemberActivity;
 import com.kekemei.kekemei.activity.CreditActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MainActivity;
+import com.kekemei.kekemei.activity.MemberActivity;
 import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MyCollectionActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
@@ -121,6 +121,7 @@ public class PersonFragment extends Fragment {
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(getActivity()), icon);
         userName.setText(UserHelp.getUserName(getActivity()));
 
+        rvTuijian.setNestedScrollingEnabled(false);
         rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
