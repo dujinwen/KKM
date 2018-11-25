@@ -354,11 +354,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         hotProjectRv.setNestedScrollingEnabled(false);
         contentSectionAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
         hotProjectRv.setAdapter(contentSectionAdapter);
-        TextView lookMore = view.findViewById(R.id.lookMore);
-        lookMore.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ProjectDetailActivity.this, ClassifyActivity.class));
+            }
+        });
+        view.findViewById(R.id.tvHotProject).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComerActivity.start(ProjectDetailActivity.this, false);
             }
         });
     }

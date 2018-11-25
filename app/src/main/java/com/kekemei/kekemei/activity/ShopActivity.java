@@ -337,6 +337,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         });
+        view.findViewById(R.id.tvHotProject).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComerActivity.start(ShopActivity.this, false);
+            }
+        });
         view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -352,6 +358,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = newComerAdapter.getItem(position);
                 ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
+            }
+        });
+        view.findViewById(R.id.tvNewComer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
             }
         });
         view.findViewById(R.id.lookMoreNew).setOnClickListener(new View.OnClickListener() {
@@ -371,6 +383,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
+        view.findViewById(R.id.tvMember).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+            }
+        });
         view.findViewById(R.id.lookMoreMember).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -386,6 +404,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 LogUtil.e("section", "click:" + position);
                 BaseBean item = preferenceAdapter.getItem(position);
                 ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
+            }
+        });
+        view.findViewById(R.id.tvPreference).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
             }
         });
         view.findViewById(R.id.lookMorePreference).setOnClickListener(new View.OnClickListener() {

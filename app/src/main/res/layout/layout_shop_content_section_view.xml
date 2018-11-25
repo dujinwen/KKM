@@ -11,6 +11,7 @@
         android:background="@color/common_background" />
 
     <TextView
+        android:id="@+id/tvHotProject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableRight="@mipmap/title_more_btn"
@@ -50,6 +51,7 @@
             android:background="@color/common_background" />
 
         <TextView
+            android:id="@+id/tvNewComer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/title_more_btn"
@@ -90,6 +92,7 @@
             android:background="@color/common_background" />
 
         <TextView
+            android:id="@+id/tvMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/title_more_btn"
@@ -130,6 +133,7 @@
             android:background="@color/common_background" />
 
         <TextView
+            android:id="@+id/tvPreference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/title_more_btn"
