@@ -416,11 +416,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         });
     }
 
-    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding, R.id.tvCollection, R.id.tvToShopDetail})
+    @OnClick({R.id.projectDetail, R.id.userEvaluate, R.id.tv_buy_now, R.id.queding, R.id.tvCollection, R.id.tvToShopDetail, R.id.onLineService})
     public void onClick(View view) {
         long userId = UserHelp.getUserId(this);
 
         switch (view.getId()) {
+            case R.id.onLineService:
+                if (detailBean != null && detailBean.getWaiter() != null) {
+                    ChatActivity.start(this, detailBean.getWaiter());
+                }
+                break;
             case R.id.tvCollection:
                 if (userId == -1L) {
                     LoginActivity.start(getBaseContext());

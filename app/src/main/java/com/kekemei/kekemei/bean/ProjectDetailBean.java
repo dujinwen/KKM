@@ -63,6 +63,7 @@ public class ProjectDetailBean implements Serializable {
     private String peer;
     private int views;
     private int weigh;
+    private WaiterBean waiter;
     private CommentdataBean commentData;
     private List<CouponBean> coupon;
     private List<BaseBean> hotdata;
@@ -74,6 +75,14 @@ public class ProjectDetailBean implements Serializable {
     private List<String> strading;
     private List<String> service;
     private List<RedenvloesDataBean> redenvloesdata;
+
+    public WaiterBean getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(WaiterBean waiter) {
+        this.waiter = waiter;
+    }
 
     public CommentdataBean getComment() {
         return commentData;
