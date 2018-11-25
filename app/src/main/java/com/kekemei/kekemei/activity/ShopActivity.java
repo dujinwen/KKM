@@ -212,6 +212,23 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 finish();
             }
         });
+        iv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (detailEnum == DetailEnum.BEAUTICIAN) {
+                    AppUtil.shareUm(ShopActivity.this,
+                            beauticianDetailBean.getName(),
+                            beauticianDetailBean.getImage(),
+                            URLs.SHARE_BEA_URL + beauticianDetailBean.getId());
+                } else {
+                    AppUtil.shareUm(ShopActivity.this,
+                            shopDetailBean.getName(),
+                            shopDetailBean.getImage(),
+                            URLs.SHARE_SHOP_URL + shopDetailBean.getId());
+                }
+            }
+        });
+
         if (detailEnum == DetailEnum.BEAUTICIAN) {
             tv_title.setText("美容师详情");
             detailHome.setText("美容师首页");

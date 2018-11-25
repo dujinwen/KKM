@@ -37,35 +37,38 @@ public class MeiRongShiAdapter extends BaseQuickAdapter<BeauticianBean, BaseView
         helper.setText(R.id.name, item.getName());
         helper.setText(R.id.num, item.getContent());
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.icon_pic));
-
+        helper.setText(R.id.btn_guanzhu, item.getIsfriend() == 0 ? "关注" : "已关注");
 
 //        helper.addOnClickListener(R.id.btn_guanzhu);
 
 
         final Button guanzhu = helper.getView(R.id.btn_guanzhu);
-        guanzhu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        guanzhu.setText(item.getIsfriend() == 0 ? "关注" : "已关注");
+        guanzhu.setBackgroundColor(item.getIsfriend() == 0 ? Color.GRAY : Color.RED);
+        if (item.getIsfriend() == 0)
+            guanzhu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                long userId = UserHelp.getUserId(mContext);
-                if (userId == -1L) {
-                    LoginActivity.start(mContext);
-                    return;
+                    long userId = UserHelp.getUserId(mContext);
+                    if (userId == -1L) {
+                        LoginActivity.start(mContext);
+                        return;
+                    }
+                    OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
+                            .params("beautician_id", item.getId())
+                            .params("user_id", userId)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    LogUtil.e("Me", "follow beautician:" + response.body());
+                                    Gson gson = new Gson();
+                                    guanzhu.setText("已关注");
+                                    guanzhu.setBackgroundColor(Color.RED);
+                                }
+                            });
                 }
-                OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
-                        .params("beautician_id", item.getId())
-                        .params("user_id", userId)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                LogUtil.e("Me", "follow beautician:" + response.body());
-                                Gson gson = new Gson();
-                                guanzhu.setText("已关注");
-                                guanzhu.setBackgroundColor(Color.RED);
-                            }
-                        });
-            }
-        });
+            });
     }
 
 }

@@ -31,6 +31,11 @@ import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -45,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -619,6 +625,46 @@ public class AppUtil {
         timeStemp = d.getTime();
         return timeStemp;
     }
+
+
+    public static void shareUm(Activity activity,String titleText,String imageUrl,String url){
+        final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
+                {
+                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.SINA,
+                        SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
+                };
+        new ShareAction(activity).setDisplayList( displaylist )
+                .withText(titleText)//分享内容
+//                .withMedia(new UMWeb())
+                .withExtra(new UMImage(activity, imageUrl))
+                .setCallback((UMShareListener) authListener)//回调监听器
+                .share();
+
+
+    }
+
+    private static UMAuthListener authListener = new UMAuthListener() {
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+            LogUtil.d("LoginActivity", platform + "开始授权成功");
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            LogUtil.e("LoginActivity", t.getMessage());
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            LogUtil.e("LoginActivity","授权取消");
+        }
+    };
 }
 
 

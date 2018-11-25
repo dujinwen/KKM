@@ -181,4 +181,17 @@ public class URLs {
     public static final String PROJECT_SORT_ORDER = BASE_URL+"/api/project/sortorder";
 
 
+
+
+
+
+
+
+    //分享url
+    //项目
+    public static final String SHARE_PROJECT_URL = BASE_URL+"/mob/project/details?id=";
+    //美容师
+    public static final String SHARE_BEA_URL = BASE_URL+"/mob/beautician/details?id=";
+    //店铺
+    public static final String SHARE_SHOP_URL = BASE_URL+"/mob/shop/details?id=";
 }

@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.umeng.socialize.UMShareAPI;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -322,6 +323,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             LogUtil.e(TAG, "exception getStringExtraSecure", e);
         }
         return -1;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
 }

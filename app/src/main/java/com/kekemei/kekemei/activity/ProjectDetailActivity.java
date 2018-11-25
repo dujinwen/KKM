@@ -249,7 +249,17 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         });
         tv_title.setText("项目详情");
         iv_share.setVisibility(View.VISIBLE);
+        iv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                    AppUtil.shareUm(ProjectDetailActivity.this,
+                            detailBean.getName(),
+                            detailBean.getImage(),
+                            URLs.SHARE_PROJECT_URL + detailBean.getId());
+
+            }
+        });
         indicatorProjectDetail.setVisibility(View.VISIBLE);
 
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
