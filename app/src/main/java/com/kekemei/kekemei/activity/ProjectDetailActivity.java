@@ -256,18 +256,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
 
-<<<<<<< HEAD
                     AppUtil.shareUm(ProjectDetailActivity.this,
                             detailBean.getName(),
                             detailBean.getContent(),
                             URLs.BASE_URL+detailBean.getImage(),
                             URLs.SHARE_PROJECT_URL + detailBean.getId());
-=======
-                AppUtil.shareUm(ProjectDetailActivity.this,
-                        detailBean.getName(),
-                        detailBean.getImage(),
-                        URLs.SHARE_PROJECT_URL + detailBean.getId());
->>>>>>> ede6c83bd1f42721f7211d55b9fb1ec1e5a3efd6
+
 
             }
         });
