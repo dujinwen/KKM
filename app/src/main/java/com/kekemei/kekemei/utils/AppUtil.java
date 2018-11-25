@@ -32,11 +32,12 @@ import com.amap.api.location.DPoint;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -51,7 +52,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,7 +67,6 @@ public class AppUtil {
 
     private static AMapLocationClient mLocationClient;
     private static AMapLocationClientOption mLocationOption;
-
 
     public static String getFromAssets(Context ct, String fileName) {
         String Result = "";
@@ -628,44 +627,44 @@ public class AppUtil {
     }
 
 
-    public static void shareUm(Activity activity,String titleText,String imageUrl,String url){
-        final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
-                {
-                        SHARE_MEDIA.WEIXIN,SHARE_MEDIA.SINA,
-                        SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
-                };
-        UMWeb web = new UMWeb(url);
-        web.setTitle(titleText);
-        web.setThumb(new UMImage(activity, imageUrl));
-        web.setDescription(titleText);
-        new ShareAction(activity).withMedia(web )
-                .setDisplayList( displaylist )
-                .setCallback((UMShareListener) authListener).share();
+    public static void shareUm(final Activity activity, final String titleText, final String content, final String imageUrl, final String url){
+        /*增加自定义按钮的分享面板*/
+        new ShareAction(activity).setDisplayList(
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
+                )
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        UMWeb web = new UMWeb(url);
+                        web.setTitle(titleText);
+                        web.setThumb(new UMImage(activity, imageUrl));
+                        web.setDescription(content);
+                        new ShareAction(activity).withMedia(web )
+                                .setPlatform(share_media)
+                                .setCallback(new UMShareListener() {
+                                    @Override
+                                    public void onStart(SHARE_MEDIA share_media) {
+                                        LogUtil.d("LoginActivity",  "onStart");
+                                    }
 
+                                    @Override
+                                    public void onResult(SHARE_MEDIA share_media) {
+                                        LogUtil.d("LoginActivity",  "onResult");
+                                    }
+
+                                    @Override
+                                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                                        LogUtil.d("LoginActivity",  "onError");
+                                    }
+
+                                    @Override
+                                    public void onCancel(SHARE_MEDIA share_media) {
+                                        LogUtil.d("LoginActivity",  "onCancel");
+                                    }
+                                }).share();
+                    }
+                }).open();
     }
-
-    private static UMAuthListener authListener = new UMAuthListener() {
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-            LogUtil.d("LoginActivity", platform + "开始授权成功");
-        }
-
-        @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-
-
-        }
-
-        @Override
-        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-            LogUtil.e("LoginActivity", t.getMessage());
-        }
-
-        @Override
-        public void onCancel(SHARE_MEDIA platform, int action) {
-            LogUtil.e("LoginActivity","授权取消");
-        }
-    };
 }
 
 

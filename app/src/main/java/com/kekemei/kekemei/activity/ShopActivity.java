@@ -50,6 +50,7 @@ import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.socialize.UMShareAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -218,12 +219,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 if (detailEnum == DetailEnum.BEAUTICIAN) {
                     AppUtil.shareUm(ShopActivity.this,
                             beauticianDetailBean.getName(),
-                            beauticianDetailBean.getImage(),
+                            beauticianDetailBean.getContent(),
+                            URLs.BASE_URL + beauticianDetailBean.getImage(),
                             URLs.SHARE_BEA_URL + beauticianDetailBean.getId());
                 } else {
                     AppUtil.shareUm(ShopActivity.this,
                             shopDetailBean.getName(),
-                            shopDetailBean.getImage(),
+                            shopDetailBean.getContent(),
+                            URLs.BASE_URL + shopDetailBean.getImage(),
                             URLs.SHARE_SHOP_URL + shopDetailBean.getId());
                 }
             }
@@ -1014,7 +1017,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         starNum.setText(String.valueOf(commentData.getStart()));
         starBar.setStarMark(commentData.getStart());
         userCommentNum.setText(getString(R.string.home_comment_num_format, commentData.getCount()));
-        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, commentData.getPeer() + "%", commentData.getSatisfaction() + "%"));
+        tvCommentPeer.setText(getString(R.string.home_comment_peer_format,
+                commentData.getPeer() + "%", commentData.getSatisfaction() + "%"));
         commentAdapter.replaceData(commentData.getAll());
         if (CollectionUtils.isNotEmpty(commentData.getTags())) {
             fillTags(commentData.getTags());
@@ -1180,5 +1184,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }, "1950-01-01 00:00", "2050-01-01 00:00", "请设置开始时间"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         startTimePicker.showSpecificTime(false); // 显示时和分
         startTimePicker.setIsLoop(true); // 允许循环滚动
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

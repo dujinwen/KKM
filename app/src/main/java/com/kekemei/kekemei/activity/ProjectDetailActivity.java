@@ -60,6 +60,7 @@ import com.kekemei.kekemei.view.StarBar;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.umeng.socialize.UMShareAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -257,7 +258,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
                     AppUtil.shareUm(ProjectDetailActivity.this,
                             detailBean.getName(),
-                            detailBean.getImage(),
+                            detailBean.getContent(),
+                            URLs.BASE_URL+detailBean.getImage(),
                             URLs.SHARE_PROJECT_URL + detailBean.getId());
 
             }
@@ -953,5 +955,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }
