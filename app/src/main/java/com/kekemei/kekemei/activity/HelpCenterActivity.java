@@ -18,7 +18,6 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -80,7 +79,7 @@ public class HelpCenterActivity extends BaseActivity {
     private void getData() {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>get(URLs.MY_INFO).params("user_id", userId)

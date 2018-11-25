@@ -203,7 +203,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private void initSearchHistory() {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", userId)
@@ -316,7 +316,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>get(URLs.ORDER_SEARCH)

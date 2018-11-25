@@ -78,7 +78,7 @@ public class FeedBackActivity extends BaseActivity {
     private void submitFeedBackContent(String content) {
         long userId = UserHelp.getUserId(this);
         if (userId==-1L){
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.ADD_COMPLAINT).params("user_id", userId)

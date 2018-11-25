@@ -30,6 +30,7 @@ import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MiaoshaActivity;
 import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.ProjectListActivity;
 import com.kekemei.kekemei.activity.SearchActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
 import com.kekemei.kekemei.activity.ShopBeauticianListActivity;
@@ -460,7 +461,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                         ProjectDetailActivity.start(getActivity(), bannerBean.getProject_project_id() + "");
                         break;
                     case "web":
-                        WebActivity.start(getActivity(),bannerBean.getUrl());
+                        WebActivity.start(getActivity(), bannerBean.getUrl());
                         break;
                     case "url":
                         break;
@@ -515,16 +516,16 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
             case R.id.iv_xinrenzhuanqu:
-                NewComerActivity.start(getActivity(), false);
+                NewComerActivity.start(getActivity(), true);
                 break;
             case R.id.iv_huiyuanzhuanqu:
                 NewComerActivity.start(getActivity(), false);
                 break;
             case R.id.iv_zuixinxiangmu:
-                NewComerActivity.start(getActivity(), false);
+                ProjectListActivity.start(getActivity(), "3");
                 break;
             case R.id.iv_remenxiangmu:
-                NewComerActivity.start(getActivity(), false);
+                ProjectListActivity.start(getActivity(), "2");
                 break;
             case R.id.couponOneBg:
                 receiveCoupon(couponOneBg);

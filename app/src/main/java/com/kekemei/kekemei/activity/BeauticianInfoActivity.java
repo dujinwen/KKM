@@ -207,7 +207,7 @@ public class BeauticianInfoActivity extends BaseActivity {
     private void follow() {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)

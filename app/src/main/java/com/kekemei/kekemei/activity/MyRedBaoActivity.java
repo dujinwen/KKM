@@ -146,7 +146,7 @@ public class MyRedBaoActivity extends BaseActivity {
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>get(URLs.MY_RED_ENVELOPES).tag(this).params("user_id", userId)

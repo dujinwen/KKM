@@ -9,12 +9,13 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.BaseActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.bean.BeauticianBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
-import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -52,7 +53,7 @@ public class MeiRongShiAdapter extends BaseQuickAdapter<BeauticianBean, BaseView
 
                     long userId = UserHelp.getUserId(mContext);
                     if (userId == -1L) {
-                        LoginActivity.start(mContext);
+                        LoginActivity.start((BaseActivity) mContext);
                         return;
                     }
                     OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)

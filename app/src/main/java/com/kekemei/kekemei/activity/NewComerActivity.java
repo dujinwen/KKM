@@ -83,8 +83,6 @@ public class NewComerActivity extends BaseActivity {
     LinearLayout forYouLayout;
     @BindView(R.id.sectionForYouRv)
     RecyclerView sectionForYouRv;
-    @BindView(R.id.lookMoreForYou)
-    TextView lookMoreForYou;
 
     private MyGridAdapter allAdapter, forYouAdapter;
 
@@ -115,7 +113,7 @@ public class NewComerActivity extends BaseActivity {
         isNewComer = getIntent().getBooleanExtra(EXTRA_KEY_NEW_USER, false);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
-        tv_title.setText("超值体验");
+        tv_title.setText(isNewComer ? "超值体验" : "会员专区");
         iv_share.setVisibility(View.VISIBLE);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,9 +159,25 @@ public class NewComerActivity extends BaseActivity {
 
         allAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
         sectionAllRv.setAdapter(allAdapter);
+        allAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.e("section", "click:" + position);
+                BaseBean item = allAdapter.getItem(position);
+                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
+            }
+        });
 
         forYouAdapter = new MyGridAdapter(this, MyGridAdapter.HotdataBean);
         sectionForYouRv.setAdapter(forYouAdapter);
+        forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                LogUtil.e("section", "click:" + position);
+                BaseBean item = forYouAdapter.getItem(position);
+                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
+            }
+        });
     }
 
     @Override
@@ -173,13 +187,12 @@ public class NewComerActivity extends BaseActivity {
         loadData(true);
     }
 
-    @OnClick({R.id.lookMoreAll, R.id.lookMoreForYou})
+    @OnClick({R.id.lookMoreAll, R.id.tvAllProject})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tvAllProject:
             case R.id.lookMoreAll:
-                ShopBeauticianListActivity.start(this, false);
-                break;
-            case R.id.lookMoreForYou:
+                ProjectListActivity.start(this, "");
                 break;
         }
     }
@@ -201,6 +214,11 @@ public class NewComerActivity extends BaseActivity {
     }
 
     private void getData(int pageNum) {
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(this);
+            return;
+        }
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
         OkGo.<String>post(isNewComer ? URLs.PROJECT_NEW_PEOPLE : URLs.NEW_MEMBER_PEOPLE).params("user_id", UserHelp.getUserId(this)).params("page", pageNum).execute(new StringCallback() {
@@ -328,25 +346,9 @@ public class NewComerActivity extends BaseActivity {
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + newMemberBean.getBanner().getImage(), topBanner);
                     if (CollectionUtils.isNotEmpty(newMemberBean.getProjectall())) {
                         allAdapter.replaceData(newMemberBean.getProjectall());
-                        allAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = allAdapter.getItem(position);
-                                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
-                            }
-                        });
                     }
                     if (CollectionUtils.isNotEmpty(newMemberBean.getForyou())) {
                         forYouAdapter.replaceData(newMemberBean.getForyou());
-                        forYouAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                LogUtil.e("section", "click:" + position);
-                                BaseBean item = forYouAdapter.getItem(position);
-                                ProjectDetailActivity.start(NewComerActivity.this, item.getId());
-                            }
-                        });
                     }
                 } else {
                     toolbar.setBackgroundColor(Color.parseColor("#7AD2D2"));

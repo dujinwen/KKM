@@ -255,10 +255,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
 
-                    AppUtil.shareUm(ProjectDetailActivity.this,
-                            detailBean.getName(),
-                            detailBean.getImage(),
-                            URLs.SHARE_PROJECT_URL + detailBean.getId());
+                AppUtil.shareUm(ProjectDetailActivity.this,
+                        detailBean.getName(),
+                        detailBean.getImage(),
+                        URLs.SHARE_PROJECT_URL + detailBean.getId());
 
             }
         });
@@ -345,6 +345,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 UserEvaluateActivity.start(ProjectDetailActivity.this, false, "1", "1", "1");
             }
         });
+        view.findViewById(R.id.layoutUserComment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserEvaluateActivity.start(ProjectDetailActivity.this, false,
+                        "", "", "");
+            }
+        });
     }
 
     private void initContentSectionView(View view) {
@@ -357,13 +364,13 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProjectDetailActivity.this, ClassifyActivity.class));
+                ProjectListActivity.start(ProjectDetailActivity.this, "2");
             }
         });
         view.findViewById(R.id.tvHotProject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewComerActivity.start(ProjectDetailActivity.this, false);
+                ProjectListActivity.start(ProjectDetailActivity.this, "2");
             }
         });
     }
@@ -433,7 +440,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tvCollection:
                 if (userId == -1L) {
-                    LoginActivity.start(getBaseContext());
+                    LoginActivity.start(this);
                     return;
                 }
                 if (tvCollection.getCompoundDrawables()[0] == null)
@@ -572,7 +579,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private void receiveRedBao(int redBaoId) {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE)
@@ -610,7 +617,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         String projectId = detailBean.getId();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", "1")
@@ -649,7 +656,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         String projectId = detailBean.getId();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.COUPON_RECEIVE).params("coupon_type", "1")
