@@ -36,6 +36,7 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -633,13 +634,13 @@ public class AppUtil {
                         SHARE_MEDIA.WEIXIN,SHARE_MEDIA.SINA,
                         SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
                 };
-        new ShareAction(activity).setDisplayList( displaylist )
-                .withText(titleText)//分享内容
-//                .withMedia(new UMWeb())
-                .withExtra(new UMImage(activity, imageUrl))
-                .setCallback((UMShareListener) authListener)//回调监听器
-                .share();
-
+        UMWeb web = new UMWeb(url);
+        web.setTitle(titleText);
+        web.setThumb(new UMImage(activity, imageUrl));
+        web.setDescription(titleText);
+        new ShareAction(activity).withMedia(web )
+                .setDisplayList( displaylist )
+                .setCallback((UMShareListener) authListener).share();
 
     }
 
