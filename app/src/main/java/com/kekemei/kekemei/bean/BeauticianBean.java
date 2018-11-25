@@ -40,7 +40,7 @@ public class BeauticianBean implements Serializable {
     private String content;
     private int coupon_ids;
     private double distance;
-    private int id;
+    private String id;
     private String identity;
     private String image;
     private String images;
@@ -107,11 +107,11 @@ public class BeauticianBean implements Serializable {
         this.distance = distance;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

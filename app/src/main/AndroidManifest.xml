@@ -98,13 +98,15 @@
         <activity android:name=".activity.MiaoshaActivity" />
         <activity android:name=".activity.UserEvaluateActivity" />
         <activity android:name=".activity.AddCommentActivity" />
-        <activity android:name=".activity.ProjectDetailActivity"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.ProjectDetailActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".activity.NewComerActivity" />
         <activity android:name=".activity.ShopBeauticianActivity" />
         <activity android:name=".activity.MyCollectionActivity" />
         <activity android:name=".activity.ServiceOrderListActivity" />
         <activity android:name=".activity.ServiceOrderDetailActivity" />
+        <activity android:name=".activity.LargeImageActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:launchMode="singleTask"

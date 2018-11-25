@@ -1,6 +1,5 @@
 package com.kekemei.kekemei.bean;
 
-import com.google.gson.annotations.SerializedName;
 import com.kekemei.kekemei.utils.StringUtils;
 
 import java.io.Serializable;
@@ -44,7 +43,7 @@ public class BeauticianDetailBean implements Serializable {
     private List<BaseBean> newmemberdata;
     private List<BaseBean> memberdata;
     private List<RecBeauticianBean> rec_beautician;
-    private CommentdataBean commentdata;
+    private CommentdataBean comment;
     private List<RedenvloesDataBean> redenvloesdata;
 
     public String getId() {
@@ -344,11 +343,11 @@ public class BeauticianDetailBean implements Serializable {
     }
 
     public CommentdataBean getCommentdata() {
-        return commentdata;
+        return comment;
     }
 
-    public void setCommentdata(CommentdataBean commentdata) {
-        this.commentdata = commentdata;
+    public void setCommentdata(CommentdataBean comment) {
+        this.comment = comment;
     }
 
     public List<RedenvloesDataBean> getRedenvloesdata() {
@@ -403,55 +402,6 @@ public class BeauticianDetailBean implements Serializable {
 
         public void setType(int type) {
             this.type = type;
-        }
-    }
-
-    public static class CommentdataBean implements Serializable {
-        private int count;
-        private List<CommentTagsBean> tags;
-        private List<EvaluateBean> all;
-        @SerializedName("new")
-        private List<EvaluateBean> newX;
-        private List<EvaluateBean> haveimg;
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public List<CommentTagsBean> getTags() {
-            return tags;
-        }
-
-        public void setTags(List<CommentTagsBean> tags) {
-            this.tags = tags;
-        }
-
-        public List<EvaluateBean> getAll() {
-            return all;
-        }
-
-        public void setAll(List<EvaluateBean> all) {
-            this.all = all;
-        }
-
-        public List<EvaluateBean> getNewX() {
-            return newX;
-        }
-
-        public void setNewX(List<EvaluateBean> newX) {
-            this.newX = newX;
-        }
-
-        public List<EvaluateBean> getHaveimg() {
-            return haveimg;
-        }
-
-        public void setHaveimg(List<EvaluateBean> haveimg) {
-            this.haveimg = haveimg;
         }
     }
 

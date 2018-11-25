@@ -31,6 +31,7 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.bean.CanlBean;
 import com.kekemei.kekemei.bean.CommentTagsBean;
+import com.kekemei.kekemei.bean.CommentdataBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ShopDetailBean;
 import com.kekemei.kekemei.bean.TradingBean;
@@ -46,7 +47,6 @@ import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CommonDialog;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.kekemei.kekemei.view.StarBar;
-import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -55,6 +55,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -145,7 +146,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private StarBar starBar;
     private FlexboxLayout commentTagFlowLayout;
     private RecyclerView rvCommentList;
-    private ShopDetailBean.CommentdataBean commentdata;
+    private CommentdataBean commentdata;
 
     private LinearLayout newComerLayout, memberLayout, preferenceLayout;
     private RecyclerView hotProjectRv, newComerRv, memberRv, preferenceRv;
@@ -245,7 +246,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             findViewById(R.id.openPictures).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openPhotoPicker();
+                    if (shopDetailBean != null && StringUtils.isNotEmpty(shopDetailBean.getImages())) {
+                        String images = shopDetailBean.getImages();
+                        String[] split = images.split(",");
+                        ArrayList<String> imageList = new ArrayList<>();
+                        imageList.addAll(Arrays.asList(split));
+                        LargeImageActivity.start(ShopActivity.this, imageList);
+                    }
                 }
             });
             findViewById(R.id.onLineService).setOnClickListener(new View.OnClickListener() {
@@ -586,13 +593,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         }
         return tradingBeanList;
-    }
-
-    public static final int REQUEST_ALBUM = 10;
-
-    private void openPhotoPicker() {
-        Intent intent = new Intent(this, ImageGridActivity.class);
-        startActivityForResult(intent, REQUEST_ALBUM);
     }
 
     /**
@@ -1039,6 +1039,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             commentSectionView.setVisibility(View.VISIBLE);
                             starNum.setText(String.valueOf(beauticianDetailBean.getStart()));
                             starBar.setStarMark(beauticianDetailBean.getStart());
+                            commentdata = beauticianDetailBean.getCommentdata();
                             tvCommentPeer.setText(getString(R.string.home_comment_peer_format, beauticianDetailBean.getPeer() + "%", beauticianDetailBean.getSatisfaction() + "%"));
                             userCommentNum.setText(getString(R.string.home_comment_num_format, beauticianDetailBean.getCommentdata().getCount()));
                             commentAdapter.addData(beauticianDetailBean.getCommentdata().getAll());

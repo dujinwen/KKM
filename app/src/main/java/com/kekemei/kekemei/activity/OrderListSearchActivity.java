@@ -77,6 +77,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     private String keyWord = "";
 
     private ArrayList<OrderListBean.DataBean> arrayList = new ArrayList<OrderListBean.DataBean>();
+
     @Override
     protected int setLayoutId() {
         return R.layout.order_list_search_activity;
@@ -144,7 +145,7 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
             @Override
             public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
                 final OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
-                final List< OrderListBean.DataBean> data = adapter.getData();
+                final List<OrderListBean.DataBean> data = listAdapter.getData();
                 switch (view.getId()) {
                     case R.id.iv_del_order:
                         long userId = UserHelp.getUserId(OrderListSearchActivity.this);

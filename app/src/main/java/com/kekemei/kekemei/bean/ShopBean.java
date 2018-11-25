@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 店铺
  */
-public class ShopBean implements Serializable{
+public class ShopBean implements Serializable {
 
 
     /**
@@ -29,18 +29,21 @@ public class ShopBean implements Serializable{
      * user_id : 1
      * order_count : 2
      * appointment : 3
-     * $satisfaction : 0
+     * satisfaction : 0
      * start : 0
      * service : ["品质保障","随时调换","7天退"]
      * redenvelopes : ["抢50元"]
-     * coupon : []
+     * coupon : ["满599减50"]
      * full : ["满1099减100"]
-     * distance : 19
+     * distance : 7072.2
      * comment_count : 0
      * state_text : 正常
+     * minimum : 88
+     * tag : 真棒
+     * starts : 0
      */
 
-    private int id;
+    private String id;
     private String name;
     private String image;
     private String images;
@@ -59,22 +62,48 @@ public class ShopBean implements Serializable{
     private int user_id;
     private int order_count;
     private int appointment;
-    private int $satisfaction;
     private float start;
-    private int distance;
+    private String distance;
     private int comment_count;
     private String state_text;
     private List<String> service;
     private List<String> redenvelopes;
-    private List<?> coupon;
+    private List<String> coupon;
     private List<String> full;
     private double satisfaction;
+    private String tag;
+    private int minimum;
+    private float starts;
 
-    public int getId() {
+    public float getStarts() {
+        return starts;
+    }
+
+    public void setStarts(float starts) {
+        this.starts = starts;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public int getMinimum() {
+        return minimum;
+    }
+
+    public void setMinimum(int minimum) {
+        this.minimum = minimum;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -221,19 +250,13 @@ public class ShopBean implements Serializable{
     public void setAppointment(int appointment) {
         this.appointment = appointment;
     }
+
     public double getSatisfaction() {
         return satisfaction;
     }
 
     public void setSatisfaction(double satisfaction) {
         this.satisfaction = satisfaction;
-    }
-    public int get$satisfaction() {
-        return $satisfaction;
-    }
-
-    public void set$satisfaction(int $satisfaction) {
-        this.$satisfaction = $satisfaction;
     }
 
     public float getStart() {
@@ -244,11 +267,11 @@ public class ShopBean implements Serializable{
         this.start = start;
     }
 
-    public int getDistance() {
+    public String getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
     }
 
@@ -284,11 +307,11 @@ public class ShopBean implements Serializable{
         this.redenvelopes = redenvelopes;
     }
 
-    public List<?> getCoupon() {
+    public List<String> getCoupon() {
         return coupon;
     }
 
-    public void setCoupon(List<?> coupon) {
+    public void setCoupon(List<String> coupon) {
         this.coupon = coupon;
     }
 
