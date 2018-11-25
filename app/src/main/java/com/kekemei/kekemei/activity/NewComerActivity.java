@@ -24,6 +24,7 @@ import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.NewComerBean;
 import com.kekemei.kekemei.bean.NewMemberBean;
+import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
@@ -91,6 +92,9 @@ public class NewComerActivity extends BaseActivity {
     private boolean isLoadMore = false;
     private int jPageNum = 1;
 
+    private NewComerBean newComerBean;
+    private NewMemberBean newMemberBean;
+
     public static void start(Context context, boolean isNewComer) {
         Intent intent = new Intent(context, NewComerActivity.class);
         intent.putExtra(EXTRA_KEY_NEW_USER, isNewComer);
@@ -119,6 +123,28 @@ public class NewComerActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        iv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isNewComer) {
+                    if (newComerBean != null && newComerBean.getBanner() != null) {
+                        AppUtil.shareUm(NewComerActivity.this,
+                                newComerBean.getBanner().getTitle(),
+                                newComerBean.getBanner().getContent(),
+                                URLs.BASE_URL + newComerBean.getBanner().getImage(),
+                                URLs.SHARE_BEA_URL + newComerBean.getBanner().getId());
+                    }
+                } else {
+                    if (newMemberBean != null && newMemberBean.getBanner() != null) {
+                        AppUtil.shareUm(NewComerActivity.this,
+                                newMemberBean.getBanner().getTitle(),
+                                newMemberBean.getBanner().getContent(),
+                                URLs.BASE_URL + newMemberBean.getBanner().getImage(),
+                                URLs.SHARE_BEA_URL + newMemberBean.getBanner().getId());
+                    }
+                }
             }
         });
 
@@ -239,10 +265,10 @@ public class NewComerActivity extends BaseActivity {
                     }
                     Gson gson = new Gson();
                     if (isNewComer) {
-                        NewComerBean newComerBean = gson.fromJson(data, NewComerBean.class);
+                        newComerBean = gson.fromJson(data, NewComerBean.class);
                         onComerResult(newComerBean);
                     } else {
-                        NewMemberBean newMemberBean = gson.fromJson(data, NewMemberBean.class);
+                        newMemberBean = gson.fromJson(data, NewMemberBean.class);
                         onMemberResult(newMemberBean);
                     }
                 } catch (JSONException e) {
