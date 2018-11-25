@@ -215,6 +215,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         if (detailEnum == DetailEnum.BEAUTICIAN) {
             tv_title.setText("美容师详情");
             detailHome.setText("美容师首页");
+            findViewById(R.id.chat_to_beautician).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (beauticianDetailBean != null && beauticianDetailBean.getWaiter() != null) {
+                        ChatActivity.start(ShopActivity.this, beauticianDetailBean.getWaiter());
+                    }
+                }
+            });
             findViewById(R.id.tvBeauticianInfo).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -847,42 +855,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                                 }
                             });
                         }
-                        if (shopDetailBean.getIscollection() == 1) {
-                            tvFollow.setText("已关注");
-                            tvFollow.setClickable(false);
-                            tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.common_text_dark));
-                            tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn_1));
-                        } else {
-                            tvFollow.setText("关注");
-                            tvFollow.setClickable(true);
-                            tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.white));
-                            tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
-                        }
+                        setFollowStatus(shopDetailBean.getIscollection() == 1);
                         if (CollectionUtils.isNotEmpty(shopDetailBean.getStrading())) {
                             tradingBeanList = getTradingList(shopDetailBean.getStrading());
                             fillTradings(shopDetailBean.getStrading());
                         }
-                        if (CollectionUtils.isNotEmpty(shopDetailBean.getService())) {
-                            List<String> serviceList = shopDetailBean.getService();
-                            if (serviceList.get(0) != null) {
-                                serviceOne.setVisibility(View.VISIBLE);
-                                serviceOne.setText(serviceList.get(0));
-                            } else {
-                                serviceOne.setVisibility(View.GONE);
-                            }
-                            if (serviceList.get(1) != null) {
-                                serviceTwo.setVisibility(View.VISIBLE);
-                                serviceTwo.setText(serviceList.get(1));
-                            } else {
-                                serviceTwo.setVisibility(View.GONE);
-                            }
-                            if (serviceList.get(2) != null) {
-                                serviceThree.setVisibility(View.VISIBLE);
-                                serviceThree.setText(serviceList.get(2));
-                            } else {
-                                serviceThree.setVisibility(View.GONE);
-                            }
-                        }
+                        fillServiceList(shopDetailBean.getService());
                         if (CollectionUtils.isNotEmpty(shopDetailBean.getHotdata())) {
                             hotProjectAdapter.replaceData(shopDetailBean.getHotdata());
                         }
@@ -902,16 +880,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             meiRongShiAdapter.replaceData(shopDetailBean.getBeautician());
                         }
                         if (shopDetailBean.getCommentdata() != null && CollectionUtils.isNotEmpty(shopDetailBean.getCommentdata().getAll())) {
-                            commentSectionView.setVisibility(View.VISIBLE);
-                            starNum.setText(String.valueOf(shopDetailBean.getStart()));
-                            starBar.setStarMark(shopDetailBean.getStart());
-                            userCommentNum.setText(getString(R.string.home_comment_num_format, shopDetailBean.getCommentdata().getCount()));
-                            tvCommentPeer.setText(getString(R.string.home_comment_peer_format, shopDetailBean.getPeer() + "%", shopDetailBean.getSatisfaction() + "%"));
-                            commentdata = shopDetailBean.getCommentdata();
-                            commentAdapter.replaceData(shopDetailBean.getCommentdata().getAll());
-                            if (CollectionUtils.isNotEmpty(shopDetailBean.getCommentdata().getTags())) {
-                                fillTags(shopDetailBean.getCommentdata().getTags());
-                            }
+                            fillCommentData(shopDetailBean.getCommentdata());
                         } else {
                             commentSectionView.setVisibility(View.GONE);
                         }
@@ -980,46 +949,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                                 }
                             }
                         }
-                        if (beauticianDetailBean.getIsfriend() == 1) {
-                            tvFollow.setText("已关注");
-                            tvFollow.setClickable(false);
-                            tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.common_text_dark));
-                            tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn_1));
-                        } else {
-                            tvFollow.setText("关注");
-                            tvFollow.setClickable(true);
-                            tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, R.color.white));
-                            tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, R.mipmap.orderform_determine_btn));
-                        }
+                        setFollowStatus(beauticianDetailBean.getIsfriend() == 1);
                         if (CollectionUtils.isNotEmpty(beauticianDetailBean.getStrading())) {
                             tradingBeanList = getTradingList(beauticianDetailBean.getStrading());
                             fillTradings(beauticianDetailBean.getStrading());
                         }
-                        if (CollectionUtils.isNotEmpty(beauticianDetailBean.getAuth())) {
-                            List<String> authList = beauticianDetailBean.getAuth();
-                            for (int i = 0; i < authList.size(); i++) {
-                                if (StringUtils.isNotEmpty(authList.get(i))) {
-                                    if (i == 0) {
-                                        serviceOne.setVisibility(View.VISIBLE);
-                                        serviceOne.setText(authList.get(i));
-                                    } else {
-                                        serviceOne.setVisibility(View.GONE);
-                                    }
-                                    if (i == 1) {
-                                        serviceTwo.setVisibility(View.VISIBLE);
-                                        serviceTwo.setText(authList.get(i));
-                                    } else {
-                                        serviceTwo.setVisibility(View.GONE);
-                                    }
-                                    if (i == 2) {
-                                        serviceThree.setVisibility(View.VISIBLE);
-                                        serviceThree.setText(authList.get(i));
-                                    } else {
-                                        serviceThree.setVisibility(View.GONE);
-                                    }
-                                }
-                            }
-                        }
+                        fillServiceList(beauticianDetailBean.getAuth());
                         if (CollectionUtils.isNotEmpty(beauticianDetailBean.getHotdata())) {
                             hotProjectAdapter.replaceData(beauticianDetailBean.getHotdata());
                         }
@@ -1036,16 +971,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                             preferenceAdapter.replaceData(beauticianDetailBean.getSpecialdata());
                         }
                         if (beauticianDetailBean.getCommentdata() != null && CollectionUtils.isNotEmpty(beauticianDetailBean.getCommentdata().getAll())) {
-                            commentSectionView.setVisibility(View.VISIBLE);
-                            starNum.setText(String.valueOf(beauticianDetailBean.getStart()));
-                            starBar.setStarMark(beauticianDetailBean.getStart());
-                            commentdata = beauticianDetailBean.getCommentdata();
-                            tvCommentPeer.setText(getString(R.string.home_comment_peer_format, beauticianDetailBean.getPeer() + "%", beauticianDetailBean.getSatisfaction() + "%"));
-                            userCommentNum.setText(getString(R.string.home_comment_num_format, beauticianDetailBean.getCommentdata().getCount()));
-                            commentAdapter.addData(beauticianDetailBean.getCommentdata().getAll());
-                            if (CollectionUtils.isNotEmpty(beauticianDetailBean.getCommentdata().getTags())) {
-                                fillTags(beauticianDetailBean.getCommentdata().getTags());
-                            }
+                            fillCommentData(beauticianDetailBean.getCommentdata());
                         } else {
                             commentSectionView.setVisibility(View.GONE);
                         }
@@ -1063,6 +989,53 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
 
         initDatePicker(this);
+    }
+
+    private void fillCommentData(CommentdataBean commentData) {
+        commentdata = commentData;
+        commentSectionView.setVisibility(View.VISIBLE);
+        starNum.setText(String.valueOf(commentData.getStart()));
+        starBar.setStarMark(commentData.getStart());
+        userCommentNum.setText(getString(R.string.home_comment_num_format, commentData.getCount()));
+        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, commentData.getPeer() + "%", commentData.getSatisfaction() + "%"));
+        commentAdapter.replaceData(commentData.getAll());
+        if (CollectionUtils.isNotEmpty(commentData.getTags())) {
+            fillTags(commentData.getTags());
+        }
+    }
+
+    private void fillServiceList(List<String> list) {
+        if (CollectionUtils.isNotEmpty(list)) {
+            for (int i = 0; i < list.size(); i++) {
+                if (StringUtils.isNotEmpty(list.get(i))) {
+                    if (i == 0) {
+                        serviceOne.setVisibility(View.VISIBLE);
+                        serviceOne.setText(list.get(i));
+                    } else {
+                        serviceOne.setVisibility(View.GONE);
+                    }
+                    if (i == 1) {
+                        serviceTwo.setVisibility(View.VISIBLE);
+                        serviceTwo.setText(list.get(i));
+                    } else {
+                        serviceTwo.setVisibility(View.GONE);
+                    }
+                    if (i == 2) {
+                        serviceThree.setVisibility(View.VISIBLE);
+                        serviceThree.setText(list.get(i));
+                    } else {
+                        serviceThree.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    }
+
+    private void setFollowStatus(boolean status) {
+        tvFollow.setText(status ? "已关注" : "关注");
+        tvFollow.setClickable(!status);
+        tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, status ? R.color.common_text_dark : R.color.white));
+        tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, status ? R.mipmap.orderform_determine_btn_1 : R.mipmap.orderform_determine_btn));
     }
 
     private void fillTradings(List<String> strading) {

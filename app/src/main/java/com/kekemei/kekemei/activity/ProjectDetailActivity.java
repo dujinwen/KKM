@@ -38,6 +38,8 @@ import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.bean.CanlBean;
+import com.kekemei.kekemei.bean.CommentTagsBean;
+import com.kekemei.kekemei.bean.CommentdataBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ProjectDetailBean;
 import com.kekemei.kekemei.bean.ShopDetailBean;
@@ -145,7 +147,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     private WebView webContainer;
 
-    private ProjectDetailBean.CommentBean commentData;
+    private CommentdataBean commentdata;
     private View commentSectionView;
     private TextView userCommentNum;
     private TextView commentTabAll;
@@ -442,24 +444,24 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 commentTabAll.setSelected(true);
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(false);
-                if (commentData != null) {
-                    commentAdapter.replaceData(commentData.getAll());
+                if (commentdata != null) {
+                    commentAdapter.replaceData(commentdata.getAll());
                 }
                 break;
             case R.id.commentTabNew:
                 commentTabAll.setSelected(false);
                 commentTabNew.setSelected(true);
                 commentTabPhoto.setSelected(false);
-                if (commentData != null) {
-                    commentAdapter.replaceData(commentData.getNewX());
+                if (commentdata != null) {
+                    commentAdapter.replaceData(commentdata.getNewX());
                 }
                 break;
             case R.id.commentTabPhoto:
                 commentTabAll.setSelected(false);
                 commentTabNew.setSelected(false);
                 commentTabPhoto.setSelected(true);
-                if (commentData != null) {
-                    commentAdapter.replaceData(commentData.getHaveimg());
+                if (commentdata != null) {
+                    commentAdapter.replaceData(commentdata.getHaveimg());
                 }
                 break;
             case R.id.tv_buy_now:
@@ -788,16 +790,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 });
                             }
                             if (detailBean.getComment() != null && CollectionUtils.isNotEmpty(detailBean.getComment().getAll())) {
-                                commentSectionView.setVisibility(View.VISIBLE);
-                                /*starNum.setText(String.valueOf(detailBean.getStart()));
-                                starBar.setStarMark(detailBean.getStart());*/
-                                userCommentNum.setText(getString(R.string.home_comment_num_format, detailBean.getComment().getCount()));
-                                tvCommentPeer.setText(getString(R.string.home_comment_peer_format, detailBean.getPeer() + "%", detailBean.getSatisfaction() + "%"));
-                                commentData = detailBean.getComment();
-                                commentAdapter.replaceData(detailBean.getComment().getAll());
-                                if (CollectionUtils.isNotEmpty(detailBean.getComment().getTags())) {
-                                    fillTags(detailBean.getComment().getTags());
-                                }
+                                fillCommentData(detailBean.getComment());
                             } else {
                                 commentSectionView.setVisibility(View.GONE);
                             }
@@ -818,6 +811,19 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         initDatePicker(this);
     }
 
+    private void fillCommentData(CommentdataBean commentData) {
+        commentdata = commentData;
+        commentSectionView.setVisibility(View.VISIBLE);
+        starNum.setText(String.valueOf(commentData.getStart()));
+        starBar.setStarMark(commentData.getStart());
+        userCommentNum.setText(getString(R.string.home_comment_num_format, commentData.getCount()));
+        tvCommentPeer.setText(getString(R.string.home_comment_peer_format, commentData.getPeer() + "%", commentData.getSatisfaction() + "%"));
+        commentAdapter.replaceData(commentData.getAll());
+        if (CollectionUtils.isNotEmpty(commentData.getTags())) {
+            fillTags(commentData.getTags());
+        }
+    }
+
     private void fillTradings(List<String> strading) {
         StringBuilder tradingText = new StringBuilder();
         if (strading.size() >= 2) {
@@ -833,7 +839,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      *
      * @param result
      */
-    private void fillTags(final List<ProjectDetailBean.CommentBean.TagsBean> result) {
+    private void fillTags(final List<CommentTagsBean> result) {
         if (CollectionUtils.isEmpty(result)) {
             return;
         }
