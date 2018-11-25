@@ -31,7 +31,7 @@ public class ShopDetailBean implements Serializable {
     private float start;
     private String state_text;
     private WaiterBean waiter;
-    private CommentdataBean commentdata;
+    private CommentdataBean commentData;
     private List<RedenvloesDataBean> redenvloesdata;
     private List<String> service;
     private List<CouponBean> coupon;
@@ -253,7 +253,7 @@ public class ShopDetailBean implements Serializable {
     }
 
     public CommentdataBean getCommentdata() {
-        return commentdata;
+        return commentData;
     }
 
     public List<RedenvloesDataBean> getRedenvloesdata() {
@@ -265,7 +265,7 @@ public class ShopDetailBean implements Serializable {
     }
 
     public void setCommentdata(CommentdataBean commentdata) {
-        this.commentdata = commentdata;
+        this.commentData = commentdata;
     }
 
     public String getState_text() {

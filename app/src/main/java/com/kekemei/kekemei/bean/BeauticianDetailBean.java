@@ -43,8 +43,17 @@ public class BeauticianDetailBean implements Serializable {
     private List<BaseBean> newmemberdata;
     private List<BaseBean> memberdata;
     private List<RecBeauticianBean> rec_beautician;
-    private CommentdataBean comment;
+    private CommentdataBean commentData;
     private List<RedenvloesDataBean> redenvloesdata;
+    private WaiterBean waiter;
+
+    public WaiterBean getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(WaiterBean waiter) {
+        this.waiter = waiter;
+    }
 
     public String getId() {
         return id;
@@ -343,11 +352,11 @@ public class BeauticianDetailBean implements Serializable {
     }
 
     public CommentdataBean getCommentdata() {
-        return comment;
+        return commentData;
     }
 
-    public void setCommentdata(CommentdataBean comment) {
-        this.comment = comment;
+    public void setCommentdata(CommentdataBean commentData) {
+        this.commentData = commentData;
     }
 
     public List<RedenvloesDataBean> getRedenvloesdata() {
