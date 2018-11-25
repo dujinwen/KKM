@@ -146,7 +146,7 @@ public class MyVoucherActivity extends BaseActivity {
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>get(URLs.MY_COUPON).tag(this).params("user_id", userId)

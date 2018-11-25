@@ -33,6 +33,7 @@
                     android:background="@color/common_background" />
 
                 <TextView
+                    android:id="@+id/tvAllProject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@mipmap/title_more_btn"
@@ -91,16 +92,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/px_33"
                     android:paddingRight="@dimen/px_43" />
-
-                <TextView
-                    android:id="@+id/lookMoreForYou"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/px_115"
-                    android:background="#ECF9F9"
-                    android:gravity="center"
-                    android:text="查看更多"
-                    android:textColor="#7AD2D2"
-                    android:textSize="@dimen/px_43" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

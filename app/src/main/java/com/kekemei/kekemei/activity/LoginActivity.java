@@ -1,5 +1,6 @@
 package com.kekemei.kekemei.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,9 +79,9 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
-    public static void start(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
-        context.startActivity(intent);
+    public static void start(Activity activity) {
+        Intent intent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(intent);
     }
 
     @Override

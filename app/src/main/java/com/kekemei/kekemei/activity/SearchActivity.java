@@ -376,7 +376,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.INDEX_SEARCH)
@@ -577,7 +577,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     private void initSearchHistoryAndHot() {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.HOT_SEARCH).tag(this).params("user_id", userId)

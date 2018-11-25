@@ -20,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 import com.gyf.barlibrary.ImmersionBar;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.utils.LogUtil;
-import com.umeng.socialize.UMShareAPI;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

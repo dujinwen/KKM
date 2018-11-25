@@ -340,10 +340,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             }
         });
+        view.findViewById(R.id.tvHotProject).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProjectListActivity.start(ShopActivity.this, "2");
+            }
+        });
         view.findViewById(R.id.lookMore).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+                ProjectListActivity.start(ShopActivity.this, "2");
             }
         });
 
@@ -357,10 +363,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
+        view.findViewById(R.id.tvNewComer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComerActivity.start(ShopActivity.this, true);
+            }
+        });
         view.findViewById(R.id.lookMoreNew).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+                NewComerActivity.start(ShopActivity.this, true);
             }
         });
 
@@ -374,10 +386,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
+        view.findViewById(R.id.tvMember).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComerActivity.start(ShopActivity.this, false);
+            }
+        });
         view.findViewById(R.id.lookMoreMember).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+                NewComerActivity.start(ShopActivity.this, false);
             }
         });
 
@@ -391,10 +409,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 ProjectDetailActivity.start(ShopActivity.this, item.getId(), timeSelectPosition, timeSelectName, daySelectPosition, beauticianDetailBean, detailEnum);
             }
         });
+        view.findViewById(R.id.tvPreference).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NewComerActivity.start(ShopActivity.this, false);
+            }
+        });
         view.findViewById(R.id.lookMorePreference).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ShopActivity.this, ClassifyActivity.class));
+                NewComerActivity.start(ShopActivity.this, false);
             }
         });
     }
@@ -468,6 +492,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         commentTabAll.setOnClickListener(this);
         commentTabNew.setOnClickListener(this);
         commentTabPhoto.setOnClickListener(this);
+        view.findViewById(R.id.layoutUserComment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserEvaluateActivity.start(ShopActivity.this, false,
+                        "", "", "");
+            }
+        });
 
         commentAdapter = new EvaluateListAdapter(this, false);
         rvCommentList.setLayoutManager(new LinearLayoutManager(this));
@@ -629,7 +660,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private void follow() {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN).params("beautician_id", beauticianId)
@@ -668,7 +699,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.RED_ENVELOPES_RECEIVE).params("id", redBaoId)
@@ -705,7 +736,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private void receiveFull(int fullId) {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getId() : "";
@@ -745,7 +776,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private void receiveCoupon(int couponId) {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         String shopId = detailEnum == DetailEnum.SHOP ? shopDetailBean.getId() : "";
@@ -918,7 +949,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         } else {
             long userId = UserHelp.getUserId(this);
             if (userId == -1L) {
-                LoginActivity.start(getBaseContext());
+                LoginActivity.start(this);
                 return;
             }
             OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {

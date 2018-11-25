@@ -83,7 +83,7 @@ public class MessageActivity extends BaseActivity {
 
         long userId = UserHelp.getUserId(this);
         if (userId==-1L){
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
 

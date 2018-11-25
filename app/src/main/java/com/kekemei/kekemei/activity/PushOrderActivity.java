@@ -320,7 +320,7 @@ public class PushOrderActivity extends BaseActivity {
             case R.id.btn_yuyue:
                 long userId = UserHelp.getUserId(this);
                 if (userId==-1L){
-                    LoginActivity.start(getBaseContext());
+                    LoginActivity.start(this);
                     return;
                 }
                 if (shpDataBeanData != null && StringUtils.isEmpty(shopId))
