@@ -18,7 +18,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.CreditActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MainActivity;
@@ -27,8 +26,10 @@ import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MyCollectionActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
+import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.ServiceOrderListActivity;
+import com.kekemei.kekemei.activity.SettingActivity;
 import com.kekemei.kekemei.activity.UserInfoActivity;
 import com.kekemei.kekemei.adapter.GridAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
@@ -247,15 +248,16 @@ public class PersonFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initData();
+        }
     }
 
     @OnClick({R.id.user_set_btn, R.id.userName, R.id.icon})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_set_btn:
-//                SettingActivity.start(getActivity());
-                AddCommentActivity.start(getActivity(), "1", "1");
-
+                SettingActivity.start(getActivity());
                 break;
             case R.id.icon:
                 LoginActivity.start(getActivity());
@@ -281,7 +283,7 @@ public class PersonFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tiyan:
-
+                NewComerActivity.start(getActivity(), true);
                 break;
             case R.id.daijinquan:
                 MyVoucherActivity.start(getActivity());
