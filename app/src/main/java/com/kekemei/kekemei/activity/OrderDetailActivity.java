@@ -161,12 +161,34 @@ public class OrderDetailActivity extends BaseActivity {
                         tvPlace.setText(data.getAddress() == null ? "" : data.getAddress().toString());
                         tvTime.setText(data.getServicetime() + "");
                         tvPrice.setText("¥ " + data.getProject_price() + " ");
-                        tvInfoOrderCreTime.setText(data.getCreatetime()+"");
-                        tvInfoOrderFinTime.setText(data.getFinishtime()+"");
-                        tvInfoOrderNum.setText(data.getId()+"");
-                        tvInfoOrderYouhui.setText(data.getConpou() == null ? "" : data.getConpou() + "");
-                        tvInfoOrderRed.setText(data.getRedenvelopes() == null ? "" : data.getRedenvelopes() + "");
-                        tvInfoOrderManjian.setText(data.getFull() == null ? "" : data.getFull() + "");
+                        tvInfoOrderCreTime.setText(data.getCreatetime() + "");
+                        tvInfoOrderFinTime.setText(data.getFinishtime() + "");
+                        tvInfoOrderNum.setText(data.getId() + "");
+                        if (data.getConpou() == null || data.getConpou() == "") {
+                            tvInfoOrderYouhui.setVisibility(View.GONE);
+                        } else {
+                            tvInfoOrderYouhui.setText(data.getConpou() + "");
+                        }
+                        if (data.getRedenvelopes() == null || data.getRedenvelopes() == "") {
+                            tvInfoOrderRed.setVisibility(View.GONE);
+                        } else {
+                            tvInfoOrderRed.setText(data.getRedenvelopes() + "");
+                        }
+                        if (data.getFull() == null || data.getFull() == "") {
+                            tvInfoOrderManjian.setVisibility(View.GONE);
+                        } else {
+                            tvInfoOrderManjian.setText(data.getFull() + "");
+                        }
+                        if (data.getConpou() == null || data.getConpou() == "") {
+                            tvInfoOrderYouhui.setVisibility(View.GONE);
+                        } else {
+                            tvInfoOrderYouhui.setText(data.getConpou() + "");
+                        }
+                        if (data.getState_text() == null || data.getState_text() == "") {
+                            tvInfoOrderState.setVisibility(View.GONE);
+                        } else {
+                            tvInfoOrderState.setText(data.getConpou() + "");
+                        }
                         tvInfoOrderState.setText(data.getState_text());
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + data.getProject_image(), ivOrderIcon);
                     }
@@ -178,14 +200,14 @@ public class OrderDetailActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.ll_meirongshi_info_hint:
                 if (data.getBeauticianid() == null) return;
-                ShopActivity.start(OrderDetailActivity.this, data.getBeauticianid()+"", DetailEnum.BEAUTICIAN);
+                ShopActivity.start(OrderDetailActivity.this, data.getBeauticianid() + "", DetailEnum.BEAUTICIAN);
                 break;
             case R.id.tv_place:
                 if (data.getProject_id() == null) return;
-                ShopActivity.start(OrderDetailActivity.this, data.getProject_id()+"", DetailEnum.SHOP);
+                ShopActivity.start(OrderDetailActivity.this, data.getProject_id() + "", DetailEnum.SHOP);
                 break;
             case R.id.btn_pay:
-                AddCommentActivity.start(OrderDetailActivity.this,data.getSource(),data.getId()+"");
+                AddCommentActivity.start(OrderDetailActivity.this, data.getSource(), data.getId() + "");
                 break;
         }
     }

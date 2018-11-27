@@ -102,7 +102,6 @@ public class ClassifyActivity extends BaseActivity {
     private ArrayList<SelectBean> objects;
     private ProjectListAdapter listAdapter;
     @SuppressWarnings("unchecked")
-    private static HashSet<Integer> positionArrayList = new HashSet<>();
     private LinearLayoutManager linearLayoutManager;
     private int type = R.id.tal_meirong;
     private int isCheck = -1;
@@ -156,7 +155,6 @@ public class ClassifyActivity extends BaseActivity {
         objects.add(new SelectBean("收藏最多", false));
         objects.add(new SelectBean("评论最多", false));
         objects.add(new SelectBean("销量最多", false));
-        //        pingLunBiaoQianGridViewAdapter.notifyDataSetChanged();
     }
 
 
