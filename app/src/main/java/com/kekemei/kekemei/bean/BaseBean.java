@@ -62,6 +62,7 @@ public class BaseBean implements Serializable {
     private String state_text;
     private List<String> redenvelopes;
     private List<String> coupon;
+    private List<String> full;
 
     public String getId() {
         return id;
@@ -261,5 +262,13 @@ public class BaseBean implements Serializable {
 
     public void setCoupon(List<String> coupon) {
         this.coupon = coupon;
+    }
+
+    public List<String> getFull() {
+        return full;
+    }
+
+    public void setFull(List<String> full) {
+        this.full = full;
     }
 }

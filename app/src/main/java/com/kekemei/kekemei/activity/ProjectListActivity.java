@@ -41,7 +41,7 @@ import butterknife.BindView;
  */
 public class ProjectListActivity extends BaseActivity {
     public static final String TAG = ProjectListActivity.class.getSimpleName();
-    private static final String EXTRA_KEY_START = "start";//2=热门,3=最新,不传代表所有
+    private static final String EXTRA_KEY_STATE = "state";//2=热门,3=最新,不传代表所有
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -55,14 +55,14 @@ public class ProjectListActivity extends BaseActivity {
     RecyclerView newPeopleList;
     private ProjectListAdapter listAdapter;
 
-    private String start;
+    private String state;
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
     private int jPageNum = 1;
 
-    public static void start(Context context, String start) {
+    public static void start(Context context, String state) {
         Intent intent = new Intent(context, ProjectListActivity.class);
-        intent.putExtra(EXTRA_KEY_START, start);
+        intent.putExtra(EXTRA_KEY_STATE, state);
         context.startActivity(intent);
     }
 
@@ -79,9 +79,9 @@ public class ProjectListActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        start = super.getStringExtraSecure(EXTRA_KEY_START);
+        state = super.getStringExtraSecure(EXTRA_KEY_STATE);
         toolbar.setNavigationIcon(R.mipmap.back);
-        tv_title.setText(StringUtils.isEmpty(start) ? "所有项目" : start.equals("2") ? "热门项目" : "最新项目");
+        tv_title.setText(StringUtils.isEmpty(state) ? "所有项目" : state.equals("2") ? "热门项目" : "最新项目");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +152,7 @@ public class ProjectListActivity extends BaseActivity {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
         OkGo.<String>post(URLs.PROJECT_LIST).params("category", "").params("page", pageNum)
-                .params("start", start).execute(new StringCallback() {
+                .params("state", state).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "response:" + response.body());
