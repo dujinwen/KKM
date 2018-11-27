@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:paddingBottom="43px"
-    android:paddingLeft="27px"
-    android:paddingTop="43px">
+    android:paddingBottom="@dimen/px_43"
+    android:paddingLeft="@dimen/px_27"
+    android:paddingTop="@dimen/px_43">
 
     <TextView
         android:id="@+id/content"
@@ -14,13 +14,13 @@
         android:layout_weight="1"
         android:text="美容"
         android:textColor="#505050"
-        android:textSize="40px" />
+        android:textSize="@dimen/px_40" />
 
     <ImageView
         android:id="@+id/flag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="60px"
+        android:layout_marginRight="@dimen/px_60"
         android:src="@mipmap/user_info_change_list_selected"
         android:visibility="gone" />
 

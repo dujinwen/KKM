@@ -8,10 +8,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="50dp"
         android:orientation="horizontal"
-        android:paddingLeft="50px"
-        android:paddingRight="50px">
+        android:paddingLeft="@dimen/px_50"
+        android:paddingRight="@dimen/px_50">
 
         <RelativeLayout
             android:id="@+id/tabAll"
@@ -28,12 +28,12 @@
                 android:gravity="center"
                 android:text="全    部"
                 android:textColor="#222222"
-                android:textSize="46px" />
+                android:textSize="15dp" />
 
             <ImageView
                 android:id="@+id/indicatorTabAll"
-                android:layout_width="137px"
-                android:layout_height="16px"
+                android:layout_width="46dp"
+                android:layout_height="5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="#7AD2D2"
@@ -55,12 +55,12 @@
                 android:gravity="center"
                 android:text="项    目"
                 android:textColor="#222222"
-                android:textSize="46px" />
+                android:textSize="15dp" />
 
             <ImageView
                 android:id="@+id/indicatorProject"
-                android:layout_width="137px"
-                android:layout_height="16px"
+                android:layout_width="46dp"
+                android:layout_height="5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="#7AD2D2"
@@ -82,12 +82,12 @@
                 android:gravity="center"
                 android:text="店    名"
                 android:textColor="#222222"
-                android:textSize="46px" />
+                android:textSize="15dp" />
 
             <ImageView
                 android:id="@+id/indicatorShopName"
-                android:layout_width="137px"
-                android:layout_height="16px"
+                android:layout_width="46dp"
+                android:layout_height="5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="#7AD2D2"
@@ -109,12 +109,12 @@
                 android:gravity="center"
                 android:text="美容师"
                 android:textColor="#222222"
-                android:textSize="46px" />
+                android:textSize="15dp" />
 
             <ImageView
                 android:id="@+id/indicatorBeautician"
-                android:layout_width="137px"
-                android:layout_height="16px"
+                android:layout_width="46dp"
+                android:layout_height="5dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="#7AD2D2"

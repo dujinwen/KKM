@@ -62,7 +62,7 @@
                 android:layout_gravity="center"
                 android:text="500"
                 android:textColor="#FFFF6C70"
-                android:textSize="@dimen/px_122" />
+                android:textSize="40sp" />
         </LinearLayout>
 
         <Button

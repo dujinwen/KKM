@@ -1,6 +1,5 @@
 package com.kekemei.kekemei.bean;
 
-import com.google.gson.annotations.SerializedName;
 import com.kekemei.kekemei.utils.StringUtils;
 
 import java.io.Serializable;
@@ -44,7 +43,17 @@ public class BeauticianDetailBean implements Serializable {
     private List<BaseBean> newmemberdata;
     private List<BaseBean> memberdata;
     private List<RecBeauticianBean> rec_beautician;
-    private CommentdataBean commentdata;
+    private CommentdataBean commentData;
+    private List<RedenvloesDataBean> redenvloesdata;
+    private WaiterBean waiter;
+
+    public WaiterBean getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(WaiterBean waiter) {
+        this.waiter = waiter;
+    }
 
     public String getId() {
         return id;
@@ -343,59 +352,65 @@ public class BeauticianDetailBean implements Serializable {
     }
 
     public CommentdataBean getCommentdata() {
-        return commentdata;
+        return commentData;
     }
 
-    public void setCommentdata(CommentdataBean commentdata) {
-        this.commentdata = commentdata;
+    public void setCommentdata(CommentdataBean commentData) {
+        this.commentData = commentData;
     }
 
-    public static class CommentdataBean implements Serializable {
-        private int count;
-        private List<CommentTagsBean> tags;
-        private List<EvaluateBean> all;
-        @SerializedName("new")
-        private List<EvaluateBean> newX;
-        private List<EvaluateBean> haveimg;
+    public List<RedenvloesDataBean> getRedenvloesdata() {
+        return redenvloesdata;
+    }
 
-        public int getCount() {
-            return count;
+    public void setRedenvloesdata(List<RedenvloesDataBean> redenvloesdata) {
+        this.redenvloesdata = redenvloesdata;
+    }
+
+    public static class RedenvloesDataBean implements Serializable {
+
+        /**
+         * id : 1
+         * name : 抢50元
+         * price : 0
+         * type : 1
+         */
+
+        private int id;
+        private String name;
+        private int price;
+        private int type;
+
+        public int getId() {
+            return id;
         }
 
-        public void setCount(int count) {
-            this.count = count;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public List<CommentTagsBean> getTags() {
-            return tags;
+        public String getName() {
+            return name;
         }
 
-        public void setTags(List<CommentTagsBean> tags) {
-            this.tags = tags;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public List<EvaluateBean> getAll() {
-            return all;
+        public int getPrice() {
+            return price;
         }
 
-        public void setAll(List<EvaluateBean> all) {
-            this.all = all;
+        public void setPrice(int price) {
+            this.price = price;
         }
 
-        public List<EvaluateBean> getNewX() {
-            return newX;
+        public int getType() {
+            return type;
         }
 
-        public void setNewX(List<EvaluateBean> newX) {
-            this.newX = newX;
-        }
-
-        public List<EvaluateBean> getHaveimg() {
-            return haveimg;
-        }
-
-        public void setHaveimg(List<EvaluateBean> haveimg) {
-            this.haveimg = haveimg;
+        public void setType(int type) {
+            this.type = type;
         }
     }
 

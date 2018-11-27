@@ -15,7 +15,6 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -32,6 +31,13 @@ import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -61,7 +67,6 @@ public class AppUtil {
 
     private static AMapLocationClient mLocationClient;
     private static AMapLocationClientOption mLocationOption;
-
 
     public static String getFromAssets(Context ct, String fileName) {
         String Result = "";
@@ -178,12 +183,10 @@ public class AppUtil {
     }
 
 
-
     // 获取资源字符串
     public static String getString(Context context, int strId) {
         return context.getResources().getString(strId);
     }
-
 
 
     public static String encodeURL(String url) {
@@ -575,21 +578,25 @@ public class AppUtil {
      */
     public static String getFormatTime(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
     public static String getFormatTime1(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
     public static String getFormatTime2(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
     public static String getFormatTime3(long time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        if ((time + "").length() == 10) time *= 1000;
         return sdf.format(new Date(time));
     }
 
@@ -617,6 +624,46 @@ public class AppUtil {
         }
         timeStemp = d.getTime();
         return timeStemp;
+    }
+
+
+    public static void shareUm(final Activity activity, final String titleText, final String content, final String imageUrl, final String url){
+        /*增加自定义按钮的分享面板*/
+        new ShareAction(activity).setDisplayList(
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
+                )
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        UMWeb web = new UMWeb(url);
+                        web.setTitle(titleText);
+                        web.setThumb(new UMImage(activity, imageUrl));
+                        web.setDescription(content);
+                        new ShareAction(activity).withMedia(web )
+                                .setPlatform(share_media)
+                                .setCallback(new UMShareListener() {
+                                    @Override
+                                    public void onStart(SHARE_MEDIA share_media) {
+                                        LogUtil.d("LoginActivity",  "onStart");
+                                    }
+
+                                    @Override
+                                    public void onResult(SHARE_MEDIA share_media) {
+                                        LogUtil.d("LoginActivity",  "onResult");
+                                    }
+
+                                    @Override
+                                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                                        LogUtil.d("LoginActivity",  "onError");
+                                    }
+
+                                    @Override
+                                    public void onCancel(SHARE_MEDIA share_media) {
+                                        LogUtil.d("LoginActivity",  "onCancel");
+                                    }
+                                }).share();
+                    }
+                }).open();
     }
 }
 

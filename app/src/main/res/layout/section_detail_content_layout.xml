@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/ll_dianpu_tab"
     android:layout_height="match_parent"
-    android:layout_marginTop="482px"
+    android:layout_marginTop="@dimen/px_488"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -14,12 +14,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="282px"
-            android:paddingTop="102px"
+            android:layout_height="@dimen/px_281"
+            android:paddingTop="@dimen/px_102"
             android:background="#fff"
             android:orientation="horizontal"
-            android:paddingLeft="100px"
-            android:paddingRight="100px">
+            android:paddingLeft="@dimen/px_101"
+            android:paddingRight="@dimen/px_101">
 
             <RelativeLayout
                 android:id="@+id/shopHome"
@@ -36,12 +36,12 @@
                     android:gravity="center"
                     android:text="店铺首页"
                     android:textColor="#222222"
-                    android:textSize="46px" />
+                    android:textSize="@dimen/px_46" />
 
                 <ImageView
                     android:id="@+id/indicatorShopHome"
-                    android:layout_width="187px"
-                    android:layout_height="16px"
+                    android:layout_width="@dimen/px_184"
+                    android:layout_height="@dimen/px_16"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="#7AD2D2"
@@ -63,12 +63,12 @@
                     android:gravity="center"
                     android:text="热门项目"
                     android:textColor="#222222"
-                    android:textSize="46px" />
+                    android:textSize="@dimen/px_46" />
 
                 <ImageView
                     android:id="@+id/indicatorHotProject"
-                    android:layout_width="187px"
-                    android:layout_height="16px"
+                    android:layout_width="@dimen/px_184"
+                    android:layout_height="@dimen/px_16"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="#7AD2D2"
@@ -89,12 +89,12 @@
                     android:gravity="center"
                     android:text="客户评价"
                     android:textColor="#222222"
-                    android:textSize="46px" />
+                    android:textSize="@dimen/px_46" />
 
                 <ImageView
                     android:id="@+id/indicatorEvaluate"
-                    android:layout_width="187px"
-                    android:layout_height="16px"
+                    android:layout_width="@dimen/px_184"
+                    android:layout_height="@dimen/px_16"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:background="#7AD2D2"
@@ -106,8 +106,8 @@
     <View
         style="@style/CommonLine.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="6px"
-        android:layout_marginTop="17px" />
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/px_17" />
 
     <LinearLayout
         android:id="@+id/contentView"

@@ -16,13 +16,15 @@ public class OrderListBean implements Serializable {
     /**
      * 状态值:0=待支付,1=待预约,2=待服务,3=待评价,4=完成
      */
-    public static int ORDER_STATUS = 0;
     public static final int ORDER_STATUS_ALL = -10;     //全部订单
     public static final int ORDER_STATUS_TO_BE_PAID = 0;     //待支付
-    public static final int ORDER_STATUS_TO_BE_DELIVERED = 1; //待预约
-    public static final int ORDER_STATUS_TO_RECEIVE_GOODS = 2; //待服务
-    public static final int ORDER_STATUS_FINISHED = 3;      //待评价
-    public static final int ORDER_STATUS_CANCLE = 4;  //完成
+    public static final int ORDER_STATUS_TO_BE_APPOINTMENT = 1; //待预约
+    public static final int ORDER_STATUS_TO_WAIT_SERVER = 2; //待服务
+    public static final int ORDER_STATUS_SERVING = 3;  //服务中
+    public static final int ORDER_STATUS_SERVED = 4;  //服务完成
+    public static final int ORDER_STATUS_COMMENT = 5;      //待评价
+    public static final int ORDER_STATUS_FINISHED = 6;  //完成
+    public static final int ORDER_STATUS_QUIT = 10;  //取消
 
 
     /**
@@ -92,16 +94,25 @@ public class OrderListBean implements Serializable {
                     ORDER_STATUS = ORDER_STATUS_TO_BE_PAID;
                     break;
                 case "1":
-                    ORDER_STATUS = ORDER_STATUS_TO_BE_DELIVERED;
+                    ORDER_STATUS = ORDER_STATUS_TO_BE_APPOINTMENT;
                     break;
                 case "2":
-                    ORDER_STATUS = ORDER_STATUS_TO_RECEIVE_GOODS;
+                    ORDER_STATUS = ORDER_STATUS_TO_WAIT_SERVER;
                     break;
                 case "3":
-                    ORDER_STATUS = ORDER_STATUS_FINISHED;
+                    ORDER_STATUS = ORDER_STATUS_SERVING;
                     break;
                 case "4":
-                    ORDER_STATUS = ORDER_STATUS_CANCLE;
+                    ORDER_STATUS = ORDER_STATUS_SERVED;
+                    break;
+                case "5":
+                    ORDER_STATUS = ORDER_STATUS_COMMENT;
+                    break;
+                case "6":
+                    ORDER_STATUS = ORDER_STATUS_FINISHED;
+                    break;
+                case "10":
+                    ORDER_STATUS = ORDER_STATUS_QUIT;
                     break;
                 default:
                     ORDER_STATUS = ORDER_STATUS_ALL;
@@ -109,6 +120,7 @@ public class OrderListBean implements Serializable {
             }
             return ORDER_STATUS;
         }
+
         private int beautician_beautician_id;
         private int count;
         private int createtime;
@@ -236,7 +248,6 @@ public class OrderListBean implements Serializable {
             this.user_id = user_id;
         }
     }
-
 
 
 }

@@ -198,7 +198,7 @@ public class MyCollectionActivity extends BaseActivity {
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.MY_COLLECTION).params("user_id", userId)
@@ -294,7 +294,7 @@ public class MyCollectionActivity extends BaseActivity {
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
-            LoginActivity.start(getBaseContext());
+            LoginActivity.start(this);
             return;
         }
         OkGo.<String>post(URLs.MY_BEAUTICIAN).params("user_id", userId)

@@ -1,6 +1,5 @@
 package com.kekemei.kekemei.bean;
 
-import com.google.gson.annotations.SerializedName;
 import com.kekemei.kekemei.utils.StringUtils;
 
 import java.io.Serializable;
@@ -62,10 +61,24 @@ public class ProjectDetailBean implements Serializable {
     private String treatment_price;
     private String satisfaction;
     private String peer;
+
+    public int getIscollection() {
+        return iscollection;
+    }
+
+    public CommentdataBean getCommentData() {
+        return commentData;
+    }
+
+    public void setCommentData(CommentdataBean commentData) {
+        this.commentData = commentData;
+    }
+
     private int iscollection;
     private int views;
     private int weigh;
-    private CommentBean comment;
+    private WaiterBean waiter;
+    private CommentdataBean commentData;
     private List<CouponBean> coupon;
     private List<BaseBean> hotdata;
     private List<BaseBean> memberdata;
@@ -75,8 +88,22 @@ public class ProjectDetailBean implements Serializable {
     private List<FullBean> full;
     private List<String> strading;
     private List<String> service;
-    public int getIscollection() {
-        return iscollection;
+    private List<RedenvloesDataBean> redenvloesdata;
+
+    public WaiterBean getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(WaiterBean waiter) {
+        this.waiter = waiter;
+    }
+
+    public CommentdataBean getComment() {
+        return commentData;
+    }
+
+    public void setComment(CommentdataBean commentData) {
+        this.commentData = commentData;
     }
 
     public void setIscollection(int iscollection) {
@@ -96,14 +123,6 @@ public class ProjectDetailBean implements Serializable {
 
     public void setStrading(List<String> strading) {
         this.strading = strading;
-    }
-
-    public CommentBean getComment() {
-        return comment;
-    }
-
-    public void setComment(CommentBean comment) {
-        this.comment = comment;
     }
 
     public String getContent() {
@@ -362,139 +381,6 @@ public class ProjectDetailBean implements Serializable {
         this.redenvelopes = redenvelopes;
     }
 
-    public static class CommentBean implements Serializable {
-        /**
-         * all : []
-         * count : 0
-         * haveimg : []
-         * new : []
-         * tags : [{"id":1,"name":"服务热情","state":"1","state_text":"正常","tag_type":"1","tag_type_text":"Tag_type 1","weigh":0},{"id":2,"name":"环境优雅","state":"1","state_text":"正常","tag_type":"2","tag_type_text":"Tag_type 2","weigh":0},{"id":3,"name":"美容师专业","state":"1","state_text":"正常","tag_type":"1","tag_type_text":"Tag_type 1","weigh":0},{"id":4,"name":"效果赞","state":"1","state_text":"正常","tag_type":"3,","tag_type_text":"","weigh":0},{"id":5,"name":"干净卫生","state":"1","state_text":"正常","tag_type":"2","tag_type_text":"Tag_type 2","weigh":0}]
-         */
-
-        private int count;
-        private List<EvaluateBean> all;
-        private List<EvaluateBean> haveimg;
-        @SerializedName("new")
-        private List<EvaluateBean> newX;
-        private List<TagsBean> tags;
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public List<EvaluateBean> getAll() {
-            return all;
-        }
-
-        public void setAll(List<EvaluateBean> all) {
-            this.all = all;
-        }
-
-        public List<EvaluateBean> getHaveimg() {
-            return haveimg;
-        }
-
-        public void setHaveimg(List<EvaluateBean> haveimg) {
-            this.haveimg = haveimg;
-        }
-
-        public List<EvaluateBean> getNewX() {
-            return newX;
-        }
-
-        public void setNewX(List<EvaluateBean> newX) {
-            this.newX = newX;
-        }
-
-        public List<TagsBean> getTags() {
-            return tags;
-        }
-
-        public void setTags(List<TagsBean> tags) {
-            this.tags = tags;
-        }
-
-        public static class TagsBean implements Serializable {
-            /**
-             * id : 1
-             * name : 服务热情
-             * state : 1
-             * state_text : 正常
-             * tag_type : 1
-             * tag_type_text : Tag_type 1
-             * weigh : 0
-             */
-
-            private int id;
-            private String name;
-            private String state;
-            private String state_text;
-            private String tag_type;
-            private String tag_type_text;
-            private int weigh;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getState() {
-                return state;
-            }
-
-            public void setState(String state) {
-                this.state = state;
-            }
-
-            public String getState_text() {
-                return state_text;
-            }
-
-            public void setState_text(String state_text) {
-                this.state_text = state_text;
-            }
-
-            public String getTag_type() {
-                return tag_type;
-            }
-
-            public void setTag_type(String tag_type) {
-                this.tag_type = tag_type;
-            }
-
-            public String getTag_type_text() {
-                return tag_type_text;
-            }
-
-            public void setTag_type_text(String tag_type_text) {
-                this.tag_type_text = tag_type_text;
-            }
-
-            public int getWeigh() {
-                return weigh;
-            }
-
-            public void setWeigh(int weigh) {
-                this.weigh = weigh;
-            }
-        }
-    }
-
     public static class CouponBean implements Serializable {
         /**
          * activitytime : 2018-10-07 12:53:59
@@ -608,6 +494,61 @@ public class ProjectDetailBean implements Serializable {
 
         public void setWeigh(int weigh) {
             this.weigh = weigh;
+        }
+    }
+
+    public List<RedenvloesDataBean> getRedenvloesdata() {
+        return redenvloesdata;
+    }
+
+    public void setRedenvloesdata(List<RedenvloesDataBean> redenvloesdata) {
+        this.redenvloesdata = redenvloesdata;
+    }
+
+    public static class RedenvloesDataBean implements Serializable {
+
+        /**
+         * id : 1
+         * name : 抢50元
+         * price : 0
+         * type : 1
+         */
+
+        private int id;
+        private String name;
+        private int price;
+        private int type;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
         }
     }
 

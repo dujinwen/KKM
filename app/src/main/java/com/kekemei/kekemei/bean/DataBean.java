@@ -5,11 +5,14 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.io.Serializable;
 
 import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_ALL;
-import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_CANCLE;
+import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_COMMENT;
 import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_FINISHED;
-import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_TO_BE_DELIVERED;
+import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_QUIT;
+import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_SERVED;
+import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_SERVING;
+import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
 import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_TO_BE_PAID;
-import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_TO_RECEIVE_GOODS;
+import static com.kekemei.kekemei.bean.OrderListBean.ORDER_STATUS_TO_WAIT_SERVER;
 
 public class DataBean extends BaseBean implements Serializable, MultiItemEntity {
 
@@ -21,16 +24,25 @@ public class DataBean extends BaseBean implements Serializable, MultiItemEntity 
                 ORDER_STATUS = ORDER_STATUS_TO_BE_PAID;
                 break;
             case "1":
-                ORDER_STATUS = ORDER_STATUS_TO_BE_DELIVERED;
+                ORDER_STATUS = ORDER_STATUS_TO_BE_APPOINTMENT;
                 break;
             case "2":
-                ORDER_STATUS = ORDER_STATUS_TO_RECEIVE_GOODS;
+                ORDER_STATUS = ORDER_STATUS_TO_WAIT_SERVER;
                 break;
             case "3":
-                ORDER_STATUS = ORDER_STATUS_FINISHED;
+                ORDER_STATUS = ORDER_STATUS_SERVING;
                 break;
             case "4":
-                ORDER_STATUS = ORDER_STATUS_CANCLE;
+                ORDER_STATUS = ORDER_STATUS_SERVED;
+                break;
+            case "5":
+                ORDER_STATUS = ORDER_STATUS_COMMENT;
+                break;
+            case "6":
+                ORDER_STATUS = ORDER_STATUS_FINISHED;
+                break;
+            case "10":
+                ORDER_STATUS = ORDER_STATUS_QUIT;
                 break;
             default:
                 ORDER_STATUS = ORDER_STATUS_ALL;

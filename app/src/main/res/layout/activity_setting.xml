@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="36px">
+        android:paddingLeft="@dimen/px_36">
 
         <com.kekemei.kekemei.view.SectionRowView
             android:id="@+id/txtSafely"

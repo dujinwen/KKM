@@ -44,7 +44,7 @@
             android:textSize="@dimen/px_37"/>
         <View
             android:layout_width="1px"
-            android:layout_height="58px"
+            android:layout_height="19dp"
             android:layout_gravity="center"
             android:textColor="@android:color/darker_gray" />
 
@@ -100,7 +100,7 @@
             android:layout_height="@dimen/work_refund_item_btn_height"
             android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
             android:background="@drawable/refund_btn_background"
-            android:text="去评价"
+            android:text="立即评价"
             android:textColor="#999"
             android:textSize="@dimen/work_refund_item_btn_text_size" />
 

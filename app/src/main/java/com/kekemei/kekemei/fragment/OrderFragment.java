@@ -98,6 +98,28 @@ public class OrderFragment extends Fragment {
     View vFinish;
     @BindView(R.id.tal_finish)
     LinearLayout talFinish;
+
+    @BindView(R.id.tv_serving)
+    TextView tvServing;
+    @BindView(R.id.v_serving)
+    View vServing;
+    @BindView(R.id.tal_serving)
+    LinearLayout talServing;
+
+    @BindView(R.id.tv_served)
+    TextView tvServed;
+    @BindView(R.id.v_served)
+    View vServed;
+    @BindView(R.id.tal_served)
+    LinearLayout talServed;
+
+    @BindView(R.id.tv_quit)
+    TextView tvQuit;
+    @BindView(R.id.v_quit)
+    View vQuit;
+    @BindView(R.id.tal_quit)
+    LinearLayout talQuit;
+
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.multiple_status_view)
@@ -164,7 +186,7 @@ public class OrderFragment extends Fragment {
                         PayActivity.start(getActivity(), yuYueActivityBean);
                         break;
                     case R.id.chakan:
-                        OrderDetailActivity.start(getActivity(),item.getId());
+                        OrderDetailActivity.start(getActivity(), item.getId());
                         break;
                     case R.id.zaicigoumai:
                         ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
@@ -173,7 +195,7 @@ public class OrderFragment extends Fragment {
 //                        UserEvaluateActivity.start(getActivity(), false, item.getShop_shop_id() + "",
                         //                                item.getBeautician_beautician_id() + "",
                         //                                item.getProject_project_id() + "");
-                        AddCommentActivity.start(getActivity(),item.getSource(),item.getId()+"");
+                        AddCommentActivity.start(getActivity(), item.getSource(), item.getId() + "");
                         break;
                     case R.id.yuyue:
                         break;
@@ -198,8 +220,6 @@ public class OrderFragment extends Fragment {
         onViewClicked(talAll);
 
         addHotProject();
-
-        getForYouInfo();
     }
 
     private void getForYouInfo() {
@@ -224,15 +244,17 @@ public class OrderFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia})
+    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue, R.id.tal_serving,
+            R.id.tal_served, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_search) {
             Intent intent = new Intent(getActivity(), OrderListSearchActivity.class);
             startActivity(intent);
             return;
         }
-        if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay
+        if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay || view.getId() == R.id.tal_quit
                 || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
+                || view.getId() == R.id.tal_serving || view.getId() == R.id.tal_served
                 || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia) {
             setSelect(view.getId());
             return;
@@ -266,6 +288,15 @@ public class OrderFragment extends Fragment {
         tvPingjia.setSelected(id == R.id.tal_pingjia);
         vPingjia.setVisibility(id == R.id.tal_pingjia ? View.VISIBLE : View.INVISIBLE);
 
+        tvServed.setSelected(id == R.id.tal_served);
+        vServed.setVisibility(id == R.id.tal_served ? View.VISIBLE : View.INVISIBLE);
+
+        tvServing.setSelected(id == R.id.tal_serving);
+        vServing.setVisibility(id == R.id.tal_serving ? View.VISIBLE : View.INVISIBLE);
+
+        tvQuit.setSelected(id == R.id.tal_quit);
+        vQuit.setVisibility(id == R.id.tal_quit ? View.VISIBLE : View.INVISIBLE);
+
         switch (id) {
             case R.id.tal_all:
                 page = 1;
@@ -279,22 +310,37 @@ public class OrderFragment extends Fragment {
                 break;
             case R.id.tal_wait_yuyue:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_DELIVERED;
+                jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
                 getData(jOrderStatus, page);
                 break;
             case R.id.tal_wait_server:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_TO_RECEIVE_GOODS;
+                jOrderStatus = OrderListBean.ORDER_STATUS_TO_WAIT_SERVER;
                 getData(jOrderStatus, page);
                 break;
             case R.id.tal_finish:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_CANCLE;
+                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
                 getData(jOrderStatus, page);
                 break;
             case R.id.tal_pingjia:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
+                getData(jOrderStatus, page);
+                break;
+            case R.id.tal_served:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
+                getData(jOrderStatus, page);
+                break;
+            case R.id.tal_serving:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
+                getData(jOrderStatus, page);
+                break;
+            case R.id.tal_quit:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
                 getData(jOrderStatus, page);
                 break;
         }
@@ -329,6 +375,7 @@ public class OrderFragment extends Fragment {
                             }
                             arrayList.addAll(orderListBean.getData());
                             jAdapter.setNewData(arrayList);
+                            getForYouInfo();//请求推荐数据放在此处，否则没有订单也会请求到数据
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

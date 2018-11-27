@@ -30,10 +30,12 @@ import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MiaoshaActivity;
 import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.ProjectListActivity;
 import com.kekemei.kekemei.activity.SearchActivity;
 import com.kekemei.kekemei.activity.ShopActivity;
 import com.kekemei.kekemei.activity.ShopBeauticianListActivity;
 import com.kekemei.kekemei.activity.UserEvaluateActivity;
+import com.kekemei.kekemei.activity.WebActivity;
 import com.kekemei.kekemei.adapter.DAVipAdapter;
 import com.kekemei.kekemei.adapter.EvaluateListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiAdapter;
@@ -111,22 +113,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     RecyclerView rvMeirongshi;
     @BindView(R.id.rv_davip_kkm)
     RecyclerView rvDavipKkm;
-    @BindView(R.id.iv_xinrenzhuanqu)
-    ImageView ivXinrenzhuanqu;
     @BindView(R.id.rv_xinren)
     RecyclerView rvXinren;
-    @BindView(R.id.iv_huiyuanzhuanqu)
-    ImageView ivHuiyuanzhuanqu;
     @BindView(R.id.rv_huiyuan)
     RecyclerView rvHuiyuan;
-    @BindView(R.id.iv_zuixinxiangmu)
-    ImageView ivZuixinxiangmu;
     @BindView(R.id.rv_zuixinxiangmu)
     RecyclerView rvZuixinxiangmu;
     @BindView(R.id.ll_home)
     LinearLayout llHome;
-    @BindView(R.id.iv_remenxiangmu)
-    ImageView ivRemenxiangmu;
     @BindView(R.id.rv_remenxiangmu)
     RecyclerView rvRemenxiangmu;
     @BindView(R.id.fujin_meirongshi)
@@ -458,6 +452,20 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 //                Toast.makeText(MainActivity.this, "点击了第" + (position+1) + "图片", Toast.LENGTH_SHORT).show();
+                BannerBean bannerBean = (BannerBean) model;
+                switch (bannerBean.getJumbdata()) {
+                    case "shop":
+                        ShopActivity.start(getActivity(), bannerBean.getShop_shop_id() + "", DetailEnum.SHOP);
+                        break;
+                    case "project":
+                        ProjectDetailActivity.start(getActivity(), bannerBean.getProject_project_id() + "");
+                        break;
+                    case "web":
+                        WebActivity.start(getActivity(), bannerBean.getUrl());
+                        break;
+                    case "url":
+                        break;
+                }
             }
         });
         //加载广告图片
@@ -502,10 +510,23 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
             R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOneBg, R.id.couponTwoBg,
-            R.id.couponThreeBg, R.id.id_msg, R.id.lookMore, R.id.layoutUserComment})
+            R.id.couponThreeBg, R.id.id_msg, R.id.lookMore, R.id.layoutUserComment, R.id.iv_xinrenzhuanqu,
+            R.id.iv_huiyuanzhuanqu, R.id.iv_zuixinxiangmu, R.id.iv_remenxiangmu})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
         switch (view.getId()) {
+            case R.id.iv_xinrenzhuanqu:
+                NewComerActivity.start(getActivity(), true);
+                break;
+            case R.id.iv_huiyuanzhuanqu:
+                NewComerActivity.start(getActivity(), false);
+                break;
+            case R.id.iv_zuixinxiangmu:
+                ProjectListActivity.start(getActivity(), "3");
+                break;
+            case R.id.iv_remenxiangmu:
+                ProjectListActivity.start(getActivity(), "2");
+                break;
             case R.id.couponOneBg:
                 receiveCoupon(couponOneBg);
                 break;
@@ -573,7 +594,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     LoginActivity.start(getActivity());
                     return;
                 }
-                NewComerActivity.start(getActivity(), userId + "");
+                NewComerActivity.start(getActivity(), true);
                 break;
             case R.id.ivSecond:
                 MiaoshaActivity.start(getActivity());

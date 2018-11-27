@@ -6,11 +6,11 @@
 
     <ImageView
         android:id="@+id/ivClose"
-        android:layout_width="48px"
-        android:layout_height="48px"
+        android:layout_width="@dimen/px_48"
+        android:layout_height="@dimen/px_48"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="42px"
-        android:layout_marginTop="42px"
+        android:layout_marginRight="@dimen/px_42"
+        android:layout_marginTop="@dimen/px_42"
         android:src="@mipmap/user_info_dialog_close" />
 
     <ListView

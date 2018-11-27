@@ -23,7 +23,6 @@ import com.kekemei.kekemei.utils.LogUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -304,23 +303,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             if (intent != null) {
-                return intent.getIntExtra(key,-1);
+                return intent.getIntExtra(key, -1);
             }
         } catch (Exception e) {
             LogUtil.e(TAG, "exception getStringExtraSecure", e);
         }
         return -1;
     }
+
     // 从Intent获取String extra的方法，这里增加了catch Exception的代码
     protected final long getLongExtraSecure(String key) {
         try {
             Intent intent = getIntent();
             if (intent != null) {
-                return intent.getLongExtra(key,-1L);
+                return intent.getLongExtra(key, -1L);
             }
         } catch (Exception e) {
             LogUtil.e(TAG, "exception getStringExtraSecure", e);
         }
         return -1;
     }
+
+
+
 }

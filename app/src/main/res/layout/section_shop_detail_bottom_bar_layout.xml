@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140px"
+    android:layout_height="@dimen/px_140"
     android:layout_alignParentBottom="true"
     android:elevation="3dp"
     android:orientation="horizontal">
@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="KKM相册"
         android:textColor="@color/black"
-        android:textSize="52px" />
+        android:textSize="@dimen/px_52" />
 
     <TextView
         android:id="@+id/onLineService"
@@ -26,6 +26,6 @@
         android:gravity="center"
         android:text="在线客服"
         android:textColor="@color/white"
-        android:textSize="52px" />
+        android:textSize="@dimen/px_52" />
 
 </LinearLayout>

@@ -224,22 +224,22 @@ public class ServiceOrderListActivity extends BaseActivity {
                 break;
             case R.id.tabAppointment:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_PAID;
+                jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
                 getData(jOrderStatus, page);
                 break;
             case R.id.tabNotStart:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_DELIVERED;
+                jOrderStatus = OrderListBean.ORDER_STATUS_TO_WAIT_SERVER;
                 getData(jOrderStatus, page);
                 break;
             case R.id.tabGoing:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_TO_RECEIVE_GOODS;
+                jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
                 getData(jOrderStatus, page);
                 break;
             case R.id.tabFinished:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_CANCLE;
+                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
                 getData(jOrderStatus, page);
                 break;
         }
