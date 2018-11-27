@@ -162,6 +162,7 @@
                         android:textSize="@dimen/px_37" />
 
                     <TextView
+                        android:id="@+id/tv_youhuiquan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/px_37"
@@ -170,6 +171,7 @@
                         android:textSize="@dimen/px_37" />
 
                     <TextView
+                        android:id="@+id/tv_hongbao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/px_37"
@@ -178,6 +180,7 @@
                         android:textSize="@dimen/px_37" />
 
                     <TextView
+                        android:id="@+id/tv_manjian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/px_37"

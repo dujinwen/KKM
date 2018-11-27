@@ -330,7 +330,7 @@ public class OrderDetailBean {
             this.servicetime_text = servicetime_text;
         }
 
-        public String getFinishtime_text() {
+        public String   getFinishtime_text() {
             return finishtime_text;
         }
 

@@ -15,6 +15,7 @@ import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.OrderDetailBean;
+import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -89,6 +90,12 @@ public class OrderDetailActivity extends BaseActivity {
     TextView tvInfoOrderState;
     @BindView(R.id.tv_info_order_fin_time)
     TextView tvInfoOrderFinTime;
+    @BindView(R.id.tv_youhuiquan)
+    TextView tvYouhuiquan;
+    @BindView(R.id.tv_hongbao)
+    TextView tvHongbao;
+    @BindView(R.id.tv_manjian)
+    TextView tvManjian;
 
 
     private String id;
@@ -161,35 +168,34 @@ public class OrderDetailActivity extends BaseActivity {
                         tvPlace.setText(data.getAddress() == null ? "" : data.getAddress().toString());
                         tvTime.setText(data.getServicetime() + "");
                         tvPrice.setText("¥ " + data.getProject_price() + " ");
-                        tvInfoOrderCreTime.setText(data.getCreatetime() + "");
-                        tvInfoOrderFinTime.setText(data.getFinishtime() + "");
+                        tvInfoOrderCreTime.setText(AppUtil.getFormatTime(data.getCreatetime()) + "");
+                        tvInfoOrderFinTime.setText(data.getFinishtime_text() + "");
                         tvInfoOrderNum.setText(data.getId() + "");
                         if (data.getConpou() == null || data.getConpou() == "") {
                             tvInfoOrderYouhui.setVisibility(View.GONE);
+                            tvYouhuiquan.setVisibility(View.GONE);
                         } else {
+                            tvInfoOrderYouhui.setVisibility(View.VISIBLE);
+                            tvYouhuiquan.setVisibility(View.VISIBLE);
                             tvInfoOrderYouhui.setText(data.getConpou() + "");
                         }
                         if (data.getRedenvelopes() == null || data.getRedenvelopes() == "") {
                             tvInfoOrderRed.setVisibility(View.GONE);
+                            tvHongbao.setVisibility(View.GONE);
                         } else {
+                            tvInfoOrderRed.setVisibility(View.VISIBLE);
+                            tvHongbao.setVisibility(View.VISIBLE);
                             tvInfoOrderRed.setText(data.getRedenvelopes() + "");
                         }
                         if (data.getFull() == null || data.getFull() == "") {
                             tvInfoOrderManjian.setVisibility(View.GONE);
+                            tvManjian.setVisibility(View.GONE);
                         } else {
+                            tvInfoOrderManjian.setVisibility(View.VISIBLE);
+                            tvManjian.setVisibility(View.VISIBLE);
                             tvInfoOrderManjian.setText(data.getFull() + "");
                         }
-                        if (data.getConpou() == null || data.getConpou() == "") {
-                            tvInfoOrderYouhui.setVisibility(View.GONE);
-                        } else {
-                            tvInfoOrderYouhui.setText(data.getConpou() + "");
-                        }
-                        if (data.getState_text() == null || data.getState_text() == "") {
-                            tvInfoOrderState.setVisibility(View.GONE);
-                        } else {
-                            tvInfoOrderState.setText(data.getConpou() + "");
-                        }
-                        tvInfoOrderState.setText(data.getState_text());
+                        tvInfoOrderState.setText(data.getState_text() + "");
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + data.getProject_image(), ivOrderIcon);
                     }
                 });
