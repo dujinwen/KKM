@@ -30,6 +30,12 @@ public class ProjectListAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolde
         helper.setText(R.id.tv_old_price, "¥ " + item.getPrice_market());
         helper.setVisible(R.id.ll_youhuiquan, true);
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_order_icon));
+        if (item.getCoupon().size()==0)
+            helper.setVisible(R.id.tv_man,false);
+        helper.setText(R.id.tv_man,item.getCoupon().get(0));
+        if (item.getRedenvelopes().size() == 0)
+            helper.setVisible(R.id.tv_jian,false);
+        helper.setText(R.id.tv_jian,item.getCoupon().get(0));
     }
 }
 

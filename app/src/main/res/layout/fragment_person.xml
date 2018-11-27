@@ -178,7 +178,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/px_160"
                     android:background="@color/white"
-                    android:drawableRight="@mipmap/title_more_btn"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/px_30"
                     android:paddingRight="@dimen/px_27"

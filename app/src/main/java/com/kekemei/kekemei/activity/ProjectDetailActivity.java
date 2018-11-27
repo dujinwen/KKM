@@ -409,7 +409,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 if (tvCollection.getCompoundDrawables()[0] == null)
                     //todo 添加收藏
                     OkGo.<String>get(URLs.ADD_COLLECTION)
-                            .params("user_id",userId)
+                            .params("user_id", userId)
                             .params("type", "1")
                             .params("project_id", detailBean.getId())
                             .execute(new StringCallback() {
@@ -500,7 +500,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         yuYueActivityBean.setOrderName(detailBean.getName());
         yuYueActivityBean.setOrderIconUrl(detailBean.getImage());
         yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
-        yuYueActivityBean.setProject_id(detailBean.getId()+"");
+        yuYueActivityBean.setProject_id(detailBean.getId() + "");
 
         PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
     }
@@ -513,7 +513,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private void receiveRedBao(int redBaoId) {
         String projectId = shopDetailBean.getId();
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
@@ -576,7 +576,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private void receiveCoupon(int couponId) {
         String projectId = detailBean.getId();
         long userId = UserHelp.getUserId(this);
-        if (userId==-1L){
+        if (userId == -1L) {
             LoginActivity.start(getBaseContext());
             return;
         }
@@ -611,6 +611,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private void setTvCollectionLeft() {
         Drawable drawable = getResources().getDrawable(R.mipmap.beautician_detail_satisfaction_ic_1, null);
         tvCollection.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        tvCollection.setText("已收藏");
     }
 
     private void scrollTo(final View view) {
@@ -652,6 +653,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         OkGo.<String>post(URLs.PROJECT_DETAILS)
                 .params("id", beauticianId)
                 .execute(new StringCallback() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @SuppressLint("StringFormatMatches")
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -674,8 +676,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             marketPrice.getPaint().setAntiAlias(true);// 抗锯齿
                             marketPrice.setText("￥" + detailBean.getPrice_market());
                             tvFollowNum.setText("已有" + detailBean.getTreatment_count() + "人关注");
+                            if (detailBean.getIscollection() == 1) {
+                                setTvCollectionLeft();
+                            }
                             tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getAddress());
-                            tvDistance.setText(getString(R.string.shop_detail_distance,shopDetailBean == null ? "" : shopDetailBean.getDistance()));
+
+                            tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean == null ? "" : shopDetailBean.getDistance()));
                             if (CollectionUtils.isNotEmpty(detailBean.getCoupon())) {
                                 coupon.setVisibility(View.VISIBLE);
                                 coupon.setTag(detailBean.getCoupon().get(0).getId());

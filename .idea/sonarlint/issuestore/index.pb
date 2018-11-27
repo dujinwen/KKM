@@ -21,10 +21,6 @@ Feaseui/src/main/java/com/hyphenate/easeui/ui/EaseBaiduMapActivity.java,4\5\455
 Teaseui/src/main/java/com/hyphenate/easeui/widget/presenter/EaseChatRowPresenter.java,2\c\2c00e168ef2a00597b8f4e79bef42f7039451147
 Y
 )app/src/main/res/layout/fragment_home.xml,3\1\31c5880846ef63ff1963efbe141ddfd56680bb19
-Z
-*app/src/main/res/layout/huodong_layout.xml,4\a\4a2e9c94c2f16961eacfa573b21ac83f08110380
-]
--app/src/main/res/layout/meirongshi_layout.xml,9\5\95c477f327604c515cdfed6f632cc90d983beec9
 ~
 Neaseui/src/main/java/com/hyphenate/easeui/widget/chatrow/EaseChatRowImage.java,0\1\0184eec8c3295484b651bc488bcf92e0db3b6f32
 S
@@ -136,8 +132,6 @@ r
 Bapp/src/main/java/com/kekemei/kekemei/activity/SearchActivity.java,0\6\061afab133891de725bf9508aed321fe9c2e162c
 o
 ?app/src/main/java/com/kekemei/kekemei/activity/PayActivity.java,4\c\4c31a8dffedb26a82c808c9bf8075d7063096db9
-w
-Gapp/src/main/java/com/kekemei/kekemei/manager/SearchHistoryManager.java,0\7\07b26b0d01370d8e9afbb1ace19a74738d83185e
 s
 Capp/src/main/java/com/kekemei/kekemei/manager/AppFolderManager.java,6\8\682eb1cae1a253be860bd5ba5a9ee690114d058c
 x
@@ -308,3 +302,5 @@ n
 >app/src/main/java/com/kekemei/kekemei/utils/OrderInfoUtil.java,a\a\aa540705d85f92d0215dc212ed71c5b8ebc1f319
 v
 Fapp/src/main/java/com/kekemei/kekemei/activity/HelpCenterActivity.java,f\3\f3c7e2e28161bd59410ea3ccb3b5433504da3de1
+i
+9app/src/main/java/com/kekemei/kekemei/utils/UserHelp.java,0\7\07e8e7c757a546776ca7a4a31793dd6cd8d0da2c

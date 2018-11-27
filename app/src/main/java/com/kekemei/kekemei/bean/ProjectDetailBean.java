@@ -62,6 +62,7 @@ public class ProjectDetailBean implements Serializable {
     private String treatment_price;
     private String satisfaction;
     private String peer;
+    private int iscollection;
     private int views;
     private int weigh;
     private CommentBean comment;
@@ -74,7 +75,13 @@ public class ProjectDetailBean implements Serializable {
     private List<FullBean> full;
     private List<String> strading;
     private List<String> service;
+    public int getIscollection() {
+        return iscollection;
+    }
 
+    public void setIscollection(int iscollection) {
+        this.iscollection = iscollection;
+    }
     public List<String> getService() {
         return service;
     }

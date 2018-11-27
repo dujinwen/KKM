@@ -37,6 +37,7 @@ import com.kekemei.kekemei.bean.CouponDataBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.HongBaoDataBean;
 import com.kekemei.kekemei.bean.UserBean;
+import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
@@ -121,7 +122,8 @@ public class PersonFragment extends Fragment {
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(getActivity()), icon);
         userName.setText(UserHelp.getUserName(getActivity()));
 
-        rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
+        rvTuijian.setLayoutManager(layout);
 
         adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -133,6 +135,41 @@ public class PersonFragment extends Fragment {
             }
         });
         rvTuijian.setAdapter(adapter);
+
+        rvTuijian.addOnScrollListener(new EndLessOnScrollListener(layout) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                loadMoreData();
+            }
+        });
+    }
+
+    private int page = 1;
+
+    private void loadMoreData() {
+        page = page++;
+        getData(page);
+    }
+    private ArrayList<BaseBean> arrayList = new ArrayList<>();
+    private void getData(final int page) {
+        OkGo.<String>get(URLs.FOR_YOU).params("page", page).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+                    llForyou.setVisibility(View.VISIBLE);
+                } else {
+                    llForyou.setVisibility(View.GONE);
+                    return;
+                }
+                if (page == 1) {
+                    arrayList.clear();
+                }
+                arrayList.addAll(forYouBean.getData());
+                adapter.setNewData(arrayList);
+            }
+        });
     }
 
 
@@ -184,21 +221,7 @@ public class PersonFragment extends Fragment {
         });
 
 
-        OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
-                    llForyou.setVisibility(View.VISIBLE);
-                } else {
-                    llForyou.setVisibility(View.GONE);
-                    return;
-                }
-                adapter.addData(forYouBean.getData());
-            }
-        });
-
+        getData(1);
 
         OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", userId).execute(new StringCallback() {
             @Override
