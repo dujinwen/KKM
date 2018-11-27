@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.CreditActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MainActivity;
@@ -28,7 +29,6 @@ import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.ServiceOrderListActivity;
-import com.kekemei.kekemei.activity.SettingActivity;
 import com.kekemei.kekemei.activity.UserInfoActivity;
 import com.kekemei.kekemei.adapter.GridAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
@@ -37,7 +37,6 @@ import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.MyInfoBean;
 import com.kekemei.kekemei.bean.UserBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
-import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -254,7 +253,9 @@ public class PersonFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_set_btn:
-                SettingActivity.start(getActivity());
+//                SettingActivity.start(getActivity());
+                AddCommentActivity.start(getActivity(), "1", "1");
+
                 break;
             case R.id.icon:
                 LoginActivity.start(getActivity());
