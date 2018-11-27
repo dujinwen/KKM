@@ -259,7 +259,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 AppUtil.shareUm(ProjectDetailActivity.this,
                         detailBean.getName(),
                         detailBean.getContent(),
-                        URLs.BASE_URL+detailBean.getImage(),
+                        URLs.BASE_URL + detailBean.getImage(),
                         URLs.SHARE_PROJECT_URL + detailBean.getId());
 
 
@@ -732,8 +732,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     protected void initData() {
         super.initData();
         multipleStatusView.showLoading();
+        long userId = UserHelp.getUserId(getApplicationContext());
         OkGo.<String>post(URLs.PROJECT_DETAILS)
                 .params("id", beauticianId)
+                .params("user_id", userId == -1L ? "" : userId + "")
                 .execute(new StringCallback() {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @SuppressLint("StringFormatMatches")
@@ -979,6 +981,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
