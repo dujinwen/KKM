@@ -1107,7 +1107,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private void initDayTime(String time) {
         final CanlBean canlBean = new CanlBean();
         calList.clear();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 3; i++) {
             cal = Calendar.getInstance();
             if (time != null && !time.isEmpty() && "" != null) {
                 if ("" != time && time != null) {

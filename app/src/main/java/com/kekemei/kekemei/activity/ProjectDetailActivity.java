@@ -145,6 +145,10 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     TextView tvToShopDetail;
     @BindView(R.id.layoutBottomBar)
     LinearLayout layoutBottomBar;
+    @BindView(R.id.tvRedBao)
+    TextView tvRedBao;
+    @BindView(R.id.tvFul)
+    TextView tvFul;
 
     private WebView webContainer;
 
@@ -902,7 +906,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         final CanlBean canlBean = new CanlBean();
 
         calList.clear();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 3; i++) {
             cal = Calendar.getInstance();
             if (time != null && !time.isEmpty() && "" != null) {
                 if ("" != time && time != null) {
@@ -986,5 +990,19 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @OnClick({R.id.show_select_time, R.id.queding})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.show_select_time:
+                startTimePicker.show(AppUtil.getFormatTime(System.currentTimeMillis()));
+                break;
+            case R.id.queding:
+                llSelectTime.setVisibility(View.GONE);
+                llDianpuTab.setVisibility(View.VISIBLE);
+                layoutBottomBar.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
