@@ -14,8 +14,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianBean;
@@ -24,6 +24,7 @@ import com.kekemei.kekemei.bean.ShopBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -210,13 +211,14 @@ public class MyCollectionActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            if (msg.equals("暂无数据")) {
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                                 showEmpty();
                                 return;
                             }
                             Gson gson = new Gson();
                             if (type.equals("1")) {
-                                List<BaseBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<BaseBean>>() {
+                                List<BaseBean> listResult = gson.fromJson(data, new TypeToken<List<BaseBean>>() {
                                 }.getType());
                                 if (CollectionUtils.isNotEmpty(listResult)) {
                                     onCollectionResult(listResult);
@@ -224,7 +226,7 @@ public class MyCollectionActivity extends BaseActivity {
                                     multipleStatusView.showEmpty();
                                 }
                             } else {
-                                List<ShopBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<ShopBean>>() {
+                                List<ShopBean> listResult = gson.fromJson(data, new TypeToken<List<ShopBean>>() {
                                 }.getType());
                                 if (CollectionUtils.isNotEmpty(listResult)) {
                                     onShopResult(listResult);
@@ -305,12 +307,13 @@ public class MyCollectionActivity extends BaseActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         showEmpty();
                         return;
                     }
                     Gson gson = new Gson();
-                    List<BeauticianBean> listResult = gson.fromJson(jsonObject.optString("data"), new TypeToken<List<BeauticianBean>>() {
+                    List<BeauticianBean> listResult = gson.fromJson(data, new TypeToken<List<BeauticianBean>>() {
                     }.getType());
                     if (CollectionUtils.isNotEmpty(listResult)) {
                         onBeauticianResult(listResult);

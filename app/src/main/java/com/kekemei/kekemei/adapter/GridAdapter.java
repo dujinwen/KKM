@@ -29,7 +29,7 @@ public class GridAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public UserBean getItem(int position) {
         return list.get(position);
     }
 

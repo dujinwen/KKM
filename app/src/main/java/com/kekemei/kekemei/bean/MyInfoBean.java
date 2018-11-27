@@ -1,16 +1,12 @@
 package com.kekemei.kekemei.bean;
 
-/**
- * Created by peiyangfan on 2018/11/22.
- */
-
 public class MyInfoBean {
 
     /**
      * code : 1
      * msg : 请求成功
-     * time : 1542880451
-     * data : {"id":7,"username":"18635073387","nickname":"18635073387","mobile":"18635073387","avatar":"/assets/img/avatar.png","score":0,"isnew":0,"token":"080429a8-51a6-4a1f-ab93-fb93379ed0a6","user_id":7,"createtime":1542880451,"expiretime":1545472451,"expires_in":2592000,"coupon_count":3,"redenvelopes_count":0,"ismaster":0,"admin":{"id":1,"nickname":"admin"}}
+     * time : 1543286255
+     * data : {"id":8,"username":"18210462051","nickname":"18210462051","mobile":"18210462051","avatar":"/assets/img/avatar.png","score":0,"isnew":0,"token":"fc000c1d-3d83-48e9-942b-d30a11ad0087","user_id":8,"createtime":1543286255,"expiretime":1545878255,"expires_in":2592000,"coupon_count":2,"redenvelopes_count":1,"isbeautician":1,"ismaster":0,"admin":{"id":1,"nickname":"admin"}}
      */
 
     private int code;
@@ -52,20 +48,21 @@ public class MyInfoBean {
 
     public static class DataBean {
         /**
-         * id : 7
-         * username : 18635073387
-         * nickname : 18635073387
-         * mobile : 18635073387
+         * id : 8
+         * username : 18210462051
+         * nickname : 18210462051
+         * mobile : 18210462051
          * avatar : /assets/img/avatar.png
          * score : 0
          * isnew : 0
-         * token : 080429a8-51a6-4a1f-ab93-fb93379ed0a6
-         * user_id : 7
-         * createtime : 1542880451
-         * expiretime : 1545472451
+         * token : fc000c1d-3d83-48e9-942b-d30a11ad0087
+         * user_id : 8
+         * createtime : 1543286255
+         * expiretime : 1545878255
          * expires_in : 2592000
-         * coupon_count : 3
-         * redenvelopes_count : 0
+         * coupon_count : 2
+         * redenvelopes_count : 1
+         * isbeautician : 1
          * ismaster : 0
          * admin : {"id":1,"nickname":"admin"}
          */
@@ -84,6 +81,7 @@ public class MyInfoBean {
         private int expires_in;
         private int coupon_count;
         private int redenvelopes_count;
+        private int isbeautician;
         private int ismaster;
         private WaiterBean admin;
 
@@ -197,6 +195,14 @@ public class MyInfoBean {
 
         public void setRedenvelopes_count(int redenvelopes_count) {
             this.redenvelopes_count = redenvelopes_count;
+        }
+
+        public int getIsbeautician() {
+            return isbeautician;
+        }
+
+        public void setIsbeautician(int isbeautician) {
+            this.isbeautician = isbeautician;
         }
 
         public int getIsmaster() {

@@ -33,11 +33,10 @@ import com.kekemei.kekemei.activity.UserInfoActivity;
 import com.kekemei.kekemei.adapter.GridAdapter;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
-import com.kekemei.kekemei.bean.CouponDataBean;
 import com.kekemei.kekemei.bean.ForYouBean;
-import com.kekemei.kekemei.bean.HongBaoDataBean;
+import com.kekemei.kekemei.bean.MyInfoBean;
 import com.kekemei.kekemei.bean.UserBean;
-import com.kekemei.kekemei.utils.EndLessOnScrollListener;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
@@ -45,9 +44,6 @@ import com.kekemei.kekemei.view.NoScrollGridView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,9 +99,8 @@ public class PersonFragment extends Fragment {
             R.mipmap.user_meirongshi_btn, R.mipmap.user_soucang_btn,
             R.mipmap.user_dingdan_btn, R.mipmap.user_dizhi_btn,
             R.mipmap.user_qianbao_btn, R.mipmap.user_kefu_btn};
+    private GridAdapter gridAdapter;
 
-    private CouponDataBean couponBean;
-    private HongBaoDataBean hongBaoBean;
     private MyGridAdapter adapter;
 
     @Nullable
@@ -122,75 +117,12 @@ public class PersonFragment extends Fragment {
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(getActivity()), icon);
         userName.setText(UserHelp.getUserName(getActivity()));
 
-
-        GridLayoutManager layout = new GridLayoutManager(getActivity(), 2);
-        rvTuijian.setLayoutManager(layout);
-        rvTuijian.setNestedScrollingEnabled(false);
-        adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BaseBean data = (BaseBean) adapter.getItem(position);
-                ProjectDetailActivity.start(getActivity(), data.getId());
-
-            }
-        });
-        rvTuijian.setAdapter(adapter);
-
-        rvTuijian.addOnScrollListener(new EndLessOnScrollListener(layout) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
-            }
-        });
-    }
-
-    private int page = 1;
-
-    private void loadMoreData() {
-        page = page++;
-        getData(page);
-    }
-    private ArrayList<BaseBean> arrayList = new ArrayList<>();
-    private void getData(final int page) {
-        OkGo.<String>get(URLs.FOR_YOU).params("page", page).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
-                    llForyou.setVisibility(View.VISIBLE);
-                } else {
-                    llForyou.setVisibility(View.GONE);
-                    return;
-                }
-                if (page == 1) {
-                    arrayList.clear();
-                }
-                arrayList.addAll(forYouBean.getData());
-                adapter.setNewData(arrayList);
-            }
-        });
-    }
-
-
-    private void initData() {
-        long userId = UserHelp.getUserId(getActivity());
-        if (userId == -1L) {
-            LoginActivity.start(getActivity());
-            return;
-        }
-        List<UserBean> list = new ArrayList<>();
-
-        for (int i = 0; i < userForwardArray.length; i++) {
-            UserBean model = new UserBean(userForwardArray[i], userForwardIconArray[i]);
-            list.add(model);
-        }
-        final GridAdapter gridAdapter = new GridAdapter(getActivity(), list);
-        ncgv.setAdapter(gridAdapter);
         ncgv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!gridAdapter.getItem(0).getUserName().equals(userForwardArray[0])) {
+                    i += 1;
+                }
                 switch (i) {
                     case 0:
                         ServiceOrderListActivity.start(getActivity());
@@ -214,55 +146,74 @@ public class PersonFragment extends Fragment {
                         startActivity(new Intent(getActivity(), MemberActivity.class));
                         break;
                     case 7:
-                        break;
-                    case 8:
+                        ToastUtil.showToastMsg(getActivity(), "功能尚未开放，敬请期待");
                         break;
                 }
             }
         });
 
+        rvTuijian.setNestedScrollingEnabled(false);
+        rvTuijian.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        getData(1);
-
-        OkGo.<String>get(URLs.MY_RED_ENVELOPES).params("page", 1).params("user_id", userId).execute(new StringCallback() {
+        adapter = new MyGridAdapter(getActivity(), MyGridAdapter.PERSON_TUI_JIAN);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(response.body());
-                    Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
-                        tvHongbaonum.setText("0");
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                hongBaoBean = gson.fromJson(response.body(), HongBaoDataBean.class);
-                tvHongbaonum.setText(hongBaoBean.getData().size() + "");
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = (BaseBean) adapter.getItem(position);
+                ProjectDetailActivity.start(getActivity(), data.getId());
 
             }
         });
+        rvTuijian.setAdapter(adapter);
+    }
 
-        OkGo.<String>get(URLs.MY_COUPON).params("page", 1).params("user_id", userId).execute(new StringCallback() {
+
+    private void initData() {
+        long userId = UserHelp.getUserId(getActivity());
+        if (userId == -1L) {
+            LoginActivity.start(getActivity());
+            return;
+        }
+
+        final List<UserBean> list = new ArrayList<>();
+        OkGo.<String>get(URLs.MY_INFO).params("user_id", userId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        MyInfoBean myInfoBean = gson.fromJson(response.body(), MyInfoBean.class);
+                        if (myInfoBean != null && myInfoBean.getData() != null) {
+                            tvHongbaonum.setText(String.valueOf(myInfoBean.getData().getRedenvelopes_count()));
+                            tvDaijinnum.setText(String.valueOf(myInfoBean.getData().getCoupon_count()));
+                            if (myInfoBean.getData().getIsbeautician() == 1) {
+                                for (int i = 0; i < userForwardArray.length; i++) {
+                                    UserBean model = new UserBean(userForwardArray[i], userForwardIconArray[i]);
+                                    list.add(model);
+                                }
+                            } else {
+                                for (int i = 1; i < userForwardArray.length; i++) {
+                                    UserBean model = new UserBean(userForwardArray[i], userForwardIconArray[i]);
+                                    list.add(model);
+                                }
+                            }
+                            gridAdapter = new GridAdapter(getActivity(), list);
+                            ncgv.setAdapter(gridAdapter);
+                        }
+                    }
+                });
+
+        OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(response.body());
-                    Object msg = jsonObject.opt("msg");
-                    if (msg.equals("暂无数据")) {
-                        tvDaijinnum.setText("0");
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+                    llForyou.setVisibility(View.VISIBLE);
+                } else {
+                    llForyou.setVisibility(View.GONE);
+                    return;
                 }
-                couponBean = gson.fromJson(response.body(), CouponDataBean.class);
-                tvDaijinnum.setText(couponBean.getData().size() + "");
+                adapter.addData(forYouBean.getData());
             }
         });
     }
@@ -277,8 +228,6 @@ public class PersonFragment extends Fragment {
         switch (view.getId()) {
             case R.id.user_set_btn:
                 SettingActivity.start(getActivity());
-                //                MiaoshaActivity.start(getActivity());
-                //                UserEvaluateActivity.start(getActivity(), true);
                 break;
             case R.id.icon:
                 LoginActivity.start(getActivity());
@@ -307,11 +256,9 @@ public class PersonFragment extends Fragment {
 
                 break;
             case R.id.daijinquan:
-                if (couponBean == null) return;
                 MyVoucherActivity.start(getActivity());
                 break;
             case R.id.hongbao:
-                if (hongBaoBean == null) return;
                 MyRedBaoActivity.start(getActivity());
                 break;
             case R.id.user_message_btn:

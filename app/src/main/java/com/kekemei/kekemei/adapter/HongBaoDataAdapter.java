@@ -11,12 +11,12 @@ import com.kekemei.kekemei.bean.HongBaoDataBean;
 
 public class HongBaoDataAdapter extends BaseQuickAdapter<HongBaoDataBean.DataBean, BaseViewHolder> {
     public HongBaoDataAdapter() {
-        super(R.layout.layout_voucher);
+        super(R.layout.layout_hongbao);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, HongBaoDataBean.DataBean item) {
-        helper.setBackgroundRes(R.id.ll_voucher_bg, R.mipmap.orderform_youhuijuan_youhuijuan_);
+        helper.setBackgroundRes(R.id.ll_voucher_bg, R.mipmap.orderform_youhuijuan_hongbao);
         helper.setText(R.id.tv_price, item.getPrice_reduction() + "");
 //        helper.setText(R.id.data, strSub(item.getRedenvelopes().getActivitytime()) + " — " + strSub(item.getRedenvelopes().getActivitytime_end()));
 
