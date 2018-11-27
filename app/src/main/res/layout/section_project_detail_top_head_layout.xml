@@ -70,6 +70,7 @@
         android:paddingTop="@dimen/px_30">
 
         <ImageView
+            android:id="@+id/ivRedBao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/beautician_envelopes_ic" />
@@ -90,6 +91,7 @@
             android:textSize="@dimen/px_29" />
 
         <ImageView
+            android:id="@+id/ivFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/px_14"
