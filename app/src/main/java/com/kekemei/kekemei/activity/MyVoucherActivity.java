@@ -157,6 +157,9 @@ public class MyVoucherActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
+                        if (isRefresh) {
+                            multipleStatusView.showEmpty(R.mipmap.default_youhuijuan);
+                        }
                         jSwipeRefreshLayout.finishLoadMore();
                         return;
                     }
