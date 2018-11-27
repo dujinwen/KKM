@@ -326,7 +326,9 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             swipeRefreshLayout.setRefreshing(false);//设置不刷新
         }
 
+        long userId = UserHelp.getUserId(getActivity());
         OkGo.<String>post(URLs.INDEX).params("longitude", longitude).params("latitude", latitude)
+                .params("user_id", userId == -1L ? "" : userId + "")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -633,7 +635,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                                 ToastUtil.showToastMsg(getActivity(), "领取失败");
                                 return;
                             }
-//                            couponImage.setImageResource(R.mipmap.home_youhuijian_50_pic);换背景
+                            //                            couponImage.setImageResource(R.mipmap.home_youhuijian_50_pic);换背景
                             ToastUtil.showToastMsg(getActivity(), msg.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();

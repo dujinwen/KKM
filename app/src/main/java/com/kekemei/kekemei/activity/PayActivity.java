@@ -136,7 +136,6 @@ public class PayActivity extends BaseActivity {
     private String order_name;
 
     private int hongbaonum, youhuiqunnum, manjiannum = 0;
-    private AlertDialog dlg;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {

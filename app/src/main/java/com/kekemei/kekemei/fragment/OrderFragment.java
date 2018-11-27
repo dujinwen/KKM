@@ -1,10 +1,12 @@
 package com.kekemei.kekemei.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.PushOrderActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -151,27 +154,46 @@ public class OrderFragment extends Fragment {
         jAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
-                OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                final OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
                 switch (view.getId()) {
                     case R.id.iv_del_order:
-                        long userId = UserHelp.getUserId(getActivity());
-                        if (userId == -1L) {
-                            LoginActivity.start(getActivity());
-                            return;
-                        }
-                        OkGo.<String>get(URLs.DEL_ORDER)
-                                .params("user_id", userId)
-                                .params("order_id", item.getId())
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-                                        LogUtil.d("AAA", arrayList.toString());
-                                        arrayList.remove(position);
-                                        LogUtil.d("AAA", arrayList.toString());
-                                        jAdapter.setNewData(arrayList);
-                                        jAdapter.notifyDataSetChanged();
-                                    }
-                                });
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("提示");
+                        builder.setMessage("您已支付成功，请预约美容师");
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                long userId = UserHelp.getUserId(getActivity());
+                                if (userId == -1L) {
+                                    LoginActivity.start(getActivity());
+                                    return;
+                                }
+                                OkGo.<String>get(URLs.DEL_ORDER)
+                                        .params("user_id", userId)
+                                        .params("order_id", item.getId())
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+                                                LogUtil.d("AAA", arrayList.toString());
+                                                arrayList.remove(position);
+                                                LogUtil.d("AAA", arrayList.toString());
+                                                jAdapter.setNewData(arrayList);
+                                                jAdapter.notifyDataSetChanged();
+                                            }
+                                        });
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
+
                         break;
                     case R.id.lijifukuan:
                         YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
@@ -367,6 +389,9 @@ public class OrderFragment extends Fragment {
                             }
                             arrayList.addAll(orderListBean.getData());
                             jAdapter.setNewData(arrayList);
+                            if (arrayList.size()<10){
+                                jAdapter.loadMoreEnd();
+                            }
                             getForYouInfo();//请求推荐数据放在此处，否则没有订单也会请求到数据
                         } catch (JSONException e) {
                             e.printStackTrace();

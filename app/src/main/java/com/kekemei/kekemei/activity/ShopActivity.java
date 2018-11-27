@@ -844,9 +844,15 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(this);
+            return;
+        }
         multipleStatusView.showLoading();
         if (detailEnum == DetailEnum.SHOP) {
-            OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId).execute(new StringCallback() {
+            OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId)
+                    .params("user_id",  userId + "").execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
@@ -947,11 +953,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
             });
         } else {
-            long userId = UserHelp.getUserId(this);
-            if (userId == -1L) {
-                LoginActivity.start(this);
-                return;
-            }
+
             OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
