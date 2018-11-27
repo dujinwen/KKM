@@ -21,7 +21,6 @@ public class ProjectListAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolde
         jContext = context;
     }
 
-
     @Override
     protected void convert(BaseViewHolder helper, BaseBean item) {
         helper.setText(R.id.tv_order_name, item.getName());
@@ -30,23 +29,26 @@ public class ProjectListAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolde
         oldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
         oldPrice.getPaint().setAntiAlias(true);// 抗锯齿
         helper.setText(R.id.tv_old_price, "¥ " + item.getPrice_market());
-        helper.setVisible(R.id.ll_youhuiquan, true);
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_order_icon));
-
+        if (CollectionUtils.isEmpty(item.getFull()) && CollectionUtils.isEmpty(item.getRedenvelopes())) {
+            helper.setVisible(R.id.ll_youhuiquan, false);
+        }else{
+            helper.setVisible(R.id.ll_youhuiquan, true);
+        }
         if (CollectionUtils.isEmpty(item.getFull())) {
-            helper.setGone(R.id.tv_man, false);
-            helper.setGone(R.id.iv_man, false);
+            helper.setVisible(R.id.tv_man, false);
+            helper.setVisible(R.id.iv_man, false);
         } else {
-            helper.setGone(R.id.tv_man, true);
-            helper.setGone(R.id.iv_man, true);
+            helper.setVisible(R.id.iv_man, true);
+            helper.setVisible(R.id.tv_man, true);
             helper.setText(R.id.tv_man, item.getFull().get(0));
         }
         if (CollectionUtils.isEmpty(item.getRedenvelopes())) {
-            helper.setGone(R.id.tv_jian, false);
-            helper.setGone(R.id.iv_jian, false);
+            helper.setVisible(R.id.tv_jian, false);
+            helper.setVisible(R.id.iv_jian, false);
         } else {
-            helper.setGone(R.id.tv_jian, true);
-            helper.setGone(R.id.iv_jian, true);
+            helper.setVisible(R.id.iv_jian, true);
+            helper.setVisible(R.id.tv_jian, true);
             helper.setText(R.id.tv_jian, item.getRedenvelopes().get(0));
         }
     }
