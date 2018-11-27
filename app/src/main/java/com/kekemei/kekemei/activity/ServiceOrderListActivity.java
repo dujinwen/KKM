@@ -220,29 +220,25 @@ public class ServiceOrderListActivity extends BaseActivity {
             case R.id.tabAll:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_ALL;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tabAppointment:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tabNotStart:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_WAIT_SERVER;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tabGoing:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tabFinished:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
-                getData(jOrderStatus, page);
                 break;
         }
+        getData(jOrderStatus, page);
     }
 
 
@@ -255,7 +251,7 @@ public class ServiceOrderListActivity extends BaseActivity {
         OkGo.<String>get(URLs.SERVICE_ORDER)
                 .tag(this)
                 .params("state", OrderListBean.ORDER_STATUS_ALL == orderStatus ? "" : orderStatus + "")
-                .params("user_id", "2")
+                .params("user_id", userId)
                 .params("page", pageNum)
                 .execute(new StringCallback() {
                     @Override

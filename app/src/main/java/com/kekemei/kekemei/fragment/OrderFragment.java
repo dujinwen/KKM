@@ -301,49 +301,41 @@ public class OrderFragment extends Fragment {
             case R.id.tal_all:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_ALL;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_wait_pay:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_PAID;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_wait_yuyue:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_wait_server:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_WAIT_SERVER;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_finish:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_pingjia:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_served:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_serving:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
-                getData(jOrderStatus, page);
                 break;
             case R.id.tal_quit:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
-                getData(jOrderStatus, page);
                 break;
         }
+        getData(jOrderStatus, page);
     }
 
 
