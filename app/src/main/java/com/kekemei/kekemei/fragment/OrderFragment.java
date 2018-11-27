@@ -159,7 +159,7 @@ public class OrderFragment extends Fragment {
                     case R.id.iv_del_order:
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle("提示");
-                        builder.setMessage("您已支付成功，请预约美容师");
+                        builder.setMessage("确定要删除订单?");
                         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
