@@ -147,8 +147,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     LinearLayout layoutBottomBar;
     @BindView(R.id.tvRedBao)
     TextView tvRedBao;
+    @BindView(R.id.ivRedBao)
+    ImageView ivRedBao;
     @BindView(R.id.tvFul)
     TextView tvFul;
+    @BindView(R.id.ivFull)
+    ImageView ivFull;
 
     private WebView webContainer;
 
@@ -767,6 +771,18 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getAddress());
                             if (detailBean.getIscollection() == 1) {
                                 setTvCollectionLeft();
+                            }
+                            if (CollectionUtils.isNotEmpty(shopDetailBean.getRedenvelopes())) {
+                                tvRedBao.setText(shopDetailBean.getRedenvelopes().get(0).getName());
+                            } else {
+                                ivRedBao.setVisibility(View.GONE);
+                                tvRedBao.setVisibility(View.GONE);
+                            }
+                            if (CollectionUtils.isNotEmpty(shopDetailBean.getFull())) {
+                                tvFul.setText(shopDetailBean.getFull().get(0).getName());
+                            } else {
+                                ivFull.setVisibility(View.GONE);
+                                tvFul.setVisibility(View.GONE);
                             }
                             tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean == null ? "" : shopDetailBean.getDistance()));
                             if (CollectionUtils.isNotEmpty(detailBean.getRedenvloesdata())) {

@@ -13,7 +13,7 @@
         app:AutoPlayTime="3000"
         app:isShowIndicatorOnlyOne="true"
         app:pageChangeDuration="800"
-        app:pointNormal="@drawable/shape_noraml"
+        app:pointNormal="@drawable/shape_unselected"
         app:pointSelect="@drawable/shape_selected"
         app:pointsPosition="RIGHT"
         app:tipTextSize="12sp" />

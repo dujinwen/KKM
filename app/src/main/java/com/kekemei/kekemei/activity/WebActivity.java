@@ -35,7 +35,7 @@ public class WebActivity extends BaseActivity {
 
 
     public static void start(Context context, String url) {
-        Intent intent = new Intent(context,WebActivity.class);
+        Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra("url", url);
         context.startActivity(intent);
     }
@@ -45,6 +45,10 @@ public class WebActivity extends BaseActivity {
         return R.layout.activity_web;
     }
 
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
+    }
 
     @Override
     protected void initView(Bundle savedInstanceState) {

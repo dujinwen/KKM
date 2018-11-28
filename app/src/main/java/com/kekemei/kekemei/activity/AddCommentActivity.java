@@ -2,7 +2,6 @@ package com.kekemei.kekemei.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,7 +27,6 @@ import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.view.LoadingDialog;
 import com.kekemei.kekemei.view.NoScrollGridView;
 import com.kekemei.kekemei.view.StarBar;
 import com.lzy.imagepicker.ImagePicker;
@@ -99,7 +97,6 @@ public class AddCommentActivity extends BaseActivity {
     public static final int MAX_PIC = 4;
     public static final int REQUEST_ALBUM = 10;
     private static final int UPLOAD_IMAGE_COMPRESS_FINISH = 1000;
-    private LoadingDialog compressImagesProgressDialog;
     private Thread compressThread;
 
     private List<String> commentTags;
@@ -244,7 +241,7 @@ public class AddCommentActivity extends BaseActivity {
         }
         commentTagFlowLayout.removeAllViews();
         for (final CommentTagsBean resultBean : result) {
-            final TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_comment_tag_layout, commentTagFlowLayout, false);
+            TextView txt = (TextView) LayoutInflater.from(this).inflate(R.layout.item_comment_tag_layout, commentTagFlowLayout, false);
             if (!AppUtil.isEmptyString(resultBean.getName())) {
                 txt.setText(resultBean.getName());
                 txt.setOnClickListener(new View.OnClickListener() {
@@ -256,10 +253,10 @@ public class AddCommentActivity extends BaseActivity {
                         } else {
                             commentTags.remove(tagId);
                         }
-                        if (txt.isSelected()) {
-                            txt.setSelected(false);
+                        if (v.isSelected()) {
+                            v.setSelected(false);
                         } else {
-                            txt.setSelected(true);
+                            v.setSelected(true);
                         }
                     }
                 });
@@ -304,6 +301,7 @@ public class AddCommentActivity extends BaseActivity {
                     @Override
                     public void onError(Response<String> response) {
                         LogUtil.e("TAG", response.message());
+                        ToastUtil.showToastMsg(AddCommentActivity.this, "评论失败");
                     }
                 });
     }
@@ -315,16 +313,37 @@ public class AddCommentActivity extends BaseActivity {
                 submitComment();
                 break;
             case R.id.tvVerySatisfied:
-                tvVerySatisfied.setSelected(true);
-                satisfaction = tvVerySatisfied.getText().toString();
+                if (tvVerySatisfied.isSelected()) {
+                    tvVerySatisfied.setSelected(false);
+                    satisfaction = "";
+                } else {
+                    tvVerySatisfied.setSelected(true);
+                    tvSatisfied.setSelected(false);
+                    tvCommonly.setSelected(false);
+                    satisfaction = tvVerySatisfied.getText().toString();
+                }
                 break;
             case R.id.tvSatisfied:
-                tvSatisfied.setSelected(true);
-                satisfaction = tvSatisfied.getText().toString();
+                if (tvSatisfied.isSelected()) {
+                    tvSatisfied.setSelected(false);
+                    satisfaction = "";
+                } else {
+                    tvSatisfied.setSelected(true);
+                    tvVerySatisfied.setSelected(false);
+                    tvCommonly.setSelected(false);
+                    satisfaction = tvSatisfied.getText().toString();
+                }
                 break;
             case R.id.tvCommonly:
-                tvCommonly.setSelected(true);
-                satisfaction = tvCommonly.getText().toString();
+                if (tvCommonly.isSelected()) {
+                    tvCommonly.setSelected(false);
+                    satisfaction = "";
+                } else {
+                    tvCommonly.setSelected(true);
+                    tvSatisfied.setSelected(false);
+                    tvVerySatisfied.setSelected(false);
+                    satisfaction = tvCommonly.getText().toString();
+                }
                 break;
         }
     }
@@ -349,20 +368,6 @@ public class AddCommentActivity extends BaseActivity {
      * @param resultImagePath
      */
     private void compressImage(final ArrayList<ImageItem> resultImagePath) {
-        if (compressImagesProgressDialog == null) {
-            compressImagesProgressDialog = new LoadingDialog(AddCommentActivity.this, "压缩中...", false);
-            compressImagesProgressDialog.setCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    LogUtil.d(TAG, "dialog isCanceled");
-                    if (compressThread != null) {
-                        compressThread.interrupt();
-                    }
-                }
-            });
-        }
-
-        compressImagesProgressDialog.show();
         compressThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -395,10 +400,6 @@ public class AddCommentActivity extends BaseActivity {
                     taskExecutor.awaitTermination(4, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     LogUtil.e(TAG, "interrupted", e);
-                }
-                if (null != compressImagesProgressDialog) {
-                    compressImagesProgressDialog.close();
-                    compressImagesProgressDialog = null;
                 }
                 LogUtil.d(TAG, "complete " + synchronizedMap.size());
 
@@ -442,6 +443,7 @@ public class AddCommentActivity extends BaseActivity {
                     }
                     JSONObject data = jsonObject.optJSONObject("data");
                     if (data != null) {
+                        ToastUtil.showToastMsg(AddCommentActivity.this, "上传成功");
                         String url = data.optString("url");
                         adapter.addItem(url);
                         adapter.notifyDataSetChanged();

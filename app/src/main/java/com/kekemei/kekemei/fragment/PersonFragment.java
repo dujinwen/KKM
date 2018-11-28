@@ -26,6 +26,7 @@ import com.kekemei.kekemei.activity.MessageActivity;
 import com.kekemei.kekemei.activity.MyCollectionActivity;
 import com.kekemei.kekemei.activity.MyRedBaoActivity;
 import com.kekemei.kekemei.activity.MyVoucherActivity;
+import com.kekemei.kekemei.activity.NewComerActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.ServiceOrderListActivity;
 import com.kekemei.kekemei.activity.SettingActivity;
@@ -37,7 +38,6 @@ import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.MyInfoBean;
 import com.kekemei.kekemei.bean.UserBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
-import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -248,6 +248,9 @@ public class PersonFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initData();
+        }
     }
 
     @OnClick({R.id.user_set_btn, R.id.userName, R.id.icon})
@@ -280,7 +283,7 @@ public class PersonFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tiyan:
-
+                NewComerActivity.start(getActivity(), true);
                 break;
             case R.id.daijinquan:
                 MyVoucherActivity.start(getActivity());
