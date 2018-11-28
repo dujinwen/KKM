@@ -6,15 +6,11 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.io.Serializable;
 import java.util.List;
 
-
-/**
- * Created by zhangshaoming on 2018/1/31.
- */
-
 public class OrderListBean implements Serializable {
 
     /**
-     * 状态值:0=待支付,1=待预约,2=待服务,3=待评价,4=完成
+     * 状态值:0=待支付,1=待预约,2=待服务,3=服务中,4=服务完成
+     * 状态值:1=待预约,2=待服务,3=服务中,4=服务完成,5=待回复（回复客户评价）,6=已完成,10=已取消
      */
     public static final int ORDER_STATUS_ALL = -10;     //全部订单
     public static final int ORDER_STATUS_TO_BE_PAID = 0;     //待支付
@@ -248,7 +244,5 @@ public class OrderListBean implements Serializable {
             this.user_id = user_id;
         }
     }
-
-
 }
 

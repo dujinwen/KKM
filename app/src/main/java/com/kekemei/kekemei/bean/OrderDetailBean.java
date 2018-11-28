@@ -99,7 +99,7 @@ public class OrderDetailBean {
         private int finishtime;
         private int createtime;
         private String source;
-        private Object address;
+        private String address;
         private Object beauticianname;
         private Object beauticianid;
         private Object project_id;
@@ -242,11 +242,11 @@ public class OrderDetailBean {
             this.source = source;
         }
 
-        public Object getAddress() {
+        public String getAddress() {
             return address;
         }
 
-        public void setAddress(Object address) {
+        public void setAddress(String address) {
             this.address = address;
         }
 

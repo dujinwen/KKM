@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/layout_title_bar" />
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/layout_title_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/titleBar"
         android:fillViewport="true">
 
         <LinearLayout
@@ -324,4 +326,80 @@
                 android:textSize="@dimen/px_40" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/px_46"
+        android:paddingLeft="@dimen/px_46"
+        android:paddingRight="@dimen/px_46"
+        android:paddingTop="@dimen/px_46"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/cancelOrder"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/work_refund_item_btn_width"
+            android:layout_height="@dimen/work_refund_item_btn_height"
+            android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
+            android:background="@drawable/refund_btn_background"
+            android:text="取消订单"
+            android:textColor="#999"
+            android:textSize="@dimen/work_refund_item_btn_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/acceptOrder"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/work_refund_item_btn_width"
+            android:layout_height="@dimen/work_refund_item_btn_height"
+            android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
+            android:background="@drawable/refund_red_btn_background"
+            android:text="接受订单"
+            android:textColor="#fff"
+            android:textSize="@dimen/work_refund_item_btn_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/startService"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/work_refund_item_btn_width"
+            android:layout_height="@dimen/work_refund_item_btn_height"
+            android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
+            android:background="@drawable/refund_red_btn_background"
+            android:text="开始服务"
+            android:textColor="#fff"
+            android:textSize="@dimen/work_refund_item_btn_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/finishService"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/work_refund_item_btn_width"
+            android:layout_height="@dimen/work_refund_item_btn_height"
+            android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
+            android:background="@drawable/refund_yellow_btn_background"
+            android:text="完成服务"
+            android:textColor="#fff"
+            android:textSize="@dimen/work_refund_item_btn_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/replayComment"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/work_refund_item_btn_width"
+            android:layout_height="@dimen/work_refund_item_btn_height"
+            android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
+            android:background="@drawable/refund_yellow_btn_background"
+            android:text="回复评论"
+            android:textColor="#fff"
+            android:textSize="@dimen/work_refund_item_btn_text_size"
+            android:visibility="visible" />
+
+    </LinearLayout>
+</RelativeLayout>

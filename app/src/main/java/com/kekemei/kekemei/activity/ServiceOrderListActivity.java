@@ -21,6 +21,7 @@ import com.kekemei.kekemei.bean.ServiceOrderListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -47,32 +48,47 @@ public class ServiceOrderListActivity extends BaseActivity {
     @BindView(R.id.iv_share)
     ImageView iv_share;
 
-    @BindView(R.id.tabAll)
-    LinearLayout tabAll;
-    @BindView(R.id.tvAll)
+    @BindView(R.id.tal_all)
+    LinearLayout talAll;
+    @BindView(R.id.tv_all)
     TextView tvAll;
-    @BindView(R.id.vAll)
+    @BindView(R.id.v_all)
     View vAll;
 
-    @BindView(R.id.tvAppointment)
-    TextView tvAppointment;
-    @BindView(R.id.vAppointment)
-    View vAppointment;
+    @BindView(R.id.tv_wait_yuyue)
+    TextView tvWaitYuyue;
+    @BindView(R.id.v_wait_yuyue)
+    View vWaitYuyue;
 
-    @BindView(R.id.tvNotStart)
-    TextView tvNotStart;
-    @BindView(R.id.vNotStart)
-    View vNotStart;
+    @BindView(R.id.tv_wait_server)
+    TextView tvWaitServer;
+    @BindView(R.id.v_wait_server)
+    View vWaitServer;
 
-    @BindView(R.id.tvGoing)
-    TextView tvGoing;
-    @BindView(R.id.vGoing)
-    View vGoing;
+    @BindView(R.id.tv_pingjia)
+    TextView tvPingjia;
+    @BindView(R.id.v_pingjia)
+    View vPingjia;
 
-    @BindView(R.id.tvFinished)
-    TextView tvFinished;
-    @BindView(R.id.vFinished)
-    View vFinished;
+    @BindView(R.id.tv_finish)
+    TextView tvFinish;
+    @BindView(R.id.v_finish)
+    View vFinish;
+
+    @BindView(R.id.tv_serving)
+    TextView tvServing;
+    @BindView(R.id.v_serving)
+    View vServing;
+
+    @BindView(R.id.tv_served)
+    TextView tvServed;
+    @BindView(R.id.v_served)
+    View vServed;
+
+    @BindView(R.id.tv_quit)
+    TextView tvQuit;
+    @BindView(R.id.v_quit)
+    View vQuit;
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -98,7 +114,7 @@ public class ServiceOrderListActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        tv_title.setText("我的订单");
+        tv_title.setText("服务订单");
         iv_share.setImageResource(R.mipmap.search_btn);
         iv_share.setVisibility(View.VISIBLE);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ServiceOrderListActivity.this);
@@ -109,48 +125,94 @@ public class ServiceOrderListActivity extends BaseActivity {
             @Override
             public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
                 final List<ServiceOrderListBean> data = jAdapter.getData();
+                long userId = UserHelp.getUserId(ServiceOrderListActivity.this);
+                if (userId == -1L) {
+                    LoginActivity.start(ServiceOrderListActivity.this);
+                    return;
+                }
                 switch (view.getId()) {
-                   /* case R.id.iv_del_order:
-                        long userId = UserHelp.getUserId(ServiceOrderListActivity.this);
-                        if (userId == -1L) {
-                            LoginActivity.start(ServiceOrderListActivity.this);
-                            return;
-                        }
-                        OkGo.<String>get(URLs.DEL_ORDER)
+                    case R.id.cancelOrder:
+                        OkGo.<String>get(URLs.CANCEL_ORDER)
                                 .params("user_id", userId)
                                 .params("order_id", data.get(position).getId())
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
-                                        data.remove(position);
-                                        jAdapter.notifyDataSetChanged();
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response.body());
+                                            Object msg = jsonObject.opt("msg");
+                                            if (msg.equals("暂无数据")) {
+                                                return;
+                                            }
+                                            ToastUtil.showToastMsg(ServiceOrderListActivity.this, "取消成功");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Response<String> response) {
+                                        super.onError(response);
+                                        ToastUtil.showToastMsg(ServiceOrderListActivity.this, "取消失败");
                                     }
                                 });
                         break;
-                    case R.id.lijifukuan:
-                        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
-                        yuYueActivityBean.setDateSelect(-1L);
-                        yuYueActivityBean.setTimeSelect(-1);
-                        yuYueActivityBean.setOrderPrice(data.get(position).getPrice());
-                        yuYueActivityBean.setOrderCount(data.get(position).getCount());
-                        yuYueActivityBean.setOrderIconUrl(data.get(position).getImage());
-                        yuYueActivityBean.setOrderName(data.get(position).getName());
-                        PayActivity.start(ServiceOrderListActivity.this, yuYueActivityBean);
+                    case R.id.acceptOrder:
+                        OkGo.<String>get(URLs.ACCEPC_ORDER)
+                                .params("user_id", userId)
+                                .params("order_id", data.get(position).getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response.body());
+                                            Object msg = jsonObject.opt("msg");
+                                            if (msg.equals("暂无数据")) {
+                                                return;
+                                            }
+                                            ToastUtil.showToastMsg(ServiceOrderListActivity.this, "接单成功");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Response<String> response) {
+                                        super.onError(response);
+                                        ToastUtil.showToastMsg(ServiceOrderListActivity.this, "接单成功");
+                                    }
+                                });
                         break;
-                    case R.id.chakan:
-                        OrderDetailActivity.start(ServiceOrderListActivity.this, data.get(position).getId());
+                    case R.id.startService:
+//                        OrderDetailActivity.start(ServiceOrderListActivity.this, data.get(position).getId());
                         break;
-                    case R.id.zaicigoumai:
-                        ProjectDetailActivity.start(ServiceOrderListActivity.this, data.get(position).getProject_project_id());
+                    case R.id.finishService:
+                        OkGo.<String>get(URLs.OVER_ORDER)
+                                .params("user_id", userId)
+                                .params("order_id", data.get(position).getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response.body());
+                                            Object msg = jsonObject.opt("msg");
+                                            if (msg.equals("暂无数据")) {
+                                                return;
+                                            }
+                                            ToastUtil.showToastMsg(ServiceOrderListActivity.this, "订单完成");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Response<String> response) {
+                                        super.onError(response);
+                                        ToastUtil.showToastMsg(ServiceOrderListActivity.this, "完成失败");
+                                    }
+                                });
                         break;
-                    case R.id.qupingjia:
-//                        UserEvaluateActivity.start(ServiceOrderListActivity.this, false, item.getShop_shop_id() + "",
-                        //                                item.getBeautician_beautician_id() + "",
-                        //                                item.getProject_project_id() + "");
-//                        AddCommentActivity.start(ServiceOrderListActivity.this,item.getSource(),item.getId()+"");
-                        break;*/
-                    case R.id.orderDetail:
-                        ServiceOrderDetailActivity.start(ServiceOrderListActivity.this);
+                    case R.id.replayComment:
                         break;
                 }
             }
@@ -174,19 +236,21 @@ public class ServiceOrderListActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        onViewClicked(tabAll);
+        onViewClicked(talAll);
     }
 
-    @OnClick({R.id.iv_share, R.id.tabAll, R.id.tabAppointment, R.id.tabNotStart, R.id.tabGoing, R.id.tabFinished})
+    @OnClick({R.id.iv_share, R.id.tal_all, R.id.tal_wait_yuyue, R.id.tal_serving,
+            R.id.tal_served, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_share) {
-            Intent intent = new Intent(ServiceOrderListActivity.this, OrderListSearchActivity.class);
+            Intent intent = new Intent(this, OrderListSearchActivity.class);
             startActivity(intent);
             return;
         }
-        if (view.getId() == R.id.tabAll || view.getId() == R.id.tabAppointment
-                || view.getId() == R.id.tabNotStart || view.getId() == R.id.tabGoing
-                || view.getId() == R.id.tabFinished) {
+        if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_quit
+                || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
+                || view.getId() == R.id.tal_serving || view.getId() == R.id.tal_served
+                || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia) {
             setSelect(view.getId());
             return;
         }
@@ -201,41 +265,62 @@ public class ServiceOrderListActivity extends BaseActivity {
     private int page = 1;
 
     private void setSelect(int id) {
-        tvAll.setSelected(id == R.id.tabAll);
-        vAll.setVisibility(id == R.id.tabAll ? View.VISIBLE : View.INVISIBLE);
+        tvAll.setSelected(id == R.id.tal_all);
+        vAll.setVisibility(id == R.id.tal_all ? View.VISIBLE : View.INVISIBLE);
 
-        tvAppointment.setSelected(id == R.id.tabAppointment);
-        vAppointment.setVisibility(id == R.id.tabAppointment ? View.VISIBLE : View.INVISIBLE);
+        tvWaitYuyue.setSelected(id == R.id.tal_wait_yuyue);
+        vWaitYuyue.setVisibility(id == R.id.tal_wait_yuyue ? View.VISIBLE : View.INVISIBLE);
 
-        tvNotStart.setSelected(id == R.id.tabNotStart);
-        vNotStart.setVisibility(id == R.id.tabNotStart ? View.VISIBLE : View.INVISIBLE);
+        tvWaitServer.setSelected(id == R.id.tal_wait_server);
+        vWaitServer.setVisibility(id == R.id.tal_wait_server ? View.VISIBLE : View.INVISIBLE);
 
-        tvGoing.setSelected(id == R.id.tabGoing);
-        vGoing.setVisibility(id == R.id.tabGoing ? View.VISIBLE : View.INVISIBLE);
+        tvFinish.setSelected(id == R.id.tal_finish);
+        vFinish.setVisibility(id == R.id.tal_finish ? View.VISIBLE : View.INVISIBLE);
 
-        tvFinished.setSelected(id == R.id.tabFinished);
-        vFinished.setVisibility(id == R.id.tabFinished ? View.VISIBLE : View.INVISIBLE);
+        tvPingjia.setSelected(id == R.id.tal_pingjia);
+        vPingjia.setVisibility(id == R.id.tal_pingjia ? View.VISIBLE : View.INVISIBLE);
+
+        tvServed.setSelected(id == R.id.tal_served);
+        vServed.setVisibility(id == R.id.tal_served ? View.VISIBLE : View.INVISIBLE);
+
+        tvServing.setSelected(id == R.id.tal_serving);
+        vServing.setVisibility(id == R.id.tal_serving ? View.VISIBLE : View.INVISIBLE);
+
+        tvQuit.setSelected(id == R.id.tal_quit);
+        vQuit.setVisibility(id == R.id.tal_quit ? View.VISIBLE : View.INVISIBLE);
 
         switch (id) {
-            case R.id.tabAll:
+            case R.id.tal_all:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_ALL;
                 break;
-            case R.id.tabAppointment:
+            case R.id.tal_wait_yuyue:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
                 break;
-            case R.id.tabNotStart:
+            case R.id.tal_wait_server:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_TO_WAIT_SERVER;
                 break;
-            case R.id.tabGoing:
+            case R.id.tal_finish:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
+                break;
+            case R.id.tal_pingjia:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
+                break;
+            case R.id.tal_served:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
+                break;
+            case R.id.tal_serving:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
                 break;
-            case R.id.tabFinished:
+            case R.id.tal_quit:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
+                jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
                 break;
         }
         getData(jOrderStatus, page);

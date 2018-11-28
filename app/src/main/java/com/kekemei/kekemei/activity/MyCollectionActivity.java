@@ -115,12 +115,12 @@ public class MyCollectionActivity extends BaseActivity {
         refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadData(true);
+                loadMoreData();
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                loadMoreData();
+                loadData(true);
             }
         });
         refresh_layout.setRefreshHeader(new ClassicsHeader(this));
@@ -216,6 +216,7 @@ public class MyCollectionActivity extends BaseActivity {
                                 showEmpty();
                                 return;
                             }
+                            multipleStatusView.showOutContentView(refresh_layout);
                             Gson gson = new Gson();
                             if (type.equals("1")) {
                                 List<BaseBean> listResult = gson.fromJson(data, new TypeToken<List<BaseBean>>() {
@@ -312,6 +313,7 @@ public class MyCollectionActivity extends BaseActivity {
                         showEmpty();
                         return;
                     }
+                    multipleStatusView.showOutContentView(refresh_layout);
                     Gson gson = new Gson();
                     List<BeauticianBean> listResult = gson.fromJson(data, new TypeToken<List<BeauticianBean>>() {
                     }.getType());

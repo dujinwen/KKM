@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E3E6E8"
@@ -96,6 +95,7 @@
                     android:background="#FF7AD2D2"
                     android:visibility="invisible" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/tal_wait_yuyue"
                 android:layout_width="@dimen/px_216"
@@ -199,6 +199,7 @@
                     android:background="#FF7AD2D2"
                     android:visibility="invisible" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/tal_pingjia"
                 android:layout_width="@dimen/px_216"
@@ -224,6 +225,7 @@
                     android:background="#FF7AD2D2"
                     android:visibility="invisible" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/tal_finish"
                 android:layout_width="@dimen/px_216"
@@ -249,6 +251,7 @@
                     android:background="#FF7AD2D2"
                     android:visibility="invisible" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/tal_quit"
                 android:layout_width="@dimen/px_216"
@@ -274,7 +277,7 @@
                     android:background="#FF7AD2D2"
                     android:visibility="invisible" />
             </LinearLayout>
-        
+
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -287,10 +290,7 @@
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/px_29"
-            android:background="#FFF">
-
-        </android.support.v7.widget.RecyclerView>
+            android:background="#FFF" />
 
         <com.kekemei.kekemei.view.MultipleStatusView
             android:id="@+id/multiple_status_view"

@@ -172,7 +172,8 @@
                 android:layout_weight="1"
                 android:text="查看更多预约时间"
                 android:textColor="#C1C1C1"
-                android:textSize="@dimen/px_40" />
+                android:textSize="@dimen/px_40"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -267,6 +268,18 @@
             android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
             android:background="@drawable/refund_yellow_btn_background"
             android:text="完成服务"
+            android:textColor="#fff"
+            android:textSize="@dimen/work_refund_item_btn_text_size"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/replayComment"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/work_refund_item_btn_width"
+            android:layout_height="@dimen/work_refund_item_btn_height"
+            android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
+            android:background="@drawable/refund_yellow_btn_background"
+            android:text="回复评论"
             android:textColor="#fff"
             android:textSize="@dimen/work_refund_item_btn_text_size"
             android:visibility="visible" />
