@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.ALiPayResultBean;
+import com.kekemei.kekemei.bean.OrderByIdBean;
 import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.WXPayResultBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
@@ -184,12 +185,39 @@ public class PayActivity extends BaseActivity {
         project_id = yuYueActivityBean.getProject_id();
 
 
-        tvOrderName.setText(order_name);
-        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + order_image, ivOrderIcon);
-        tvPrice.setText("¥ " + order_price);
-        tvOrderNum.setText("X" + order_count);
+        getData();
 
-        money.setText("¥ " + (order_price * order_count));
+    }
+
+    private void getData() {
+        OkGo.<String>get(URLs.ORDER_BY_ID)
+                .params("user_id", UserHelp.getUserId(this))
+                .params("id", yuYueActivityBean.getOrderId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        OrderByIdBean orderByIdBean = gson.fromJson(response.body(), OrderByIdBean.class);
+                        if (orderByIdBean.getData().getUser_red().size() > 0) {
+                            tvRedBaoNum.setText("- ¥ " + orderByIdBean.getData().getUser_red().get(0).getPrice_reduction());
+                            redId = orderByIdBean.getData().getUser_red().get(0).getId() + "";
+                        }
+                        if (orderByIdBean.getData().getUser_coupon().size() > 0 && orderByIdBean.getData().getUser_coupon().get(0).getPrice_reduction() > -1) {
+                            tvYouhuiquanNum.setText("- ¥ " + orderByIdBean.getData().getUser_coupon().get(0).getPrice_reduction() + "");
+                            youhuiquanId = orderByIdBean.getData().getUser_coupon().get(0).getId() + "";
+                        }
+                        order_name = orderByIdBean.getData().getName();
+
+                        tvOrderName.setText(order_name);
+                        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + order_image, ivOrderIcon);
+                        order_price = orderByIdBean.getData().getPrice();
+                        tvPrice.setText("¥ " + order_price);
+                        order_count = orderByIdBean.getData().getCount();
+                        tvOrderNum.setText("X" + order_count);
+
+                        money.setText("¥ " + (order_price * order_count - youhuiqunnum - hongbaonum - manjiannum));
+                    }
+                });
     }
 
     @Override
@@ -229,8 +257,8 @@ public class PayActivity extends BaseActivity {
                 startActivityForResult(intent, PAY_TO_RED_CODE);
                 break;
             case R.id.ll_man_jian:
-                intent = new Intent(PayActivity.this, MyVoucherActivity.class);
-                startActivityForResult(intent, PAY_TO_MAN_JIAN_CODE);
+                //                intent = new Intent(PayActivity.this, MyVoucherActivity.class);
+                //                startActivityForResult(intent, PAY_TO_MAN_JIAN_CODE);
                 break;
             case R.id.iv_check_wechat:
                 ivCheckWechat.toggle();
@@ -242,7 +270,7 @@ public class PayActivity extends BaseActivity {
                 break;
             case R.id.btn_pay:
 
-//                toSelectActivity();
+                //                toSelectActivity();
                 if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()) {
                     ToastUtil.showToastMsg(PayActivity.this, "请选择一种支付方式");
                     return;
@@ -256,14 +284,14 @@ public class PayActivity extends BaseActivity {
                         .params("user_id", userId)
                         .params("name", yuYueActivityBean.getOrderName())
                         .params("project_id", yuYueActivityBean.getProject_id())
-                        .params("reden",redId)
-                        .params("coupon",youhuiquanId)
+                        .params("reden", redId)
+                        .params("coupon", youhuiquanId)
                         .params("shop_id",
-                                yuYueActivityBean.getShopDetailBean()==null?""
-                                        :yuYueActivityBean.getShopDetailBean().getId())
+                                yuYueActivityBean.getShopDetailBean() == null ? ""
+                                        : yuYueActivityBean.getShopDetailBean().getId())
                         .params("buautician_id",
-                                yuYueActivityBean.getBeauticianDetailBean()==null?""
-                                        :yuYueActivityBean.getBeauticianDetailBean().getId())
+                                yuYueActivityBean.getBeauticianDetailBean() == null ? ""
+                                        : yuYueActivityBean.getBeauticianDetailBean().getId())
                         .params("count", 1)
                         .execute(new StringCallback() {
                             @Override
@@ -273,10 +301,10 @@ public class PayActivity extends BaseActivity {
                                 String payUrl = "";
                                 if (ivCheckAli.isChecked()) {
                                     payUrl = URLs.ORDER_ALI_PAY;
-                                    toALiPay(payUrl,orderGeneratingBean.getData().getOrder_id(),orderGeneratingBean.getTime());
+                                    toALiPay(payUrl, orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
                                 } else {
                                     payUrl = URLs.ORDER_WX_PAY;
-                                    toWXPay(payUrl,orderGeneratingBean.getData().getOrder_id(),orderGeneratingBean.getTime());
+                                    toWXPay(payUrl, orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
                                 }
                             }
                         });
@@ -289,62 +317,63 @@ public class PayActivity extends BaseActivity {
     private void toWXPay(String payUrl, String order_id, String time) {
         OkGo.<String>get(payUrl)
                 .params("order_id", order_id)
-                .params("project_id",project_id)
+                .params("project_id", project_id)
                 .execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.d("aaaa",response.body());
-                Gson gson = new Gson();
-                WXPayResultBean payResult = gson.fromJson(response.body(), WXPayResultBean.class);
-                // TODO: 2018/11/13 进行支付操作
-                if (null != payResult && null != payResult.getData()) {
-                    PayReq req = new PayReq();
-                    WXPayResultBean.DataBean data = payResult.getData();
-                    req.appId = data.getAppid();
-                    req.partnerId = data.getMch_id();
-                    req.prepayId = data.getPrepay_id();
-                    req.packageValue = "Sign=WXPay";
-                    req.nonceStr = data.getNonce_str();
-                    req.timeStamp = data.getPay_time()+"";
-                    req.sign = data.getSign2();
-                    // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-                    LogUtil.d("PAY_GET", req.toString());
-                    if (!api.isWXAppInstalled()) {
-                        ToastUtil.showToastMsg(PayActivity.this, "您还未安装微信客户端,请先安装微信客户端");
-                        return;
-                    }
-                    api.sendReq(req);
-                } else {
-                    LogUtil.d("PAY_GET", "返回错误" + payResult.getMsg());
-                }
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        LogUtil.d("aaaa", response.body());
+                        Gson gson = new Gson();
+                        WXPayResultBean payResult = gson.fromJson(response.body(), WXPayResultBean.class);
+                        // TODO: 2018/11/13 进行支付操作
+                        if (null != payResult && null != payResult.getData()) {
+                            PayReq req = new PayReq();
+                            WXPayResultBean.DataBean data = payResult.getData();
+                            req.appId = data.getAppid();
+                            req.partnerId = data.getMch_id();
+                            req.prepayId = data.getPrepay_id();
+                            req.packageValue = "Sign=WXPay";
+                            req.nonceStr = data.getNonce_str();
+                            req.timeStamp = data.getPay_time() + "";
+                            req.sign = data.getSign2();
+                            // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+                            LogUtil.d("PAY_GET", req.toString());
+                            if (!api.isWXAppInstalled()) {
+                                ToastUtil.showToastMsg(PayActivity.this, "您还未安装微信客户端,请先安装微信客户端");
+                                return;
+                            }
+                            api.sendReq(req);
+                        } else {
+                            LogUtil.d("PAY_GET", "返回错误" + payResult.getMsg());
+                        }
 
-            }
-        });
+                    }
+                });
     }
+
     private void toALiPay(String payUrl, String order_id, String time) {
         OkGo.<String>get(payUrl)
                 .params("order_id", order_id)
-                .params("project_id",project_id)
+                .params("project_id", project_id)
                 .execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
-                Runnable payRunnable = new Runnable() {
                     @Override
-                    public void run() {
-                        PayTask alipay = new PayTask(PayActivity.this);
-                        Map<String, String> result = alipay.payV2(payResultBean.getData().getInfo(), true);
-                        Message msg = handler.obtainMessage();
-                        msg.what = Common.ACTIVITY_REQUEST_CODE_ALI_PAY;
-                        msg.obj = result;
-                        handler.sendMessage(msg);
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
+                        Runnable payRunnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                PayTask alipay = new PayTask(PayActivity.this);
+                                Map<String, String> result = alipay.payV2(payResultBean.getData().getInfo(), true);
+                                Message msg = handler.obtainMessage();
+                                msg.what = Common.ACTIVITY_REQUEST_CODE_ALI_PAY;
+                                msg.obj = result;
+                                handler.sendMessage(msg);
+                            }
+                        };
+                        Thread payThread = new Thread(payRunnable);
+                        payThread.start();
                     }
-                };
-                Thread payThread = new Thread(payRunnable);
-                payThread.start();
-            }
-        });
+                });
     }
 
     @Override
@@ -376,14 +405,14 @@ public class PayActivity extends BaseActivity {
     // TODO: 2018/11/13 去预约美容师页面
     private void toSelectActivity() {
         OkGo.<String>get(URLs.ORDER_REFUND)
-                .params("out_trade_no",yuYueActivityBean.getOrderId())
+                .params("out_trade_no", yuYueActivityBean.getOrderId())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             String code = (String) jsonObject.opt("code");
-                            if (code.equals("1")){
+                            if (code.equals("1")) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
                                 builder.setTitle("提示");
                                 builder.setMessage("您已支付成功，请预约美容师");
@@ -425,6 +454,7 @@ public class PayActivity extends BaseActivity {
         }
         LogUtil.d("PAY_GET", code + "");
     }
+
     @SuppressWarnings("unchecked")
     private void handleAliPayResult(Message msg) {
         Map<String, String> result = (Map<String, String>) msg.obj;
