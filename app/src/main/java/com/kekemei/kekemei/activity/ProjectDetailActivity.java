@@ -174,8 +174,6 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private MyGridAdapter contentSectionAdapter;
     private EvaluateListAdapter commentAdapter;
 
-    private String encoding = "UTF-8";
-    private String mimeType = "text/html";
     private ProjectDetailBean detailBean;
 
 
@@ -191,11 +189,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     private YuYueDataListAdapter yuYueDataListAdapter;
     private TextView tv_date_and_week;
     private TextView tv_can_yuyue;
-    private HashSet<Integer> hashSet = new HashSet<>();
-    private String place;
     private ShopDetailBean shopDetailBean;
     private BeauticianDetailBean beauticianDetailBean;
-    private String address;
 
 
     public static void start(Context context, String beauticianId) {

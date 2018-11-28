@@ -44,6 +44,10 @@ public class URLs {
      */
     //删除订单
     public static final String DEL_ORDER = BASE_URL + "/api/order/delorder";
+    //删除订单
+    public static final String OVER_ORDER = BASE_URL + "/api/order/over";
+    //删除订单
+    public static final String ACCEPC_ORDER = BASE_URL + "/api/order/accepc";
     //领取新人卡
     public static final String ADD_NEW_PEOPLE = BASE_URL + "/api/user/addNewpople";
     //重置密码
