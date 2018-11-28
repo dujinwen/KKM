@@ -772,20 +772,20 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             if (detailBean.getIscollection() == 1) {
                                 setTvCollectionLeft();
                             }
-                            if (CollectionUtils.isNotEmpty(shopDetailBean.getRedenvelopes())) {
+                            if (shopDetailBean != null && CollectionUtils.isNotEmpty(shopDetailBean.getRedenvelopes())) {
                                 tvRedBao.setText(shopDetailBean.getRedenvelopes().get(0).getName());
                             } else {
                                 ivRedBao.setVisibility(View.GONE);
                                 tvRedBao.setVisibility(View.GONE);
                             }
-                            if (CollectionUtils.isNotEmpty(shopDetailBean.getFull())) {
+                            if (shopDetailBean != null && CollectionUtils.isNotEmpty(shopDetailBean.getFull())) {
                                 tvFul.setText(shopDetailBean.getFull().get(0).getName());
                             } else {
                                 ivFull.setVisibility(View.GONE);
                                 tvFul.setVisibility(View.GONE);
                             }
                             tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean == null ? "" : shopDetailBean.getDistance()));
-                            if (CollectionUtils.isNotEmpty(detailBean.getRedenvloesdata())) {
+                            if (detailBean != null && CollectionUtils.isNotEmpty(detailBean.getRedenvloesdata())) {
                                 for (ProjectDetailBean.RedenvloesDataBean redenvloesDataBean : detailBean.getRedenvloesdata()) {
                                     if (redenvloesDataBean.getType() == 1) {
                                         if (StringUtils.isNotEmpty(redenvloesDataBean.getName())) {
@@ -809,11 +809,11 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                     }
                                 }
                             }
-                            if (CollectionUtils.isNotEmpty(detailBean.getStrading())) {
+                            if (detailBean != null && CollectionUtils.isNotEmpty(detailBean.getStrading())) {
                                 tradingBeanList = getTradingList(detailBean.getStrading());
                                 fillTradings(detailBean.getStrading());
                             }
-                            if (CollectionUtils.isNotEmpty(detailBean.getService())) {
+                            if (detailBean != null && CollectionUtils.isNotEmpty(detailBean.getService())) {
                                 List<String> serviceList = detailBean.getService();
                                 if (serviceList.get(0) != null) {
                                     serviceOne.setVisibility(View.VISIBLE);
@@ -835,7 +835,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 }
                             }
                             displayForWebView(URLs.BASE_URL + "/mob/project/details?id=" + beauticianId, null);
-                            if (CollectionUtils.isNotEmpty(detailBean.getHotdata())) {
+                            if (detailBean != null && CollectionUtils.isNotEmpty(detailBean.getHotdata())) {
                                 contentSectionAdapter.replaceData(detailBean.getHotdata());
                                 contentSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                                     @Override
@@ -846,7 +846,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                     }
                                 });
                             }
-                            if (detailBean.getComment() != null && CollectionUtils.isNotEmpty(detailBean.getComment().getAll())) {
+                            if (detailBean != null && detailBean.getComment() != null && CollectionUtils.isNotEmpty(detailBean.getComment().getAll())) {
                                 fillCommentData(detailBean.getComment());
                             } else {
                                 commentSectionView.setVisibility(View.GONE);
