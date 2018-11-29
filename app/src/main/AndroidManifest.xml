@@ -108,6 +108,7 @@
         <activity android:name=".activity.ServiceOrderDetailActivity" />
         <activity android:name=".activity.LargeImageActivity" />
         <activity android:name=".activity.ProjectListActivity" />
+        <activity android:name=".activity.splash.GuideActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:launchMode="singleTask"
@@ -164,8 +165,9 @@
         <activity android:name=".activity.ClassifyActivity" />
         <activity
             android:name=".activity.splash.SplashActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
  * {@link SharedPreferences}的存取管理类
  */
 public class PrefManager {
+    public static final String FILE_SETTINGS = "kekemei_file_settings"; // 之前360的SharedPreferences文件名
+    public static final String KEY_NEED_SHOW_GUIDE = "need_show_guide"; // 是否需要显示引导页
     static final String SEARCH_HISTORY = "search_history";
 
     private static PrefManager instance;

@@ -4,14 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
@@ -19,43 +19,74 @@ import com.amap.api.location.AMapLocationListener;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.BaseActivity;
 import com.kekemei.kekemei.activity.MainActivity;
+import com.kekemei.kekemei.manager.PrefManager;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 
-import java.util.ArrayList;
-import java.util.List;
+/*
+                   _ooOoo_
+                  o8888888o
+                  88" . "88
+                  (| -_- |)
+                  O\  =  /O
+               ____/`---'\____
+             .'  \\|     |//  `.
+            /  \\|||  :  |||//  \
+           /  _||||| -:- |||||-  \
+           |   | \\\  -  /// |   |
+           | \_|  ''\---/''  |   |
+           \  .-\__  `-`  ___/-. /
+         ___`. .'  /--.--\  `. . __
+      ."" '<  `.___\_<|>_/___.'  >'"".
+     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+     \  \ `-.   \_ __\ /__ _/   .-` /  /
+======`-.____`-.___\_____/___.-`____.-'======
+                   `=---='
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            佛祖保佑       永无BUG
+*/
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-public class SplashActivity extends BaseActivity implements AMapLocationListener {
-
-    private static final int[] imageList = {R.mipmap.guide_page_01, R.mipmap.guide_page_02, R.mipmap.guide_page_03};
-    @BindView(R.id.viewpager)
-    ViewPager viewpager;
-    @BindView(R.id.btn_home)
-    ImageView btnHome;
-    @BindView(R.id.activity_guider)
-    RelativeLayout activityGuider;
-
-
-    private List<ImageView> viewList;
-
-
+/**
+ * 闪屏页
+ */
+public class SplashActivity extends BaseActivity implements AMapLocationListener, Handler.Callback {
+    private TextView txtSeconds;
+    private Handler jumpHandler = new Handler(this);
+    private static final int TIME_SPLASH = 3000;
+    private static final int MSG_TIME_TICK = 1;
+    private static final int MSG_JUMP_TASK = 2;
+    private int timeTickCount = 0;
+    boolean needShowGuide;
     @Override
     protected int setLayoutId() {
         return R.layout.activity_splash;
     }
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 处理安装后点击打开之后再按HOME的问题
+        // http://stackoverflow.com/a/7748416
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
+                finish();
+                return;
+            }
+        }
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        normalStart();
+    }
+
     public void initData() {
-
-        initList();
-        initViewPager();
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
             //开启定位权限,200是标识码
@@ -66,78 +97,45 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
         }
     }
 
-    private void initList() {
-        viewList = new ArrayList<>();
-        int size = imageList.length;
-        ImageView imageView = null;
-        for (int i = 0; i < size; i++) {
-            imageView = new ImageView(this);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setImageResource(imageList[i]);
-            viewList.add(imageView);
-        }
-
-    }
-
-    @OnClick(R.id.btn_home)
-    public void onViewClicked() {
-//        if (UserHelp.getLogin(getBaseContext(),false)) {
-        finish();
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//        } else {
-//            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-//        }
-
-    }
-
-    private void initViewPager() {
-        viewpager.setAdapter(pagerAdapter);
-        viewpager.addOnPageChangeListener(pageChangeListener);
-    }
-
-    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            if (position == imageList.length - 1) {
-                btnHome.setVisibility(View.VISIBLE);
+    @Override
+    public boolean handleMessage(Message message) {
+        if (message.what == MSG_TIME_TICK) {
+            int last = TIME_SPLASH - timeTickCount * 1000;
+            txtSeconds.setText(StringUtils.format("%d S", last / 1000));
+            if (last <= 0) {
+                jumpHandler.sendEmptyMessage(MSG_JUMP_TASK);
             } else {
-                btnHome.setVisibility(View.GONE);
+                jumpHandler.sendEmptyMessageDelayed(MSG_TIME_TICK, 1000);
+                timeTickCount++;
             }
         }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
+        if (message.what == MSG_JUMP_TASK) {
+            jump();
         }
-    };
+        return true;
+    }
 
-    private PagerAdapter pagerAdapter = new PagerAdapter() {
-        @Override
-        public int getCount() {
-            return viewList.size();
-        }
+    private void loadAndShowImage() {
+        View layoutSkip = findViewById(R.id.layoutSkip);
+        layoutSkip.setVisibility(View.VISIBLE);
+        txtSeconds = findViewById(R.id.txtSeconds);
 
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
+        layoutSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                jumpHandler.removeMessages(MSG_TIME_TICK);
+                finish();
+            }
+        });
+    }
 
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(viewList.get(position));
-            return viewList.get(position);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView(viewList.get(position));
-        }
-    };
+    private void jump() {
+        Intent intent = new Intent(SplashActivity.this, needShowGuide ? GuideActivity.class : MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -163,18 +161,17 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
                 LogUtil.d("APPLOCALTION  HomeFragment", "location Error, ErrCode:"
                         + aMapLocation.getErrorCode() + ", errInfo:"
                         + aMapLocation.getErrorInfo());
-
             }
         }
-
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    //正常启动
+    private void normalStart(){
+        needShowGuide = PrefManager.newInstance(SplashActivity.this, PrefManager.FILE_SETTINGS).getBoolean(PrefManager.KEY_NEED_SHOW_GUIDE, true);
+        if (needShowGuide) {
+            jumpHandler.sendEmptyMessageDelayed(MSG_JUMP_TASK, 1000);
+        } else {
+            loadAndShowImage();
+            jumpHandler.sendEmptyMessageDelayed(MSG_TIME_TICK, 500);
+        }
     }
-
-
 }

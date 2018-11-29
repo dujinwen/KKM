@@ -223,6 +223,24 @@ public class ServiceOrderDetailActivity extends BaseActivity {
                         });
                 break;
             case R.id.startService:
+                OkGo.<String>get(URLs.ACCEPC_ORDER)
+                        .params("user_id", userId)
+                        .params("order_id", data.getId())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    Object msg = jsonObject.opt("msg");
+                                    if (msg.equals("暂无数据")) {
+                                        return;
+                                    }
+                                    ToastUtil.showToastMsg(ServiceOrderDetailActivity.this, "开始服务");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                 break;
             case R.id.finishService:
                 OkGo.<String>get(URLs.OVER_ORDER)
