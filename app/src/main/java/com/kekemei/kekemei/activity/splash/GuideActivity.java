@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.BaseActivity;
 import com.kekemei.kekemei.activity.MainActivity;
+import com.kekemei.kekemei.manager.PrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +54,9 @@ public class GuideActivity extends BaseActivity {
 
     @OnClick(R.id.btn_home)
     public void onViewClicked() {
-//        if (UserHelp.getLogin(getBaseContext(),false)) {
-        finish();
+        PrefManager.newInstance(this, PrefManager.FILE_SETTINGS).putBoolean(PrefManager.KEY_NEED_SHOW_GUIDE, false);
         startActivity(new Intent(GuideActivity.this, MainActivity.class));
-//        } else {
-//            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-//        }
-
+        finish();
     }
 
     private void initViewPager() {

@@ -1,6 +1,7 @@
 package com.kekemei.kekemei.activity.splash;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,14 +11,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.BaseActivity;
 import com.kekemei.kekemei.activity.MainActivity;
 import com.kekemei.kekemei.manager.PrefManager;
 import com.kekemei.kekemei.utils.AppUtil;
@@ -53,7 +52,7 @@ import com.lzy.okgo.model.HttpParams;
 /**
  * 闪屏页
  */
-public class SplashActivity extends BaseActivity implements AMapLocationListener, Handler.Callback {
+public class SplashActivity extends Activity implements AMapLocationListener, Handler.Callback {
     private TextView txtSeconds;
     private Handler jumpHandler = new Handler(this);
     private static final int TIME_SPLASH = 3000;
@@ -61,10 +60,7 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
     private static final int MSG_JUMP_TASK = 2;
     private int timeTickCount = 0;
     boolean needShowGuide;
-    @Override
-    protected int setLayoutId() {
-        return R.layout.activity_splash;
-    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,11 +74,7 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
                 return;
             }
         }
-    }
-
-    @Override
-    protected void initView(Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
+        setContentView(R.layout.activity_splash);
         normalStart();
     }
 
@@ -164,8 +156,9 @@ public class SplashActivity extends BaseActivity implements AMapLocationListener
             }
         }
     }
+
     //正常启动
-    private void normalStart(){
+    private void normalStart() {
         needShowGuide = PrefManager.newInstance(SplashActivity.this, PrefManager.FILE_SETTINGS).getBoolean(PrefManager.KEY_NEED_SHOW_GUIDE, true);
         if (needShowGuide) {
             jumpHandler.sendEmptyMessageDelayed(MSG_JUMP_TASK, 1000);

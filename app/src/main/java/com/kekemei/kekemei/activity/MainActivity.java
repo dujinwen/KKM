@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.kekemei.kekemei.fragment.DiscoveryFragment;
 import com.kekemei.kekemei.fragment.HomeFragment;
 import com.kekemei.kekemei.fragment.OrderFragment;
 import com.kekemei.kekemei.fragment.PersonFragment;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.lzy.okgo.OkGo;
@@ -26,7 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
     public static final int TAB_HOME = 0;
@@ -51,16 +52,13 @@ public class MainActivity extends BaseActivity {
     private View iv_btn_lingqu;
     private AlertDialog dlg;
 
-
     private LinearLayout llOneRed;
     private LinearLayout llTowRed;
     private LinearLayout llThrRed;
     private TextView tvOneName, tvOneNeirong, tvNameOne2, tvNeirongOne2, tvNeirongTow2, tvNameTow2, tvNameOne3, tvNeirongOne3, tvNameTow3, tvNeirongTow3, tvNameThr3, tvNeirongThr3;
     private long isNew;
 
-
     public static void start(Context context, int tab) {
-
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(KEY_TAB, tab);
         context.startActivity(intent);
@@ -70,15 +68,6 @@ public class MainActivity extends BaseActivity {
     protected int setLayoutId() {
         return R.layout.activity_main;
     }
-
-    //    @Override
-    //    protected View setTitleBar() {
-    //        if (hasTitle)
-    //            return toolbar;
-    //        else
-    //            return super.setTitleBar();
-    //    }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -95,20 +84,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
-        //        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-        //                != PackageManager.PERMISSION_GRANTED) {//未开启定位权限
-        //            //开启定位权限,200是标识码
-        //            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-        //        } else {
-        //            AppUtil.getUserPoint(getApplicationContext(), this);
-        //            Toast.makeText(MainActivity.this, "已开启定位权限", Toast.LENGTH_LONG).show();
-        //        }
-
-
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         isNew = UserHelp.getIsNew(getBaseContext());
@@ -116,7 +91,6 @@ public class MainActivity extends BaseActivity {
             showDIYDialog(3);
         }
     }
-
 
     public void showDIYDialog(int a) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
@@ -198,12 +172,7 @@ public class MainActivity extends BaseActivity {
                 llTowRed.setVisibility(View.GONE);
                 llThrRed.setVisibility(View.VISIBLE);
                 break;
-
-            default:
-
-                break;
         }
-
 
         setText();
     }
@@ -228,7 +197,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
         mNavigateTabBar.onRestoreInstanceState(savedInstanceState);
         mNavigateTabBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,10 +222,35 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
+    private long lastTime;
+
+    @Override
+    public void onBackPressed() {//@TODO 此方法无效
+        if (mCurrentTab != TAB_HOME) {
+            mCurrentTab = TAB_HOME;
+            mNavigateTabBar.setCurrentSelectedTab(mCurrentTab);
+            return;
+        }
+        if (dlg != null && dlg.isShowing()) {
+            dlg.dismiss();
+        }
+        long currentTime = System.currentTimeMillis();
+        long period = currentTime - lastTime;
+        if (period < 2 * 1000) {
+            super.onBackPressed();
+            this.finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+        } else {
+            ToastUtil.showToastMsg(this, "再按一次退出");
+            lastTime = currentTime;
+        }
+    }
 }
