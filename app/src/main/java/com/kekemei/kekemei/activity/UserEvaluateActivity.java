@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -357,6 +358,8 @@ public class UserEvaluateActivity extends BaseActivity {
     }
 
     private void showLoadMoreEnd() {
+        jSwipeRefreshLayout.setEnableLoadMore(false);
+        addCantLoadMoreFooter(jAdapter);
         jAdapter.loadMoreEnd(false);
     }
 
@@ -370,5 +373,14 @@ public class UserEvaluateActivity extends BaseActivity {
     public void onDestroy() {
         isOnDestroy = true;
         super.onDestroy();
+    }
+
+    private View footer;
+
+    private void addCantLoadMoreFooter(BaseQuickAdapter adapter) {
+        if (footer == null) {
+            footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
+            adapter.addFooterView(footer);
+        }
     }
 }

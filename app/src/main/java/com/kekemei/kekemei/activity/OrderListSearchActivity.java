@@ -420,6 +420,8 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     }
 
     public void showLoadMoreEnd() {
+        refresh_layout.setEnableLoadMore(false);
+        addCantLoadMoreFooter(listAdapter);
         listAdapter.loadMoreEnd(false);
     }
 
@@ -465,6 +467,15 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
     public void afterTextChanged(Editable s) {
         if (s.toString().isEmpty()) {
             initData();
+        }
+    }
+
+    private View footer;
+
+    private void addCantLoadMoreFooter(BaseQuickAdapter adapter) {
+        if (footer == null) {
+            footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
+            adapter.addFooterView(footer);
         }
     }
 }

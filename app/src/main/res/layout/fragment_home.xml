@@ -145,29 +145,36 @@
                         android:paddingRight="@dimen/px_30">
 
                         <ImageView
+                            android:id="@+id/guideCoupon"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/home_youhuijuan_pic" />
+                            android:src="@mipmap/home_coupon_can_receive" />
 
                         <RelativeLayout
+                            android:id="@+id/couponOne"
                             android:layout_width="@dimen/px_230"
-                            android:layout_height="@dimen/px_217"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/px_32"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@mipmap/home_coupon_can_receive_bg">
 
-                            <ImageView
-                                android:id="@+id/couponOneBg"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@mipmap/home_youhuijian_lingqu_btn" />
+                            <TextView
+                                android:id="@+id/prefixOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_60"
+                                android:layout_marginTop="@dimen/px_35"
+                                android:text="￥"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/px_26" />
 
                             <TextView
                                 android:id="@+id/nameOne"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="@dimen/px_40"
+                                android:layout_marginTop="@dimen/px_50"
                                 android:text="50"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/px_40" />
@@ -182,26 +189,49 @@
                                 android:text="满599立减50"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/px_29" />
+
+                            <TextView
+                                android:id="@+id/receiveOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/priceOne"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/px_15"
+                                android:background="#ECF9F9"
+                                android:paddingBottom="@dimen/px_3"
+                                android:paddingLeft="@dimen/px_20"
+                                android:paddingRight="@dimen/px_20"
+                                android:paddingTop="@dimen/px_3"
+                                android:text="立刻领取"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/px_20"
+                                android:visibility="gone" />
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/couponTwo"
                             android:layout_width="@dimen/px_230"
-                            android:layout_height="@dimen/px_217"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="1px"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@mipmap/home_coupon_can_receive_bg">
 
-                            <ImageView
-                                android:id="@+id/couponTwoBg"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@mipmap/home_youhuijian_lingqu_btn" />
+                            <TextView
+                                android:id="@+id/prefixTwo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_60"
+                                android:layout_marginTop="@dimen/px_35"
+                                android:text="￥"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/px_26" />
 
                             <TextView
                                 android:id="@+id/nameTwo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="@dimen/px_40"
+                                android:layout_marginTop="@dimen/px_50"
                                 android:text="50"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/px_40" />
@@ -216,26 +246,49 @@
                                 android:text="满599立减50"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/px_29" />
+
+                            <TextView
+                                android:id="@+id/receiveTwo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/priceTwo"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/px_15"
+                                android:background="#ECF9F9"
+                                android:paddingBottom="@dimen/px_3"
+                                android:paddingLeft="@dimen/px_20"
+                                android:paddingRight="@dimen/px_20"
+                                android:paddingTop="@dimen/px_3"
+                                android:text="立刻领取"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/px_20"
+                                android:visibility="gone" />
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/couponThree"
                             android:layout_width="@dimen/px_230"
-                            android:layout_height="@dimen/px_217"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="1px"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="@mipmap/home_coupon_can_receive_bg">
 
-                            <ImageView
-                                android:id="@+id/couponThreeBg"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@mipmap/home_youhuijian_lingqu_btn" />
+                            <TextView
+                                android:id="@+id/prefixThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px_60"
+                                android:layout_marginTop="@dimen/px_35"
+                                android:text="￥"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/px_26" />
 
                             <TextView
                                 android:id="@+id/nameThree"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="@dimen/px_40"
+                                android:layout_marginTop="@dimen/px_50"
                                 android:text="50"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/px_40" />
@@ -250,6 +303,23 @@
                                 android:text="满599立减50"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/px_29" />
+
+                            <TextView
+                                android:id="@+id/receiveThree"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/priceThree"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="@dimen/px_15"
+                                android:background="#ECF9F9"
+                                android:paddingBottom="@dimen/px_3"
+                                android:paddingLeft="@dimen/px_20"
+                                android:paddingRight="@dimen/px_20"
+                                android:paddingTop="@dimen/px_3"
+                                android:text="立刻领取"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/px_20"
+                                android:visibility="gone" />
                         </RelativeLayout>
                     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.kekemei.kekemei.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -90,24 +91,40 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     @BindView(R.id.xbanner)
     XBanner xbanner;
 
-    @BindView(R.id.couponOneBg)
-    ImageView couponOneBg;
+    @BindView(R.id.guideCoupon)
+    ImageView guideCoupon;
+    @BindView(R.id.couponOne)
+    RelativeLayout couponOne;
     @BindView(R.id.nameOne)
     TextView nameOne;
     @BindView(R.id.priceOne)
     TextView priceOne;
-    @BindView(R.id.couponTwoBg)
-    ImageView couponTwoBg;
+    @BindView(R.id.prefixOne)
+    TextView prefixOne;
+    @BindView(R.id.receiveOne)
+    TextView receiveOne;
+
+    @BindView(R.id.couponTwo)
+    RelativeLayout couponTwo;
     @BindView(R.id.nameTwo)
     TextView nameTwo;
     @BindView(R.id.priceTwo)
     TextView priceTwo;
-    @BindView(R.id.couponThreeBg)
-    ImageView couponThreeBg;
+    @BindView(R.id.prefixTwo)
+    TextView prefixTwo;
+    @BindView(R.id.receiveTwo)
+    TextView receiveTwo;
+
+    @BindView(R.id.couponThree)
+    RelativeLayout couponThree;
     @BindView(R.id.nameThree)
     TextView nameThree;
     @BindView(R.id.priceThree)
     TextView priceThree;
+    @BindView(R.id.prefixThree)
+    TextView prefixThree;
+    @BindView(R.id.receiveThree)
+    TextView receiveThree;
 
     @BindView(R.id.rv_meirongshi)
     RecyclerView rvMeirongshi;
@@ -378,27 +395,38 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 });
     }
 
+    private boolean canReceiveCoupon = true;
+    boolean oneCanUse = true, twoCanUse = true, threeCanUse = true;
+
     private void initCoupon(List<HomeBean.IndexCoupon> indexCouponList) {
         if (CollectionUtils.isNotEmpty(indexCouponList)) {
             for (int i = 0; i < indexCouponList.size(); i++) {
                 if (i == 0) {
-                    displayCoupon(indexCouponList.get(i), couponOneBg, nameOne, priceOne);
+                    oneCanUse = !indexCouponList.get(i).getState().equals("1");
+                    displayCoupon(indexCouponList.get(i), couponOne, nameOne, priceOne, prefixOne, receiveOne, oneCanUse);
                 } else if (i == 1) {
-                    displayCoupon(indexCouponList.get(i), couponTwoBg, nameTwo, priceTwo);
+                    twoCanUse = !indexCouponList.get(i).getState().equals("1");
+                    displayCoupon(indexCouponList.get(i), couponTwo, nameTwo, priceTwo, prefixTwo, receiveTwo, twoCanUse);
                 } else if (i == 2) {
-                    displayCoupon(indexCouponList.get(i), couponThreeBg, nameThree, priceThree);
+                    threeCanUse = !indexCouponList.get(i).getState().equals("1");
+                    displayCoupon(indexCouponList.get(i), couponThree, nameThree, priceThree, prefixThree, receiveThree, threeCanUse);
                 }
             }
+            canReceiveCoupon = (oneCanUse || twoCanUse || threeCanUse);
+            guideCoupon.setImageResource(canReceiveCoupon ? R.mipmap.home_coupon_can_receive : R.mipmap.home_coupon_cant_receive);
         }
     }
 
-    private void displayCoupon(HomeBean.IndexCoupon indexCoupon, ImageView targetImage,
-                               TextView targetName, TextView targetPrice) {
-        targetImage.setTag(indexCoupon);
-        /*ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL +
-                indexCoupon.getImage(), targetImage);*/
+    private void displayCoupon(HomeBean.IndexCoupon indexCoupon, View targetView, TextView targetName,
+                               TextView targetPrice, TextView prefix, TextView receive, boolean canUse) {
+        targetView.setTag(indexCoupon);
         targetPrice.setText(indexCoupon.getName());
         targetName.setText(String.valueOf(indexCoupon.getPrice_satisfy()));
+        prefix.setTextColor(canUse ? Color.parseColor("#ffffff") : Color.parseColor("#7AD2D2"));
+        targetName.setTextColor(canUse ? Color.parseColor("#ffffff") : Color.parseColor("#7AD2D2"));
+        targetPrice.setTextColor(canUse ? Color.parseColor("#ffffff") : Color.parseColor("#7AD2D2"));
+        receive.setVisibility(canUse ? View.GONE : View.VISIBLE);
+        targetView.setBackgroundResource(canUse ? R.mipmap.home_coupon_can_receive_bg : R.drawable.shape_home_coupon_cant_receive);
     }
 
     /**
@@ -511,8 +539,8 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
 
     @OnClick({R.id.ll_meirong, R.id.ll_meiti, R.id.ll_yangsheng, R.id.ll_qita, R.id.commentTabAll,
             R.id.commentTabNew, R.id.commentTabPhoto, R.id.fujin_meirongshi, R.id.fujin_dianpu, R.id.ll_search,
-            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOneBg, R.id.couponTwoBg,
-            R.id.couponThreeBg, R.id.id_msg, R.id.lookMore, R.id.layoutUserComment, R.id.iv_xinrenzhuanqu,
+            R.id.iv_place, R.id.place, R.id.ivNewComer, R.id.ivSecond, R.id.couponOne, R.id.couponTwo,
+            R.id.couponThree, R.id.id_msg, R.id.lookMore, R.id.layoutUserComment, R.id.iv_xinrenzhuanqu,
             R.id.iv_huiyuanzhuanqu, R.id.iv_zuixinxiangmu, R.id.iv_remenxiangmu})
     public void onViewClicked(View view) {
         intent = new Intent(getActivity(), ClassifyActivity.class);
@@ -529,14 +557,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             case R.id.iv_remenxiangmu:
                 ProjectListActivity.start(getActivity(), "2");
                 break;
-            case R.id.couponOneBg:
-                receiveCoupon(couponOneBg);
+            case R.id.couponOne:
+                receiveCoupon(couponOne);
                 break;
-            case R.id.couponTwoBg:
-                receiveCoupon(couponTwoBg);
+            case R.id.couponTwo:
+                receiveCoupon(couponTwo);
                 break;
-            case R.id.couponThreeBg:
-                receiveCoupon(couponThreeBg);
+            case R.id.couponThree:
+                receiveCoupon(couponThree);
                 break;
             case R.id.ll_meirong:
                 intent.putExtra("type", 1);
@@ -612,14 +640,14 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         }
     }
 
-    private void receiveCoupon(final ImageView couponImage) {
+    private void receiveCoupon(final View couponView) {
 
         long userId = UserHelp.getUserId(getActivity());
         if (userId == -1L) {
             LoginActivity.start(getActivity());
             return;
         }
-        HomeBean.IndexCoupon indexCoupon = (HomeBean.IndexCoupon) couponImage.getTag();
+        final HomeBean.IndexCoupon indexCoupon = (HomeBean.IndexCoupon) couponView.getTag();
         OkGo.<String>post(URLs.COUPON_RECEIVE).params("id", indexCoupon.getId())
                 .params("coupon_type", "").params("project_id", "")
                 .params("shop_id", "").params("beautician_id", "")
@@ -635,7 +663,16 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                                 ToastUtil.showToastMsg(getActivity(), "领取失败");
                                 return;
                             }
-                            //                            couponImage.setImageResource(R.mipmap.home_youhuijian_50_pic);换背景
+                            if (homeBean != null && CollectionUtils.isNotEmpty(homeBean.getIndexcoupon())) {
+                                List<HomeBean.IndexCoupon> indexCouponList = homeBean.getIndexcoupon();
+                                if (indexCouponList.contains(indexCoupon)) {
+                                    int index = indexCouponList.indexOf(indexCoupon);
+                                    indexCouponList.remove(indexCoupon);
+                                    indexCoupon.setState("1");
+                                    indexCouponList.add(index, indexCoupon);
+                                    initCoupon(indexCouponList);
+                                }
+                            }
                             ToastUtil.showToastMsg(getActivity(), msg.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();

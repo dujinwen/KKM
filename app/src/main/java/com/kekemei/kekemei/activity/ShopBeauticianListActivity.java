@@ -355,9 +355,12 @@ public class ShopBeauticianListActivity extends BaseActivity {
     }
 
     private void showLoadMoreEnd() {
+        jSwipeRefreshLayout.setEnableLoadMore(false);
         if (showShopList) {
+            addCantLoadMoreFooter(shopListAdapter);
             shopListAdapter.loadMoreEnd(false);
         } else {
+            addCantLoadMoreFooter(beauticianListAdapter);
             beauticianListAdapter.loadMoreEnd(false);
         }
     }
@@ -420,5 +423,14 @@ public class ShopBeauticianListActivity extends BaseActivity {
                 ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + ((BannerBean) model).getImage(), (ImageView) view);
             }
         });
+    }
+
+    private View footer;
+
+    private void addCantLoadMoreFooter(BaseQuickAdapter adapter) {
+        if (footer == null) {
+            footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
+            adapter.addFooterView(footer);
+        }
     }
 }

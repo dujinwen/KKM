@@ -526,11 +526,17 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
 
     public void showLoadMoreEnd() {
         if (mCurrentTab == 0) {
+            project_rfresh_layout.setEnableLoadMore(false);
             projectAdapter.loadMoreEnd(false);
+            addCantLoadMoreFooter(projectAdapter);
         } else if (mCurrentTab == 1) {
+            shop_rfresh_layout.setEnableLoadMore(false);
             shopAdapter.loadMoreEnd(false);
+            addCantLoadMoreFooter(shopAdapter);
         } else if (mCurrentTab == 2) {
+            beautician_rfresh_layout.setEnableLoadMore(false);
             beauticianAdapter.loadMoreEnd(false);
+            addCantLoadMoreFooter(beauticianAdapter);
         }
     }
 
@@ -712,5 +718,14 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
     protected void onDestroy() {
         isOnDestory = true;
         super.onDestroy();
+    }
+
+    private View footer;
+
+    private void addCantLoadMoreFooter(BaseQuickAdapter adapter) {
+        if (footer == null) {
+            footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
+            adapter.addFooterView(footer);
+        }
     }
 }
