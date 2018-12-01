@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -67,7 +66,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -449,19 +447,34 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     LoginActivity.start(this);
                     return;
                 }
-                if (tvCollection.getCompoundDrawables()[0] == null)
-                    //todo 添加收藏
-                    OkGo.<String>get(URLs.ADD_COLLECTION)
-                            .params("user_id", userId)
-                            .params("type", "1")
-                            .params("project_id", detailBean.getId())
-                            .execute(new StringCallback() {
-                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                                @Override
-                                public void onSuccess(Response<String> response) {
+                OkGo.<String>get(URLs.ADD_COLLECTION)
+                        .params("user_id", userId)
+                        .params("type", "1")
+                        .params("project_id", detailBean.getId())
+                        .execute(new StringCallback() {
+                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    Object msg = jsonObject.opt("msg");
+                                    if (msg.equals("暂无数据")) {
+                                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                                        return;
+                                    }
+                                    ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
                                     setTvCollectionLeft();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            });
+                            }
+
+                            @Override
+                            public void onError(Response<String> response) {
+                                super.onError(response);
+                                ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                            }
+                        });
                 break;
             case R.id.projectDetail:
                 indicatorProjectDetail.setVisibility(View.VISIBLE);
@@ -694,9 +707,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void setTvCollectionLeft() {
-        Drawable drawable = getResources().getDrawable(R.mipmap.beautician_detail_satisfaction_ic_1, null);
-        tvCollection.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+        tvCollection.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         tvCollection.setText("已收藏");
+        tvCollection.setClickable(false);
     }
 
     private void scrollTo(final View view) {

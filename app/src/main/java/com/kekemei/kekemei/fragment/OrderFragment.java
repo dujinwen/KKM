@@ -27,7 +27,6 @@ import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
-import com.kekemei.kekemei.activity.PushOrderActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -140,7 +139,7 @@ public class OrderFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.work_order_list_frag2, container, false);
+        View view = inflater.inflate(R.layout.fragment_order_list, container, false);
         unbinder = ButterKnife.bind(this, view);
         initData();
         return view;
@@ -214,9 +213,6 @@ public class OrderFragment extends Fragment {
                         ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
                         break;
                     case R.id.qupingjia:
-//                        UserEvaluateActivity.start(getActivity(), false, item.getShop_shop_id() + "",
-                        //                                item.getBeautician_beautician_id() + "",
-                        //                                item.getProject_project_id() + "");
                         AddCommentActivity.start(getActivity(), item.getSource(), item.getId() + "");
                         break;
                     case R.id.yuyue:

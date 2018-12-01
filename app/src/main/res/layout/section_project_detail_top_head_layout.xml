@@ -52,7 +52,7 @@
             android:id="@+id/tvCollection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@null"
+            android:drawableLeft="@mipmap/beautician_detail_satisfaction_ic_1"
             android:drawablePadding="@dimen/px_29"
             android:text="收藏"
             android:textColor="#666666"

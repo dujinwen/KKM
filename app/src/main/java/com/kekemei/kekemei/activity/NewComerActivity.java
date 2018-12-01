@@ -214,12 +214,15 @@ public class NewComerActivity extends BaseActivity {
         loadData(true);
     }
 
-    @OnClick({R.id.lookMoreAll, R.id.tvAllProject})
+    @OnClick({R.id.lookMoreAll, R.id.tvAllProject, R.id.topBanner})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvAllProject:
             case R.id.lookMoreAll:
                 ProjectListActivity.start(this, "");
+                break;
+            case R.id.topBanner:
+                //TODO 跳转至哪里？
                 break;
         }
     }

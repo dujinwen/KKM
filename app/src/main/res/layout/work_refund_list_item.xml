@@ -74,7 +74,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/work_refund_item_ll_margin_b"
         android:layout_marginTop="@dimen/work_refund_item_ll_margin_t"
         android:background="#fff"
         android:gravity="right"

@@ -35,9 +35,7 @@
         android:layout_height="wrap_content"
         android:scrollbars="none">
 
-
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="@dimen/px_173"
             android:background="#FFF"
@@ -277,7 +275,6 @@
                     android:background="#FF7AD2D2"
                     android:visibility="invisible" />
             </LinearLayout>
-
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -289,8 +286,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFF" />
+            android:layout_height="match_parent" />
 
         <com.kekemei.kekemei.view.MultipleStatusView
             android:id="@+id/multiple_status_view"
