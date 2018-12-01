@@ -25,7 +25,7 @@ public class DAVipAdapter extends BaseQuickAdapter<ShopBean, BaseViewHolder> {
         helper.setText(R.id.commentNum, item.getComment_count() + "条评论");
         helper.setText(R.id.distance, "距您" + item.getDistance() + "公里");
         helper.setText(R.id.price, "￥" + item.getMinimum() + "起");
-        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_shop_pic));
+        ImageLoaderUtil.getInstance().loadImageTopRound(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_shop_pic), 30);
     }
 
 }

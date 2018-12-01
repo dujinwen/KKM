@@ -2,14 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/px_433"
     android:layout_height="@dimen/px_677"
+    android:layout_marginBottom="1px"
     android:layout_marginLeft="@dimen/px_19"
     android:layout_marginRight="@dimen/px_8"
+    android:background="@drawable/shape_home_shop_bg"
+    android:elevation="1dp"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_shop_pic"
-        android:layout_width="@dimen/px_423"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/px_311"
+        android:background="@drawable/shape_home_shop_image_bg"
         android:scaleType="fitXY" />
 
     <LinearLayout
@@ -86,7 +90,7 @@
             android:id="@+id/hongbao"
             android:layout_width="@dimen/px_58"
             android:layout_height="@dimen/px_29"
-            android:layout_marginLeft="@dimen/px_26"
+            android:layout_marginLeft="@dimen/px_19"
             android:background="@drawable/btn_red_background"
             android:gravity="center"
             android:text="红包"
@@ -97,7 +101,7 @@
             android:id="@+id/miaosha"
             android:layout_width="@dimen/px_58"
             android:layout_height="@dimen/px_29"
-            android:layout_marginLeft="@dimen/px_26"
+            android:layout_marginLeft="@dimen/px_19"
             android:background="@drawable/btn_red_background"
             android:gravity="center"
             android:text="秒杀"

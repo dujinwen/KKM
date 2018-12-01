@@ -55,6 +55,10 @@ public class ImageLoaderUtil {
         mStrategy.loadImage(imageView.getContext(), url, placeholder, imageView);
     }
 
+    public void loadImageTopRound(String url, ImageView imageView, int radius) {
+        mStrategy.loadImageTopRound(url, imageView, radius);
+    }
+
     public void loadGifImage(String url, int placeholder, ImageView imageView) {
         mStrategy.loadGifImage(url, placeholder, imageView);
     }

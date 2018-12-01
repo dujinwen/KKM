@@ -211,15 +211,20 @@ public class MyCollectionActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
-                            String data = jsonObject.optString("data");
-                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
+                            JSONObject data = jsonObject.optJSONObject("data");
+                            if (msg.equals("暂无数据") || data == null) {
+                                showEmpty();
+                                return;
+                            }
+                            String project = data.optString("project");
+                            if (StringUtils.isEmpty(project)) {
                                 showEmpty();
                                 return;
                             }
                             multipleStatusView.showOutContentView(refresh_layout);
                             Gson gson = new Gson();
                             if (type.equals("1")) {
-                                List<BaseBean> listResult = gson.fromJson(data, new TypeToken<List<BaseBean>>() {
+                                List<BaseBean> listResult = gson.fromJson(project, new TypeToken<List<BaseBean>>() {
                                 }.getType());
                                 if (CollectionUtils.isNotEmpty(listResult)) {
                                     onCollectionResult(listResult);
@@ -227,7 +232,7 @@ public class MyCollectionActivity extends BaseActivity {
                                     multipleStatusView.showEmpty();
                                 }
                             } else {
-                                List<ShopBean> listResult = gson.fromJson(data, new TypeToken<List<ShopBean>>() {
+                                List<ShopBean> listResult = gson.fromJson(project, new TypeToken<List<ShopBean>>() {
                                 }.getType());
                                 if (CollectionUtils.isNotEmpty(listResult)) {
                                     onShopResult(listResult);

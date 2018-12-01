@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by Administrator on 2017\12\12 0012.
  */
@@ -77,10 +79,12 @@ class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
     public void loadGifImage(String url, int placeholder, ImageView imageView) {
         loadGif(imageView.getContext(), url, placeholder, imageView);
     }
+
     @Override
     public void loadGifImage(int url, int placeholder, ImageView imageView) {
         loadGif(imageView.getContext(), url, placeholder, imageView);
     }
+
     // TODO: 2017\12\12 0012
     //    @Override
     //    public void loadImageWithProgress(String url, final ImageView imageView, final ProgressLoadListener listener) {
@@ -236,6 +240,16 @@ class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
                 .into(imageView);
     }
 
+    @Override
+    public void loadImageTopRound(String url, ImageView imageView, int radius) {
+        Glide.with(imageView.getContext().getApplicationContext())
+                .load(url)
+                //.bitmapTransform(new GrayscaleTransformation(this))//带灰色蒙层
+                .bitmapTransform(new RoundedCornersTransformation(imageView.getContext().getApplicationContext(), radius, 0,
+                        RoundedCornersTransformation.CornerType.TOP))
+                .into(imageView);
+    }
+
     /**
      * load image with Glide
      */
@@ -314,6 +328,7 @@ class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
         })
                 .into(imageView);
     }
+
     /**
      * load image with Glide
      */

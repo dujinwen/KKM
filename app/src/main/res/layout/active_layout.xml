@@ -3,7 +3,7 @@
     android:id="@+id/ll_huodong"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/px_26"
     android:paddingLeft="@dimen/px_35"
@@ -54,6 +54,8 @@
 
     <include
         layout="@layout/layout_receive_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:visibility="visible" />
 
     <LinearLayout

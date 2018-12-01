@@ -46,5 +46,5 @@ public interface BaseImageLoaderStrategy {
 
     void loadImageWithAppCxt(String url, int placeholder, ImageView imageView);
 
-
+    void loadImageTopRound(String url, ImageView imageView,int radius);
 }
