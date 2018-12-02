@@ -225,7 +225,7 @@ public class PersonFragment extends Fragment {
                         if (myInfoBean != null && myInfoBean.getData() != null) {
                             tvHongbaonum.setText(String.valueOf(myInfoBean.getData().getRedenvelopes_count()));
                             tvDaijinnum.setText(String.valueOf(myInfoBean.getData().getCoupon_count()));
-                            if (myInfoBean.getData().getIsbeautician() == 0) {
+                            if (myInfoBean.getData().getIsbeautician() == 1) {
                                 for (int i = 0; i < userForwardArray.length; i++) {
                                     UserBean model = new UserBean(userForwardArray[i], userForwardIconArray[i]);
                                     list.add(model);
