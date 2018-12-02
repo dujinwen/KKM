@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -33,7 +34,6 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
-import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -41,6 +41,10 @@ import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -122,6 +126,8 @@ public class OrderFragment extends Fragment {
     @BindView(R.id.tal_quit)
     LinearLayout talQuit;
 
+    @BindView(R.id.swipe_rfresh_layout)
+    SmartRefreshLayout refresh_layout;
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.multiple_status_view)
@@ -146,6 +152,26 @@ public class OrderFragment extends Fragment {
     }
 
     private void initData() {
+        multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onViewClicked(talAll);
+            }
+        });
+
+        multipleStatusView.showOutContentView(refresh_layout);
+        refresh_layout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvList.setLayoutManager(linearLayoutManager);
         jAdapter = new OrderListAdapter(getActivity());
@@ -229,12 +255,6 @@ public class OrderFragment extends Fragment {
             }
         });
 
-        rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
-            }
-        });
         onViewClicked(talAll);
 
         addHotProject();
@@ -277,11 +297,6 @@ public class OrderFragment extends Fragment {
             setSelect(view.getId());
             return;
         }
-    }
-
-    private void loadMoreData() {
-        page = page++;
-        getData(jOrderStatus, page);
     }
 
     private int jOrderStatus;
@@ -356,6 +371,25 @@ public class OrderFragment extends Fragment {
         getData(jOrderStatus, page);
     }
 
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
+
+    private void loadMoreData() {
+        isLoadMore = true;
+        isRefresh = false;
+        page++;
+        getData(jOrderStatus, page);
+    }
+
+    private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            page = 1;
+            showRefreshLoading(isRefresh);
+        }
+        getData(jOrderStatus, page);
+    }
 
     public void getData(final int orderStatus, int pageNum) {
         long userId = UserHelp.getUserId(getActivity());
@@ -363,6 +397,8 @@ public class OrderFragment extends Fragment {
             LoginActivity.start(getActivity());
             return;
         }
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
         OkGo.<String>get(URLs.MY_ORDER)
                 .tag(this)
                 .params("state", OrderListBean.ORDER_STATUS_ALL == orderStatus ? "" : orderStatus + "")
@@ -377,18 +413,23 @@ public class OrderFragment extends Fragment {
                                 multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                                 return;
                             }
-                            multipleStatusView.showOutContentView(rvList);
+                            multipleStatusView.showOutContentView(refresh_layout);
                             Gson gson = new Gson();
                             OrderListBean orderListBean = gson.fromJson(response.body(), OrderListBean.class);
-                            if (page == 1) {
-                                arrayList.clear();
+                            if (isRefresh) {
+                                showRefreshLoading(false);
+                                jAdapter.replaceData(orderListBean.getData());
+                            } else {
+                                refresh_layout.finishLoadMore();
+                                jAdapter.addData(orderListBean.getData());
                             }
-                            arrayList.addAll(orderListBean.getData());
-                            jAdapter.setNewData(arrayList);
-                            if (arrayList.size()<10){
+                            if (orderListBean.getData().size() < 10) {
+                                refresh_layout.setEnableLoadMore(false);
                                 jAdapter.loadMoreEnd();
+                                getForYouInfo();//请求推荐数据放在此处，否则没有订单也会请求到数据
+                            } else {
+                                jAdapter.loadMoreComplete();
                             }
-                            getForYouInfo();//请求推荐数据放在此处，否则没有订单也会请求到数据
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -400,6 +441,14 @@ public class OrderFragment extends Fragment {
                         multipleStatusView.showError();
                     }
                 });
+    }
+
+    public void showRefreshLoading(boolean show) {
+        if (show) {
+            refresh_layout.refreshDrawableState();
+        } else {
+            refresh_layout.finishRefresh();
+        }
     }
 
     private View footView;
