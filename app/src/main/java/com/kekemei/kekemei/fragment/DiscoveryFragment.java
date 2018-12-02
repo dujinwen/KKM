@@ -2,6 +2,7 @@ package com.kekemei.kekemei.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,12 +29,15 @@ import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ProjectListBean;
 import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.json.JSONException;
@@ -44,17 +48,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-
-/**
- * User:Shine
- * Date:2015-10-20
- * Description:
- */
 public class DiscoveryFragment extends Fragment {
     @BindView(R.id.xbanner)
     XBanner xbanner;
     @BindView(R.id.rvList)
     RecyclerView rvList;
+    @BindView(R.id.swipe_rfresh_layout)
+    SmartRefreshLayout refresh_layout;
 
     @BindView(R.id.text_msg)
     TextView textMsg;
@@ -82,6 +82,26 @@ public class DiscoveryFragment extends Fragment {
     }
 
     private void initData() {
+        multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initData();
+            }
+        });
+
+        multipleStatusView.showOutContentView(refresh_layout);
+        refresh_layout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
         linearLayoutManager = new LinearLayoutManager(getActivity());
         rvList.setHasFixedSize(true);
         rvList.setNestedScrollingEnabled(false);
@@ -123,7 +143,7 @@ public class DiscoveryFragment extends Fragment {
                         ProjectDetailActivity.start(getActivity(), bannerBean.getProject_project_id() + "");
                         break;
                     case "web":
-                        WebActivity.start(getActivity(),bannerBean.getUrl());
+                        WebActivity.start(getActivity(), bannerBean.getUrl());
                         break;
                     case "url":
                         break;
@@ -141,45 +161,82 @@ public class DiscoveryFragment extends Fragment {
         });
     }
 
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
+
+    private void loadMoreData() {
+        isLoadMore = true;
+        isRefresh = false;
+        page++;
+        getData(page);
+    }
+
+    private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            page = 1;
+            showRefreshLoading(isRefresh);
+        }
+        getData(page);
+    }
+
     private int page = 1;
 
     private void getData(final int page) {
-        String latitude = SPUtils.getString(getActivity(), "latitude", "");
-        String longitude = SPUtils.getString(getActivity(), "longitude", "");
-
-        OkGo.<String>post(URLs.DISCOVE)
-                .params("page", page)
-                .params("longitude", longitude)
-                .params("latitude", latitude)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        LogUtil.e("ShopActivity", "project list:" + response.body());
-                        try {
-                            JSONObject obj = new JSONObject(response.body());
-                            if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
-                                multipleStatusView.showEmpty(R.mipmap.default_dingdan);
-                                return;
-                            }
-                            Gson gson = new Gson();
-                            ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
-                            if (page == 1) {
-                                listAdapter.setNewData(projectListBean.getData().getData());
-                            } else {
-                                listAdapter.addData(projectListBean.getData().getData());
-                            }
-                            initBanner();
-                            xbanner.setData(projectListBean.getData().getBanner(), null);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
+        OkGo.<String>post(URLs.DISCOVE).params("page", page).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e("ShopActivity", "project list:" + response.body());
+                try {
+                    JSONObject obj = new JSONObject(response.body());
+                    if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                        multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                        return;
                     }
-                });
+                    Gson gson = new Gson();
+                    ProjectListBean projectListBean = gson.fromJson(response.body(), ProjectListBean.class);
+                    multipleStatusView.showOutContentView(refresh_layout);
+                    initBanner();
+                    xbanner.setData(projectListBean.getData().getBanner(), null);
+                    if (isRefresh) {
+                        showRefreshLoading(false);
+                        listAdapter.replaceData(projectListBean.getData().getData());
+                    } else {
+                        refresh_layout.finishLoadMore();
+                        listAdapter.addData(projectListBean.getData().getData());
+                    }
+                    if (projectListBean.getData().getData().size() < 10) {
+                        refresh_layout.setEnableLoadMore(false);
+                        addCantLoadMoreFooter(listAdapter);
+                        listAdapter.loadMoreEnd();
+                    } else {
+                        listAdapter.loadMoreComplete();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    private void loadMoreData() {
-        page = page++;
-        getData(page);
+    public void showRefreshLoading(boolean show) {
+        if (show) {
+            refresh_layout.refreshDrawableState();
+        } else {
+            refresh_layout.finishRefresh();
+        }
+    }
+
+    private View footer;
+
+    private void addCantLoadMoreFooter(BaseQuickAdapter adapter) {
+        if (footer == null) {
+            footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_list_no_more_footer, null);
+            adapter.addFooterView(footer);
+        }
     }
 
     @Override

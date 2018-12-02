@@ -128,7 +128,7 @@ public class ServiceOrderListActivity extends BaseActivity {
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onViewClicked(talAll);
+                initData();
             }
         });
 
@@ -379,7 +379,6 @@ public class ServiceOrderListActivity extends BaseActivity {
         getData(jOrderStatus, page);
     }
 
-
     public void getData(final int orderStatus, int pageNum) {
         long userId = UserHelp.getUserId(ServiceOrderListActivity.this);
         if (userId == -1L) {
@@ -391,7 +390,7 @@ public class ServiceOrderListActivity extends BaseActivity {
         OkGo.<String>get(URLs.SERVICE_ORDER)
                 .tag(this)
                 .params("state", OrderListBean.ORDER_STATUS_ALL == orderStatus ? "" : orderStatus + "")
-                .params("user_id", 2)
+                .params("user_id", userId)
                 .params("page", pageNum)
                 .execute(new StringCallback() {
                     @Override

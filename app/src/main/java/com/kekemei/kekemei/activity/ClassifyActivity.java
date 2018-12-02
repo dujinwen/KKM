@@ -1,13 +1,11 @@
 package com.kekemei.kekemei.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,32 +21,26 @@ import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ProjectListBean;
 import com.kekemei.kekemei.bean.ProjectShaiXuanListBean;
-import com.kekemei.kekemei.utils.EndLessOnScrollListener;
-import com.kekemei.kekemei.utils.LogUtil;
-import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created 分类 by peiyangfan on 2018/10/24.
- */
-
 public class ClassifyActivity extends BaseActivity {
-
 
     @BindView(R.id.fanhui)
     ImageView fanhui;
@@ -98,11 +90,12 @@ public class ClassifyActivity extends BaseActivity {
     MultipleStatusView multipleStatusView;
     @BindView(R.id.rl_list)
     RelativeLayout rlList;
+    @BindView(R.id.swipe_rfresh_layout)
+    SmartRefreshLayout refresh_layout;
     private PingLunBiaoQianGridViewAdapter pingLunBiaoQianGridViewAdapter;
     private ArrayList<SelectBean> objects;
     private ProjectListAdapter listAdapter;
     @SuppressWarnings("unchecked")
-    private LinearLayoutManager linearLayoutManager;
     private int type = R.id.tal_meirong;
     private int isCheck = -1;
 
@@ -112,17 +105,41 @@ public class ClassifyActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         llFanhui.setVisibility(View.VISIBLE);
-        getPingLunBiaoQian();
-    }
+        initCommentTag();
+        multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initData();
+            }
+        });
 
-    @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
+        multipleStatusView.showOutContentView(refresh_layout);
+        refresh_layout.setRefreshHeader(new ClassicsHeader(this));
+        refresh_layout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                loadMoreData();
+            }
+
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                loadData(true);
+            }
+        });
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        rvList.setLayoutManager(linearLayoutManager);
+        listAdapter = new ProjectListAdapter(getBaseContext());
+        rvList.setAdapter(listAdapter);
+        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseBean data = listAdapter.getItem(position);
+                ProjectDetailActivity.start(ClassifyActivity.this, data.getId());
+            }
+        });
     }
 
     @OnClick({R.id.fanhui, R.id.tal_meirong, R.id.tal_meiti, R.id.tal_yangsheng, R.id.tal_qita, R.id.tv_shaixuan,
@@ -148,15 +165,12 @@ public class ClassifyActivity extends BaseActivity {
         }
     }
 
-    private void getPingLunBiaoQian() {
-        //        OkGo.<String>get(URLs.COMMENT_TAG_URL)
+    private void initCommentTag() {
         objects = new ArrayList<>();
-
         objects.add(new SelectBean("收藏最多", false));
         objects.add(new SelectBean("评论最多", false));
         objects.add(new SelectBean("销量最多", false));
     }
-
 
     private void setSelect(int id) {
 
@@ -192,39 +206,15 @@ public class ClassifyActivity extends BaseActivity {
                 page = 1;
                 getData(page, category, isCheck);
                 break;
-            default:
-
-                break;
         }
-
     }
 
 
     @Override
     protected void initData() {
         super.initData();
-        linearLayoutManager = new LinearLayoutManager(getBaseContext());
-        rvList.setLayoutManager(linearLayoutManager);
-        listAdapter = new ProjectListAdapter(getBaseContext());
-        rvList.setAdapter(listAdapter);
-        listAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BaseBean data = listAdapter.getItem(position);
-                ProjectDetailActivity.start(ClassifyActivity.this, data.getId());
-            }
-        });
-
-
-        rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
-            }
-        });
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 1);
-        //        setSelect(type);
         switch (type) {
             case 1:
                 onViewClicked(talMeirong);
@@ -238,28 +228,38 @@ public class ClassifyActivity extends BaseActivity {
             case 4:
                 onViewClicked(talQita);
                 break;
-            default:
-
-                break;
         }
         rvPinglunbiaoqian.setLayoutManager(new GridLayoutManager(ClassifyActivity.this, 3));
         pingLunBiaoQianGridViewAdapter = new PingLunBiaoQianGridViewAdapter();
         rvPinglunbiaoqian.setAdapter(pingLunBiaoQianGridViewAdapter);
     }
 
+    private boolean isRefresh = false;
+    private boolean isLoadMore = false;
 
     private void loadMoreData() {
-        page = page++;
+        isLoadMore = true;
+        isRefresh = false;
+        page++;
+        getData(page, category, isCheck);
+    }
+
+    private void loadData(boolean isRefresh) {
+        this.isRefresh = isRefresh;
+        isLoadMore = false;
+        if (isRefresh) {
+            page = 1;
+            showRefreshLoading(isRefresh);
+        }
         getData(page, category, isCheck);
     }
 
     private int page = 1;
     private int category = 1;
-    private ArrayList<BaseBean> arrayList = new ArrayList<>();
 
     private void getData(final int page, int category, final int isCheck) {
-        String latitude = SPUtils.getString(ClassifyActivity.this, "latitude", "");
-        String longitude = SPUtils.getString(ClassifyActivity.this, "longitude", "");
+        if (!isRefresh && !isLoadMore)
+            multipleStatusView.showLoading();
         String url = "";
         switch (isCheck) {
             case -1:
@@ -274,55 +274,67 @@ public class ClassifyActivity extends BaseActivity {
             case 2:
                 url = URLs.PROJECT_SORT_ORDER;
                 break;
-
         }
-
-        OkGo.<String>post(url)
-                .params("page", page)
-                .params("longitude", longitude)
-                .params("latitude", latitude)
-                .params("category", category).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
-
-                try {
-                    JSONObject obj = new JSONObject(response.body());
-
-
-                    Gson gson = new Gson();
-                    List<BaseBean> baseBeans = null;
-                    if (isCheck == -1) {
-                        ProjectListBean.DataBeanX data = gson.fromJson(response.body(), ProjectListBean.class).getData();
-                        if (data.getData().size() == 0 || data.getData().isEmpty()) {
-                            multipleStatusView.showEmpty(R.mipmap.default_dingdan);
-                            return;
+        OkGo.<String>post(url).params("page", page).params("category", category)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject obj = new JSONObject(response.body());
+                            Gson gson = new Gson();
+                            List<BaseBean> baseBeans = null;
+                            if (isCheck == -1) {
+                                ProjectListBean.DataBeanX data = gson.fromJson(response.body(), ProjectListBean.class).getData();
+                                if (data.getData().size() == 0 || data.getData().isEmpty()) {
+                                    multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                                    return;
+                                }
+                                baseBeans = data.getData();
+                            } else {
+                                if (obj.getString("data").equals("null") || obj.getString("data") == null
+                                        || obj.getString("data").isEmpty()) {
+                                    multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                                    return;
+                                }
+                                baseBeans = gson.fromJson(response.body(), ProjectShaiXuanListBean.class).getData();
+                            }
+                            multipleStatusView.showOutContentView(refresh_layout);
+                            if (isRefresh) {
+                                showRefreshLoading(false);
+                                listAdapter.replaceData(baseBeans);
+                            } else {
+                                refresh_layout.finishLoadMore();
+                                listAdapter.addData(baseBeans);
+                            }
+                            if (baseBeans.size() < 10) {
+                                refresh_layout.setEnableLoadMore(false);
+                                addCantLoadMoreFooter(listAdapter);
+                                listAdapter.loadMoreEnd();
+                            } else {
+                                listAdapter.loadMoreComplete();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        baseBeans = data.getData();
-                    } else {
-                        if (obj.getString("data").equals("null")
-                                || obj.getString("data") == null
-                                || obj.getString("data").isEmpty()
-                                ) {
-                            multipleStatusView.showEmpty(R.mipmap.default_dingdan);
-                            return;
-                        }
-                        baseBeans = gson.fromJson(response.body(), ProjectShaiXuanListBean.class).getData();
                     }
-                    multipleStatusView.showOutContentView(rvList);
-                    if (page == 1) {
-                        arrayList.clear();
-                    }
-                    arrayList.addAll(baseBeans);
-                    listAdapter.setNewData(arrayList);
+                });
+    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+    public void showRefreshLoading(boolean show) {
+        if (show) {
+            refresh_layout.refreshDrawableState();
+        } else {
+            refresh_layout.finishRefresh();
+        }
+    }
 
+    private View footer;
 
-            }
-        });
+    private void addCantLoadMoreFooter(BaseQuickAdapter adapter) {
+        if (footer == null) {
+            footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
+            adapter.addFooterView(footer);
+        }
     }
 
 

@@ -58,8 +58,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="美  体"
-                android:textSize="@dimen/px_45"
-                android:textColor="@drawable/selector_comment_find_tab" />
+                android:textColor="@drawable/selector_comment_find_tab"
+                android:textSize="@dimen/px_45" />
 
             <View
                 android:id="@+id/v_meiti"
@@ -85,8 +85,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="养  生"
-                android:textSize="@dimen/px_45"
-                android:textColor="@drawable/selector_comment_find_tab" />
+                android:textColor="@drawable/selector_comment_find_tab"
+                android:textSize="@dimen/px_45" />
 
             <View
                 android:id="@+id/v_yangsheng"
@@ -112,8 +112,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="其  他"
-                android:textSize="@dimen/px_45"
-                android:textColor="@drawable/selector_comment_find_tab" />
+                android:textColor="@drawable/selector_comment_find_tab"
+                android:textSize="@dimen/px_45" />
 
             <View
                 android:id="@+id/v_qita"
@@ -156,13 +156,19 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/px_29">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/swipe_rfresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFF">
+            android:orientation="vertical">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFF" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
         <com.kekemei.kekemei.view.MultipleStatusView
             android:id="@+id/multiple_status_view"
             android:layout_width="match_parent"
@@ -186,9 +192,7 @@
                     android:layout_width="@dimen/px_905"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/px_72">
-
-                </android.support.v7.widget.RecyclerView>
+                    android:layout_marginBottom="@dimen/px_72" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
