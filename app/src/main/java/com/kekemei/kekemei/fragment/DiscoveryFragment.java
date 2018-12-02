@@ -27,7 +27,6 @@ import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ProjectListBean;
-import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -70,7 +69,6 @@ public class DiscoveryFragment extends Fragment {
     @BindView(R.id.ll_fanhui)
     LinearLayout llFanhui;
     private ProjectListAdapter listAdapter;
-    private LinearLayoutManager linearLayoutManager;
 
     @Nullable
     @Override
@@ -102,7 +100,7 @@ public class DiscoveryFragment extends Fragment {
                 loadData(true);
             }
         });
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rvList.setHasFixedSize(true);
         rvList.setNestedScrollingEnabled(false);
         rvList.setLayoutManager(linearLayoutManager);
@@ -116,12 +114,6 @@ public class DiscoveryFragment extends Fragment {
         });
 
         rvList.setAdapter(listAdapter);
-        rvList.addOnScrollListener(new EndLessOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
-            }
-        });
         getData(page);
     }
 
