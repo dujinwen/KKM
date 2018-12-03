@@ -171,8 +171,8 @@ public class AddCommentActivity extends BaseActivity {
                 if (position == adapter.infos.size()) {
                     openPhotoPicker();
                 } else {
-                    String imgUrl = (String) adapter.getItem(position);
-                    openLargeImage(imgUrl);
+                    List<Object> imgUrls = adapter.getItems();
+                    openLargeImage(imgUrls, position);
                 }
             }
         });
@@ -181,10 +181,17 @@ public class AddCommentActivity extends BaseActivity {
     /**
      * 打开大图
      *
-     * @param imgUrl
+     * @param imgUrls
+     * @param position
      */
-    private void openLargeImage(String imgUrl) {
-
+    private void openLargeImage(List<Object> imgUrls, int position) {
+        if (CollectionUtils.isNotEmpty(imgUrls)) {
+            ArrayList<String> imageList = new ArrayList<>();
+            for (Object imgUrl : imgUrls) {
+                imageList.add((String) imgUrl);
+            }
+            LargeImageActivity.start(AddCommentActivity.this, imageList, position);
+        }
     }
 
     /**

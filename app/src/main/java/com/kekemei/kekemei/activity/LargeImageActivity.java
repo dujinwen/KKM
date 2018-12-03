@@ -31,6 +31,13 @@ public class LargeImageActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    public static void start(Context context, ArrayList<String> images, int position) {
+        Intent intent = new Intent(context, LargeImageActivity.class);
+        intent.putStringArrayListExtra("images", images);
+        intent.putExtra("position", position);
+        context.startActivity(intent);
+    }
+
     @Override
     protected View setTitleBar() {
         return toolbar;
@@ -45,8 +52,9 @@ public class LargeImageActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         ArrayList<String> images = getIntent().getStringArrayListExtra("images");
+        int position = getIntent().getIntExtra("position", -1);
         toolbar.setNavigationIcon(R.mipmap.back);
-        tv_title.setText("KKM相册");
+        tv_title.setText(position == -1 ? "KKM相册" : "查看大图");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,5 +68,8 @@ public class LargeImageActivity extends BaseActivity {
                 ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + model, (ImageView) view);
             }
         });
+        if (position != -1 && xbanner.getViewPager() != null) {
+            xbanner.getViewPager().setCurrentItem(position);
+        }
     }
 }
