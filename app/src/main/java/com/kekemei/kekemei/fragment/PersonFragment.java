@@ -37,7 +37,6 @@ import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.MyInfoBean;
 import com.kekemei.kekemei.bean.UserBean;
-import com.kekemei.kekemei.utils.EndLessOnScrollListener;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -55,11 +54,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-
 /**
- * User:Shine
- * Date:2015-10-20
- * Description:
+ * 我的页面
  */
 public class PersonFragment extends Fragment {
 
@@ -168,45 +164,7 @@ public class PersonFragment extends Fragment {
             }
         });
         rvTuijian.setAdapter(adapter);
-
-        rvTuijian.addOnScrollListener(new EndLessOnScrollListener(gridLayoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                loadMoreData();
-            }
-        });
     }
-
-    private int page = 1;
-
-    private void loadMoreData() {
-        page = page++;
-        getData(page);
-    }
-
-    private ArrayList<BaseBean> arrayList = new ArrayList<>();
-
-    private void getData(final int page) {
-        OkGo.<String>get(URLs.FOR_YOU).params("page", page).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                Gson gson = new Gson();
-                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
-                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
-                    llForyou.setVisibility(View.VISIBLE);
-                } else {
-                    llForyou.setVisibility(View.GONE);
-                    return;
-                }
-                if (page == 1) {
-                    arrayList.clear();
-                }
-                arrayList.addAll(forYouBean.getData());
-                adapter.setNewData(arrayList);
-            }
-        });
-    }
-
 
     private void initData() {
         long userId = UserHelp.getUserId(getActivity());
@@ -242,7 +200,24 @@ public class PersonFragment extends Fragment {
                     }
                 });
 
-        getData(1);
+        geForYoutData();
+    }
+
+    private void geForYoutData() {
+        OkGo.<String>get(URLs.FOR_YOU).params("page", 1).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                Gson gson = new Gson();
+                ForYouBean forYouBean = gson.fromJson(response.body(), ForYouBean.class);
+                if (forYouBean.getCode() == 1 && forYouBean.getData().size() != 0) {
+                    llForyou.setVisibility(View.VISIBLE);
+                } else {
+                    llForyou.setVisibility(View.GONE);
+                    return;
+                }
+                adapter.setNewData(forYouBean.getData());
+            }
+        });
     }
 
     @Override
