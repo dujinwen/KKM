@@ -26,6 +26,8 @@ public class URLs {
     public static final String ORDER_DETAILS = BASE_URL + "/api/order/details";
     //根据id查订单
     public static final String ORDER_BY_ID = BASE_URL + "/api/order/orderbyid";
+    //购买会员卡
+    public static final String BUY_MEMBER_CAR = BASE_URL +"/api/order/buyMemberCar";
     /**
      * 评论
      */
@@ -42,6 +44,8 @@ public class URLs {
     /**
      * 我的
      */
+    //会员卡
+    public static final String MEMBER_CAR = BASE_URL + "/api/user/membercar";
     //删除订单
     public static final String DEL_ORDER = BASE_URL + "/api/order/delorder";
     //完成订单

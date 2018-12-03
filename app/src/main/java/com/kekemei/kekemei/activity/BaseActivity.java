@@ -19,7 +19,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
-
+    public IWXAPI api;
     /**
      * 需要进行检测的权限数组
      */
@@ -224,6 +227,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
         //设置监听
         setListener();
+
+
+
+        api = WXAPIFactory.createWXAPI(this, Common.WX_APP_ID);
+        api.registerApp(Common.WX_APP_ID);
     }
 
     @Override

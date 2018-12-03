@@ -37,8 +37,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +61,7 @@ public class PayActivity extends BaseActivity {
     private static final int PAY_TO_MAN_JIAN_CODE = PAY_TO_RED_CODE + 1;
 
 
-    private IWXAPI api;
+
 
 
     @BindView(R.id.tv_title)
@@ -240,8 +238,6 @@ public class PayActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
 
-        api = WXAPIFactory.createWXAPI(PayActivity.this, Common.WX_APP_ID);
-        api.registerApp(Common.WX_APP_ID);
     }
 
     @OnClick({R.id.ll_toyouhuiquan, R.id.ll_red_bao, R.id.ll_man_jian, R.id.iv_check_wechat, R.id.iv_check_ali, R.id.btn_pay})
