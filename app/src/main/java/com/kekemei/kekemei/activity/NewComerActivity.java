@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -457,5 +458,23 @@ public class NewComerActivity extends BaseActivity {
             footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
             adapter.addFooterView(footer);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.topBanner)
+    public void onViewClicked() {
+        OkGo.<String>get(URLs.ADD_NEW_PEOPLE).params("user_id",UserHelp.getUserId(NewComerActivity.this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        getData(1);
+                    }
+                });
     }
 }
