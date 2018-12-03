@@ -45,15 +45,6 @@ public class BeauticianDetailBean implements Serializable {
     private List<RecBeauticianBean> rec_beautician;
     private CommentdataBean commentData;
     private List<RedenvloesDataBean> redenvloesdata;
-    private WaiterBean waiter;
-
-    public WaiterBean getWaiter() {
-        return waiter;
-    }
-
-    public void setWaiter(WaiterBean waiter) {
-        this.waiter = waiter;
-    }
 
     public String getId() {
         return id;

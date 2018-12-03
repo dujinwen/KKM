@@ -35,6 +35,7 @@ import com.kekemei.kekemei.bean.CommentdataBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ShopDetailBean;
 import com.kekemei.kekemei.bean.TradingBean;
+import com.kekemei.kekemei.bean.WaiterBean;
 import com.kekemei.kekemei.bean.YuYueDataBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
@@ -238,8 +239,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             findViewById(R.id.chat_to_beautician).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (beauticianDetailBean != null && beauticianDetailBean.getWaiter() != null) {
-                        ChatActivity.start(ShopActivity.this, beauticianDetailBean.getWaiter());
+                    if (beauticianDetailBean != null && StringUtils.isNotEmpty(String.valueOf(beauticianDetailBean.getUser_id()))
+                            && StringUtils.isNotEmpty(beauticianDetailBean.getName())) {
+                        WaiterBean waiterBean = new WaiterBean();
+                        waiterBean.setId(String.valueOf(beauticianDetailBean.getUser_id()));
+                        waiterBean.setNickname(beauticianDetailBean.getName());
+                        ChatActivity.start(ShopActivity.this, waiterBean);
                     }
                 }
             });
@@ -852,7 +857,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         multipleStatusView.showLoading();
         if (detailEnum == DetailEnum.SHOP) {
             OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId)
-                    .params("user_id",  userId + "").execute(new StringCallback() {
+                    .params("user_id", userId + "").execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
