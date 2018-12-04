@@ -27,6 +27,7 @@ import com.kekemei.kekemei.bean.OrderByIdBean;
 import com.kekemei.kekemei.bean.OrderGeneratingBean;
 import com.kekemei.kekemei.bean.WXPayResultBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
+import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
@@ -44,25 +45,18 @@ import org.json.JSONObject;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
 /**
- * Created 支付页面 by peiyangfan on 2018/10/23.
+ * 支付页面
  */
-
 public class PayActivity extends BaseActivity {
     public static final String EXTRA_KEY_YUYUE_BEAN = "ORDER_CREATE_TIME";
-
 
     private static final int PAY_TO_VOUCHER_CODE = 100;
     private static final int PAY_TO_RED_CODE = PAY_TO_VOUCHER_CODE + 1;
     private static final int PAY_TO_MAN_JIAN_CODE = PAY_TO_RED_CODE + 1;
-
-
-
-
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -151,14 +145,20 @@ public class PayActivity extends BaseActivity {
     private YuYueActivityBean yuYueActivityBean;
     private String project_id;
     private String redId;
-    private String youhuiquanId;
+    private String couponId;
     private String manjianId;
 
+    private OrderGeneratingBean orderGeneratingBean;
 
-    public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
-        Intent intent = new Intent(context, PayActivity.class);
+    public static void start(Activity activity, YuYueActivityBean yuYueActivityBean) {
+        long userId = UserHelp.getUserId(activity);
+        if (userId == -1L) {
+            LoginActivity.start(activity);
+            return;
+        }
+        Intent intent = new Intent(activity, PayActivity.class);
         intent.putExtra(EXTRA_KEY_YUYUE_BEAN, yuYueActivityBean);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     @Override
@@ -169,53 +169,6 @@ public class PayActivity extends BaseActivity {
     @Override
     protected View setTitleBar() {
         return toolbar;
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-        registerReciver();
-        yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
-        order_name = yuYueActivityBean.getOrderName();
-        order_image = yuYueActivityBean.getOrderIconUrl();
-        order_price = yuYueActivityBean.getOrderPrice();
-        order_count = yuYueActivityBean.getOrderCount();
-        project_id = yuYueActivityBean.getProject_id();
-
-
-        getData();
-
-    }
-
-    private void getData() {
-        OkGo.<String>get(URLs.ORDER_BY_ID)
-                .params("user_id", UserHelp.getUserId(this))
-                .params("id", yuYueActivityBean.getOrderId())
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        OrderByIdBean orderByIdBean = gson.fromJson(response.body(), OrderByIdBean.class);
-                        if (orderByIdBean.getData().getUser_red().size() > 0) {
-                            tvRedBaoNum.setText("- ¥ " + orderByIdBean.getData().getUser_red().get(0).getPrice_reduction());
-                            redId = orderByIdBean.getData().getUser_red().get(0).getId() + "";
-                        }
-                        if (orderByIdBean.getData().getUser_coupon().size() > 0 && orderByIdBean.getData().getUser_coupon().get(0).getPrice_reduction() > -1) {
-                            tvYouhuiquanNum.setText("- ¥ " + orderByIdBean.getData().getUser_coupon().get(0).getPrice_reduction() + "");
-                            youhuiquanId = orderByIdBean.getData().getUser_coupon().get(0).getId() + "";
-                        }
-                        order_name = orderByIdBean.getData().getName();
-
-                        tvOrderName.setText(order_name);
-                        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + order_image, ivOrderIcon);
-                        order_price = orderByIdBean.getData().getPrice();
-                        tvPrice.setText("¥ " + order_price);
-                        order_count = orderByIdBean.getData().getCount();
-                        tvOrderNum.setText("X" + order_count);
-
-                        money.setText("¥ " + (order_price * order_count - youhuiqunnum - hongbaonum - manjiannum));
-                    }
-                });
     }
 
     @Override
@@ -230,14 +183,98 @@ public class PayActivity extends BaseActivity {
         });
         tvTitle.setText("支付");
         tvOrderNum.setVisibility(View.VISIBLE);
+
+        registerReciver();
+        yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
+        order_name = yuYueActivityBean.getOrderName();
+        order_image = yuYueActivityBean.getOrderIconUrl();
+        order_price = yuYueActivityBean.getOrderPrice();
+        order_count = yuYueActivityBean.getOrderCount();
+        project_id = yuYueActivityBean.getProject_id();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected void initData() {
+        super.initData();
+        getData();
+    }
 
+    private void getData() {
+        OkGo.<String>get(URLs.ORDER_BY_ID)
+                .params("user_id", UserHelp.getUserId(this))
+                .params("id", yuYueActivityBean.getOrderId())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                ToastUtil.showToastMsg(PayActivity.this, "订单生成失败，请稍后重试...");
+                                finish();
+                                return;
+                            }
+                            Gson gson = new Gson();
+                            OrderByIdBean orderByIdBean = gson.fromJson(response.body(), OrderByIdBean.class);
+                            if (CollectionUtils.isNotEmpty(orderByIdBean.getData().getUser_red())) {
+                                tvRedBaoNum.setText("- ¥ " + orderByIdBean.getData().getUser_red().get(0).getPrice_reduction());
+                                redId = orderByIdBean.getData().getUser_red().get(0).getId() + "";
+                            }
+                            if (CollectionUtils.isNotEmpty(orderByIdBean.getData().getUser_coupon()) && orderByIdBean.getData().getUser_coupon().get(0).getPrice_reduction() > -1) {
+                                tvYouhuiquanNum.setText("- ¥ " + orderByIdBean.getData().getUser_coupon().get(0).getPrice_reduction() + "");
+                                couponId = orderByIdBean.getData().getUser_coupon().get(0).getId() + "";
+                            }
+                            order_name = orderByIdBean.getData().getName();
+
+                            tvOrderName.setText(order_name);
+                            ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + order_image, ivOrderIcon);
+//                        order_price = orderByIdBean.getData().getPrice();
+                            tvPrice.setText("¥ " + order_price);
+                            order_count = orderByIdBean.getData().getCount();
+                            tvOrderNum.setText("X" + order_count);
+
+                            money.setText("¥ " + (order_price * order_count - youhuiqunnum - hongbaonum - manjiannum));
+
+                            generatingOrder(redId, couponId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void generatingOrder(String redId, String couponId) {
+        OkGo.<String>get(URLs.ORDER_GENERATING)
+                .params("user_id", UserHelp.getUserId(this))
+                .params("name", yuYueActivityBean.getOrderName())
+                .params("project_id", yuYueActivityBean.getProject_id())
+                .params("reden", redId)
+                .params("coupon", couponId)
+                .params("shop_id",
+                        yuYueActivityBean.getShopDetailBean() == null ? ""
+                                : yuYueActivityBean.getShopDetailBean().getId())
+                .params("buautician_id",
+                        yuYueActivityBean.getBeauticianDetailBean() == null ? ""
+                                : yuYueActivityBean.getBeauticianDetailBean().getId())
+                .params("count", 1)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            if (msg.equals("暂无数据")) {
+                                ToastUtil.showToastMsg(PayActivity.this, "订单生成失败，请稍后重试...");
+                                finish();
+                                return;
+                            }
+                            Gson gson = new Gson();
+                            orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     @OnClick({R.id.ll_toyouhuiquan, R.id.ll_red_bao, R.id.ll_man_jian, R.id.iv_check_wechat, R.id.iv_check_ali, R.id.btn_pay})
@@ -265,53 +302,25 @@ public class PayActivity extends BaseActivity {
                 ivCheckWechat.setChecked(false);
                 break;
             case R.id.btn_pay:
-
-                //                toSelectActivity();
+                if (orderGeneratingBean == null || orderGeneratingBean.getData() == null) {
+                    ToastUtil.showToastMsg(PayActivity.this, "订单生成有误，请稍后重试...");
+                    return;
+                }
                 if (!ivCheckAli.isChecked() && !ivCheckWechat.isChecked()) {
                     ToastUtil.showToastMsg(PayActivity.this, "请选择一种支付方式");
                     return;
                 }
-                long userId = UserHelp.getUserId(this);
-                if (userId == -1L) {
-                    LoginActivity.start(this);
-                    return;
+                if (ivCheckAli.isChecked()) {
+                    toALiPay(orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
+                } else {
+                    toWXPay(orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
                 }
-                OkGo.<String>get(URLs.ORDER_GENERATING)
-                        .params("user_id", userId)
-                        .params("name", yuYueActivityBean.getOrderName())
-                        .params("project_id", yuYueActivityBean.getProject_id())
-                        .params("reden", redId)
-                        .params("coupon", youhuiquanId)
-                        .params("shop_id",
-                                yuYueActivityBean.getShopDetailBean() == null ? ""
-                                        : yuYueActivityBean.getShopDetailBean().getId())
-                        .params("buautician_id",
-                                yuYueActivityBean.getBeauticianDetailBean() == null ? ""
-                                        : yuYueActivityBean.getBeauticianDetailBean().getId())
-                        .params("count", 1)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                Gson gson = new Gson();
-                                OrderGeneratingBean orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
-                                String payUrl = "";
-                                if (ivCheckAli.isChecked()) {
-                                    payUrl = URLs.ORDER_ALI_PAY;
-                                    toALiPay(payUrl, orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
-                                } else {
-                                    payUrl = URLs.ORDER_WX_PAY;
-                                    toWXPay(payUrl, orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
-                                }
-                            }
-                        });
-
-
                 break;
         }
     }
 
-    private void toWXPay(String payUrl, String order_id, String time) {
-        OkGo.<String>get(payUrl)
+    private void toWXPay(String order_id, String time) {
+        OkGo.<String>get(URLs.ORDER_WX_PAY)
                 .params("order_id", order_id)
                 .params("project_id", project_id)
                 .execute(new StringCallback() {
@@ -346,8 +355,8 @@ public class PayActivity extends BaseActivity {
                 });
     }
 
-    private void toALiPay(String payUrl, String order_id, String time) {
-        OkGo.<String>get(payUrl)
+    private void toALiPay(String order_id, String time) {
+        OkGo.<String>get(URLs.ORDER_ALI_PAY)
                 .params("order_id", order_id)
                 .params("project_id", project_id)
                 .execute(new StringCallback() {
@@ -384,7 +393,7 @@ public class PayActivity extends BaseActivity {
 
         if (requestCode == PAY_TO_VOUCHER_CODE && resultCode == Activity.RESULT_OK) {
             youhuiqunnum = data.getExtras().getInt("price");//得到新Activity 关闭后返回的数据
-            youhuiquanId = data.getStringExtra("id");
+            couponId = data.getStringExtra("id");
             tvYouhuiquanNum.setText("- ¥ " + youhuiqunnum);
         }
 
