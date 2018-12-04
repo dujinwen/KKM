@@ -41,7 +41,7 @@ public class Common {
 //    public static final String WX_APP_ID =  "wx5c1c391ac956b658";
 //    public static final String WX_APP_SECRET = "Wjxscc4qgtrP7Kl1Fea0nrCghGX6fv9G";
     public static final String WX_APP_ID =  "wx4181c60d8bf82265";
-    public static final String WX_APP_SECRET = "5d23852c39eb01a27b505fafb7952305";
+    public static final String WX_APP_SECRET = "83de27a184426812dc054fa7e1b486d0";
     //腾讯平台相关账号
     public static final String QQ_APP_ID = "1106153887";
     public static final String QQ_APP_SECRET = "eY3OUj77erW5r23J";
