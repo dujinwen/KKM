@@ -29,6 +29,7 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
+import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -46,7 +47,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -223,7 +223,30 @@ public class NewComerActivity extends BaseActivity {
                 ProjectListActivity.start(this, "");
                 break;
             case R.id.topBanner:
-                //TODO 跳转至哪里？
+                OkGo.<String>get(URLs.ADD_NEW_PEOPLE).params("user_id", UserHelp.getUserId(NewComerActivity.this))
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    Object msg = jsonObject.opt("msg");
+                                    if (msg.equals("暂无数据")) {
+                                        ToastUtil.showToastMsg(NewComerActivity.this, "领取失败");
+                                        return;
+                                    }
+                                    ToastUtil.showToastMsg(NewComerActivity.this, msg.toString());
+                                    initData();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Response<String> response) {
+                                super.onError(response);
+                                ToastUtil.showToastMsg(NewComerActivity.this, "领取失败");
+                            }
+                        });
                 break;
         }
     }
@@ -458,23 +481,5 @@ public class NewComerActivity extends BaseActivity {
             footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
             adapter.addFooterView(footer);
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @OnClick(R.id.topBanner)
-    public void onViewClicked() {
-        OkGo.<String>get(URLs.ADD_NEW_PEOPLE).params("user_id",UserHelp.getUserId(NewComerActivity.this))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        getData(1);
-                    }
-                });
     }
 }
