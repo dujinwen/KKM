@@ -180,26 +180,26 @@
             android:orientation="horizontal"
             android:paddingTop="@dimen/px_20">
 
+            <com.kekemei.kekemei.view.StarBar
+                android:id="@+id/star_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ratingbar:changeEnable="false"
+                ratingbar:starCount="5"
+                ratingbar:starDistance="7dp"
+                ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+                ratingbar:starFill="@mipmap/beautician_score_full_ic"
+                ratingbar:starSize="@dimen/px_40" />
+
 
             <TextView
+                android:layout_marginLeft="@dimen/px_68"
                 android:id="@+id/tv_manyidu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="满意度：97%"
                 android:textColor="#FF999999"
-                android:textSize="@dimen/px_36" />
-
-            <com.kekemei.kekemei.view.StarBar
-                android:id="@+id/star_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_23"
-                ratingbar:changeEnable="false"
-                ratingbar:starCount="5"
-                ratingbar:starDistance="10dp"
-                ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
-                ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                ratingbar:starSize="@dimen/px_32" />
+                android:textSize="@dimen/px_32" />
 
 
         </LinearLayout>

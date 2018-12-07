@@ -140,6 +140,13 @@ public class ShopBeauticianListActivity extends BaseActivity {
                     ShopActivity.start(ShopBeauticianListActivity.this, item.getId(), DetailEnum.SHOP);
                 }
             });
+            shopListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    ShopBean item = shopListAdapter.getItem(position);
+                    ShopActivity.start(ShopBeauticianListActivity.this, item.getId(), DetailEnum.SHOP);
+                }
+            });
         } else {
             beauticianListAdapter = new MeiRongShiListAdapter(ShopBeauticianListActivity.this, R.layout.list_meirongshi);
             jRecyclerView.setAdapter(beauticianListAdapter);

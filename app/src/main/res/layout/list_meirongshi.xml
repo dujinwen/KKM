@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_meirongshi"
     android:layout_width="match_parent"
+    android:layout_height="@dimen/px_374"
     android:layout_marginLeft="@dimen/px_30"
     android:layout_marginRight="@dimen/px_30"
-    android:layout_height="@dimen/px_374"
     android:layout_marginBottom="@dimen/px_43"
-    android:id="@+id/ll_meirongshi"
     android:background="@drawable/btn_white_background"
     android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/px_66">
+        android:paddingLeft="@dimen/px_60">
 
         <ImageView
             android:layout_width="@dimen/px_217"
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/px_86">
+        android:paddingLeft="@dimen/px_80">
 
         <TextView
             android:id="@+id/tv_name"
@@ -75,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,29 +131,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_gravity="center"
             android:orientation="horizontal"
             android:paddingTop="@dimen/px_20">
-
-            <TextView
-                android:id="@+id/tv_manyidu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="满意度：97%"
-                android:textColor="#FF999999"
-                android:textSize="@dimen/px_37" />
 
             <com.kekemei.kekemei.view.StarBar
                 android:id="@+id/star_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/px_23"
                 ratingbar:changeEnable="false"
                 ratingbar:starCount="5"
-                ratingbar:starDistance="10dp"
+                ratingbar:starDistance="7dp"
                 ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
                 ratingbar:starFill="@mipmap/beautician_score_full_ic"
-                ratingbar:starSize="@dimen/px_32" />
+                ratingbar:starSize="@dimen/px_40" />
+
+
+            <TextView
+                android:id="@+id/tv_manyidu"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:text="满意度：97%"
+                android:textColor="#FF999999"
+                android:textSize="@dimen/px_32" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

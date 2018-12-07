@@ -35,6 +35,7 @@ import com.kekemei.kekemei.bean.ForYouBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -254,9 +255,11 @@ public class OrderFragment extends Fragment {
 //                OrderDetailActivity.start(getActivity(),item.getId());
             }
         });
-
-        onViewClicked(talAll);
-
+        if (!SPUtils.getBoolean(getActivity().getApplicationContext(), SPUtils.SELECT_YUYUE, false)) {
+            onViewClicked(talAll);
+        } else {
+            onViewClicked(talWaitYuyue);
+        }
         addHotProject();
     }
 

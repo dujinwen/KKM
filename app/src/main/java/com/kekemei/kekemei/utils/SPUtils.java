@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 public class SPUtils {
 
 
+    public static final String SELECT_YUYUE = "SELECT_YUYEU";
     private static final String name = "SharedPreferences";//表名
     public static final String ISFIRST_OPEN = "isfirst_open";  //是否第一次启动
     public static final String ISFIRST_LOGIN = "isfirst_login";  //是否第一次登录

@@ -28,6 +28,7 @@ public class StarBar extends View {
     private Paint paint;         //绘制星星画笔
     private boolean integerMark = false;
     private boolean changeEnable;//是否改变星星数量
+
     public StarBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
@@ -44,14 +45,14 @@ public class StarBar extends View {
      * @param context
      * @param attrs
      */
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
         setClickable(true);
         TypedArray mTypedArray = context.obtainStyledAttributes(attrs, R.styleable.RatingBar);
         this.starDistance = (int) mTypedArray.getDimension(R.styleable.RatingBar_starDistance, 0);
         this.starSize = (int) mTypedArray.getDimension(R.styleable.RatingBar_starSize, 20);
         this.starCount = mTypedArray.getInteger(R.styleable.RatingBar_starCount, 5);
         this.starEmptyDrawable = mTypedArray.getDrawable(R.styleable.RatingBar_starEmpty);
-        this.starFillBitmap =  drawableToBitmap(mTypedArray.getDrawable(R.styleable.RatingBar_starFill));
+        this.starFillBitmap = drawableToBitmap(mTypedArray.getDrawable(R.styleable.RatingBar_starFill));
         this.changeEnable = mTypedArray.getBoolean(R.styleable.RatingBar_changeEnable, true);
         mTypedArray.recycle();
 
@@ -62,9 +63,10 @@ public class StarBar extends View {
 
     /**
      * 设置是否需要整数评分
+     *
      * @param integerMark
      */
-    public void setIntegerMark(boolean integerMark){
+    public void setIntegerMark(boolean integerMark) {
         this.integerMark = integerMark;
     }
 
@@ -73,10 +75,10 @@ public class StarBar extends View {
      *
      * @param mark
      */
-    public void setStarMark(float mark){
+    public void setStarMark(float mark) {
         if (integerMark) {
             starMark = (int) Math.ceil(mark);
-        }else {
+        } else {
             starMark = Math.round(mark * 10) * 1.0f / 10;
         }
         if (this.onStarChangeListener != null) {
@@ -90,7 +92,7 @@ public class StarBar extends View {
      *
      * @return starMark
      */
-    public float getStarMark(){
+    public float getStarMark() {
         return starMark;
     }
 
@@ -104,9 +106,10 @@ public class StarBar extends View {
 
     /**
      * 设置监听
+     *
      * @param onStarChangeListener
      */
-    public void setOnStarChangeListener(OnStarChangeListener onStarChangeListener){
+    public void setOnStarChangeListener(OnStarChangeListener onStarChangeListener) {
         this.onStarChangeListener = onStarChangeListener;
     }
 
@@ -122,27 +125,27 @@ public class StarBar extends View {
         if (starFillBitmap == null || starEmptyDrawable == null) {
             return;
         }
-        for (int i = 0;i < starCount;i++) {
-            starEmptyDrawable.setBounds((starDistance + starSize) * i, 0, (starDistance + starSize) * i + starSize, starSize);
+        for (int i = 0; i < starCount; i++) {
+            starEmptyDrawable.setBounds((starDistance + starSize) * i, 0, (starDistance + starSize) * i + starSize, starSize+3);
             starEmptyDrawable.draw(canvas);
         }
         if (starMark > 1) {
-            canvas.drawRect(0, 0, starSize, starSize, paint);
-            if(starMark-(int)(starMark) == 0) {
+            canvas.drawRect(0, 0, starSize, starSize+5, paint);
+            if (starMark - (int) (starMark) == 0) {
                 for (int i = 1; i < starMark; i++) {
                     canvas.translate(starDistance + starSize, 0);
-                    canvas.drawRect(0, 0, starSize, starSize, paint);
+                    canvas.drawRect(0, 0, starSize, starSize+5, paint);
                 }
-            }else {
+            } else {
                 for (int i = 1; i < starMark - 1; i++) {
                     canvas.translate(starDistance + starSize, 0);
-                    canvas.drawRect(0, 0, starSize, starSize, paint);
+                    canvas.drawRect(0, 0, starSize, starSize+5, paint);
                 }
                 canvas.translate(starDistance + starSize, 0);
-                canvas.drawRect(0, 0, starSize * (Math.round((starMark - (int) (starMark))*10)*1.0f/10), starSize, paint);
+                canvas.drawRect(0, 0, starSize * (Math.round((starMark - (int) (starMark)) * 10) * 1.0f / 10), starSize+5, paint);
             }
-        }else {
-            canvas.drawRect(0, 0, starSize * starMark, starSize, paint);
+        } else {
+            canvas.drawRect(0, 0, starSize * starMark, starSize+5, paint);
         }
     }
 
@@ -152,11 +155,11 @@ public class StarBar extends View {
         int x = (int) event.getX();
         if (x < 0) x = 0;
         if (x > getMeasuredWidth()) x = getMeasuredWidth();
-        switch(event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
             case MotionEvent.ACTION_UP:
-                if(changeEnable) {
+                if (changeEnable) {
                     if (x * 1.0f / (getMeasuredWidth() * 1.0f / starCount) <= 1) {
                         setStarMark(1);
                     } else {
@@ -175,12 +178,11 @@ public class StarBar extends View {
      * @param drawable
      * @return
      */
-    private Bitmap drawableToBitmap(Drawable drawable)
-    {
-        if (drawable == null)return null;
-        Bitmap bitmap = Bitmap.createBitmap(starSize, starSize, Bitmap.Config.ARGB_8888);
+    private Bitmap drawableToBitmap(Drawable drawable) {
+        if (drawable == null) return null;
+        Bitmap bitmap = Bitmap.createBitmap(starSize, starSize+5, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, starSize, starSize);
+        drawable.setBounds(0, 0, starSize, starSize+5);
         drawable.draw(canvas);
         return bitmap;
     }

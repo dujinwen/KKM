@@ -105,6 +105,7 @@ public class SettingActivity extends BaseActivity {
             case R.id.txt_quit_login:
                 chatOut();
                 loginOut();
+                MainActivity.start(SettingActivity.this, 0);
                 break;
         }
 

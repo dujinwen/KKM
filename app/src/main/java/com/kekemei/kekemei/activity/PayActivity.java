@@ -30,6 +30,7 @@ import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.Common;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -424,7 +425,8 @@ public class PayActivity extends BaseActivity {
                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        PushOrderActivity.start(PayActivity.this, yuYueActivityBean);
+                                        MainActivity.start(PayActivity.this, 2);
+                                        SPUtils.putBoolean(getApplicationContext(),SPUtils.SELECT_YUYUE,true);
                                         dialog.dismiss();
                                     }
                                 });
