@@ -284,14 +284,14 @@ public class ClassifyActivity extends BaseActivity {
                             if (isCheck == -1) {
                                 ProjectListBean.DataBeanX data = gson.fromJson(response.body(), ProjectListBean.class).getData();
                                 if (data.getData().size() == 0 || data.getData().isEmpty()) {
-                                    multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                                    multipleStatusView.showEmpty(R.mipmap.no_more_project);
                                     return;
                                 }
                                 baseBeans = data.getData();
                             } else {
                                 if (obj.getString("data").equals("null") || obj.getString("data") == null
                                         || obj.getString("data").isEmpty()) {
-                                    multipleStatusView.showEmpty(R.mipmap.default_dingdan);
+                                    multipleStatusView.showEmpty(R.mipmap.no_more_project);
                                     return;
                                 }
                                 baseBeans = gson.fromJson(response.body(), ProjectShaiXuanListBean.class).getData();

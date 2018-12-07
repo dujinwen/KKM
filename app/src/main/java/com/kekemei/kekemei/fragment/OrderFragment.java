@@ -36,6 +36,7 @@ import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.MultipleStatusView;
@@ -105,20 +106,6 @@ public class OrderFragment extends Fragment {
     View vFinish;
     @BindView(R.id.tal_finish)
     LinearLayout talFinish;
-
-    @BindView(R.id.tv_serving)
-    TextView tvServing;
-    @BindView(R.id.v_serving)
-    View vServing;
-    @BindView(R.id.tal_serving)
-    LinearLayout talServing;
-
-    @BindView(R.id.tv_served)
-    TextView tvServed;
-    @BindView(R.id.v_served)
-    View vServed;
-    @BindView(R.id.tal_served)
-    LinearLayout talServed;
 
     @BindView(R.id.tv_quit)
     TextView tvQuit;
@@ -298,7 +285,6 @@ public class OrderFragment extends Fragment {
         } else {
             onViewClicked(talWaitYuyue);
         }
-        addHotProject();
     }
 
     private void getForYouInfo() {
@@ -323,8 +309,8 @@ public class OrderFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue, R.id.tal_serving,
-            R.id.tal_served, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
+    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue,
+            R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_search) {
             Intent intent = new Intent(getActivity(), OrderListSearchActivity.class);
@@ -333,7 +319,6 @@ public class OrderFragment extends Fragment {
         }
         if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay || view.getId() == R.id.tal_quit
                 || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
-                || view.getId() == R.id.tal_serving || view.getId() == R.id.tal_served
                 || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia) {
             setSelect(view.getId());
             return;
@@ -361,12 +346,6 @@ public class OrderFragment extends Fragment {
 
         tvPingjia.setSelected(id == R.id.tal_pingjia);
         vPingjia.setVisibility(id == R.id.tal_pingjia ? View.VISIBLE : View.INVISIBLE);
-
-        tvServed.setSelected(id == R.id.tal_served);
-        vServed.setVisibility(id == R.id.tal_served ? View.VISIBLE : View.INVISIBLE);
-
-        tvServing.setSelected(id == R.id.tal_serving);
-        vServing.setVisibility(id == R.id.tal_serving ? View.VISIBLE : View.INVISIBLE);
 
         tvQuit.setSelected(id == R.id.tal_quit);
         vQuit.setVisibility(id == R.id.tal_quit ? View.VISIBLE : View.INVISIBLE);
@@ -396,20 +375,12 @@ public class OrderFragment extends Fragment {
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
                 break;
-            case R.id.tal_served:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
-                break;
-            case R.id.tal_serving:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
-                break;
             case R.id.tal_quit:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
                 break;
         }
-        getData(jOrderStatus, page);
+        loadData(true);
     }
 
     private boolean isRefresh = false;
@@ -449,8 +420,10 @@ public class OrderFragment extends Fragment {
                     @Override
                     public void onSuccess(Response<String> response) {
                         try {
-                            JSONObject obj = new JSONObject(response.body());
-                            if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            Object msg = jsonObject.opt("msg");
+                            String data = jsonObject.optString("data");
+                            if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                                 multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                                 return;
                             }
@@ -467,6 +440,7 @@ public class OrderFragment extends Fragment {
                             if (orderListBean.getData().size() < 10) {
                                 refresh_layout.setEnableLoadMore(false);
                                 jAdapter.loadMoreEnd();
+                                addHotProject();
                                 getForYouInfo();//请求推荐数据放在此处，否则没有订单也会请求到数据
                             } else {
                                 jAdapter.loadMoreComplete();
@@ -495,6 +469,9 @@ public class OrderFragment extends Fragment {
     private View footView;
 
     private void addHotProject() {
+        if (footView != null) {
+            return;
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             footView = getLayoutInflater().inflate(R.layout.foot_view, (ViewGroup) rvList.getParent(), false);
         } else {

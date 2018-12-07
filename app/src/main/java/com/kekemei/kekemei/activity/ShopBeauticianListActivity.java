@@ -198,7 +198,11 @@ public class ShopBeauticianListActivity extends BaseActivity {
                     String data = jsonObject.optString("data");
                     if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         jSwipeRefreshLayout.finishLoadMore();
-                        multipleStatusView.showEmpty();
+                        if (showShopList) {
+                            multipleStatusView.showEmpty();
+                        } else {
+                            multipleStatusView.showEmpty(R.mipmap.no_beautician);
+                        }
                         return;
                     }
                     Gson gson = new Gson();
@@ -414,7 +418,7 @@ public class ShopBeauticianListActivity extends BaseActivity {
                         ProjectDetailActivity.start(ShopBeauticianListActivity.this, bannerBean.getProject_project_id() + "");
                         break;
                     case "web":
-                        WebActivity.start(ShopBeauticianListActivity.this,bannerBean.getUrl());
+                        WebActivity.start(ShopBeauticianListActivity.this, bannerBean.getUrl());
                         break;
                     case "url":
                         break;

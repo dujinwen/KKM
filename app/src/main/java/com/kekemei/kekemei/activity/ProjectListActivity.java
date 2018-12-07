@@ -163,7 +163,7 @@ public class ProjectListActivity extends BaseActivity {
                     String data = jsonObject.optString("data");
                     if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         if (!isLoadMore) {
-                            multipleStatusView.showEmpty();
+                            multipleStatusView.showEmpty(R.mipmap.no_more_project);
                         }
                         return;
                     }

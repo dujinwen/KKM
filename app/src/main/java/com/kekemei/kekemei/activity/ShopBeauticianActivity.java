@@ -241,7 +241,7 @@ public class ShopBeauticianActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response.body());
                     Object msg = jsonObject.opt("msg");
                     if (msg.equals("暂无数据")) {
-                        multipleStatusView.showEmpty();
+                        multipleStatusView.showEmpty(R.mipmap.no_beautician);
                         return;
                     }
                     multipleStatusView.showOutContentView(rvList);

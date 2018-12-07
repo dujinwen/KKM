@@ -356,7 +356,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                 jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
                 break;
         }
-        getData(jOrderStatus, page);
+        loadData(true);
     }
 
     private boolean isRefresh = false;
