@@ -48,8 +48,6 @@ public class ClassifyActivity extends BaseActivity {
     TextView textMsg;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
-    @BindView(R.id.fenlei)
-    ImageView fenlei;
     @BindView(R.id.tv_meirong)
     TextView tvMeirong;
     @BindView(R.id.v_meirong)
