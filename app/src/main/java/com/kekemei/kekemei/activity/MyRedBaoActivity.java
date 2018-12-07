@@ -52,9 +52,11 @@ public class MyRedBaoActivity extends BaseActivity {
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
     private int jPageNum = 1;
+    private boolean is_person;
 
-    public static void start(Context context) {
+    public static void start(Context context, boolean flag) {
         Intent intent = new Intent(context, MyRedBaoActivity.class);
+        intent.putExtra("IS_PERSON", flag);
         context.startActivity(intent);
     }
 
@@ -71,6 +73,8 @@ public class MyRedBaoActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+
+        is_person = getIntent().getBooleanExtra("IS_PERSON", false);
         tvTitle.setText("红包");
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -113,7 +117,11 @@ public class MyRedBaoActivity extends BaseActivity {
                 //把返回数据存入Intent
                 intent.putExtra("price", item.getPrice_reduction());
                 intent.putExtra("id", item.getRedenvelopes_id());
-                setResult(RESULT_OK, intent);
+                if (is_person) {
+                    ProjectListActivity.start(MyRedBaoActivity.this, "3");
+                } else {
+                    setResult(RESULT_OK, intent);
+                }
                 finish();
             }
         });

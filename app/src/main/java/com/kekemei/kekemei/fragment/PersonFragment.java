@@ -261,10 +261,10 @@ public class PersonFragment extends Fragment {
                 NewComerActivity.start(getActivity(), true);
                 break;
             case R.id.daijinquan:
-                MyVoucherActivity.start(getActivity());
+                MyVoucherActivity.start(getActivity(),true);
                 break;
             case R.id.hongbao:
-                MyRedBaoActivity.start(getActivity());
+                MyRedBaoActivity.start(getActivity(),true);
                 break;
             case R.id.user_message_btn:
                 MessageActivity.start(getActivity());

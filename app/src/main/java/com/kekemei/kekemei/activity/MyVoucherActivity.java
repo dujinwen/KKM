@@ -51,9 +51,11 @@ public class MyVoucherActivity extends BaseActivity {
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
     private int jPageNum = 1;
+    private boolean is_person;
 
-    public static void start(Context context) {
+    public static void start(Context context, boolean flag) {
         Intent intent = new Intent(context, MyVoucherActivity.class);
+        intent.putExtra("IS_PERSON", flag);
         context.startActivity(intent);
     }
 
@@ -70,6 +72,7 @@ public class MyVoucherActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        is_person = getIntent().getBooleanExtra("IS_PERSON", false);
         tvTitle.setText("代金券");
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -112,8 +115,12 @@ public class MyVoucherActivity extends BaseActivity {
                 Intent intent = new Intent();
                 //把返回数据存入Intent
                 intent.putExtra("price", item.getCoupon().getPrice_reduction());
-                intent.putExtra("id",item.getCoupon_id());
-                setResult(RESULT_OK, intent);
+                intent.putExtra("id", item.getCoupon_id());
+                if (is_person) {
+                    ProjectListActivity.start(MyVoucherActivity.this, "3");
+                } else {
+                    setResult(RESULT_OK, intent);
+                }
                 finish();
             }
         });

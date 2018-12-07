@@ -156,7 +156,7 @@ public class URLs {
     //第三方登陆
     public static final String APP_THIRD = BASE_URL + "/api/user/appThird";
     //检测验证码
-    public static final String SMS_CHECK = BASE_URL + "/api/sns/check";
+    public static final String SMS_CHECK = BASE_URL + "/api/sms/check";
     //手机验证码登陆
     public static final String MOBILE_LOGIN = BASE_URL + "/api/user/mobilelogin";
     //手机号注册

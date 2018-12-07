@@ -205,6 +205,7 @@ public class OrderFragment extends Fragment {
                                                 LogUtil.d("AAA", arrayList.toString());
                                                 jAdapter.setNewData(arrayList);
                                                 jAdapter.notifyDataSetChanged();
+
                                             }
                                         });
                                 dialog.dismiss();
@@ -219,6 +220,41 @@ public class OrderFragment extends Fragment {
                         AlertDialog dialog = builder.create();
                         dialog.setCanceledOnTouchOutside(false);
                         dialog.show();
+
+                        break;
+                    case R.id.quxiaodingdan:
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                        builder1.setTitle("提示");
+                        builder1.setMessage("确定要取消订单?");
+                        builder1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                long userId = UserHelp.getUserId(getActivity());
+                                if (userId == -1L) {
+                                    LoginActivity.start(getActivity());
+                                    return;
+                                }
+                                OkGo.<String>get(URLs.CANCEL_ORDER)
+                                        .params("user_id", userId)
+                                        .params("order_id", item.getId())
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+                                                onViewClicked(talWaitYuyue);
+                                            }
+                                        });
+                                dialog.dismiss();
+                            }
+                        });
+                        builder1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog dialog1 = builder1.create();
+                        dialog1.setCanceledOnTouchOutside(false);
+                        dialog1.show();
 
                         break;
                     case R.id.lijifukuan:
@@ -244,6 +280,7 @@ public class OrderFragment extends Fragment {
                         break;
                     case R.id.yuyue:
                         break;
+
                 }
             }
         });
@@ -251,6 +288,7 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                if (item.getName().equals("会员卡")) return;
                 ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
 //                OrderDetailActivity.start(getActivity(),item.getId());
             }
