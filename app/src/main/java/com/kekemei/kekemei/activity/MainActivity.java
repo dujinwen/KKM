@@ -17,7 +17,6 @@ import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.fragment.MainMenuLeftFragment;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.view.CircleImageView;
-import com.nineoldandroids.view.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;

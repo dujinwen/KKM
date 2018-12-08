@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,5 +58,6 @@ public class Fragment5 extends Fragment {
 
     @OnClick(R.id.btn_come_in)
     public void onViewClicked() {
+        MainActivity.start(getActivity(),0);
     }
 }
