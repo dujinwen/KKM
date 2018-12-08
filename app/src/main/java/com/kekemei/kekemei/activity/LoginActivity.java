@@ -19,7 +19,7 @@ import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.bean.LoginBean;
+import com.kekemei.kekemei.bean.BeauLoginBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.ToastUtil;
@@ -203,12 +203,13 @@ public class LoginActivity extends BaseActivity {
                                         ToastUtil.showToastMsg(getApplicationContext(), msg);
                                         break;
                                     case 1://登陆成功
+                                        saveUserInfo(response);
+                                        ApplyBeauticianActivity.start(LoginActivity.this,code);
+                                        break;
                                     case 2://正在审核
                                     case 3://认证失败
                                     case 4://未认证
-                                        Intent intent = new Intent(LoginActivity.this, ApplyBeauticianActivity.class);
-                                        intent.putExtra("code", code);
-                                        startActivity(intent);
+                                        ApplyBeauticianActivity.start(LoginActivity.this,code);
                                         break;
                                 }
                             } catch (JSONException e) {
@@ -314,20 +315,14 @@ public class LoginActivity extends BaseActivity {
     private void saveUserInfo(Response<String> response) {
         LogUtil.d("LoginActivity", response.body());
         Gson gson = new Gson();
-        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+        BeauLoginBean loginBean = gson.fromJson(response.body(), BeauLoginBean.class);
         UserHelp.setLogin(getBaseContext(), true);
-        LoginBean.DataBean.UserinfoBean userinfo = loginBean.getData().getUserinfo();
-        UserHelp.setMobile(baseContext, userinfo.getMobile());
-        UserHelp.setUserName(baseContext, userinfo.getUsername());
-        UserHelp.setNickName(baseContext, userinfo.getNickname());
-        UserHelp.setToken(baseContext, userinfo.getToken());
-        UserHelp.setAvatar(baseContext, userinfo.getAvatar());
+        BeauLoginBean.DataBean userinfo = loginBean.getData();
+        UserHelp.setUserName(baseContext, userinfo.getName());
+        UserHelp.setAvatar(baseContext, userinfo.getImage());
         UserHelp.setUserId(baseContext, userinfo.getUser_id());
-        UserHelp.setIsNew(baseContext, userinfo.getIsnew());
 
         createAccount(userinfo.getUser_id());
-        startActivity(new Intent(LoginActivity.this, ApplyBeauticianActivity.class));
-        finish();
     }
 
     private void verifyBind(int type, final String openId, String mobile, String captcha) {

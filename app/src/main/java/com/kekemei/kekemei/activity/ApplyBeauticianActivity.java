@@ -1,5 +1,6 @@
 package com.kekemei.kekemei.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,7 +21,6 @@ import com.kekemei.kekemei.fragment.Fragment4;
 import com.kekemei.kekemei.fragment.Fragment5;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class ApplyBeauticianActivity extends BaseActivity {
@@ -36,23 +36,26 @@ public class ApplyBeauticianActivity extends BaseActivity {
     FrameLayout flSq;
 
     private Fragment currentFragment = new Fragment();
-
     private Fragment1 first = new Fragment1();
     private Fragment2 second = new Fragment2();
     private Fragment3 third = new Fragment3();
     private Fragment4 four = new Fragment4();
     private Fragment5 five = new Fragment5();
 
-    @Override
-    protected int setLayoutId() {
-        return R.layout.activity_apply_beautician;
+    public static void start(Context context, int code) {
+        Intent intent = new Intent(context, ApplyBeauticianActivity.class);
+        intent.putExtra("code", code);
+        context.startActivity(intent);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    protected View setTitleBar() {
+        return toolbar;
+    }
+
+    @Override
+    protected int setLayoutId() {
+        return R.layout.activity_apply_beautician;
     }
 
     @Override

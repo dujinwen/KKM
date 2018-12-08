@@ -130,6 +130,8 @@ public class URLs {
     public static final String APPOINTMENT_TIME_DATA = BASE_URL + "/api/appointment/timedata";
     //通过店铺查找美容师
     public static final String SHOP_BEAUTICIAN = BASE_URL + "/api/shop/shopbeautician";
+    //美容师评论
+    public static final String BEAUTICIAN_COMMENT = BASE_URL + "/api/comment/beauticianComment";
     /**
      * 搜索
      */

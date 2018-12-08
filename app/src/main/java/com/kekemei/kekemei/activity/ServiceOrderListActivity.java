@@ -46,6 +46,8 @@ import butterknife.OnClick;
  * 服务订单
  */
 public class ServiceOrderListActivity extends BaseActivity {
+    public static final int TAB_All = 0;
+    private static final String KEY_TAB = "tab";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -65,6 +67,8 @@ public class ServiceOrderListActivity extends BaseActivity {
     @BindView(R.id.v_wait_yuyue)
     View vWaitYuyue;
 
+    @BindView(R.id.tal_wait_server)
+    LinearLayout tabWaitServer;
     @BindView(R.id.tv_wait_server)
     TextView tvWaitServer;
     @BindView(R.id.v_wait_server)
@@ -102,9 +106,16 @@ public class ServiceOrderListActivity extends BaseActivity {
     @BindView(R.id.multiple_status_view)
     MultipleStatusView multipleStatusView;
     private ServiceOrderListAdapter jAdapter;
+    private int targetId;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ServiceOrderListActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, int tabIndex) {
+        Intent intent = new Intent(context, ServiceOrderListActivity.class);
+        intent.putExtra(KEY_TAB, tabIndex);
         context.startActivity(intent);
     }
 
@@ -121,6 +132,7 @@ public class ServiceOrderListActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        targetId = getIntent().getIntExtra(KEY_TAB, TAB_All);
         tv_title.setText("服务订单");
         iv_share.setImageResource(R.mipmap.search_btn);
         iv_share.setVisibility(View.VISIBLE);
@@ -274,7 +286,11 @@ public class ServiceOrderListActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        onViewClicked(talAll);
+        if (targetId == OrderListBean.ORDER_STATUS_TO_WAIT_SERVER) {
+            onViewClicked(tabWaitServer);
+        } else {
+            onViewClicked(talAll);
+        }
     }
 
     @OnClick({R.id.iv_share, R.id.tal_all, R.id.tal_wait_yuyue, R.id.tal_serving,
