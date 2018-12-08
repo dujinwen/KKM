@@ -24,7 +24,6 @@ import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
-import com.kekemei.kekemei.activity.MemberActivity;
 import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
@@ -107,6 +106,20 @@ public class OrderFragment extends Fragment {
     View vFinish;
     @BindView(R.id.tal_finish)
     LinearLayout talFinish;
+
+    @BindView(R.id.tv_serving)
+    TextView tvServing;
+    @BindView(R.id.v_serving)
+    View vServing;
+    @BindView(R.id.tal_serving)
+    LinearLayout talServing;
+
+    @BindView(R.id.tv_served)
+    TextView tvServed;
+    @BindView(R.id.v_served)
+    View vServed;
+    @BindView(R.id.tal_served)
+    LinearLayout talServed;
 
     @BindView(R.id.tv_quit)
     TextView tvQuit;
@@ -276,11 +289,8 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
-                if (item.getName().equals("会员卡")) {
-                    startActivity(new Intent(getActivity(), MemberActivity.class));
-                } else {
-                    ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
-                }
+                if (item.getName().equals("会员卡")) return;
+                ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
 //                OrderDetailActivity.start(getActivity(),item.getId());
             }
         });
@@ -313,8 +323,8 @@ public class OrderFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue,
-            R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
+    @OnClick({R.id.iv_search, R.id.tal_all, R.id.tal_wait_pay, R.id.tal_wait_yuyue, R.id.tal_serving,
+            R.id.tal_served, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_search) {
             Intent intent = new Intent(getActivity(), OrderListSearchActivity.class);
@@ -323,6 +333,7 @@ public class OrderFragment extends Fragment {
         }
         if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_pay || view.getId() == R.id.tal_quit
                 || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
+                || view.getId() == R.id.tal_serving || view.getId() == R.id.tal_served
                 || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia) {
             setSelect(view.getId());
             return;
@@ -351,6 +362,12 @@ public class OrderFragment extends Fragment {
         tvPingjia.setSelected(id == R.id.tal_pingjia);
         vPingjia.setVisibility(id == R.id.tal_pingjia ? View.VISIBLE : View.INVISIBLE);
 
+        tvServed.setSelected(id == R.id.tal_served);
+        vServed.setVisibility(id == R.id.tal_served ? View.VISIBLE : View.INVISIBLE);
+
+        tvServing.setSelected(id == R.id.tal_serving);
+        vServing.setVisibility(id == R.id.tal_serving ? View.VISIBLE : View.INVISIBLE);
+
         tvQuit.setSelected(id == R.id.tal_quit);
         vQuit.setVisibility(id == R.id.tal_quit ? View.VISIBLE : View.INVISIBLE);
 
@@ -378,6 +395,14 @@ public class OrderFragment extends Fragment {
             case R.id.tal_pingjia:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
+                break;
+            case R.id.tal_served:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
+                break;
+            case R.id.tal_serving:
+                page = 1;
+                jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
                 break;
             case R.id.tal_quit:
                 page = 1;

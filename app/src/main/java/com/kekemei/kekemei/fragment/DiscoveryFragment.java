@@ -48,8 +48,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DiscoveryFragment extends Fragment {
-    @BindView(R.id.xbanner)
-    XBanner xbanner;
+    private XBanner xbanner;
     @BindView(R.id.rvList)
     RecyclerView rvList;
     @BindView(R.id.swipe_rfresh_layout)
@@ -75,6 +74,7 @@ public class DiscoveryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_discovery, container, false);
         unbinder = ButterKnife.bind(this, inflate);
+
         initData();
         return inflate;
     }
@@ -112,7 +112,9 @@ public class DiscoveryFragment extends Fragment {
                 ProjectDetailActivity.start(getActivity(), data.getId());
             }
         });
-
+        View header = LayoutInflater.from(getActivity()).inflate(R.layout.layout_xbanner_header, null);
+        xbanner = header.findViewById(R.id.xbanner);
+        listAdapter.addHeaderView(header);
         rvList.setAdapter(listAdapter);
         getData(page);
     }
