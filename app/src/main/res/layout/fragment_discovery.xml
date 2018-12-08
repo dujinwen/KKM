@@ -9,23 +9,12 @@
         android:id="@+id/titleBar"
         layout="@layout/discovery_title_layout" />
 
-    <com.stx.xhb.xbanner.XBanner
-        android:id="@+id/xbanner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_556"
-        app:AutoPlayTime="3000"
-        app:isShowIndicatorOnlyOne="true"
-        app:pageChangeDuration="800"
-        app:pointNormal="@drawable/shape_unselected"
-        app:pointSelect="@drawable/shape_selected"
-        app:pointsPosition="RIGHT"
-        app:tipTextSize="12sp" />
+
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/swipe_rfresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/px_43"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
