@@ -14,7 +14,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -374,30 +373,6 @@ public class AppUtil {
         return result;
     }
 
-    /**
-     * 获取设备名称 手机型号
-     *
-     * @return
-     */
-    public static String getDeviceName() {
-        //        return android.os.Build.MANUFACTURER + Build.BRAND  + Build.MODEL;
-        return Build.MODEL;
-    }
-
-    //    public static String getDeviceId(Context context) {
-    //        //        return android.os.Build.MANUFACTURER + Build.BRAND  + Build.MODEL;
-    //        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
-    //        String szImei = TelephonyMgr.getDeviceId();
-    //        return szImei;
-    //    }
-
-    /**
-     * 获取操作系统版本
-     */
-
-    public static int getSystemVersion() {
-        return Build.VERSION.SDK_INT;
-    }
 
 
     /**

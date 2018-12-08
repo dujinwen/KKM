@@ -3,7 +3,7 @@ package com.kekemei.kekemei.view;
 import android.app.Activity;
 import android.widget.ImageView;
 
-import com.jcloud.image_loader_module.ImageLoaderUtil;
+import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.loader.ImageLoader;
 
 public class ImagePickerLoader implements ImageLoader {
@@ -18,7 +18,8 @@ public class ImagePickerLoader implements ImageLoader {
                 .centerInside()//
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)//
                 .into(imageView);*/
-        ImageLoaderUtil.getInstance().loadImage(path, imageView);
+//        ImageLoaderUtil.getInstance().loadImage(path, imageView);
+        Glide.with(activity).load(path).into(imageView);
     }
 
     @Override

@@ -139,11 +139,4 @@ public class ApplyBeauticianActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        // 2、在Activity中的onActivityResult()方法里与LQRPhotoSelectUtils关联
-////        mLqrPhotoSelectUtils.attachToActivityForResult(requestCode, resultCode, data);
-//       first.onActivityResult(requestCode, resultCode, data);
-//    }
 }

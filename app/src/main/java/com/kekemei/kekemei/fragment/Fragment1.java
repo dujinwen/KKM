@@ -1,11 +1,9 @@
 package com.kekemei.kekemei.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -17,20 +15,31 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.utils.LQRPhotoSelectUtils;
+import com.kekemei.kekemei.manager.AppFolderManager;
+import com.kekemei.kekemei.utils.ImageCompressUtil;
+import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.ToastUtil;
+import com.kekemei.kekemei.utils.URLs;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import org.devio.takephoto.app.TakePhotoFragment;
 import org.devio.takephoto.model.TResult;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import kr.co.namee.permissiongen.PermissionFail;
-import kr.co.namee.permissiongen.PermissionGen;
-import kr.co.namee.permissiongen.PermissionSuccess;
 
 import static org.devio.takephoto.uitl.TConstant.RC_PICK_PICTURE_FROM_CAPTURE;
 import static org.devio.takephoto.uitl.TConstant.RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL;
@@ -42,6 +51,7 @@ import static org.devio.takephoto.uitl.TConstant.RC_PICK_PICTURE_FROM_GALLERY_OR
 public class Fragment1 extends TakePhotoFragment {
 
 
+    private static final String TAG = "fragment_1";
     @BindView(R.id.iv_zhengmian)
     ImageView ivZhengmian;
     @BindView(R.id.iv_btn_zhengmian)
@@ -60,47 +70,18 @@ public class Fragment1 extends TakePhotoFragment {
     private View mView;
     private OnButtonClick onButtonClick;
 
-    private LQRPhotoSelectUtils mLqrPhotoSelectUtils;
     private int type = -1;
+    private Thread compressThread;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_1, container, false);
         unbinder = ButterKnife.bind(this, mView);
-        init();
         return mView;
     }
 
-    private void init() {
-        // 1、创建LQRPhotoSelectUtils（一个Activity对应一个LQRPhotoSelectUtils）
-        mLqrPhotoSelectUtils = new LQRPhotoSelectUtils(getActivity(), new LQRPhotoSelectUtils.PhotoSelectListener() {
-            @Override
-            public void onFinish(File outputFile, Uri outputUri, int requestCode) {
-                // 4、当拍照或从图库选取图片成功后回调
-//                mTvPath.setText(outputFile.getAbsolutePath());
-//                mTvUri.setText(outputUri.toString());
-//                Glide.with(MainActivity.this).load(outputUri).into(mIvPic);
-                switch (requestCode) {
-                    case RC_PICK_PICTURE_FROM_CAPTURE + 200://拍照
-                    case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 200://图库
-                        Glide.with(getActivity()).load(outputUri).into(ivZhengmian);
-                        ivBtnZhengmian.setVisibility(View.GONE);
-                        break;
-                    case RC_PICK_PICTURE_FROM_CAPTURE + 300://拍照
-                    case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 300://图库
-                        Glide.with(getActivity()).load(outputUri).into(ivFanmian);
-                        ivBtnFanmian.setVisibility(View.GONE);
-                        break;
-                    case RC_PICK_PICTURE_FROM_CAPTURE + 400://拍照
-                    case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 400://图库
-                        Glide.with(getActivity()).load(outputUri).into(ivZige);
-                        ivBtnZige.setVisibility(View.GONE);
-                        break;
-                }
-            }
-        }, false);//true裁剪，false不裁剪
-    }
+
 //此方法在Fragment中
 
     @Override
@@ -137,14 +118,10 @@ public class Fragment1 extends TakePhotoFragment {
                 checkPhoto();
                 break;
             case R.id.btn_next:
-
                 onButtonClick.onClick(btnNext);
                 break;
         }
     }
-
-    private final int GET_PHOTO_BY_CAMERA = 100;
-    private final int GET_PHOTO_BY_GALLERY = 200;
 
     private void checkPhoto() {
         final CharSequence[] items = {"本地上传", "拍照上传"};
@@ -159,22 +136,9 @@ public class Fragment1 extends TakePhotoFragment {
                         Uri imageUri = Uri.fromFile(file);
 
                         if (item == 0) {
-                            // 3、调用从图库选取图片方法
-//                            PermissionGen.needPermission(Fragment1.this,
-//                                    LQRPhotoSelectUtils.REQ_SELECT_PHOTO,
-//                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-//                                            Manifest.permission.WRITE_EXTERNAL_STORAGE}
-//                            );
                             getTakePhoto().onPickFromGallery(RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + type);
                             dialog.cancel();
                         } else if (item == 1) {
-                            // 3、调用拍照方法
-//                            PermissionGen.with(Fragment1.this)
-//                                    .addRequestCode(RC_PICK_PICTURE_FROM_CAPTURE)
-//                                    .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-//                                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                                            Manifest.permission.CAMERA
-//                                    ).request();
                             getTakePhoto().onPickFromCapture(imageUri, RC_PICK_PICTURE_FROM_CAPTURE + type);
                             dialog.cancel();
                         }
@@ -195,30 +159,111 @@ public class Fragment1 extends TakePhotoFragment {
     }
 
     @Override
-    public void takeSuccess(TResult result,int requestCode) {
+    public void takeSuccess(TResult result, int requestCode) {
         super.takeSuccess(result, requestCode);
 //        showImg(result.getImages());
-        switch (requestCode) {
-            case RC_PICK_PICTURE_FROM_CAPTURE + 200://拍照
-            case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 200://图库
-                Glide.with(getActivity()).load(result.getImages().get(0).getOriginalPath()).into(ivZhengmian);
-                ivBtnZhengmian.setVisibility(View.GONE);
-                break;
-            case RC_PICK_PICTURE_FROM_CAPTURE + 300://拍照
-            case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 300://图库
-                Glide.with(getActivity()).load(result.getImages().get(0).getOriginalPath()).into(ivFanmian);
-                ivBtnFanmian.setVisibility(View.GONE);
-                break;
-            case RC_PICK_PICTURE_FROM_CAPTURE + 400://拍照
-            case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 400://图库
-                Glide.with(getActivity()).load(result.getImages().get(0).getOriginalPath()).into(ivZige);
-                ivBtnZige.setVisibility(View.GONE);
-                break;
-        }
+        compressImage(result.getImages().get(0).getOriginalPath(), requestCode);
+
     }
 
 
-        public OnButtonClick getOnButtonClick() {
+    /**
+     * 压缩图片
+     *
+     * @param resultImagePath
+     */
+    private void compressImage(final String resultImagePath, final int requestCode) {
+        compressThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ExecutorService taskExecutor = Executors.newFixedThreadPool(5);
+                Map<String, String> map = new HashMap<>();
+                final Map<String, String> synchronizedMap = Collections.synchronizedMap(map);
+                final long timeStamp = System.currentTimeMillis();
+
+               taskExecutor.execute(new Runnable() {
+                   @Override
+                   public void run() {
+                       String compressedFileDirectory = AppFolderManager.getInstance().getImageCompressFolder();
+                       //避免因文件名相同导致的图片重复的问题
+                       String[] split = resultImagePath.split("\\.");
+                       String compressedFileName = split[0] + "_" + timeStamp + "." + split[1];
+                       File compressedFile = new File(compressedFileDirectory, resultImagePath);
+                       boolean compressResult = ImageCompressUtil.handle(resultImagePath, compressedFile.getPath());
+                       LogUtil.d(TAG, "compress image result is " + compressResult);
+//                if (compressResult) {
+//                    synchronizedMap.put(resultImagePath, compressedFile.getPath());
+//                }
+//                LogUtil.d(TAG, "taskExecutor shutdown");
+//                LogUtil.d(TAG, "complete " + synchronizedMap.size());
+//
+//                if (synchronizedMap.size() == 0) {
+//                    ToastUtil.showToastMsg(getActivity(), "图片处理出现错误，请稍后再试");
+//                    return;
+//                }
+
+//                       uploadImage(compressedFile.getPath(), requestCode);//上传图片
+                   }
+               });
+            }
+        });
+        compressThread.start();
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param uploadImagePath 选择的图片路径
+     * @param requestCode
+     */
+    public void uploadImage(String uploadImagePath, final int requestCode) {
+        ToastUtil.showToastMsg(getActivity(), "正在上传图片");
+        File file = new File(uploadImagePath);
+        OkGo.<String>post(URLs.UPLOAD_IMAGE).tag(this).params("file", file).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e("comment", "body:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        return;
+                    }
+                    JSONObject data = jsonObject.optJSONObject("data");
+                    if (data != null) {
+                        ToastUtil.showToastMsg(getActivity(), "上传成功");
+                        String url = data.optString("url");
+                        switch (requestCode) {
+                            case RC_PICK_PICTURE_FROM_CAPTURE + 200://拍照
+                            case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 200://图库
+                                Glide.with(getActivity()).load(URLs.BASE_URL + url).into(ivZhengmian);
+                                ivBtnZhengmian.setVisibility(View.GONE);
+                                break;
+                            case RC_PICK_PICTURE_FROM_CAPTURE + 300://拍照
+                            case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 300://图库
+                                Glide.with(getActivity()).load(URLs.BASE_URL + url).into(ivFanmian);
+                                ivBtnFanmian.setVisibility(View.GONE);
+                                break;
+                            case RC_PICK_PICTURE_FROM_CAPTURE + 400://拍照
+                            case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 400://图库
+                                Glide.with(getActivity()).load(URLs.BASE_URL + url).into(ivZige);
+                                ivBtnZige.setVisibility(View.GONE);
+                                break;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                LogUtil.e("TAG", response.message());
+            }
+        });
+    }
+
+    public OnButtonClick getOnButtonClick() {
         return onButtonClick;
     }
 
@@ -228,76 +273,5 @@ public class Fragment1 extends TakePhotoFragment {
 
     public interface OnButtonClick {
         public void onClick(View view);
-    }
-
-
-    @PermissionSuccess(requestCode = LQRPhotoSelectUtils.REQ_TAKE_PHOTO)
-    private void takePhoto() {
-        mLqrPhotoSelectUtils.takePhoto(type);
-    }
-
-    @PermissionSuccess(requestCode = LQRPhotoSelectUtils.REQ_SELECT_PHOTO)
-    private void selectPhoto() {
-        mLqrPhotoSelectUtils.selectPhoto(type);
-    }
-
-    @PermissionFail(requestCode = LQRPhotoSelectUtils.REQ_TAKE_PHOTO)
-    private void showTip1() {
-//                Toast.makeText(getActivity(), "不给我权限是吧，那就别玩了", Toast.LENGTH_SHORT).show();
-        showDialog();
-    }
-
-    @PermissionFail(requestCode = LQRPhotoSelectUtils.REQ_SELECT_PHOTO)
-    private void showTip2() {
-//                Toast.makeText(getActivity(), "不给我权限是吧，那就别玩了", Toast.LENGTH_SHORT).show();
-        showDialog();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionGen.onRequestPermissionsResult(Fragment1.this, requestCode, permissions, grantResults);
-    }
-
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        mLqrPhotoSelectUtils.attachToActivityForResult(requestCode, resultCode, data);
-//    }
-
-    public void showDialog() {
-        //创建对话框创建器
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        //设置对话框显示小图标
-        builder.setIcon(android.R.drawable.ic_dialog_alert);
-        //设置标题
-        builder.setTitle("权限申请");
-        //设置正文
-        builder.setMessage("在设置-应用-虎嗅-权限 中开启相机、存储权限，才能正常使用拍照或图片选择功能");
-
-        //添加确定按钮点击事件
-        builder.setPositiveButton("去设置", new DialogInterface.OnClickListener() {//点击完确定后，触发这个事件
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //这里用来跳到手机设置页，方便用户开启权限
-                Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
-        });
-
-        //添加取消按钮点击事件
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        //使用构建器创建出对话框对象
-        AlertDialog dialog = builder.create();
-        dialog.show();//显示对话框
     }
 }
