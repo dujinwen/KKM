@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/bgImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_413"
+        android:background="@mipmap/shouru_brijing_bg_" />
+
+    <include layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_413"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/px_30"
+            android:layout_marginLeft="@dimen/px_37"
+            android:text="总收入"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_35" />
+
+        <TextView
+            android:id="@+id/inComeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/px_30"
+            android:layout_marginLeft="@dimen/px_68"
+            android:text="¥ 12345.00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_69" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/dateSelectLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_115"
+        android:layout_below="@+id/bgImage"
+        android:background="#ECF9F9">
+
+        <ImageView
+            android:id="@+id/dateLeft"
+            android:layout_width="@dimen/px_40"
+            android:layout_height="@dimen/px_40"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_202"
+            android:src="@mipmap/fangxiang_zuo_btn_" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="2018" />
+
+        <ImageView
+            android:id="@+id/dateRight"
+            android:layout_width="@dimen/px_40"
+            android:layout_height="@dimen/px_40"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/px_202"
+            android:src="@mipmap/fangxiang_you_btn_" />
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/swipe_rfresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/dateSelectLayout"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/inComeList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <com.kekemei.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

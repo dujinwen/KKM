@@ -3,65 +3,67 @@ package com.kekemei.kekemei.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.fragment.DiscoveryFragment;
-import com.kekemei.kekemei.fragment.HomeFragment;
-import com.kekemei.kekemei.fragment.OrderFragment;
-import com.kekemei.kekemei.fragment.PersonFragment;
+import com.kekemei.kekemei.bean.OrderListBean;
+import com.kekemei.kekemei.fragment.MainMenuLeftFragment;
 import com.kekemei.kekemei.utils.ToastUtil;
-import com.kekemei.kekemei.utils.URLs;
-import com.kekemei.kekemei.utils.UserHelp;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
-import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.kekemei.kekemei.view.CircleImageView;
+import com.nineoldandroids.view.ViewHelper;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
-    public static final int TAB_HOME = 0;
-    private static final String KEY_TAB = "tab";
-
-    private static final String TAG_PAGE_HOME = "首页";
-    private static final String TAG_PAGE_CITY = "发现";
-    //    private static final String TAG_PAGE_PUBLISH = "预约";
-    private static final String TAG_PAGE_MESSAGE = "订单";
-    private static final String TAG_PAGE_PERSON = "我的";
-
-    @BindView(R.id.mainTabBar)
-    MainNavigateTabBar mNavigateTabBar;
+    @BindView(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
     TextView tvTitle;
 
-    private int mCurrentTab = TAB_HOME;
-    private boolean hasTitle = false;
-    private boolean hasCoupons = false;
-    private View iv_btn_lingqu;
-    private AlertDialog dlg;
+    @BindView(R.id.headIcon)
+    CircleImageView headIcon;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.serviceCount)
+    TextView serviceCount;
+    @BindView(R.id.orderCount)
+    TextView orderCount;
+    @BindView(R.id.messageLayout)
+    LinearLayout messageLayout;
+    @BindView(R.id.receiveOrder)
+    LinearLayout receiveOrder;
+    @BindView(R.id.commentLayout)
+    LinearLayout commentLayout;
+    @BindView(R.id.orderLayout)
+    LinearLayout orderLayout;
+    @BindView(R.id.enterAccount)
+    LinearLayout enterAccount;
+    @BindView(R.id.cashLayout)
+    LinearLayout cashLayout;
 
-    private LinearLayout llOneRed;
-    private LinearLayout llTowRed;
-    private LinearLayout llThrRed;
-    private TextView tvOneName, tvOneNeirong, tvNameOne2, tvNeirongOne2, tvNeirongTow2, tvNameTow2, tvNameOne3, tvNeirongOne3, tvNameTow3, tvNeirongTow3, tvNameThr3, tvNeirongThr3;
-    private long isNew;
+    /**
+     * 导航栏左侧的侧边栏碎片界面
+     */
+    private MainMenuLeftFragment leftMenuFragment;
 
     public static void start(Context context, int tab) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(KEY_TAB, tab);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected View setTitleBar() {
+        return toolbar;
     }
 
     @Override
@@ -70,155 +72,114 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-        getIntentData(intent);
-    }
-
-    private void getIntentData(Intent intent) {
-        if (intent != null) {
-            mCurrentTab = intent.getIntExtra(KEY_TAB, mCurrentTab);
-            mNavigateTabBar.setCurrentSelectedTab(mCurrentTab);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isNew = UserHelp.getIsNew(getBaseContext());
-        if (isNew != 1) {
-            showDIYDialog(3);
-        }
-    }
-
-    public void showDIYDialog(int a) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog);
-        LayoutInflater inflater = getLayoutInflater();
-        final View layout = inflater.inflate(R.layout.activity_coupons, null);//获取自定义布局
-        builder.setView(layout);
-
-        initDialogViiew(layout, a);
-        iv_btn_lingqu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long userId = UserHelp.getUserId(MainActivity.this);
-                if (isNew == -1 || userId == -1L) {
-                    LoginActivity.start(MainActivity.this);
-                    dlg.dismiss();
-                    return;
-                }
-                OkGo.<String>get(URLs.COUPON_ONE_RECEIVE)
-                        .params("user_id", userId)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                JSONObject jsonObject = null;
-                                try {
-                                    jsonObject = new JSONObject(response.body());
-                                    Object msg = jsonObject.opt("msg");
-                                    if (msg.equals("你已领取了红包")) {
-                                        UserHelp.setIsNew(MainActivity.this, 1);
-                                        return;
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-
-                dlg.dismiss();
-            }
-        });
-
-        dlg = builder.create();
-        dlg.setCanceledOnTouchOutside(false);
-        dlg.show();
-    }
-
-    private void initDialogViiew(View layout, int type) {
-        llOneRed = layout.findViewById(R.id.ll_one_red);
-        llTowRed = layout.findViewById(R.id.ll_tow_red);
-        llThrRed = layout.findViewById(R.id.ll_thr_red);
-        tvOneName = layout.findViewById(R.id.tv_one_name);
-        tvNameTow2 = layout.findViewById(R.id.tv_name_tow_2);
-        tvNameOne2 = layout.findViewById(R.id.tv_name_one_2);
-        tvNameOne3 = layout.findViewById(R.id.tv_name_one_3);
-        tvNameTow3 = layout.findViewById(R.id.tv_name_tow_3);
-        tvNameThr3 = layout.findViewById(R.id.tv_name_thr_3);
-
-        tvOneNeirong = layout.findViewById(R.id.tv_one_neirong);
-        tvNeirongOne2 = layout.findViewById(R.id.tv_neirong_one_2);
-        tvNeirongTow2 = layout.findViewById(R.id.tv_neirong_tow_2);
-        tvNeirongOne3 = layout.findViewById(R.id.tv_neirong_one_3);
-        tvNeirongTow3 = layout.findViewById(R.id.tv_neirong_tow_3);
-        tvNeirongThr3 = layout.findViewById(R.id.tv_neirong_thr_3);
-        iv_btn_lingqu = layout.findViewById(R.id.iv_btn_lingqu);
-
-
-        switch (type) {
-            case 1:
-                llOneRed.setVisibility(View.VISIBLE);
-                llTowRed.setVisibility(View.GONE);
-                llThrRed.setVisibility(View.GONE);
-                break;
-            case 2:
-                llOneRed.setVisibility(View.GONE);
-                llTowRed.setVisibility(View.VISIBLE);
-                llThrRed.setVisibility(View.GONE);
-                break;
-            case 3:
-                llOneRed.setVisibility(View.GONE);
-                llTowRed.setVisibility(View.GONE);
-                llThrRed.setVisibility(View.VISIBLE);
-                break;
-        }
-
-        setText();
-    }
-
-    private void setText() {
-
-//        tvOneName.setText(strOneName);
-//        tvOneNeirong.setText(strOneNeirong);
-//        tvNameOne2.setText(strNameOne2);
-//        tvNeirongOne2.setText(strNeirongOne2);
-//        tvNameTow2.setText(strNameTow2);
-//        tvNeirongTow2.setText(strNeirongTow2);
-//
-//        tvNameOne3.setText(strNameOne3);
-//        tvNeirongOne3.setText(strNeirongOne3);
-//        tvNameTow3.setText(strNameTow3);
-//        tvNeirongTow3.setText(strNeirongTow3);
-//        tvNameThr3.setText(strNameThr3);
-//        tvNeirongThr3.setText(strNeirongThr3);
-    }
-
-    @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mNavigateTabBar.onRestoreInstanceState(savedInstanceState);
-        mNavigateTabBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        toolbar.setNavigationIcon(R.mipmap.home_left_icon);
+        //关闭手势滑动：DrawerLayout.LOCK_MODE_LOCKED_CLOSED（Gravity.LEFT：代表左侧的）
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
 
+        leftMenuFragment = (MainMenuLeftFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_leftmenu);
+        initEvent();
+    }
+
+    private void initEvent() {
+        //用户图标的点击事件
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenLeftMenu();
             }
         });
-        mNavigateTabBarAddTab();
+
+        //侧边栏的事件监听
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            /**
+             * 当抽屉滑动状态改变的时候被调用
+             * 状态值是STATE_IDLE（闲置-0），STATE_DRAGGING（拖拽-1），STATE_SETTLING（固定-2）中之一。
+             */
+            @Override
+            public void onDrawerStateChanged(int newState) {
+            }
+
+            /**
+             * 当抽屉被滑动的时候调用此方法
+             * slideOffset 表示 滑动的幅度(0-1)
+             */
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                Log.w("onDrawerSlide", "slideOffset=" + slideOffset);//0.0 -- 0.56 -- 1.0
+
+                View mContent = drawerLayout.getChildAt(0);//内容区域view
+                View mMenu = drawerView;
+
+                float scale = 1 - slideOffset;
+
+                if (drawerView.getTag().equals("LEFT")) {//左侧的侧边栏动画效果
+                    //设置左侧区域的透明度0.6f + 0.4f * (0.0 ... 1.0)【也就是打开的时候透明度从0.6f ... 1.0f，关闭的时候反之】
+                    ViewHelper.setAlpha(mMenu, 0.6f + 0.4f * slideOffset);
+                    //移动内容区域：左侧侧边栏宽度 * (0.0 ... 1.0)【也就是打开的时候，内容区域移动从0 ... 左侧侧边栏宽度】
+                    ViewHelper.setTranslationX(mContent, mMenu.getMeasuredWidth() * slideOffset);
+                    mContent.invalidate();//重绘view
+
+                } else {//右侧的侧边栏动画效果
+                    //移动内容区域：-右侧侧边栏宽度 * (0.0 ... 1.0)【也就是打开的时候，内容区域移动从-0 ... -左侧侧边栏宽度】
+                    ViewHelper.setTranslationX(mContent, -mMenu.getMeasuredWidth() * slideOffset);
+                    mContent.invalidate();
+                }
+
+            }
+
+            /**
+             * 当一个抽屉被完全打开的时候被调用
+             */
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                if (drawerView.getTag().equals("LEFT")) {//如果感觉显示有延迟的话，可以放到nav_userImg的点击事件监听中执行
+                    leftMenuFragment.setDefaultDatas();//打开的时候初始化默认数据【比如：请求网络，获取数据】
+                }
+            }
+
+            /**
+             * 当一个抽屉被完全关闭的时候被调用
+             */
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                //关闭手势滑动：DrawerLayout.LOCK_MODE_LOCKED_CLOSED（Gravity.LEFT：代表左侧的）
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
+            }
+        });
     }
 
-    private void mNavigateTabBarAddTab() {
-        mNavigateTabBar.addTab(HomeFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_shouye_btn_n, R.mipmap.home_shouye_btn_d, TAG_PAGE_HOME));
-        mNavigateTabBar.addTab(DiscoveryFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_faxian_btn_n, R.mipmap.home_faxian_btn_d, TAG_PAGE_CITY));
-        //        mNavigateTabBar.addTab(null, new MainNavigateTabBar.TabParam(0, 0, TAG_PAGE_PUBLISH));
-        mNavigateTabBar.addTab(OrderFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_dingdan_btn_n, R.mipmap.home_dingdan_btn_d, TAG_PAGE_MESSAGE));
-        mNavigateTabBar.addTab(PersonFragment.class, new MainNavigateTabBar.TabParam(R.mipmap.home_wode_btn_n, R.mipmap.home_wode_btn_d, TAG_PAGE_PERSON));
+    /**
+     * 打开左侧的侧边栏
+     */
+    public void OpenLeftMenu() {
+        drawerLayout.openDrawer(Gravity.LEFT);
+        //打开手势滑动：DrawerLayout.LOCK_MODE_UNLOCKED（Gravity.LEFT：代表左侧的）
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, Gravity.LEFT);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mNavigateTabBar.onSaveInstanceState(outState);
+    @OnClick({R.id.messageLayout, R.id.receiveOrder, R.id.commentLayout, R.id.orderLayout, R.id.enterAccount, R.id.cashLayout})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.messageLayout:
+                MessageActivity.start(this);
+                break;
+            case R.id.receiveOrder:
+                ServiceOrderListActivity.start(this, OrderListBean.ORDER_STATUS_TO_WAIT_SERVER);
+                break;
+            case R.id.commentLayout:
+                CommentActivity.start(this);
+                break;
+            case R.id.orderLayout:
+                ServiceOrderListActivity.start(this);
+                break;
+            case R.id.enterAccount:
+                InComeActivity.start(this);
+                break;
+            case R.id.cashLayout:
+                break;
+        }
     }
 
     @Override
@@ -234,14 +195,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {//@TODO 此方法无效
-        if (mCurrentTab != TAB_HOME) {
-            mCurrentTab = TAB_HOME;
-            mNavigateTabBar.setCurrentSelectedTab(mCurrentTab);
-            return;
-        }
-        if (dlg != null && dlg.isShowing()) {
-            dlg.dismiss();
-        }
         long currentTime = System.currentTimeMillis();
         long period = currentTime - lastTime;
         if (period < 2 * 1000) {

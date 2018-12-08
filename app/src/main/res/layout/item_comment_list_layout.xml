@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ratingbar="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/work_order_list_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/px_32"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_52">
+
+        <TextView
+            android:id="@+id/orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_37"
+            android:text="订单编号：asf1245798657829"
+            android:textColor="#999999"
+            android:textSize="@dimen/px_35" />
+
+        <TextView
+            android:id="@+id/finishTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px_35"
+            android:gravity="center"
+            android:text="完成时间：2018/5/16"
+            android:textColor="#999999"
+            android:textSize="@dimen/px_35" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/commentContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/px_37"
+        android:layout_marginTop="@dimen/px_48"
+        android:text="整体来说还是不错的"
+        android:textColor="@color/common_text_dark"
+        android:textSize="@dimen/px_40" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/px_174"
+        android:layout_height="@dimen/px_202"
+        android:layout_marginLeft="@dimen/px_36"
+        android:layout_marginTop="@dimen/px_22"
+        android:src="@mipmap/user_icon_default" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/px_48"
+        android:layout_marginTop="@dimen/px_42">
+
+        <com.kekemei.kekemei.view.StarBar
+            android:id="@+id/star_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_37"
+            ratingbar:changeEnable="false"
+            ratingbar:starCount="5"
+            ratingbar:starDistance="10dp"
+            ratingbar:starEmpty="@mipmap/beautician_score_empty_ic"
+            ratingbar:starFill="@mipmap/beautician_score_full_ic"
+            ratingbar:starSize="@dimen/px_42" />
+
+        <TextView
+            android:id="@+id/satisfaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_72"
+            android:layout_toRightOf="@+id/star_bar"
+            android:text="超出预期"
+            android:textColor="@color/c_ccc"
+            android:textSize="@dimen/px_40" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/px_35"
+            android:text="2018-5-18"
+            android:textColor="@color/c_ccc"
+            android:textSize="@dimen/px_40" />
+    </RelativeLayout>
+
+    <View style="@style/CommonLine.Horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/reply"
+            android:layout_width="@dimen/px_202"
+            android:layout_height="@dimen/px_69"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/px_23"
+            android:layout_marginRight="@dimen/px_35"
+            android:layout_marginTop="@dimen/px_23"
+            android:background="@drawable/shape_red_comment_list"
+            android:gravity="center"
+            android:text="回复"
+            android:textColor="@color/white"
+            android:textSize="@dimen/px_40" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/replyContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ECF9F9"
+        android:padding="@dimen/px_35"
+        android:text="谢谢您的夸奖，我会更加努力的。"
+        android:textColor="@color/common_text_dark"
+        android:textSize="@dimen/px_40"
+        android:visibility="gone" />
+</LinearLayout>

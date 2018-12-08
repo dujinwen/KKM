@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7AD2D2"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/headerImageView"
+        android:layout_width="@dimen/px_202"
+        android:layout_height="@dimen/px_202"
+        android:layout_marginTop="@dimen/px_184"
+        android:src="@mipmap/home_head_icon" />
+
+    <TextView
+        android:id="@+id/userNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_46"
+        android:text="艾薇儿"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <TextView
+        android:id="@+id/userSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_217"
+        android:drawableLeft="@mipmap/cebianlan_shezhi_ic_"
+        android:drawablePadding="@dimen/px_42"
+        android:text="个人设置"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <TextView
+        android:id="@+id/changePhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_80"
+        android:drawableLeft="@mipmap/cebianlan_shouji_ic_"
+        android:drawablePadding="@dimen/px_42"
+        android:text="修改电话"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <TextView
+        android:id="@+id/helpCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_80"
+        android:drawableLeft="@mipmap/cebianlan_bangzhu_ic_"
+        android:drawablePadding="@dimen/px_42"
+        android:text="帮助中心"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <TextView
+        android:id="@+id/contractServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_80"
+        android:drawableLeft="@mipmap/cebianlan_kefu_ic_"
+        android:drawablePadding="@dimen/px_42"
+        android:text="联系客服"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <TextView
+        android:id="@+id/aboutUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/px_80"
+        android:drawableLeft="@mipmap/cebianlan_women_ic_"
+        android:drawablePadding="@dimen/px_42"
+        android:text="关于我们"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="版本号 1.0.0"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_40" />
+</LinearLayout>

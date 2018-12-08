@@ -23,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_marginRight="@dimen/px_75"
+            android:layout_marginRight="@dimen/px_40"
             android:gravity="center"
             android:text="提交"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:visibility="gone" />
 
         <ImageView
@@ -35,7 +35,7 @@
             android:layout_width="@dimen/px_58"
             android:layout_height="@dimen/px_58"
             android:layout_gravity="right"
-            android:layout_marginRight="@dimen/px_75"
+            android:layout_marginRight="@dimen/px_40"
             android:background="@mipmap/fenxiang_btn_"
             android:visibility="gone" />
 
