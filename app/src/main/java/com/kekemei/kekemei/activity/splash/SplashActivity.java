@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.MainActivity;
+import com.kekemei.kekemei.activity.ApplyBeauticianActivity;
 import com.kekemei.kekemei.manager.PrefManager;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -115,7 +115,7 @@ public class SplashActivity extends Activity implements AMapLocationListener, Ha
         layoutSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, ApplyBeauticianActivity.class);
                 startActivity(intent);
                 jumpHandler.removeMessages(MSG_TIME_TICK);
                 finish();
@@ -124,7 +124,7 @@ public class SplashActivity extends Activity implements AMapLocationListener, Ha
     }
 
     private void jump() {
-        Intent intent = new Intent(SplashActivity.this, needShowGuide ? GuideActivity.class : MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, needShowGuide ? GuideActivity.class : ApplyBeauticianActivity.class);
         startActivity(intent);
         finish();
     }

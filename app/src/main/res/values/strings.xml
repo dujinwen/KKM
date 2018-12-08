@@ -65,4 +65,6 @@
     <string name="shop_detail_satisfaction">%1$s满意度</string>
     <string name="shop_detail_distance">离我%1$skm</string>
 
+    <drawable name="clr_normal">#FFF</drawable>
+    <drawable name="clr_pressed">#E0E0E0</drawable>
 </resources>

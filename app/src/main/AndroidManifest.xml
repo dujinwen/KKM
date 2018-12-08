@@ -59,9 +59,9 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.2" />
-        <meta-data
-            android:name="com.jcloud.image_loader_module.MyGlideModule"
-            android:value="GlideModule" />
+        <!--<meta-data-->
+            <!--android:name="com.jcloud.image_loader_module.MyGlideModule"-->
+            <!--android:value="GlideModule" />-->
 
 
         <meta-data
@@ -248,6 +248,7 @@
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
         <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.ApplyBeauticianActivity" />
     </application>
 
 </manifest>

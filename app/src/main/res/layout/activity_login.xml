@@ -7,14 +7,16 @@
 
 
     <View
+        android:layout_marginTop="44dp"
         android:id="@+id/top_bg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/px_789"
-        android:background="@mipmap/user_head_bg" />
+        android:layout_height="240dp"
+        android:background="@mipmap/denglu_bg_" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        android:background="#FF7AD2D2"
         android:layout_height="?attr/actionBarSize">
 
         <TextView
@@ -25,6 +27,7 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:text="登录"
+            android:background="#FF7AD2D2"
             android:textSize="20sp" />
 
         <TextView
@@ -50,19 +53,19 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        android:layout_width="@dimen/px_230"
-        android:layout_height="@dimen/px_230"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px_248"
-        android:scaleType="fitXY"
-        android:background="@mipmap/share_logo_pic" />
+    <!--<ImageView-->
+        <!--android:layout_width="@dimen/px_230"-->
+        <!--android:layout_height="@dimen/px_230"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="@dimen/px_248"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:background="@mipmap/share_logo_pic" />-->
 
     <LinearLayout
         android:layout_width="@dimen/px_893"
         android:layout_height="@dimen/px_670"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/px_541"
+        android:layout_marginTop="214dp"
         android:background="@drawable/btn_white_background"
         android:elevation="4dp"
         android:orientation="vertical">

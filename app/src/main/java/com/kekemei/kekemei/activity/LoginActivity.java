@@ -305,7 +305,7 @@ public class LoginActivity extends BaseActivity {
         UserHelp.setIsNew(baseContext, userinfo.getIsnew());
 
         createAccount(userinfo.getUser_id());
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        startActivity(new Intent(LoginActivity.this, ApplyBeauticianActivity.class));
         finish();
     }
 
