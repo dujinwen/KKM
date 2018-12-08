@@ -19,6 +19,27 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-ignorewarnings
+#EASEUI
+-keep class android.support.v4.** {*;}
+-keep class org.xmlpull.** {*;}
+-keep class com.baidu.** {*;}
+-keep public class * extends com.umeng.**
+ -keep class com.umeng.** { *; }
+-keep class com.squareup.picasso.* {*;}
+-keep class com.hyphenate.* {*;}
+-keep class com.hyphenate.chat.** {*;}
+-keep class org.jivesoftware.** {*;}
+-keep class org.apache.** {*;}
+#另外，demo中发送表情的时候使用到反射，需要keep SmileUtils,注意前面的包名，
+#不要SmileUtils复制到自己的项目下keep的时候还是写的demo里的包名
+-keep class com.hyphenate.easeui.utils.SmileUtils {*;}
+#2.0.9后加入语音通话功能，如需使用此功能的api，加入以下keep
+-keep class net.java.sip.** {*;}
+-keep class org.webrtc.voiceengine.** {*;}
+-keep class org.bitlet.** {*;}
+-keep class org.slf4j.** {*;}
+
 
 #友盟
    -dontshrink
@@ -31,7 +52,15 @@
    -keep public class javax.**
    -keep public class android.webkit.**
    -dontwarn android.support.v4.**
-
+ -keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+ }
+ -keep public class [您的应用包名].R$*{
+   public static final int *;
+ }
+ -keepclassmembers enum * {
+   public static **[] values(); public static ** valueOf(java.lang.String);
+ }
 
  #3D 地图 V5.0.0之前：
     -keep   class com.amap.api.maps.**{*;}
@@ -93,3 +122,105 @@
     -keep class com.alipay.sdk.app.PayTask{ public *;}
     -keep class com.alipay.sdk.app.AuthTask{ public *;}
     #alipay end
+
+
+
+    -dontwarn
+    -optimizationpasses 5
+    -dontusemixedcaseclassnames
+    -dontskipnonpubliclibraryclasses
+    -dontpreverify
+    -verbose
+    -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+
+    -keep public class * extends android.app.Activity
+    -keep public class * extends android.app.Application
+    -keep public class * extends android.app.Service
+    -keep public class * extends android.content.BroadcastReceiver
+    -keep public class * extends android.content.ContentProvider
+    -keep public class * extends android.app.backup.BackupAgentHelper
+    -keep public class * extends android.preference.Preference
+    -keep public class com.android.vending.licensing.ILicensingService
+
+    -keepclasseswithmembernames class * {
+        native <methods>;
+    }
+
+    -keepclasseswithmembers class * {
+        public <init>(android.content.Context, android.util.AttributeSet);
+    }
+
+    -keepclasseswithmembers class * {
+        public <init>(android.content.Context, android.util.AttributeSet, int);
+    }
+
+    -keepclassmembers class * extends android.app.Activity {
+       public void *(android.view.View);
+    }
+
+    -keepclassmembers enum * {
+        public static **[] values();
+        public static ** valueOf(java.lang.String);
+    }
+
+    -keep class * implements android.os.Parcelable {
+      public static final android.os.Parcelable$Creator *;
+    }
+
+    -keep public class * extends android.app.Fragment
+    -keep public class * extends android.app.Activity
+    -keep public class * extends android.app.Application
+    -keep public class * extends android.app.Service
+    -keep public class * extends android.content.BroadcastReceiver
+    -keep public class * extends android.preference.Preference
+    -keep public class * extends android.content.ContentProvider
+    -keep public class * extends android.support.v4.**
+    -keep public class * extends android.support.annotation.**
+    -keep public class * extends android.support.v7.**
+
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+    -keepattributes Signature
+    -keepattributes *Annotation*
+    -keep class sun.misc.Unsafe { *; }
+    -keep class com.google.gson.stream.** { *; }
+    # Application classes that will be serialized/deserialized over Gson 下面替换成自己的实体类
+    -keep class com.example.bean.** { *; }
+
+    -dontwarn com.squareup.okhttp3.**
+    -keep class com.squareup.okhttp3.** { *;}
+    -dontwarn okio.**
+
+    -keep public class * implements com.bumptech.glide.module.GlideModule
+    -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+      **[] $VALUES;
+      public *;
+    }
+
+     #okgo
+        -dontwarn com.lzy.okgo.**
+        -keep class com.lzy.okgo.**{*;}
+
+        #okrx
+        -dontwarn com.lzy.okrx.**
+        -keep class com.lzy.okrx.**{*;}
+
+        #okserver
+        -dontwarn com.lzy.okserver.**
+        -keep class com.lzy.okserver.**{*;}
+
+        #okhttp
+        -dontwarn okhttp3.**
+        -keep class okhttp3.**{*;}
+
+        #okio
+        -dontwarn okio.**
+        -keep class okio.**{*;}
+
