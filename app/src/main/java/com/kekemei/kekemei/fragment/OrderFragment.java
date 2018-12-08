@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
+import com.kekemei.kekemei.activity.MemberActivity;
 import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
@@ -275,8 +276,11 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
-                if (item.getName().equals("会员卡")) return;
-                ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
+                if (item.getName().equals("会员卡")) {
+                    startActivity(new Intent(getActivity(), MemberActivity.class));
+                } else {
+                    ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
+                }
 //                OrderDetailActivity.start(getActivity(),item.getId());
             }
         });
