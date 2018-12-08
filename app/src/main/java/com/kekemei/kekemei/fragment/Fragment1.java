@@ -1,9 +1,12 @@
 package com.kekemei.kekemei.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -18,6 +21,7 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.manager.AppFolderManager;
 import com.kekemei.kekemei.utils.ImageCompressUtil;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.lzy.okgo.OkGo;
@@ -30,7 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -52,6 +55,10 @@ public class Fragment1 extends TakePhotoFragment {
 
 
     private static final String TAG = "fragment_1";
+    private static final int FRAGMENT_UPLOAD_IMAGE_COMPRESS_FINISH = 10086;
+    public static final String IMAGE1 = "image1";
+    public static final String IMAGE2 = "image2";
+    public static final String IMAGE3 = "image3";
     @BindView(R.id.iv_zhengmian)
     ImageView ivZhengmian;
     @BindView(R.id.iv_btn_zhengmian)
@@ -72,6 +79,8 @@ public class Fragment1 extends TakePhotoFragment {
 
     private int type = -1;
     private Thread compressThread;
+
+    private String image1, image2, image3 = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,7 +127,14 @@ public class Fragment1 extends TakePhotoFragment {
                 checkPhoto();
                 break;
             case R.id.btn_next:
-                onButtonClick.onClick(btnNext);
+                if (image1 != null && image2 != null && image3 != null) {
+                    SPUtils.putString(getActivity().getApplicationContext(), IMAGE1, image1);
+                    SPUtils.putString(getActivity().getApplicationContext(), IMAGE2, image2);
+                    SPUtils.putString(getActivity().getApplicationContext(), IMAGE3, image3);
+                    onButtonClick.onClick(btnNext);
+                } else {
+                    ToastUtil.showToastMsg(getActivity(), "请将资料输入完全");
+                }
                 break;
         }
     }
@@ -163,7 +179,10 @@ public class Fragment1 extends TakePhotoFragment {
         super.takeSuccess(result, requestCode);
 //        showImg(result.getImages());
         compressImage(result.getImages().get(0).getOriginalPath(), requestCode);
-
+//        ArrayList<ImageItem> images = data.getParcelableArrayListExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+//        if (CollectionUtils.isNotEmpty(images)) {
+//            compressImage(images);
+//        }
     }
 
 
@@ -178,19 +197,20 @@ public class Fragment1 extends TakePhotoFragment {
             public void run() {
                 ExecutorService taskExecutor = Executors.newFixedThreadPool(5);
                 Map<String, String> map = new HashMap<>();
-                final Map<String, String> synchronizedMap = Collections.synchronizedMap(map);
                 final long timeStamp = System.currentTimeMillis();
 
-               taskExecutor.execute(new Runnable() {
-                   @Override
-                   public void run() {
-                       String compressedFileDirectory = AppFolderManager.getInstance().getImageCompressFolder();
-                       //避免因文件名相同导致的图片重复的问题
-                       String[] split = resultImagePath.split("\\.");
-                       String compressedFileName = split[0] + "_" + timeStamp + "." + split[1];
-                       File compressedFile = new File(compressedFileDirectory, resultImagePath);
-                       boolean compressResult = ImageCompressUtil.handle(resultImagePath, compressedFile.getPath());
-                       LogUtil.d(TAG, "compress image result is " + compressResult);
+                ///storage/emulated/0/DCIM/camera/IMG_20181208_232957.jpg
+                ///storage/emulated/0/Android/data/com.kekemei.kekemei/files/kekemei/images/compress/1544288751048_0.jpeg
+                taskExecutor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        String compressedFileDirectory = AppFolderManager.getInstance().getImageCompressFolder();
+                        //避免因文件名相同导致的图片重复的问题
+                        String[] split = resultImagePath.split("/");
+                        String compressedFileName = split[split.length - 1];
+                        File compressedFile = new File(compressedFileDirectory, compressedFileName);
+                        boolean compressResult = ImageCompressUtil.handle(resultImagePath, compressedFile.getPath());
+                        LogUtil.d(TAG, "compress image result is " + compressResult);
 //                if (compressResult) {
 //                    synchronizedMap.put(resultImagePath, compressedFile.getPath());
 //                }
@@ -201,14 +221,34 @@ public class Fragment1 extends TakePhotoFragment {
 //                    ToastUtil.showToastMsg(getActivity(), "图片处理出现错误，请稍后再试");
 //                    return;
 //                }
+                        Message message = new Message();
+                        message.obj = compressedFile.getPath();
+                        message.what = requestCode;
+                        mHandlers.sendMessage(message);
 
-//                       uploadImage(compressedFile.getPath(), requestCode);//上传图片
-                   }
-               });
+                    }
+                });
             }
         });
         compressThread.start();
     }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandlers = new Handler() {
+        @SuppressWarnings("unchecked")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case RC_PICK_PICTURE_FROM_CAPTURE + 200://拍照
+                case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 200://图库
+                case RC_PICK_PICTURE_FROM_CAPTURE + 300://拍照
+                case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 300://图库
+                case RC_PICK_PICTURE_FROM_CAPTURE + 400://拍照
+                case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 400://图库
+                    uploadImage((String) msg.obj, msg.what);
+                    break;
+            }
+        }
+    };
 
     /**
      * 上传图片
@@ -238,16 +278,19 @@ public class Fragment1 extends TakePhotoFragment {
                             case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 200://图库
                                 Glide.with(getActivity()).load(URLs.BASE_URL + url).into(ivZhengmian);
                                 ivBtnZhengmian.setVisibility(View.GONE);
+                                image1 = url;
                                 break;
                             case RC_PICK_PICTURE_FROM_CAPTURE + 300://拍照
                             case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 300://图库
                                 Glide.with(getActivity()).load(URLs.BASE_URL + url).into(ivFanmian);
                                 ivBtnFanmian.setVisibility(View.GONE);
+                                image2 = url;
                                 break;
                             case RC_PICK_PICTURE_FROM_CAPTURE + 400://拍照
                             case RC_PICK_PICTURE_FROM_GALLERY_ORIGINAL + 400://图库
                                 Glide.with(getActivity()).load(URLs.BASE_URL + url).into(ivZige);
                                 ivBtnZige.setVisibility(View.GONE);
+                                image3 = url;
                                 break;
                         }
                     }

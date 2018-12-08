@@ -16,6 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.utils.SPUtils;
+import com.kekemei.kekemei.utils.ToastUtil;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.Calendar;
 
@@ -23,6 +30,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.kekemei.kekemei.fragment.Fragment1.IMAGE1;
+import static com.kekemei.kekemei.fragment.Fragment1.IMAGE2;
+import static com.kekemei.kekemei.fragment.Fragment1.IMAGE3;
 
 
 /**
@@ -61,10 +72,11 @@ public class Fragment2 extends Fragment {
 
     private View mView;
     private OnButtonClick onButtonClick;
-//东城，西城，海淀，朝阳，石景山，丰台 近郊： 昌平，通州，顺义，大兴，房山，门头沟 远郊： 平谷，密云，怀柔，延庆
+    //东城，西城，海淀，朝阳，石景山，丰台 近郊： 昌平，通州，顺义，大兴，房山，门头沟 远郊： 平谷，密云，怀柔，延庆
     private String[] sexArry = new String[]{"女", "男"};// 性别选择
-    private String[] addressList = new String[]{"东城", "西城","朝阳","昌平","海淀","石景山"
-            ,"丰台","通州","顺义","大兴","房山","门头沟","平谷","密云","怀柔","延庆"};// 城市选择
+    private String[] addressList = new String[]{"东城", "西城", "朝阳", "昌平", "海淀", "石景山"
+            , "丰台", "通州", "顺义", "大兴", "房山", "门头沟", "平谷", "密云", "怀柔", "延庆"};// 城市选择
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,7 +118,7 @@ public class Fragment2 extends Fragment {
 
     private AlertDialog dlg;
 
-    @OnClick({ R.id.tv_btn, R.id.btn_next,
+    @OnClick({R.id.tv_btn, R.id.btn_next,
             R.id.changesex_button, R.id.changebirth_button, R.id.changeaddress_button})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -120,7 +132,33 @@ public class Fragment2 extends Fragment {
                 flag = !flag;
                 break;
             case R.id.btn_next:
-                onButtonClick.onClick(btnNext);
+
+                String name = etName.getText().toString().trim();
+                String gender = changesexTextview.getText().toString().trim();
+                String identity = etId.getText().toString().trim();
+                String city = itemCityNameTv.getText().toString().trim();
+                String birth = changebirthTextview.getText().toString().trim();
+                if (name.isEmpty()||gender.isEmpty()||identity.isEmpty()||city.isEmpty()||birth.isEmpty()){
+                    ToastUtil.showToastMsg(getActivity(),"请将资料填写完整");
+                    return;
+                }
+                OkGo.<String>get(URLs.BEAUTICIAN_AUTH)
+                        .params("beautician_id", UserHelp.getUserId(getActivity().getApplicationContext()))
+                        .params("image1", SPUtils.getString(getActivity().getApplicationContext(), IMAGE1, ""))
+                        .params("image2", SPUtils.getString(getActivity().getApplicationContext(), IMAGE2, ""))
+                        .params("image3", SPUtils.getString(getActivity().getApplicationContext(), IMAGE3, ""))
+                        .params("name", name)
+                        .params("genderdata", gender)
+                        .params("identity", identity)
+                        .params("city", "北京/" + city)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                onButtonClick.onClick(btnNext);
+                            }
+                        });
+
                 break;
 
             case R.id.changebirth_button:
@@ -167,6 +205,7 @@ public class Fragment2 extends Fragment {
         });
         builder3.show();// 让弹出框显示
     }
+
     /**
      * 日期选择器对话框监听
      */

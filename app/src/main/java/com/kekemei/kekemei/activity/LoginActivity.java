@@ -185,7 +185,7 @@ public class LoginActivity extends BaseActivity {
             eventType = "login";
             eType = eventType;
 
-            OkGo.<String>get(URLs.MOBILE_LOGIN)
+            OkGo.<String>get(URLs.BEAUTICIAN_LOGIN)
                     .params("mobile", moblie)
                     .params("event", eType)
                     .params("captcha", captcha)
@@ -193,7 +193,28 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onSuccess(Response<String> response) {
                             LogUtil.d(LoginActivity.this.getLocalClassName(), response.body());
-                            saveUserInfo(response);
+//                            saveUserInfo(response);
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body());
+                                int code = jsonObject.optInt("code");
+                                String msg = jsonObject.optString("msg");
+                                switch (code) {
+                                    case 0://未开通
+                                        ToastUtil.showToastMsg(getApplicationContext(), msg);
+                                        break;
+                                    case 1://登陆成功
+                                    case 2://正在审核
+                                    case 3://认证失败
+                                    case 4://未认证
+                                        Intent intent = new Intent(LoginActivity.this, ApplyBeauticianActivity.class);
+                                        intent.putExtra("code", code);
+                                        startActivity(intent);
+                                        break;
+                                }
+                            } catch (JSONException e) {
+
+
+                            }
 
                         }
                     });
@@ -487,6 +508,7 @@ public class LoginActivity extends BaseActivity {
             }
         }
     };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

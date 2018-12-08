@@ -112,6 +112,10 @@ public class URLs {
     /**
      * 美容师
      */
+    //美容师登陆
+    public static final String BEAUTICIAN_LOGIN = BASE_URL + "/api/user/beauLogin";
+    //美容师认证
+    public static final String BEAUTICIAN_AUTH = BASE_URL + "/api/beautician/bueauticianauth";
     //美容师主页
     public static final String BEAUTICIAN_DETAILS = BASE_URL + "/api/beautician/details";
     //关注

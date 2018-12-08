@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="@dimen/px_288"
+        android:layout_height="@dimen/px_288"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/px_144"
+        android:scaleType="fitXY"
+        android:src="@mipmap/sq_shenhe_chenggong_pic_" />
+    <TextView
+        android:layout_marginTop="@dimen/px_39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="审核成功"
+        android:textColor="#FFFF6C70"
+        android:textSize="@dimen/px_52" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="          您的申请已通过
+          欢迎加入克克美
+    现在会有订单派发给您
+             请进应用查看"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+
+    <Button
+        android:id="@+id/btn_come_in"
+        android:layout_width="220dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="134dp"
+        android:background="@drawable/btn_bule_solid_background"
+        android:text="进入应用"
+        android:textColor="#fff"
+        android:textSize="@dimen/px_52" />
+</LinearLayout>

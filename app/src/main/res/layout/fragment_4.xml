@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/px_288"
+        android:layout_height="@dimen/px_288"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/px_144"
+        android:scaleType="fitXY"
+        android:src="@mipmap/sq_shenhe_shibai_pic_" />
+    <TextView
+        android:layout_marginTop="@dimen/px_39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="审核失败"
+        android:textColor="#FFFF6C70"
+        android:textSize="@dimen/px_52" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="  原因：1.身份证不清晰;
+  2.订单所在地只限于北京
+  3.美容师资格证不正确"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+
+    <Button
+        android:id="@+id/btn_change"
+        android:layout_width="220dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="134dp"
+        android:background="@drawable/btn_red_solid_background"
+        android:text="完成"
+        android:textColor="#fff"
+        android:textSize="@dimen/px_52" />
+</LinearLayout>

@@ -163,7 +163,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/px_245">
+        android:paddingBottom="@dimen/px_245"
+        android:visibility="gone">
 
         <View
             android:layout_width="@dimen/px_56"
@@ -189,7 +190,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/px_86">
+        android:paddingBottom="@dimen/px_86"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/weixin_login"

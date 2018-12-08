@@ -5,11 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.activity.LoginActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -18,9 +19,11 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment3 extends Fragment {
+public class Fragment4 extends Fragment {
 
-
+    @BindView(R.id.btn_change)
+    Button btnChange;
+    private OnButtonClick onButtonClick;
     Unbinder unbinder;
     private View mView;
 
@@ -28,7 +31,7 @@ public class Fragment3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_3, container, false);
+        mView = inflater.inflate(R.layout.fragment_4, container, false);
         unbinder = ButterKnife.bind(this, mView);
         return mView;
     }
@@ -52,8 +55,20 @@ public class Fragment3 extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.btn_finish)
+    @OnClick(R.id.btn_change)
     public void onViewClicked() {
-        LoginActivity.start(getActivity());
+        onButtonClick.onClick(btnChange);
+    }
+
+    public interface OnButtonClick {
+        public void onClick(View view);
+    }
+
+    public OnButtonClick getOnButtonClick() {
+        return onButtonClick;
+    }
+
+    public void setOnButtonClick(OnButtonClick onButtonClick) {
+        this.onButtonClick = onButtonClick;
     }
 }

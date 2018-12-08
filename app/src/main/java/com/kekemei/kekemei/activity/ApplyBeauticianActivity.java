@@ -1,5 +1,6 @@
 package com.kekemei.kekemei.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,8 @@ import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.fragment.Fragment1;
 import com.kekemei.kekemei.fragment.Fragment2;
 import com.kekemei.kekemei.fragment.Fragment3;
+import com.kekemei.kekemei.fragment.Fragment4;
+import com.kekemei.kekemei.fragment.Fragment5;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,10 +36,12 @@ public class ApplyBeauticianActivity extends BaseActivity {
     FrameLayout flSq;
 
     private Fragment currentFragment = new Fragment();
-    ;
+
     private Fragment1 first = new Fragment1();
     private Fragment2 second = new Fragment2();
     private Fragment3 third = new Fragment3();
+    private Fragment4 four = new Fragment4();
+    private Fragment5 five = new Fragment5();
 
     @Override
     protected int setLayoutId() {
@@ -61,10 +66,10 @@ public class ApplyBeauticianActivity extends BaseActivity {
             public void onClick(View v) {
                 if (isTag != 0) {
                     isTag--;
-                    Toast.makeText(getApplicationContext(),"isTag"+isTag,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "isTag" + isTag, Toast.LENGTH_SHORT).show();
                     if (isTag == 1) {
                         switchFragment(second).commit();
-                    }else {
+                    } else {
                         switchFragment(first).commit();
                     }
                 } else {
@@ -72,8 +77,23 @@ public class ApplyBeauticianActivity extends BaseActivity {
                 }
             }
         });
+        Intent intent = getIntent();
+        int code = intent.getIntExtra("code", -1);
+        switch (code) {
+            case 1://登陆成功
+                switchFragment(five).commit();
+                break;
+            case 2://正在审核
+                switchFragment(second).commit();
+                break;
+            case 3://认证失败
+                switchFragment(four).commit();
+                break;
+            case 4://未认证
+                switchFragment(first).commit();
+                break;
+        }
 
-        switchFragment(first).commit();
 
         first.setOnButtonClick(new Fragment1.OnButtonClick() {
             @Override
@@ -90,21 +110,17 @@ public class ApplyBeauticianActivity extends BaseActivity {
             }
         });
 
+        four.setOnButtonClick(new Fragment4.OnButtonClick() {
+            @Override
+            public void onClick(View view) {
+                switchFragment(first).commit();
+                isTag = 0;
+            }
+        });
+
     }
 
     private int isTag = 0;
-
-//    @OnClick(R.id.btn_next)
-//    public void onViewClicked() {
-//        isTag++;
-//        if (isTag == 1) {
-//            switchFragment(second).commit();
-//        } else if (isTag == 2) {
-//            switchFragment(third).commit();
-//        }
-//        Toast.makeText(getApplicationContext(),"isTag"+isTag,Toast.LENGTH_SHORT).show();
-//    }
-
 
     private FragmentTransaction switchFragment(Fragment targetFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().
@@ -129,10 +145,10 @@ public class ApplyBeauticianActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (isTag != 0) {
             isTag--;
-            Toast.makeText(getApplicationContext(),"isTag"+isTag,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "isTag" + isTag, Toast.LENGTH_SHORT).show();
             if (isTag == 1) {
                 switchFragment(second).commit();
-            }else {
+            } else {
                 switchFragment(first).commit();
             }
             return true;
