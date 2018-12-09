@@ -17,6 +17,7 @@ import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.fragment.MainMenuLeftFragment;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.view.CircleImageView;
+import com.nineoldandroids.view.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -114,7 +115,7 @@ public class MainActivity extends BaseActivity {
                 float scale = 1 - slideOffset;
 
                 if (drawerView.getTag().equals("LEFT")) {//左侧的侧边栏动画效果
-                    //设置左侧区域的透明度0.6f + 0.4f * (0.0 ... 1.0)【也就是打开的时候透明度从0.6f ... 1.0f，关闭的时候反之】
+                    //设置左侧区域的透明度0.6f + 0.git 4f * (0.0 ... 1.0)【也就是打开的时候透明度从0.6f ... 1.0f，关闭的时候反之】
                     ViewHelper.setAlpha(mMenu, 0.6f + 0.4f * slideOffset);
                     //移动内容区域：左侧侧边栏宽度 * (0.0 ... 1.0)【也就是打开的时候，内容区域移动从0 ... 左侧侧边栏宽度】
                     ViewHelper.setTranslationX(mContent, mMenu.getMeasuredWidth() * slideOffset);
