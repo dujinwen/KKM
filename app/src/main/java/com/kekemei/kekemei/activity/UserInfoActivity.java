@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
@@ -71,6 +72,7 @@ public class UserInfoActivity extends BaseActivity {
     SectionRowView txtHobby;
 
     private String userId;
+    private boolean isBeautician;
 
     private CustomDatePicker startTimePicker;
     private List<UserPropertyBean.DataBean> sexList, hobbyList, skinList;
@@ -103,9 +105,9 @@ public class UserInfoActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         userId = super.getStringExtraSecure(EXTRA_KEY_USER_ID);
-        boolean booleanExtra = getIntent().getBooleanExtra(EXTRA_KEY_IS_BEAUTICIAN, false);
-        txtSkin.setVisibility(booleanExtra ? View.GONE : View.VISIBLE);
-        txtHobby.setVisibility(booleanExtra ? View.GONE : View.VISIBLE);
+        isBeautician = getIntent().getBooleanExtra(EXTRA_KEY_IS_BEAUTICIAN, false);
+        txtSkin.setVisibility(isBeautician ? View.GONE : View.VISIBLE);
+        txtHobby.setVisibility(isBeautician ? View.GONE : View.VISIBLE);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -128,7 +130,8 @@ public class UserInfoActivity extends BaseActivity {
         imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
         imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
 
-        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(this), icon);
+//        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + UserHelp.getAvatar(this), icon);
+        Glide.with(this).load(URLs.BASE_URL + UserHelp.getAvatar(this)).into(icon);
         if (StringUtils.isNotEmpty(UserHelp.getNickName(this))) {
             txtNick.setContentTxt(UserHelp.getNickName(this));
         } else {
@@ -255,11 +258,11 @@ public class UserInfoActivity extends BaseActivity {
             ToastUtil.showToastMsg(UserInfoActivity.this, "请选择生日！");
             return;
         }
-        if (skinId == -1) {
+        if (skinId == -1 && !isBeautician) {
             ToastUtil.showToastMsg(UserInfoActivity.this, "请选择皮肤！");
             return;
         }
-        if (hobbyId == -1) {
+        if (hobbyId == -1 && !isBeautician) {
             ToastUtil.showToastMsg(UserInfoActivity.this, "请选择爱好！");
             return;
         }
