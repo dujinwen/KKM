@@ -27,7 +27,7 @@ public class URLs {
     //根据id查订单
     public static final String ORDER_BY_ID = BASE_URL + "/api/order/orderbyid";
     //购买会员卡
-    public static final String BUY_MEMBER_CAR = BASE_URL +"/api/order/buyMemberCar";
+    public static final String BUY_MEMBER_CAR = BASE_URL + "/api/order/buyMemberCar";
     /**
      * 评论
      */
@@ -132,6 +132,20 @@ public class URLs {
     public static final String SHOP_BEAUTICIAN = BASE_URL + "/api/shop/shopbeautician";
     //美容师评论
     public static final String BEAUTICIAN_COMMENT = BASE_URL + "/api/comment/beauticianComment";
+    //美容师收入
+    public static final String BEAUTICIAN_PAY = BASE_URL + "/api/beautician/beauticianPay";
+    //我要提现
+    public static final String WANT_CASH = BASE_URL + "/api/beautician/wantcash";
+    //美容师提现
+    public static final String WITH_DRAW = BASE_URL + "/api/beautician/Cashwithdrawal";
+    //添加银行卡
+    public static final String ADD_BANK_CARD = BASE_URL + "/api/beautician/addBankcard";
+    //收入规则
+    public static final String ABOUS = BASE_URL + "/mob/abous/details?id=";
+    //美容师端主页
+    public static final String HOME_INDEX = BASE_URL + "/api/beautician/beaticiandetail";
+    //回复
+    public static final String COMMENT_REPLY = BASE_URL + "/api/comment/commentreply";
     /**
      * 搜索
      */

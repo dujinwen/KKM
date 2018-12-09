@@ -17,8 +17,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.adapter.InComeListAdapter;
-import com.kekemei.kekemei.bean.EvaluateBean;
-import com.kekemei.kekemei.bean.EvaluateListBean;
+import com.kekemei.kekemei.bean.InComeBean;
+import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
@@ -69,7 +69,6 @@ public class InComeActivity extends BaseActivity {
 
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
-    private int jPageNum = 1;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, InComeActivity.class);
@@ -100,6 +99,12 @@ public class InComeActivity extends BaseActivity {
                 finish();
             }
         });
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WebActivity.start(InComeActivity.this, URLs.ABOUS + 3);
+            }
+        });
         multipleStatusView.setOnRetryClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +114,7 @@ public class InComeActivity extends BaseActivity {
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
 
         jSwipeRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
+        jSwipeRefreshLayout.setEnableLoadMore(false);
         jSwipeRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -147,27 +153,26 @@ public class InComeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-//        multipleStatusView.showLoading();
-//        loadData(true);
+        multipleStatusView.showLoading();
+        loadData(true);
     }
 
     private void loadData(boolean isRefresh) {
         this.isRefresh = isRefresh;
         isLoadMore = false;
         if (isRefresh) {
-            jPageNum = 1;
             showRefreshLoading(isRefresh);
         }
-        getData(jPageNum);
+        getData(date.getText().toString());
     }
 
     private void loadMoreData() {
         isLoadMore = true;
         isRefresh = false;
-        getData(jPageNum);
+        getData(date.getText().toString());
     }
 
-    public void getData(int pageNum) {
+    public void getData(String year) {
         if (!isRefresh && !isLoadMore)
             multipleStatusView.showLoading();
         long userId = UserHelp.getUserId(this);
@@ -175,8 +180,8 @@ public class InComeActivity extends BaseActivity {
             LoginActivity.start(this);
             return;
         }
-        OkGo.<String>get(URLs.BEAUTICIAN_COMMENT).params("beautician_id", userId)
-                .params("page", pageNum).execute(new StringCallback() {
+        OkGo.<String>get(URLs.BEAUTICIAN_PAY).params("beautician_id", userId)
+                .params("year", year).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 try {
@@ -188,8 +193,11 @@ public class InComeActivity extends BaseActivity {
                         return;
                     }
                     Gson gson = new Gson();
-                    EvaluateListBean evaluateListBean = gson.fromJson(data, EvaluateListBean.class);
-                    onResultSuccess(evaluateListBean);
+                    InComeBean inComeBean = gson.fromJson(data, InComeBean.class);
+                    if (inComeBean != null) {
+                        inComeCount.setText("￥" + inComeBean.getSum());
+                        onResultSuccess(inComeBean);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -205,22 +213,20 @@ public class InComeActivity extends BaseActivity {
 
     private void onResultSuccess(Object response) {
         if (!isLoadMore) {
-            jPageNum++;
-            EvaluateListBean evaluateListBean = (EvaluateListBean) response;
+            InComeBean inComeBean = (InComeBean) response;
 
-            if (null == response || null == evaluateListBean.getData()) {
+            if (null == response) {
                 showEmpty();
             }
-            fillData(evaluateListBean.getData().get(0));
+            fillData(inComeBean.getInfo());
         } else {
-            jPageNum++;
-            EvaluateListBean evaluateListBean = (EvaluateListBean) response;
-            loadMoreSuccess(evaluateListBean.getData().get(0));
+            InComeBean inComeBean = (InComeBean) response;
+            loadMoreSuccess(inComeBean.getInfo());
         }
     }
 
-    private void fillData(List<EvaluateBean> listData) {
-        if (listData.size() == 0) {
+    private void fillData(List<InComeBean.InfoBeanX> listData) {
+        if (CollectionUtils.isEmpty(listData)) {
             showEmpty();
         } else {
             if (isRefresh)
@@ -250,7 +256,7 @@ public class InComeActivity extends BaseActivity {
         }
     }
 
-    private void showData(List<EvaluateBean> dataList) {
+    private void showData(List<InComeBean.InfoBeanX> dataList) {
         if (isOnDestroy)
             return;
         multipleStatusView.showOutContentView(jSwipeRefreshLayout);
@@ -270,7 +276,7 @@ public class InComeActivity extends BaseActivity {
         multipleStatusView.showNoNetwork();
     }
 
-    private void loadMoreSuccess(List<EvaluateBean> dataList) {
+    private void loadMoreSuccess(List<InComeBean.InfoBeanX> dataList) {
         jSwipeRefreshLayout.finishLoadMore();
         jAdapter.addData(dataList);
         if (dataList.size() < 10) {

@@ -9,15 +9,27 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.BeauticianHomeBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.fragment.MainMenuLeftFragment;
+import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
+import com.kekemei.kekemei.utils.URLs;
+import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.CircleImageView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.nineoldandroids.view.ViewHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,8 +39,6 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
 
     @BindView(R.id.headIcon)
     CircleImageView headIcon;
@@ -38,19 +48,7 @@ public class MainActivity extends BaseActivity {
     TextView serviceCount;
     @BindView(R.id.orderCount)
     TextView orderCount;
-    @BindView(R.id.messageLayout)
-    LinearLayout messageLayout;
-    @BindView(R.id.receiveOrder)
-    LinearLayout receiveOrder;
-    @BindView(R.id.commentLayout)
-    LinearLayout commentLayout;
-    @BindView(R.id.orderLayout)
-    LinearLayout orderLayout;
-    @BindView(R.id.enterAccount)
-    LinearLayout enterAccount;
-    @BindView(R.id.cashLayout)
-    LinearLayout cashLayout;
-
+    private BeauticianHomeBean beauticianHomeBean;
     /**
      * 导航栏左侧的侧边栏碎片界面
      */
@@ -80,6 +78,45 @@ public class MainActivity extends BaseActivity {
 
         leftMenuFragment = (MainMenuLeftFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_leftmenu);
         initEvent();
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(this);
+            return;
+        }
+        OkGo.<String>get(URLs.HOME_INDEX).params("beautician_id", userId).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
+                        return;
+                    }
+                    Gson gson = new Gson();
+                    beauticianHomeBean = gson.fromJson(data, BeauticianHomeBean.class);
+                    if (beauticianHomeBean != null) {
+                        Glide.with(MainActivity.this).load(URLs.BASE_URL + beauticianHomeBean.getImage()).into(headIcon);
+//                        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + beauticianHomeBean.getImage(), headIcon);
+                        name.setText(beauticianHomeBean.getName());
+                        serviceCount.setText(beauticianHomeBean.getOrder_count() + "");
+                        orderCount.setText(beauticianHomeBean.getOrder_monthcount() + "");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                LogUtil.e("TAG", response.message());
+            }
+        });
     }
 
     private void initEvent() {
@@ -135,7 +172,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 if (drawerView.getTag().equals("LEFT")) {//如果感觉显示有延迟的话，可以放到nav_userImg的点击事件监听中执行
-                    leftMenuFragment.setDefaultDatas();//打开的时候初始化默认数据【比如：请求网络，获取数据】
+                    leftMenuFragment.setDefaultDatas(beauticianHomeBean);//打开的时候初始化默认数据【比如：请求网络，获取数据】
                 }
             }
 
@@ -178,6 +215,7 @@ public class MainActivity extends BaseActivity {
                 InComeActivity.start(this);
                 break;
             case R.id.cashLayout:
+                WithDrawActivity.start(this);
                 break;
         }
     }

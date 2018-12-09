@@ -47,6 +47,7 @@ import butterknife.OnClick;
  */
 public class UserInfoActivity extends BaseActivity {
     private static final String EXTRA_KEY_USER_ID = "userId";
+    private static final String EXTRA_KEY_IS_BEAUTICIAN = "isBeautician";
     public static final int REQUEST_ALBUM = 10;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -81,6 +82,13 @@ public class UserInfoActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    public static void start(Context context, String userId, boolean isBeautician) {
+        Intent intent = new Intent(context, UserInfoActivity.class);
+        intent.putExtra(EXTRA_KEY_USER_ID, userId);
+        intent.putExtra(EXTRA_KEY_IS_BEAUTICIAN, isBeautician);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int setLayoutId() {
         return R.layout.activity_user_info;
@@ -95,6 +103,9 @@ public class UserInfoActivity extends BaseActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         userId = super.getStringExtraSecure(EXTRA_KEY_USER_ID);
+        boolean booleanExtra = getIntent().getBooleanExtra(EXTRA_KEY_IS_BEAUTICIAN, false);
+        txtSkin.setVisibility(booleanExtra ? View.GONE : View.VISIBLE);
+        txtHobby.setVisibility(booleanExtra ? View.GONE : View.VISIBLE);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setBackgroundColor(Color.parseColor("#00000000"));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -303,7 +314,7 @@ public class UserInfoActivity extends BaseActivity {
                     if (data != null) {
                         String url = data.optString("url");
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + url, icon);
-                        UserHelp.setAvatar(getBaseContext(),url);
+                        UserHelp.setAvatar(getBaseContext(), url);
                     }
                     ToastUtil.showToastMsg(UserInfoActivity.this, msg.toString());
                 } catch (JSONException e) {

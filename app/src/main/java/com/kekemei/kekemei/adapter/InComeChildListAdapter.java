@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.bean.EvaluateBean;
+import com.kekemei.kekemei.bean.InComeBean;
 
 
-public class InComeChildListAdapter extends BaseQuickAdapter<EvaluateBean, BaseViewHolder> {
+public class InComeChildListAdapter extends BaseQuickAdapter<InComeBean.InfoBeanX.InfoBean, BaseViewHolder> {
     private Context jContext;
 
     public InComeChildListAdapter(Context context) {
@@ -19,12 +19,12 @@ public class InComeChildListAdapter extends BaseQuickAdapter<EvaluateBean, BaseV
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, EvaluateBean item) {
-        /*ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getAvatar(), (ImageView) helper.getView(R.id.image));
-        helper.setText(R.id.day, item.getSatisfaction_text());
-        helper.setText(R.id.dayTxt, item.getContent());*/
+    protected void convert(BaseViewHolder helper, InComeBean.InfoBeanX.InfoBean item) {
+        /*ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getAvatar(), (ImageView) helper.getView(R.id.image));*/
+        helper.setText(R.id.day, item.getDate());
+        helper.setText(R.id.dayTxt, item.getWeek());
         final RecyclerView childList = helper.getView(R.id.childList);
-        fillChildList(childList);
+//        fillChildList(childList);
     }
 
     private void fillChildList(RecyclerView childList) {
