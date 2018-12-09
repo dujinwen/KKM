@@ -44,6 +44,8 @@ public class URLs {
     /**
      * 我的
      */
+    //确认订单
+    public static final String ORDER_CONFIRM = BASE_URL + "/api/order/confirm";
     //会员卡
     public static final String MEMBER_CAR = BASE_URL + "/api/user/membercar";
     //删除订单

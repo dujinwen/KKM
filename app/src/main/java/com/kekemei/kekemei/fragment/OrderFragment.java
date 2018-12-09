@@ -28,6 +28,7 @@ import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
 import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
+import com.kekemei.kekemei.activity.PushOrderActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
@@ -182,6 +183,13 @@ public class OrderFragment extends Fragment {
             @Override
             public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
                 final OrderListBean.DataBean item = (OrderListBean.DataBean) adapter.getItem(position);
+                YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
+                yuYueActivityBean.setDateSelect(-1L);
+                yuYueActivityBean.setTimeSelect(-1);
+                yuYueActivityBean.setOrderPrice(item.getPrice());
+                yuYueActivityBean.setOrderCount(item.getCount());
+                yuYueActivityBean.setOrderIconUrl(item.getImage());
+                yuYueActivityBean.setOrderName(item.getName());
                 switch (view.getId()) {
                     case R.id.iv_del_order:
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -259,15 +267,6 @@ public class OrderFragment extends Fragment {
 
                         break;
                     case R.id.lijifukuan:
-                        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
-                        yuYueActivityBean.setDateSelect(-1L);
-                        yuYueActivityBean.setTimeSelect(-1);
-//                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
-                        yuYueActivityBean.setOrderPrice(item.getPrice());
-                        yuYueActivityBean.setOrderCount(item.getCount());
-                        yuYueActivityBean.setOrderIconUrl(item.getImage());
-                        yuYueActivityBean.setOrderName(item.getName());
-//                        yuYueActivityBean.setOrderId(item.getId() + "");
                         PayActivity.start(getActivity(), yuYueActivityBean);
                         break;
                     case R.id.chakan:
@@ -280,6 +279,17 @@ public class OrderFragment extends Fragment {
                         AddCommentActivity.start(getActivity(), item.getSource(), item.getId() + "");
                         break;
                     case R.id.yuyue:
+                        PushOrderActivity.start(getActivity(),yuYueActivityBean);
+                        break;
+                    case R.id.querenfuwu:
+                        OkGo.<String>post(URLs.ORDER_CONFIRM)
+                                .params("order_id",item.getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        onViewClicked(talPingjia);
+                                    }
+                                });
                         break;
 
                 }

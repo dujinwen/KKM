@@ -7,9 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.bean.AbousListBean;
+import com.kekemei.kekemei.bean.HelpBean;
 import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
@@ -96,6 +99,8 @@ public class SettingActivity extends BaseActivity {
                 OkGo.<String>get(URLs.ABOUT_LIST).execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        AbousListBean abousListBean = gson.fromJson(response.body(), AbousListBean.class);
 
                     }
                 });
