@@ -138,10 +138,12 @@ public class Fragment2 extends Fragment {
                 String identity = etId.getText().toString().trim();
                 String city = itemCityNameTv.getText().toString().trim();
                 String birth = changebirthTextview.getText().toString().trim();
-                if (name.isEmpty()||gender.isEmpty()||identity.isEmpty()||city.isEmpty()||birth.isEmpty()){
+                if (name.isEmpty()||gender.equals("男")||identity.isEmpty()||city.equals("北京（仅限于北京地区）")||birth.equals("选择年龄")){
                     ToastUtil.showToastMsg(getActivity(),"请将资料填写完整");
                     return;
                 }
+                if (flag)
+                    ToastUtil.showToastMsg(getActivity().getApplicationContext()," 请勾选同意须知");
                 OkGo.<String>get(URLs.BEAUTICIAN_AUTH)
                         .params("beautician_id", UserHelp.getUserId(getActivity().getApplicationContext()))
                         .params("image1", SPUtils.getString(getActivity().getApplicationContext(), IMAGE1, ""))

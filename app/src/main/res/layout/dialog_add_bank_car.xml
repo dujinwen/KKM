@@ -116,12 +116,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/px_50"
-        android:text="1.请确保银行卡预留手机号为注册手机号
-2.确保绑定的银行卡为储蓄卡，信用卡无法成功放款。
-3.请确保储蓄卡为本人所有，绑定他人的银行卡无法成功放款。"
+        android:text="1.请确保银行卡预留手机号为注册手机号"
         android:textColor="#999999"
         android:textSize="@dimen/px_35" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2.确保绑定的银行卡为储蓄卡，信用卡无法成功放款。"
+        android:textColor="#999999"
+        android:textSize="@dimen/px_35" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3.请确保储蓄卡为本人所有，绑定他人的银行卡无法成功放款。"
+        android:textColor="#999999"
+        android:textSize="@dimen/px_35" />
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="220dp"

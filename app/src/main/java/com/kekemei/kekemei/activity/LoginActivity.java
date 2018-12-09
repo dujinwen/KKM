@@ -161,6 +161,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(final String moblie, String eType, final String captcha) {
+        if (true)
+        {
+            ApplyBeauticianActivity.start(LoginActivity.this,4);
+            return;
+        }
         if (moblie.isEmpty()) {
             ToastUtil.showToastMsg(LoginActivity.this, "请输入手机号");
             return;
