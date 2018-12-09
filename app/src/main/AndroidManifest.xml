@@ -250,7 +250,8 @@
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.ApplyBeauticianActivity" />
+        <activity android:name=".activity.ApplyBeauticianActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>
