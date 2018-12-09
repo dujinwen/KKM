@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.activity.ApplyBeauticianActivity;
 import com.kekemei.kekemei.activity.BaseActivity;
+import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.manager.PrefManager;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class GuideActivity extends BaseActivity {
     @OnClick(R.id.btn_home)
     public void onViewClicked() {
         PrefManager.newInstance(this, PrefManager.FILE_SETTINGS).putBoolean(PrefManager.KEY_NEED_SHOW_GUIDE, false);
-        startActivity(new Intent(GuideActivity.this, ApplyBeauticianActivity.class));
+        startActivity(new Intent(GuideActivity.this, LoginActivity.class));
         finish();
     }
 
