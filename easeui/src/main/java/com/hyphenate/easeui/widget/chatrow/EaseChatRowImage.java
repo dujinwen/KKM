@@ -3,7 +3,6 @@ package com.hyphenate.easeui.widget.chatrow;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.support.v4.os.AsyncTaskCompat;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;

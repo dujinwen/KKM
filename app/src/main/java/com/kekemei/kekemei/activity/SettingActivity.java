@@ -14,9 +14,6 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.utils.UserHelp;
 import com.kekemei.kekemei.view.SectionRowView;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,12 +90,7 @@ public class SettingActivity extends BaseActivity {
                 HelpCenterActivity.start(SettingActivity.this);
                 break;
             case R.id.txtAboutUs:
-                OkGo.<String>get(URLs.ABOUT_LIST).execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-
-                    }
-                });
+                WebActivity.start(this, URLs.ABOUS + 1);
                 break;
             case R.id.txtCleanMemory:
                 break;

@@ -24,11 +24,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="  原因：1.身份证不清晰;
-  2.订单所在地只限于北京
-  3.美容师资格证不正确"
+        android:text="原因：1.身份证不清晰"
         android:textColor="#ff222222"
         android:textSize="@dimen/px_40" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="2.订单所在地只限于北京"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="3.美容师资格证不正确"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+
 
     <Button
         android:id="@+id/btn_change"

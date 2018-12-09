@@ -87,7 +87,7 @@ public class ApplyBeauticianActivity extends BaseActivity {
                 switchFragment(five).commit();
                 break;
             case 2://正在审核
-                switchFragment(second).commit();
+                switchFragment(third).commit();
                 break;
             case 3://认证失败
                 switchFragment(four).commit();

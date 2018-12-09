@@ -3,38 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:minHeight="@dimen/px_132"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/px_79"
-        android:layout_marginRight="@dimen/px_79"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12"
-            android:textColor="@color/common_text_dark"
-            android:textSize="@dimen/px_40" />
-
-        <TextView
-            android:id="@+id/dayTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="周二"
-            android:textColor="#999999"
-            android:textSize="@dimen/px_26" />
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/childList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:minHeight="@dimen/px_132"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/px_79"
+            android:layout_marginRight="@dimen/px_79"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="@color/common_text_dark"
+                android:textSize="@dimen/px_40" />
+
+            <TextView
+                android:id="@+id/dayTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周二"
+                android:textColor="#999999"
+                android:textSize="@dimen/px_26" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/childList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View style="@style/CommonLine.Horizontal" />
 </LinearLayout>

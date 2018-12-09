@@ -25,10 +25,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="          您的申请已通过
-          欢迎加入克克美
-    现在会有订单派发给您
-             请进应用查看"
+        android:text="您的申请已通过"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="欢迎加入克克美"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="现在会有订单派发给您"
+        android:textColor="#ff222222"
+        android:textSize="@dimen/px_40" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="请进应用查看"
         android:textColor="#ff222222"
         android:textSize="@dimen/px_40" />
 

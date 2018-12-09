@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/px_109"
-    android:background="@color/white"
-    android:orientation="horizontal">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/realInCome"
@@ -26,4 +25,8 @@
         android:text="¥ 234.00"
         android:textColor="#999999"
         android:textSize="@dimen/px_40" />
+
+    <View
+        style="@style/CommonLine.Horizontal"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

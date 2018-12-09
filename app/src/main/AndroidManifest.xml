@@ -111,6 +111,7 @@
         <activity android:name=".activity.splash.GuideActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.InComeActivity" />
+        <activity android:name=".activity.WithDrawActivity" />
         <activity
             android:name=".activity.ChatActivity"
             android:launchMode="singleTask"
@@ -250,7 +251,8 @@
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
         <activity android:name=".activity.WebActivity" />
-        <activity android:name=".activity.ApplyBeauticianActivity" />
+        <activity android:name=".activity.ApplyBeauticianActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

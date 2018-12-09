@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_title_bar" />
+
+        <com.stx.xhb.xbanner.XBanner
+            android:id="@+id/xbanner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/px_288"
+            android:layout_marginBottom="@dimen/px_35"
+            android:layout_marginTop="@dimen/px_35"
+            app:clipChildrenLeftRightMargin="@dimen/px_240"
+            app:isAutoPlay="false"
+            app:isClipChildrenMode="true"
+            app:pointsVisibility="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_35"
+            android:layout_marginRight="@dimen/px_35"
+            android:layout_marginTop="@dimen/px_230"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="输入提现金额"
+                android:textColor="@color/common_text_dark"
+                android:textSize="@dimen/px_40" />
+
+            <EditText
+                android:id="@+id/withDrawMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_73"
+                android:gravity="center"
+                android:inputType="phone|number"
+                android:numeric="integer"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_35"
+            android:layout_marginRight="@dimen/px_35"
+            android:layout_marginTop="@dimen/px_115"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可提现金总额"
+                android:textColor="@color/common_text_dark"
+                android:textSize="@dimen/px_40" />
+
+            <EditText
+                android:id="@+id/canWithDrawMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/px_73"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/px_35"
+            android:layout_marginRight="@dimen/px_35"
+            android:layout_marginTop="@dimen/px_45"
+            android:text="提现规则：每日可提现总额1万元，单笔最高金额6千元"
+            android:textColor="#999999"
+            android:textSize="@dimen/px_35" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="@dimen/px_664"
+        android:layout_height="@dimen/px_115"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/px_141"
+        android:background="@drawable/selector_with_draw_confirm_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/px_52" />
+
+    <com.kekemei.kekemei.view.MultipleStatusView
+        android:id="@+id/multiple_status_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/contentLayout" />
+</RelativeLayout>

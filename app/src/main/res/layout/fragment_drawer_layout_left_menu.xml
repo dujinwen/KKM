@@ -6,7 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <ImageView
+    <com.kekemei.kekemei.view.CircleImageView
         android:id="@+id/headerImageView"
         android:layout_width="@dimen/px_202"
         android:layout_height="@dimen/px_202"
@@ -30,17 +30,6 @@
         android:drawableLeft="@mipmap/cebianlan_shezhi_ic_"
         android:drawablePadding="@dimen/px_42"
         android:text="个人设置"
-        android:textColor="@color/white"
-        android:textSize="@dimen/px_52" />
-
-    <TextView
-        android:id="@+id/changePhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/px_80"
-        android:drawableLeft="@mipmap/cebianlan_shouji_ic_"
-        android:drawablePadding="@dimen/px_42"
-        android:text="修改电话"
         android:textColor="@color/white"
         android:textSize="@dimen/px_52" />
 
