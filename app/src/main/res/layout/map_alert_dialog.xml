@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/gaode_map"
+        android:layout_centerHorizontal="true"
+        android:text="请选择第三方地图导航！" />
+
+    <Button
+        android:id="@+id/gaode_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/baidu_map"
+        android:text="高德地图" />
+
+    <Button
+        android:id="@+id/baidu_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tencent_map"
+        android:text="百度地图" />
+
+    <Button
+        android:id="@+id/tencent_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="腾讯地图" />
+
+</LinearLayout>

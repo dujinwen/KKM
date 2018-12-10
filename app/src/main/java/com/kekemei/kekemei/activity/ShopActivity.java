@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -41,6 +43,7 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.CustomDatePicker;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.MapUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -73,6 +76,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private static final String EXTRA_KEY_BEAUTICIAN_ID = "beauticianId";
     private static final String EXTRA_KEY_ENUM_ID = "type";
     private CustomDatePicker startTimePicker;
+
+    private double latx = 39.9037448095;
+    private double laty = 116.3980007172;
+    private String mAddress = "北京天安门";
+
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tv_title)
@@ -300,6 +309,54 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
         initContentHead(contentHead);
+        View ll_address = contentHead.findViewById(R.id.ll_address);
+        ll_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!MapUtil.isBaiduMapInstalled() && !MapUtil.isGdMapInstalled() && !MapUtil.isTencentMapInstalled()) {
+                    ToastUtil.showToastMsg(ShopActivity.this, "您还未安装三方地图应用，请安装");
+                    return;
+                }
+                // TODO: 2018/12/10
+                //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShopActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
+                builder.setView(layout);
+                Button baidu_map = layout.findViewById(R.id.baidu_map);
+                Button gaode_map = layout.findViewById(R.id.gaode_map);
+                Button tencent_map = layout.findViewById(R.id.tencent_map);
+                if (!MapUtil.isBaiduMapInstalled()) baidu_map.setVisibility(View.GONE);
+                if (!MapUtil.isGdMapInstalled()) gaode_map.setVisibility(View.GONE);
+                if (!MapUtil.isTencentMapInstalled()) tencent_map.setVisibility(View.GONE);
+                baidu_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MapUtil.openBaiDuNavi(ShopActivity.this, 0, 0, null, latx, laty, mAddress);
+                    }
+                });
+                gaode_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MapUtil.openGaoDeNavi(ShopActivity.this, 0, 0, null, latx, laty, mAddress);
+
+                    }
+                });
+                tencent_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MapUtil.openTencentMap(ShopActivity.this, 0, 0, null, latx, laty, mAddress);
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+
+            }
+        });
 
         View contentSectionView = View.inflate(this, R.layout.layout_shop_content_section_view, null);
         initContentSectionView(contentSectionView);
@@ -874,6 +931,9 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         Gson gson = new Gson();
                         shopDetailBean = gson.fromJson(data, ShopDetailBean.class);
                         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + shopDetailBean.getImage(), shop_detail_icon);
+                        latx = Double.parseDouble(shopDetailBean.getLatitude());
+                        laty = Double.parseDouble(shopDetailBean.getLongitude());
+                        mAddress = shopDetailBean.getAddress();
                         tv_title.setText(getString(R.string.shop_detail_name_text, shopDetailBean.getName()));
                         shopName.setText(shopDetailBean.getName());
                         shopStar.setStarMark(shopDetailBean.getStart());

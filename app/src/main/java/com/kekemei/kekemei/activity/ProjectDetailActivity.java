@@ -2,6 +2,7 @@ package com.kekemei.kekemei.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -49,6 +52,7 @@ import com.kekemei.kekemei.utils.AppUtil;
 import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.CustomDatePicker;
 import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.MapUtil;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -84,6 +88,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     public static final String EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN = "beauticianDetailBean";
     public static final String EXTRA_KEY_DETAIL_ENUM = "detailEnum";
 
+    private double latx = 39.9037448095;
+    private double laty = 116.3980007172;
+    private String mAddress = "北京天安门";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -278,6 +285,54 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         multipleStatusView.showOutContentView(scrollLayout);
 
         View contentHead = View.inflate(this, R.layout.layout_detail_content_head, null);
+        View ll_address = contentHead.findViewById(R.id.ll_address);
+        ll_address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!MapUtil.isBaiduMapInstalled() && !MapUtil.isGdMapInstalled() && !MapUtil.isTencentMapInstalled()) {
+                    ToastUtil.showToastMsg(ProjectDetailActivity.this, "您还未安装三方地图应用，请安装");
+                    return;
+                }
+                // TODO: 2018/12/10
+                //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
+                builder.setView(layout);
+                Button baidu_map = layout.findViewById(R.id.baidu_map);
+                Button gaode_map = layout.findViewById(R.id.gaode_map);
+                Button tencent_map = layout.findViewById(R.id.tencent_map);
+                if (!MapUtil.isBaiduMapInstalled()) baidu_map.setVisibility(View.GONE);
+                if (!MapUtil.isGdMapInstalled()) gaode_map.setVisibility(View.GONE);
+                if (!MapUtil.isTencentMapInstalled()) tencent_map.setVisibility(View.GONE);
+                baidu_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MapUtil.openBaiDuNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                    }
+                });
+                gaode_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MapUtil.openGaoDeNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+
+                    }
+                });
+                tencent_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MapUtil.openTencentMap(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+
+            }
+        });
         initContentHead(contentHead);
 
         View webLayout = View.inflate(this, R.layout.layout_detail_content_web, null);
@@ -782,6 +837,9 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             }
                             if (shopDetailBean != null && CollectionUtils.isNotEmpty(shopDetailBean.getRedenvelopes())) {
                                 tvRedBao.setText(shopDetailBean.getRedenvelopes().get(0).getName());
+                                latx = Double.parseDouble(shopDetailBean.getLatitude());
+                                laty = Double.parseDouble(shopDetailBean.getLongitude());
+                                mAddress= shopDetailBean.getAddress();
                             } else {
                                 ivRedBao.setVisibility(View.GONE);
                                 tvRedBao.setVisibility(View.GONE);
