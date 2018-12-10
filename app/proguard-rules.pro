@@ -19,6 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-dontusemixedcaseclassnames          #混淆时不使用大小写混合类名
+-dontskipnonpubliclibraryclasses     #不跳过library中的非public的类
+-verbose                             #打印混淆的详细信息
+-dontoptimize                        #不进行优化，建议使用此选项，
+-dontpreverify                       #不进行预校验,Android不需要,可加快混淆速度。
+-ignorewarnings                      #忽略警告
+#-optimizationpasses 5               #指定代码的压缩级别
+
 -ignorewarnings
 #EASEUI
 -keep class android.support.v4.** {*;}
@@ -31,6 +39,8 @@
 -keep class com.hyphenate.chat.** {*;}
 -keep class org.jivesoftware.** {*;}
 -keep class org.apache.** {*;}
+-keep class com.superrtc.** {*;}
+-keep class vi.com.gdi.bgl.**{*;}
 #另外，demo中发送表情的时候使用到反射，需要keep SmileUtils,注意前面的包名，
 #不要SmileUtils复制到自己的项目下keep的时候还是写的demo里的包名
 -keep class com.hyphenate.easeui.utils.SmileUtils {*;}
@@ -193,7 +203,11 @@
     -keep class com.google.gson.stream.** { *; }
     # Application classes that will be serialized/deserialized over Gson 下面替换成自己的实体类
     -keep class com.example.bean.** { *; }
-
+#JavaBean
+-keepclassmembers public class com.kekemei.kekemei.bean.** {
+   void set*(***);
+   *** get*();
+}
     -dontwarn com.squareup.okhttp3.**
     -keep class com.squareup.okhttp3.** { *;}
     -dontwarn okio.**
@@ -224,3 +238,15 @@
         -dontwarn okio.**
         -keep class okio.**{*;}
 
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keep class com.kekemei.kekemei.view.loading.** { *; }
+-keep class com.kekemei.kekemei.view.loading.indicators.** { *; }

@@ -27,7 +27,7 @@ import com.kekemei.kekemei.bean.BannerBean;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.DetailEnum;
 import com.kekemei.kekemei.bean.ProjectListBean;
-import com.kekemei.kekemei.utils.LogUtil;
+import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.MultipleStatusView;
 import com.lzy.okgo.OkGo;
@@ -183,10 +183,11 @@ public class DiscoveryFragment extends Fragment {
         OkGo.<String>post(URLs.DISCOVE).params("page", page).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                LogUtil.e("ShopActivity", "project list:" + response.body());
                 try {
-                    JSONObject obj = new JSONObject(response.body());
-                    if (obj.getString("data").equals("null") || obj.getString("data") == null || obj.getString("data").isEmpty()) {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    String data = jsonObject.optString("data");
+                    if (msg.equals("暂无数据") || StringUtils.isEmpty(data)) {
                         multipleStatusView.showEmpty(R.mipmap.default_dingdan);
                         return;
                     }
