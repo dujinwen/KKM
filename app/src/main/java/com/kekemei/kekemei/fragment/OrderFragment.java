@@ -273,15 +273,7 @@ public class OrderFragment extends Fragment {
                         OrderDetailActivity.start(getActivity(), item.getId());
                         break;
                     case R.id.zaicigoumai:
-                        ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
-                        break;
-                    case R.id.qupingjia:
-                        AddCommentActivity.start(getActivity(), item.getSource(), item.getId() + "");
-                        break;
-                    case R.id.yuyue:
-                        PushOrderActivity.start(getActivity(),yuYueActivityBean);
-                        break;
-                    case R.id.querenfuwu:
+//                        ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
                         OkGo.<String>post(URLs.ORDER_CONFIRM)
                                 .params("order_id",item.getId())
                                 .execute(new StringCallback() {
@@ -290,6 +282,22 @@ public class OrderFragment extends Fragment {
                                         onViewClicked(talPingjia);
                                     }
                                 });
+                        break;
+                    case R.id.qupingjia:
+                        AddCommentActivity.start(getActivity(), item.getSource(), item.getId() + "");
+                        break;
+                    case R.id.yuyue:
+                        PushOrderActivity.start(getActivity(),yuYueActivityBean);
+                        break;
+                    case R.id.querenfuwu:
+//                        OkGo.<String>post(URLs.ORDER_CONFIRM)
+//                                .params("order_id",item.getId())
+//                                .execute(new StringCallback() {
+//                                    @Override
+//                                    public void onSuccess(Response<String> response) {
+//                                        onViewClicked(talPingjia);
+//                                    }
+//                                });
                         break;
 
                 }
@@ -405,14 +413,6 @@ public class OrderFragment extends Fragment {
             case R.id.tal_pingjia:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
-                break;
-            case R.id.tal_served:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
-                break;
-            case R.id.tal_serving:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
                 break;
             case R.id.tal_quit:
                 page = 1;
