@@ -32,6 +32,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, B
         helper.addOnClickListener(R.id.qupingjia);
         helper.addOnClickListener(R.id.cuiwuliu);
         helper.addOnClickListener(R.id.iv_del_order);
+        helper.addOnClickListener(R.id.yuyue);
         helper.setText(R.id.order_status_tv, item.getState_text());
         helper.setText(R.id.order_id_tv, item.getId() + " " + AppUtil.getFormatTime1(item.getCreatetime()));
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.goods_img));
