@@ -204,7 +204,7 @@ public class LoginActivity extends BaseActivity {
                                         break;
                                     case 1://登陆成功
                                         if (msg.equals("Captcha is incorrect")) {
-                                            ToastUtil.showToastMsg(getApplicationContext(),msg);
+                                            ToastUtil.showToastMsg(getApplicationContext(),"验证码错误");
                                         } else {
                                             saveUserInfo(response);
                                             ApplyBeauticianActivity.start(LoginActivity.this,code);
