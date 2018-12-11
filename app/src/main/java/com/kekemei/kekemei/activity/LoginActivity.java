@@ -203,8 +203,12 @@ public class LoginActivity extends BaseActivity {
                                         ToastUtil.showToastMsg(getApplicationContext(), msg);
                                         break;
                                     case 1://登陆成功
-                                        saveUserInfo(response);
-                                        ApplyBeauticianActivity.start(LoginActivity.this,code);
+                                        if (msg.equals("Captcha is incorrect")) {
+                                            ToastUtil.showToastMsg(getApplicationContext(),msg);
+                                        } else {
+                                            saveUserInfo(response);
+                                            ApplyBeauticianActivity.start(LoginActivity.this,code);
+                                        }
                                         break;
                                     case 2://正在审核
                                     case 3://认证失败
