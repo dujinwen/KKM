@@ -212,7 +212,7 @@ public class LoginActivity extends BaseActivity {
                             }
                             String msg = jsonObject.optString("msg");
                             if (msg.equals("Captcha is incorrect")) {
-                                ToastUtil.showToastMsg(getApplicationContext(),msg);
+                                ToastUtil.showToastMsg(getApplicationContext(),"验证码错误");
                             } else {
                                 saveUserInfo(response);
                             }
