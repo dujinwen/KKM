@@ -1,36 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/px_1007"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:layout_gravity="center|bottom"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/gaode_map"
-        android:layout_centerHorizontal="true"
-        android:text="请选择第三方地图导航！" />
-
-    <Button
-        android:id="@+id/gaode_map"
+    <LinearLayout
+        android:id="@+id/ll_map_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/baidu_map"
-        android:text="高德地图" />
+        android:background="@drawable/dialog_background"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/baidu_map"
+        <Button
+            android:id="@+id/gaode_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/baidu_map"
+            android:background="#fff"
+            android:text="高德地图"
+            android:textColor="#333333"
+            android:textSize="@dimen/px_52" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#E9E9EB"/>
+
+        <Button
+            android:id="@+id/baidu_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tencent_map"
+            android:background="#fff"
+            android:text="百度地图"
+            android:textColor="#333333"
+            android:textSize="@dimen/px_52" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#E9E9EB"/>
+        <Button
+            android:id="@+id/tencent_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:text="腾讯地图"
+            android:textColor="#333333"
+            android:textSize="@dimen/px_52" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/tencent_map"
-        android:text="百度地图" />
+        android:layout_marginTop="@dimen/px_14"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/tencent_map"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="腾讯地图" />
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:text="取消"
+            android:textColor="#333333"
+            android:textSize="@dimen/px_52" />
+    </LinearLayout>
 
 </LinearLayout>

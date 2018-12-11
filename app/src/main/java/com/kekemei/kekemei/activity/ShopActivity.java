@@ -327,31 +327,40 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 Button baidu_map = layout.findViewById(R.id.baidu_map);
                 Button gaode_map = layout.findViewById(R.id.gaode_map);
                 Button tencent_map = layout.findViewById(R.id.tencent_map);
+                Button btn_cancle = layout.findViewById(R.id.btn_cancle);
                 if (!MapUtil.isBaiduMapInstalled()) baidu_map.setVisibility(View.GONE);
                 if (!MapUtil.isGdMapInstalled()) gaode_map.setVisibility(View.GONE);
                 if (!MapUtil.isTencentMapInstalled()) tencent_map.setVisibility(View.GONE);
+                final AlertDialog dialog = builder.create();
                 baidu_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MapUtil.openBaiDuNavi(ShopActivity.this, 0, 0, null, latx, laty, mAddress);
+                        MapUtil.openBaiDuNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        dialog.dismiss();
                     }
                 });
                 gaode_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MapUtil.openGaoDeNavi(ShopActivity.this, 0, 0, null, latx, laty, mAddress);
+                        MapUtil.openGaoDeNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        dialog.dismiss();
 
                     }
                 });
                 tencent_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MapUtil.openTencentMap(ShopActivity.this, 0, 0, null, latx, laty, mAddress);
+                        MapUtil.openTencentMap(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        dialog.dismiss();
 
                     }
                 });
-
-                AlertDialog dialog = builder.create();
+                btn_cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
 

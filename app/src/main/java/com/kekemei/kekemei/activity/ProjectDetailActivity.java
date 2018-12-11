@@ -296,26 +296,30 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 // TODO: 2018/12/10
                 //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Bui lder(ProjectDetailActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
                 builder.setView(layout);
                 Button baidu_map = layout.findViewById(R.id.baidu_map);
                 Button gaode_map = layout.findViewById(R.id.gaode_map);
                 Button tencent_map = layout.findViewById(R.id.tencent_map);
+                Button btn_cancle = layout.findViewById(R.id.btn_cancle);
                 if (!MapUtil.isBaiduMapInstalled()) baidu_map.setVisibility(View.GONE);
                 if (!MapUtil.isGdMapInstalled()) gaode_map.setVisibility(View.GONE);
                 if (!MapUtil.isTencentMapInstalled()) tencent_map.setVisibility(View.GONE);
+                final AlertDialog dialog = builder.create();
                 baidu_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MapUtil.openBaiDuNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        dialog.dismiss();
                     }
                 });
                 gaode_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         MapUtil.openGaoDeNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        dialog.dismiss();
 
                     }
                 });
@@ -323,11 +327,16 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onClick(View v) {
                         MapUtil.openTencentMap(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        dialog.dismiss();
 
                     }
                 });
-
-                AlertDialog dialog = builder.create();
+                btn_cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
 
