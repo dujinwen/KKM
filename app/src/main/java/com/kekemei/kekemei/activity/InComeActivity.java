@@ -70,6 +70,8 @@ public class InComeActivity extends BaseActivity {
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
 
+    private int year = 2018;
+
     public static void start(Context context) {
         Intent intent = new Intent(context, InComeActivity.class);
         context.startActivity(intent);
@@ -132,6 +134,8 @@ public class InComeActivity extends BaseActivity {
         jRecyclerView.setNestedScrollingEnabled(false);
         jAdapter = new InComeListAdapter(this);
         jRecyclerView.setAdapter(jAdapter);
+
+        date.setText(year + "");
     }
 
     @OnClick({R.id.dateLeft, R.id.dateRight})
@@ -147,8 +151,13 @@ public class InComeActivity extends BaseActivity {
     }
 
     private void changeDate(boolean flag) {
-        Integer dateInt = Integer.valueOf(date.getText().toString());
-        date.setText(String.valueOf(flag ? dateInt++ : dateInt--));
+        if (flag) {
+            year++;
+        } else {
+            year--;
+        }
+        date.setText(year + "");
+        initData();
     }
 
     @Override

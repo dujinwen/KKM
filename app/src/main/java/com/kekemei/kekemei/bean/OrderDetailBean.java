@@ -1,5 +1,8 @@
 package com.kekemei.kekemei.bean;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by peiyangfan on 2018/11/22.
  */
@@ -113,6 +116,15 @@ public class OrderDetailBean {
         private String finishtime_text;
         private String source_text;
         private String state_text;
+        private List<ReplyBean> reply;
+
+        public List<ReplyBean> getReply() {
+            return reply;
+        }
+
+        public void setReply(List<ReplyBean> reply) {
+            this.reply = reply;
+        }
 
         public int getId() {
             return id;
@@ -330,7 +342,7 @@ public class OrderDetailBean {
             this.servicetime_text = servicetime_text;
         }
 
-        public String   getFinishtime_text() {
+        public String getFinishtime_text() {
             return finishtime_text;
         }
 
@@ -344,6 +356,82 @@ public class OrderDetailBean {
 
         public void setSource_text(String source_text) {
             this.source_text = source_text;
+        }
+
+        public String getState_text() {
+            return state_text;
+        }
+
+        public void setState_text(String state_text) {
+            this.state_text = state_text;
+        }
+    }
+
+    public static class ReplyBean implements Serializable {
+        /**
+         * beautician_beautician_id : 2
+         * comment_comment_id : 7
+         * content : 回复内容
+         * createtime : 1541126489
+         * id : 1
+         * state : 1
+         * state_text : State 1
+         */
+
+        private int beautician_beautician_id;
+        private int comment_comment_id;
+        private String content;
+        private int createtime;
+        private int id;
+        private String state;
+        private String state_text;
+
+        public int getBeautician_beautician_id() {
+            return beautician_beautician_id;
+        }
+
+        public void setBeautician_beautician_id(int beautician_beautician_id) {
+            this.beautician_beautician_id = beautician_beautician_id;
+        }
+
+        public int getComment_comment_id() {
+            return comment_comment_id;
+        }
+
+        public void setComment_comment_id(int comment_comment_id) {
+            this.comment_comment_id = comment_comment_id;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
         }
 
         public String getState_text() {

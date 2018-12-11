@@ -46,9 +46,9 @@ public class ServiceOrderListBean implements Serializable{
     private int beautician_beautician_id;
     private Object coupon_id;
     private Object myredenvelopes_id;
-    private int servicetime;
-    private int finishtime;
-    private int createtime;
+    private long servicetime;
+    private long finishtime;
+    private long createtime;
     private String source;
     private String user_name;
     private String user_mobile;
@@ -158,27 +158,27 @@ public class ServiceOrderListBean implements Serializable{
         this.myredenvelopes_id = myredenvelopes_id;
     }
 
-    public int getServicetime() {
+    public long getServicetime() {
         return servicetime;
     }
 
-    public void setServicetime(int servicetime) {
+    public void setServicetime(long servicetime) {
         this.servicetime = servicetime;
     }
 
-    public int getFinishtime() {
+    public long getFinishtime() {
         return finishtime;
     }
 
-    public void setFinishtime(int finishtime) {
+    public void setFinishtime(long finishtime) {
         this.finishtime = finishtime;
     }
 
-    public int getCreatetime() {
+    public long getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(int createtime) {
+    public void setCreatetime(long createtime) {
         this.createtime = createtime;
     }
 

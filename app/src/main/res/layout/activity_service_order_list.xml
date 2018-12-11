@@ -46,32 +46,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tal_wait_yuyue"
-                android:layout_width="@dimen/px_216"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/px_24">
-
-                <TextView
-                    android:id="@+id/tv_wait_yuyue"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="待预约"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
-
-                <View
-                    android:id="@+id/v_wait_yuyue"
-                    android:layout_width="@dimen/px_141"
-                    android:layout_height="@dimen/px_16"
-                    android:background="#FF7AD2D2"
-                    android:visibility="invisible" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/tal_wait_server"
                 android:layout_width="@dimen/px_216"
                 android:layout_height="match_parent"
@@ -98,7 +72,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tal_serving"
+                android:id="@+id/tal_reply"
                 android:layout_width="@dimen/px_216"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -106,43 +80,17 @@
                 android:paddingBottom="@dimen/px_24">
 
                 <TextView
-                    android:id="@+id/tv_serving"
+                    android:id="@+id/tv_reply"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="服务中"
+                    android:text="待回复"
                     android:textColor="@drawable/selector_comment_find_tab"
                     android:textSize="@dimen/px_45" />
 
                 <View
-                    android:id="@+id/v_serving"
-                    android:layout_width="@dimen/px_141"
-                    android:layout_height="@dimen/px_16"
-                    android:background="#FF7AD2D2"
-                    android:visibility="invisible" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tal_served"
-                android:layout_width="@dimen/px_216"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/px_24">
-
-                <TextView
-                    android:id="@+id/tv_served"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="服务完成"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
-
-                <View
-                    android:id="@+id/v_served"
+                    android:id="@+id/v_reply"
                     android:layout_width="@dimen/px_141"
                     android:layout_height="@dimen/px_16"
                     android:background="#FF7AD2D2"
@@ -163,7 +111,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="待回复"
+                    android:text="待评价"
                     android:textColor="@drawable/selector_comment_find_tab"
                     android:textSize="@dimen/px_45" />
 
@@ -195,32 +143,6 @@
 
                 <View
                     android:id="@+id/v_finish"
-                    android:layout_width="@dimen/px_141"
-                    android:layout_height="@dimen/px_16"
-                    android:background="#FF7AD2D2"
-                    android:visibility="invisible" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tal_quit"
-                android:layout_width="@dimen/px_216"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/px_24">
-
-                <TextView
-                    android:id="@+id/tv_quit"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="已取消"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
-
-                <View
-                    android:id="@+id/v_quit"
                     android:layout_width="@dimen/px_141"
                     android:layout_height="@dimen/px_16"
                     android:background="#FF7AD2D2"

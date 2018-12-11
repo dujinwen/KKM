@@ -54,48 +54,32 @@ public class ServiceOrderListAdapter extends BaseQuickAdapter<ServiceOrderListBe
                 ServiceOrderDetailActivity.start(mContext, item);
             }
         });
-        setShowOrHide(item.getState(), helper);
+        setShowOrHide(item.getState(), helper, item.getServicetime());
     }
 
 
-    public void setShowOrHide(String showOrHide, BaseViewHolder helper) {
+    public void setShowOrHide(String showOrHide, BaseViewHolder helper, long servicetime) {
         //状态值:1=待预约,2=待服务,3=服务中,4=服务完成,5=待回复（回复客户评价）,6=已完成,10=已取消
         switch (showOrHide) {
-            case "1":
-                helper.setGone(R.id.cancelOrder, true);
-                helper.setGone(R.id.acceptOrder, true);
-                helper.setGone(R.id.startService, false);
-                helper.setGone(R.id.finishService, false);
-                helper.setGone(R.id.replayComment, false);
-                break;
             case "2":
-                helper.setGone(R.id.cancelOrder, false);
-                helper.setGone(R.id.acceptOrder, false);
-                helper.setGone(R.id.startService, true);
-                helper.setGone(R.id.finishService, false);
+                helper.setGone(R.id.startService, (servicetime == 0));
+                helper.setGone(R.id.cancelOrder, true);
+                helper.setGone(R.id.finishService, !(servicetime == 0));
                 helper.setGone(R.id.replayComment, false);
                 break;
             case "3":
-                helper.setGone(R.id.cancelOrder, false);
-                helper.setGone(R.id.acceptOrder, false);
-                helper.setGone(R.id.startService, false);
-                helper.setGone(R.id.finishService, true);
-                helper.setGone(R.id.replayComment, false);
-                break;
             case "4":
+            case "5":
             case "6":
-            case "10":
-                helper.setGone(R.id.cancelOrder, false);
-                helper.setGone(R.id.acceptOrder, false);
                 helper.setGone(R.id.startService, false);
                 helper.setGone(R.id.finishService, false);
                 helper.setGone(R.id.replayComment, false);
-                break;
-            case "5":
                 helper.setGone(R.id.cancelOrder, false);
-                helper.setGone(R.id.acceptOrder, false);
+                break;
+            case "10":
                 helper.setGone(R.id.startService, false);
                 helper.setGone(R.id.finishService, false);
+                helper.setGone(R.id.cancelOrder, false);
                 helper.setGone(R.id.replayComment, true);
                 break;
         }

@@ -62,11 +62,6 @@ public class ServiceOrderListActivity extends BaseActivity {
     @BindView(R.id.v_all)
     View vAll;
 
-    @BindView(R.id.tv_wait_yuyue)
-    TextView tvWaitYuyue;
-    @BindView(R.id.v_wait_yuyue)
-    View vWaitYuyue;
-
     @BindView(R.id.tal_wait_server)
     LinearLayout tabWaitServer;
     @BindView(R.id.tv_wait_server)
@@ -84,20 +79,10 @@ public class ServiceOrderListActivity extends BaseActivity {
     @BindView(R.id.v_finish)
     View vFinish;
 
-    @BindView(R.id.tv_serving)
-    TextView tvServing;
-    @BindView(R.id.v_serving)
-    View vServing;
-
-    @BindView(R.id.tv_served)
-    TextView tvServed;
-    @BindView(R.id.v_served)
-    View vServed;
-
-    @BindView(R.id.tv_quit)
-    TextView tvQuit;
-    @BindView(R.id.v_quit)
-    View vQuit;
+    @BindView(R.id.tv_reply)
+    TextView tvReply;
+    @BindView(R.id.v_reply)
+    View vReply;
 
     @BindView(R.id.rv_list)
     RecyclerView rvList;
@@ -197,6 +182,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                     }
                                 });
                         break;
+                    case R.id.startService:
                     case R.id.acceptOrder:
                         OkGo.<String>get(URLs.ACCEPC_ORDER)
                                 .params("user_id", userId)
@@ -220,26 +206,6 @@ public class ServiceOrderListActivity extends BaseActivity {
                                     public void onError(Response<String> response) {
                                         super.onError(response);
                                         ToastUtil.showToastMsg(ServiceOrderListActivity.this, "接单失败");
-                                    }
-                                });
-                        break;
-                    case R.id.startService:
-                        OkGo.<String>get(URLs.ACCEPC_ORDER)
-                                .params("user_id", userId)
-                                .params("order_id", data.get(position).getId())
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(response.body());
-                                            Object msg = jsonObject.opt("msg");
-                                            if (msg.equals("暂无数据")) {
-                                                return;
-                                            }
-                                            ToastUtil.showToastMsg(ServiceOrderListActivity.this, "开始服务");
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
                                     }
                                 });
                         break;
@@ -270,6 +236,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                 });
                         break;
                     case R.id.replayComment:
+                        ServiceOrderDetailActivity.start(ServiceOrderListActivity.this, jAdapter.getItem(position));
                         break;
                 }
             }
@@ -278,7 +245,7 @@ public class ServiceOrderListActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ServiceOrderListBean item = jAdapter.getItem(position);
-                ProjectDetailActivity.start(ServiceOrderListActivity.this, item.getProject_project_id());
+                ServiceOrderDetailActivity.start(ServiceOrderListActivity.this, item);
             }
         });
     }
@@ -293,17 +260,15 @@ public class ServiceOrderListActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.iv_share, R.id.tal_all, R.id.tal_wait_yuyue, R.id.tal_serving,
-            R.id.tal_served, R.id.tal_wait_server, R.id.tal_finish, R.id.tal_pingjia, R.id.tal_quit})
+    @OnClick({R.id.iv_share, R.id.tal_all, R.id.tal_wait_server,
+            R.id.tal_finish, R.id.tal_pingjia, R.id.tal_reply})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.iv_share) {
             Intent intent = new Intent(this, OrderListSearchActivity.class);
             startActivity(intent);
             return;
         }
-        if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_quit
-                || view.getId() == R.id.tal_wait_yuyue || view.getId() == R.id.tal_wait_server
-                || view.getId() == R.id.tal_serving || view.getId() == R.id.tal_served
+        if (view.getId() == R.id.tal_all || view.getId() == R.id.tal_wait_server || view.getId() == R.id.tal_reply
                 || view.getId() == R.id.tal_finish || view.getId() == R.id.tal_pingjia) {
             setSelect(view.getId());
             return;
@@ -317,9 +282,6 @@ public class ServiceOrderListActivity extends BaseActivity {
         tvAll.setSelected(id == R.id.tal_all);
         vAll.setVisibility(id == R.id.tal_all ? View.VISIBLE : View.INVISIBLE);
 
-        tvWaitYuyue.setSelected(id == R.id.tal_wait_yuyue);
-        vWaitYuyue.setVisibility(id == R.id.tal_wait_yuyue ? View.VISIBLE : View.INVISIBLE);
-
         tvWaitServer.setSelected(id == R.id.tal_wait_server);
         vWaitServer.setVisibility(id == R.id.tal_wait_server ? View.VISIBLE : View.INVISIBLE);
 
@@ -329,23 +291,17 @@ public class ServiceOrderListActivity extends BaseActivity {
         tvPingjia.setSelected(id == R.id.tal_pingjia);
         vPingjia.setVisibility(id == R.id.tal_pingjia ? View.VISIBLE : View.INVISIBLE);
 
-        tvServed.setSelected(id == R.id.tal_served);
-        vServed.setVisibility(id == R.id.tal_served ? View.VISIBLE : View.INVISIBLE);
-
-        tvServing.setSelected(id == R.id.tal_serving);
-        vServing.setVisibility(id == R.id.tal_serving ? View.VISIBLE : View.INVISIBLE);
-
-        tvQuit.setSelected(id == R.id.tal_quit);
-        vQuit.setVisibility(id == R.id.tal_quit ? View.VISIBLE : View.INVISIBLE);
+        tvReply.setSelected(id == R.id.tal_reply);
+        vReply.setVisibility(id == R.id.tal_reply ? View.VISIBLE : View.INVISIBLE);
 
         switch (id) {
             case R.id.tal_all:
                 page = 1;
                 jOrderStatus = OrderListBean.ORDER_STATUS_ALL;
                 break;
-            case R.id.tal_wait_yuyue:
+            case R.id.tal_reply:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_TO_BE_APPOINTMENT;
+                jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
                 break;
             case R.id.tal_wait_server:
                 page = 1;
@@ -357,19 +313,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                 break;
             case R.id.tal_pingjia:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
-                break;
-            case R.id.tal_served:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_SERVED;
-                break;
-            case R.id.tal_serving:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_SERVING;
-                break;
-            case R.id.tal_quit:
-                page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_QUIT;
+                jOrderStatus = OrderListBean.ORDER_STATUS_COMMENT;
                 break;
         }
         loadData(true);
