@@ -155,6 +155,17 @@ public class LoginActivity extends BaseActivity {
         AppUtil.sendYanZhengMa(phoneNum, eventType, new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response.body());
+                    String msg = jsonObject.optString("msg");
+                    if (msg.equals("发送失败")) {
+                        ToastUtil.showToastMsg(getApplicationContext(),msg);
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 restart();
             }
         });
@@ -193,7 +204,18 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onSuccess(Response<String> response) {
                             LogUtil.d(LoginActivity.this.getLocalClassName(), response.body());
-                            saveUserInfo(response);
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(response.body());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String msg = jsonObject.optString("msg");
+                            if (msg.equals("Captcha is incorrect")) {
+                                ToastUtil.showToastMsg(getApplicationContext(),msg);
+                            } else {
+                                saveUserInfo(response);
+                            }
 
                         }
                     });
@@ -304,7 +326,7 @@ public class LoginActivity extends BaseActivity {
         UserHelp.setUserId(baseContext, userinfo.getUser_id());
         UserHelp.setIsNew(baseContext, userinfo.getIsnew());
 
-        createAccount(userinfo.getUser_id());
+//        createAccount(userinfo.getUser_id());
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         finish();
     }
@@ -365,13 +387,9 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    //    private ProgressDialog mDialog;
 
     public void createAccount(final int user_id) {
 
-        //        mDialog = new ProgressDialog(this);
-        //        mDialog.setMessage("注册中，请稍后...");
-        //        mDialog.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -381,10 +399,6 @@ public class LoginActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (!LoginActivity.this.isFinishing()) {
-                                //                                mDialog.dismiss();
-                            }
-//                            Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_LONG).show();
                             chatLogin("" + user_id);
                         }
                     });
@@ -393,9 +407,6 @@ public class LoginActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (!LoginActivity.this.isFinishing()) {
-                                //                                mDialog.dismiss();
-                            }
                             /**
                              * 关于错误码可以参考官方api详细说明
                              * http://www.easemob.com/apidoc/android/chat3.0/classcom_1_1hyphenate_1_1_e_m_error.html
