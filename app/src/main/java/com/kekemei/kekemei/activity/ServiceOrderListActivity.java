@@ -208,6 +208,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                         ToastUtil.showToastMsg(ServiceOrderListActivity.this, "接单失败");
                                     }
                                 });
+                        loadData(true);
                         break;
                     case R.id.finishService:
                         OkGo.<String>get(URLs.OVER_ORDER)
@@ -234,6 +235,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                         ToastUtil.showToastMsg(ServiceOrderListActivity.this, "完成失败");
                                     }
                                 });
+                        loadData(true);
                         break;
                     case R.id.replayComment:
                         ServiceOrderDetailActivity.start(ServiceOrderListActivity.this, jAdapter.getItem(position));

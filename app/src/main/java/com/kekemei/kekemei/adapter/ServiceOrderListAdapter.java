@@ -54,17 +54,17 @@ public class ServiceOrderListAdapter extends BaseQuickAdapter<ServiceOrderListBe
                 ServiceOrderDetailActivity.start(mContext, item);
             }
         });
-        setShowOrHide(item.getState(), helper, item.getServicetime());
+        setShowOrHide(item.getState(), helper, item.getServicetime() == 0 ? true : false);
     }
 
 
-    public void setShowOrHide(String showOrHide, BaseViewHolder helper, long servicetime) {
+    public void setShowOrHide(String showOrHide, BaseViewHolder helper, boolean flag) {
         //状态值:1=待预约,2=待服务,3=服务中,4=服务完成,5=待回复（回复客户评价）,6=已完成,10=已取消
         switch (showOrHide) {
             case "2":
-                helper.setGone(R.id.startService, (servicetime == 0));
+                helper.setGone(R.id.startService, !flag);
                 helper.setGone(R.id.cancelOrder, true);
-                helper.setGone(R.id.finishService, !(servicetime == 0));
+                helper.setGone(R.id.finishService, flag);
                 helper.setGone(R.id.replayComment, false);
                 break;
             case "3":
