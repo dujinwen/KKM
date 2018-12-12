@@ -13,9 +13,9 @@ android {
     buildTypes {
         release {
             // 代码混淆
-            minifyEnabled true
+            minifyEnabled false
             // 移除无用的resource文件,如有问题访问：https://blog.csdn.net/u014780554/article/details/80973154
-            shrinkResources true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 

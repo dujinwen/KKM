@@ -296,7 +296,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 // TODO: 2018/12/10
                 //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
 
-                AlertDialog.Builder builder = new AlertDialog.Bui lder(ProjectDetailActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
                 builder.setView(layout);

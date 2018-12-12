@@ -335,14 +335,14 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 baidu_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MapUtil.openBaiDuNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        MapUtil.openBaiDuNavi(getApplicationContext(), 0, 0, null, latx, laty, mAddress);
                         dialog.dismiss();
                     }
                 });
                 gaode_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MapUtil.openGaoDeNavi(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        MapUtil.openGaoDeNavi(getApplicationContext(), 0, 0, null, latx, laty, mAddress);
                         dialog.dismiss();
 
                     }
@@ -350,7 +350,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 tencent_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        MapUtil.openTencentMap(ProjectDetailActivity.this, 0, 0, null, latx, laty, mAddress);
+                        MapUtil.openTencentMap(getApplicationContext(), 0, 0, null, latx, laty, mAddress);
                         dialog.dismiss();
 
                     }
