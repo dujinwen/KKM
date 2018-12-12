@@ -11,8 +11,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -324,14 +326,27 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 LayoutInflater inflater = getLayoutInflater();
                 final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
                 builder.setView(layout);
-                Button baidu_map = layout.findViewById(R.id.baidu_map);
-                Button gaode_map = layout.findViewById(R.id.gaode_map);
-                Button tencent_map = layout.findViewById(R.id.tencent_map);
+                TextView baidu_map = layout.findViewById(R.id.baidu_map);
+                TextView gaode_map = layout.findViewById(R.id.gaode_map);
+                TextView tencent_map = layout.findViewById(R.id.tencent_map);
                 Button btn_cancle = layout.findViewById(R.id.btn_cancle);
-                if (!MapUtil.isBaiduMapInstalled()) baidu_map.setVisibility(View.GONE);
-                if (!MapUtil.isGdMapInstalled()) gaode_map.setVisibility(View.GONE);
-                if (!MapUtil.isTencentMapInstalled()) tencent_map.setVisibility(View.GONE);
+                View gaode_view = layout.findViewById(R.id.gaode_view);
+                View baidu_view = layout.findViewById(R.id.baidu_view);
+                if (!MapUtil.isBaiduMapInstalled()) {
+                    baidu_map.setVisibility(View.GONE);
+                    baidu_view.setVisibility(View.GONE);
+                }
+                if (!MapUtil.isGdMapInstalled()) {
+                    gaode_map.setVisibility(View.GONE);
+                    gaode_view.setVisibility(View.GONE);
+                }
+                if (!MapUtil.isTencentMapInstalled()) {
+                    tencent_map.setVisibility(View.GONE);
+                    baidu_view.setVisibility(View.GONE);
+                }
                 final AlertDialog dialog = builder.create();
+                Window window = dialog.getWindow();
+                window.setGravity(Gravity.BOTTOM);
                 baidu_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
