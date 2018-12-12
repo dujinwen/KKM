@@ -15,8 +15,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -307,6 +309,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 if (!MapUtil.isGdMapInstalled()) gaode_map.setVisibility(View.GONE);
                 if (!MapUtil.isTencentMapInstalled()) tencent_map.setVisibility(View.GONE);
                 final AlertDialog dialog = builder.create();
+                Window window = dialog.getWindow();
+                window.setGravity(Gravity.BOTTOM);
                 baidu_map.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

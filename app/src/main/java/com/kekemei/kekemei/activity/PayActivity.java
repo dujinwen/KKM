@@ -410,7 +410,7 @@ public class PayActivity extends BaseActivity {
 
     // TODO: 2018/11/13 去预约美容师页面
     private void toSelectActivity() {
-        OkGo.<String>get(URLs.ORDER_REFUND)
+        OkGo.<String>post(URLs.ORDER_REFUND)
                 .params("out_trade_no", yuYueActivityBean.getOrderId())
                 .execute(new StringCallback() {
                     @Override
@@ -433,6 +433,8 @@ public class PayActivity extends BaseActivity {
                                 AlertDialog dialog = builder.create();
                                 dialog.setCanceledOnTouchOutside(false);
                                 dialog.show();
+                            }else {
+                                ToastUtil.showToastMsg(getApplicationContext(),(String) jsonObject.opt("msg"));
                             }
 
                         } catch (JSONException e) {
