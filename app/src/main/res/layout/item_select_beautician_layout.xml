@@ -17,6 +17,7 @@
 
         <ImageView
             android:id="@+id/ivImage"
+            android:scaleType="fitXY"
             android:layout_width="@dimen/px_217"
             android:layout_height="@dimen/px_281"
             android:layout_marginTop="@dimen/px_30"

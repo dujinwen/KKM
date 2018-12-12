@@ -15,6 +15,7 @@
         android:layout_width="@dimen/px_233"
         android:layout_height="@dimen/px_228"
         android:layout_marginLeft="@dimen/px_63"
+        android:scaleType="fitXY"
         android:layout_marginTop="@dimen/px_50"
         android:background="@mipmap/beautician_detail_photo_pic" />
 
