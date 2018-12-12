@@ -181,6 +181,7 @@ public class PushOrderActivity extends BaseActivity {
             // TODO: 2018/11/14  店铺主页
             llMeirongshiSelect.setClickable(false);
             tvName.setText(yuYueActivityBean.getBeauticianDetailBean().getNickname());
+            tvPlace.setText(yuYueActivityBean.getBeauticianDetailBean().getPlace());
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getImage(), civIcon);
             sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getStart()));
         }else {

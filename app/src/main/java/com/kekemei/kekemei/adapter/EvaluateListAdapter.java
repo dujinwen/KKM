@@ -80,7 +80,7 @@ public class EvaluateListAdapter extends BaseQuickAdapter<EvaluateBean, BaseView
         container.removeAllViews();
         for (EvaluateBean.ReplyBean replyBean : contentList) {
             TextView tvContent = new TextView(jContext);
-            tvContent.setTextSize(40);
+            tvContent.setTextSize(14);
             tvContent.setTextColor(ContextCompat.getColor(jContext, R.color.common_text_dark));
             tvContent.setText(replyBean.getContent());
             container.addView(tvContent);

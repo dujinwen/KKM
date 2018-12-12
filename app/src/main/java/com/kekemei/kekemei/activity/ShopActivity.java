@@ -762,7 +762,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         return;
                     }
                     tvFollow.setText("已关注");
-//                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
+                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

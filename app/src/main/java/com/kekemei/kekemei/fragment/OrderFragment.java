@@ -53,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -199,11 +200,14 @@ public class OrderFragment extends Fragment {
                                         .execute(new StringCallback() {
                                             @Override
                                             public void onSuccess(Response<String> response) {
-                                                LogUtil.d("AAA", arrayList.toString());
-                                                arrayList.remove(position);
-                                                LogUtil.d("AAA", arrayList.toString());
-                                                jAdapter.setNewData(arrayList);
-                                                jAdapter.notifyDataSetChanged();
+//                                                data.remove(position);
+                                                jAdapter.remove(position);
+//                                                LogUtil.d("AAA", arrayList.toString());
+//                                                arrayList.remove(position);
+//                                                LogUtil.d("AAA", arrayList.toString());
+//                                                jAdapter.setNewData(arrayList);
+//                                                jAdapter.notifyDataSetChanged();
+                                                onViewClicked(talAll);
 
                                             }
                                         });
@@ -239,7 +243,7 @@ public class OrderFragment extends Fragment {
                                         .execute(new StringCallback() {
                                             @Override
                                             public void onSuccess(Response<String> response) {
-                                                onViewClicked(talWaitYuyue);
+                                                onViewClicked(talAll);
                                             }
                                         });
                                 dialog.dismiss();
@@ -307,6 +311,7 @@ public class OrderFragment extends Fragment {
             onViewClicked(talAll);
         } else {
             onViewClicked(talWaitYuyue);
+            SPUtils.putBoolean(getActivity().getApplicationContext(),SPUtils.SELECT_YUYUE,false);
         }
     }
 

@@ -52,7 +52,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, B
         //状态值:0=待支付,1=待预约,2=待服务,3=服务中,4=服务完成,5=待评价,6=完成,10=已取消
         switch (showOrHide) {
             case "0":  //待支付
-                helper.setGone(R.id.quxiaodingdan, true);
+                helper.setGone(R.id.quxiaodingdan, false);
                 helper.setGone(R.id.chakan, false);
                 helper.setGone(R.id.querenfuwu, false);
                 helper.setGone(R.id.lijifukuan, true);
