@@ -17,6 +17,15 @@ public class NewComerBean {
     private List<BaseBean> newpopledata;
     private List<BaseBean> projectall;
     private List<BaseBean> foryou;
+    private WaiterBean admin;
+
+    public WaiterBean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(WaiterBean admin) {
+        this.admin = admin;
+    }
 
     public int getIsnew() {
         return isnew;

@@ -8,6 +8,7 @@
         android:id="@+id/scrollContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bottomBar"
         android:background="@color/white"
         android:visibility="gone">
 
@@ -99,6 +100,39 @@
     <include
         android:id="@+id/titleBar"
         layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_115"
+        android:layout_alignParentBottom="true"
+        android:background="@color/toolbar_background"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/onLineService"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="在线沟通"
+            android:textColor="@color/white" />
+
+        <View
+            android:layout_width="@dimen/px_3"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/buyNow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="立即抢购"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/swipe_rfresh_layout"

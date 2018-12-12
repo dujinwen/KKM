@@ -2,7 +2,6 @@ package com.kekemei.kekemei.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
@@ -557,12 +556,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.projectDetail:
                 indicatorProjectDetail.setVisibility(View.VISIBLE);
                 indicatorEvaluate.setVisibility(View.GONE);
-                scrollTo(contentView.getChildAt(0));
+                scrollTo(0);
                 break;
             case R.id.userEvaluate:
                 indicatorProjectDetail.setVisibility(View.GONE);
                 indicatorEvaluate.setVisibility(View.VISIBLE);
-                scrollTo(contentView.getChildAt(2));
+                scrollTo(2);
                 break;
             case R.id.commentTabAll:
                 commentTabAll.setSelected(true);
@@ -798,7 +797,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         tvCollection.setClickable(false);
     }
 
-    private void scrollTo(final View view) {
+    private void scrollTo(final int position) {
+        final View view = contentView.getChildAt(position);
         if (view == null) {
             return;
         }
@@ -807,9 +807,12 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             public void run() {
                 //To change body of implemented methods use File | Settings | File Templates.
                 //mRootScrollView.fullScroll(ScrollView.FOCUS_DOWN);
-                int top = view.getTop();
-                if (top < 0) {
-                    top = 0;
+                int top = 0;
+                if (position == 2) {
+                    top = view.getTop() + shop_detail_icon.getHeight() + contentView.getChildAt(1).getHeight();
+                    if (top < 0) {
+                        top = 0;
+                    }
                 }
                 scrollLayout.smoothScrollTo(0, top);
             }
@@ -856,7 +859,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             Gson gson = new Gson();
                             detailBean = gson.fromJson(data, ProjectDetailBean.class);
                             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getImage(), shop_detail_icon);
-                                shopName.setText(detailBean.getName());
+                            shopName.setText(detailBean.getName());
                             price.setText("￥" + detailBean.getPrice_discount());
                             marketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
                             marketPrice.getPaint().setAntiAlias(true);// 抗锯齿
