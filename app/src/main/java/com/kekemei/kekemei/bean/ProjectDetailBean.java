@@ -89,6 +89,25 @@ public class ProjectDetailBean implements Serializable {
     private List<String> strading;
     private List<String> service;
     private List<RedenvloesDataBean> redenvloesdata;
+    private List<MyDenvelopes> myDenvelopes;
+    private List<MyCoupon> myCoupons;
+
+
+    public List<MyDenvelopes> getMyDenvelopes() {
+        return myDenvelopes;
+    }
+
+    public void setMyDenvelopes(List<MyDenvelopes> myDenvelopes) {
+        this.myDenvelopes = myDenvelopes;
+    }
+
+    public List<MyCoupon> getMyCoupons() {
+        return myCoupons;
+    }
+
+    public void setMyCoupons(List<MyCoupon> myCoupons) {
+        this.myCoupons = myCoupons;
+    }
 
     public WaiterBean getWaiter() {
         return waiter;
@@ -784,4 +803,553 @@ public class ProjectDetailBean implements Serializable {
             this.weigh = weigh;
         }
     }
+
+
+    public class MyCoupon implements Serializable {
+
+        /**
+         * id : 7
+         * coupon_type : 1
+         * price_reduction : 0
+         * coupon_id : 2
+         * user_id : 7
+         * project_project_id : null
+         * shop_shop_id : 0
+         * beautician_beautician_id : 0
+         * createtime : 1542689980
+         * state : 1
+         * coupon_name : 满899减80
+         * coupon : {"id":2,"name":"满899减80","image":"/uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg","price_satisfy":899,"price_reduction":80,"activitytime":"2018-11-01 11:47:48","activitytime_end":"2019-11-23 11:47:48","createtime":1541044162,"state":"1","state_text":"正常"}
+         * coupon_type_text : Coupon_type 1
+         * state_text : 正常
+         */
+
+        private int id;
+        private String coupon_type;
+        private int price_reduction;
+        private int coupon_id;
+        private int user_id;
+        private Object project_project_id;
+        private int shop_shop_id;
+        private int beautician_beautician_id;
+        private int createtime;
+        private String state;
+        private String coupon_name;
+        private CouponBean coupon;
+        private String coupon_type_text;
+        private String state_text;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getCoupon_type() {
+            return coupon_type;
+        }
+
+        public void setCoupon_type(String coupon_type) {
+            this.coupon_type = coupon_type;
+        }
+
+        public int getPrice_reduction() {
+            return price_reduction;
+        }
+
+        public void setPrice_reduction(int price_reduction) {
+            this.price_reduction = price_reduction;
+        }
+
+        public int getCoupon_id() {
+            return coupon_id;
+        }
+
+        public void setCoupon_id(int coupon_id) {
+            this.coupon_id = coupon_id;
+        }
+
+        public int getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
+        }
+
+        public Object getProject_project_id() {
+            return project_project_id;
+        }
+
+        public void setProject_project_id(Object project_project_id) {
+            this.project_project_id = project_project_id;
+        }
+
+        public int getShop_shop_id() {
+            return shop_shop_id;
+        }
+
+        public void setShop_shop_id(int shop_shop_id) {
+            this.shop_shop_id = shop_shop_id;
+        }
+
+        public int getBeautician_beautician_id() {
+            return beautician_beautician_id;
+        }
+
+        public void setBeautician_beautician_id(int beautician_beautician_id) {
+            this.beautician_beautician_id = beautician_beautician_id;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getCoupon_name() {
+            return coupon_name;
+        }
+
+        public void setCoupon_name(String coupon_name) {
+            this.coupon_name = coupon_name;
+        }
+
+        public CouponBean getCoupon() {
+            return coupon;
+        }
+
+        public void setCoupon(CouponBean coupon) {
+            this.coupon = coupon;
+        }
+
+        public String getCoupon_type_text() {
+            return coupon_type_text;
+        }
+
+        public void setCoupon_type_text(String coupon_type_text) {
+            this.coupon_type_text = coupon_type_text;
+        }
+
+        public String getState_text() {
+            return state_text;
+        }
+
+        public void setState_text(String state_text) {
+            this.state_text = state_text;
+        }
+
+        public class CouponBean {
+            /**
+             * id : 2
+             * name : 满899减80
+             * image : /uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg
+             * price_satisfy : 899
+             * price_reduction : 80
+             * activitytime : 2018-11-01 11:47:48
+             * activitytime_end : 2019-11-23 11:47:48
+             * createtime : 1541044162
+             * state : 1
+             * state_text : 正常
+             */
+
+            private int id;
+            private String name;
+            private String image;
+            private int price_satisfy;
+            private int price_reduction;
+            private String activitytime;
+            private String activitytime_end;
+            private int createtime;
+            private String state;
+            private String state_text;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+
+            public int getPrice_satisfy() {
+                return price_satisfy;
+            }
+
+            public void setPrice_satisfy(int price_satisfy) {
+                this.price_satisfy = price_satisfy;
+            }
+
+            public int getPrice_reduction() {
+                return price_reduction;
+            }
+
+            public void setPrice_reduction(int price_reduction) {
+                this.price_reduction = price_reduction;
+            }
+
+            public String getActivitytime() {
+                return activitytime;
+            }
+
+            public void setActivitytime(String activitytime) {
+                this.activitytime = activitytime;
+            }
+
+            public String getActivitytime_end() {
+                return activitytime_end;
+            }
+
+            public void setActivitytime_end(String activitytime_end) {
+                this.activitytime_end = activitytime_end;
+            }
+
+            public int getCreatetime() {
+                return createtime;
+            }
+
+            public void setCreatetime(int createtime) {
+                this.createtime = createtime;
+            }
+
+            public String getState() {
+                return state;
+            }
+
+            public void setState(String state) {
+                this.state = state;
+            }
+
+            public String getState_text() {
+                return state_text;
+            }
+
+            public void setState_text(String state_text) {
+                this.state_text = state_text;
+            }
+        }
+    }
+
+    public class MyDenvelopes implements Serializable {
+
+        /**
+         * id : 11
+         * redenvelopes_id : 1
+         * price_reduction : 1000
+         * red_type : 2
+         * user_id : 7
+         * project_project_id : 0
+         * shop_shop_id : 0
+         * beautician_beautician_id : 2
+         * state : 1
+         * createtime : 1542880968
+         * name : 抢50元
+         * limttime : 长期有效
+         * res : {"id":1,"name":"抢50元","price_reduction":1000,"count":99,"surplus_price":427,"surplus_count":99,"rangedata":"1","reduction_type":"1","createtime":1537844659,"state":"1","state_text":"正常","rangedata_text":"Rangedata 1","reduction_type_text":"Reduction_type 1"}
+         * red_type_text : Red_type 2
+         * state_text : 正常
+         */
+
+        private int id;
+        private int redenvelopes_id;
+        private int price_reduction;
+        private String red_type;
+        private int user_id;
+        private int project_project_id;
+        private int shop_shop_id;
+        private int beautician_beautician_id;
+        private String state;
+        private int createtime;
+        private String name;
+        private String limttime;
+        private ResBean res;
+        private String red_type_text;
+        private String state_text;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getRedenvelopes_id() {
+            return redenvelopes_id;
+        }
+
+        public void setRedenvelopes_id(int redenvelopes_id) {
+            this.redenvelopes_id = redenvelopes_id;
+        }
+
+        public int getPrice_reduction() {
+            return price_reduction;
+        }
+
+        public void setPrice_reduction(int price_reduction) {
+            this.price_reduction = price_reduction;
+        }
+
+        public String getRed_type() {
+            return red_type;
+        }
+
+        public void setRed_type(String red_type) {
+            this.red_type = red_type;
+        }
+
+        public int getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(int user_id) {
+            this.user_id = user_id;
+        }
+
+        public int getProject_project_id() {
+            return project_project_id;
+        }
+
+        public void setProject_project_id(int project_project_id) {
+            this.project_project_id = project_project_id;
+        }
+
+        public int getShop_shop_id() {
+            return shop_shop_id;
+        }
+
+        public void setShop_shop_id(int shop_shop_id) {
+            this.shop_shop_id = shop_shop_id;
+        }
+
+        public int getBeautician_beautician_id() {
+            return beautician_beautician_id;
+        }
+
+        public void setBeautician_beautician_id(int beautician_beautician_id) {
+            this.beautician_beautician_id = beautician_beautician_id;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public int getCreatetime() {
+            return createtime;
+        }
+
+        public void setCreatetime(int createtime) {
+            this.createtime = createtime;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getLimttime() {
+            return limttime;
+        }
+
+        public void setLimttime(String limttime) {
+            this.limttime = limttime;
+        }
+
+        public ResBean getRes() {
+            return res;
+        }
+
+        public void setRes(ResBean res) {
+            this.res = res;
+        }
+
+        public String getRed_type_text() {
+            return red_type_text;
+        }
+
+        public void setRed_type_text(String red_type_text) {
+            this.red_type_text = red_type_text;
+        }
+
+        public String getState_text() {
+            return state_text;
+        }
+
+        public void setState_text(String state_text) {
+            this.state_text = state_text;
+        }
+
+        public class ResBean {
+            /**
+             * id : 1
+             * name : 抢50元
+             * price_reduction : 1000
+             * count : 99
+             * surplus_price : 427
+             * surplus_count : 99
+             * rangedata : 1
+             * reduction_type : 1
+             * createtime : 1537844659
+             * state : 1
+             * state_text : 正常
+             * rangedata_text : Rangedata 1
+             * reduction_type_text : Reduction_type 1
+             */
+
+            private int id;
+            private String name;
+            private int price_reduction;
+            private int count;
+            private int surplus_price;
+            private int surplus_count;
+            private String rangedata;
+            private String reduction_type;
+            private int createtime;
+            private String state;
+            private String state_text;
+            private String rangedata_text;
+            private String reduction_type_text;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public int getPrice_reduction() {
+                return price_reduction;
+            }
+
+            public void setPrice_reduction(int price_reduction) {
+                this.price_reduction = price_reduction;
+            }
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+
+            public int getSurplus_price() {
+                return surplus_price;
+            }
+
+            public void setSurplus_price(int surplus_price) {
+                this.surplus_price = surplus_price;
+            }
+
+            public int getSurplus_count() {
+                return surplus_count;
+            }
+
+            public void setSurplus_count(int surplus_count) {
+                this.surplus_count = surplus_count;
+            }
+
+            public String getRangedata() {
+                return rangedata;
+            }
+
+            public void setRangedata(String rangedata) {
+                this.rangedata = rangedata;
+            }
+
+            public String getReduction_type() {
+                return reduction_type;
+            }
+
+            public void setReduction_type(String reduction_type) {
+                this.reduction_type = reduction_type;
+            }
+
+            public int getCreatetime() {
+                return createtime;
+            }
+
+            public void setCreatetime(int createtime) {
+                this.createtime = createtime;
+            }
+
+            public String getState() {
+                return state;
+            }
+
+            public void setState(String state) {
+                this.state = state;
+            }
+
+            public String getState_text() {
+                return state_text;
+            }
+
+            public void setState_text(String state_text) {
+                this.state_text = state_text;
+            }
+
+            public String getRangedata_text() {
+                return rangedata_text;
+            }
+
+            public void setRangedata_text(String rangedata_text) {
+                this.rangedata_text = rangedata_text;
+            }
+
+            public String getReduction_type_text() {
+                return reduction_type_text;
+            }
+
+            public void setReduction_type_text(String reduction_type_text) {
+                this.reduction_type_text = reduction_type_text;
+            }
+        }
+    }
+
+
 }

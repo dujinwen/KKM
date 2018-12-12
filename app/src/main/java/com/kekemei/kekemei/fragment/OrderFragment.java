@@ -178,6 +178,8 @@ public class OrderFragment extends Fragment {
                 yuYueActivityBean.setOrderName(item.getName());
                 yuYueActivityBean.setOrderId(item.getId());
                 yuYueActivityBean.setProject_id(item.getProject_project_id());
+                yuYueActivityBean.setOrderCreateTime(item.getCreatetime()+"");
+                yuYueActivityBean.setFromDetail(false);
                 switch (view.getId()) {
                     case R.id.iv_del_order:
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -255,7 +257,8 @@ public class OrderFragment extends Fragment {
 
                         break;
                     case R.id.lijifukuan:
-                        PayActivity.start(getActivity(), yuYueActivityBean);
+//                        PayActivity.start(getActivity(), yuYueActivityBean);
+                        ProjectDetailActivity.start(getActivity(), item.getProject_project_id());
                         break;
                     case R.id.chakan:
                         OrderDetailActivity.start(getActivity(), item.getId());

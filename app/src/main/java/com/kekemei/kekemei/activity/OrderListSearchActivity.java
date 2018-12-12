@@ -165,22 +165,35 @@ public class OrderListSearchActivity extends BaseActivity implements View.OnClic
                                 });
                         break;
                     case R.id.lijifukuan:
-                        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
-                        yuYueActivityBean.setDateSelect(-1L);
-                        yuYueActivityBean.setTimeSelect(-1);
-//                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
-                        yuYueActivityBean.setOrderPrice(item.getPrice());
-                        yuYueActivityBean.setOrderCount(item.getCount());
-                        yuYueActivityBean.setOrderIconUrl(item.getImage());
-                        yuYueActivityBean.setOrderName(item.getName());
-//                        yuYueActivityBean.setOrderId(item.getId() + "");
-                        PayActivity.start(OrderListSearchActivity.this, yuYueActivityBean);
+//                        YuYueActivityBean yuYueActivityBean = new YuYueActivityBean();
+//                        yuYueActivityBean.setDateSelect(-1L);
+//                        yuYueActivityBean.setTimeSelect(-1);
+////                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
+//                        yuYueActivityBean.setOrderPrice(item.getPrice());
+//                        yuYueActivityBean.setOrderCount(item.getCount());
+//                        yuYueActivityBean.setOrderIconUrl(item.getImage());
+//                        yuYueActivityBean.setOrderName(item.getName());
+//                        yuYueActivityBean.setOrderId(item.getId());
+//                        yuYueActivityBean.setProject_id(item.getProject_project_id());
+//                        yuYueActivityBean.setOrderCreateTime(item.getCreatetime()+"");
+//                        yuYueActivityBean.setFromDetail(false);
+////                        yuYueActivityBean.setOrderId(item.getId() + "");
+//                        PayActivity.start(OrderListSearchActivity.this, yuYueActivityBean);
+                        ProjectDetailActivity.start(OrderListSearchActivity.this, item.getProject_project_id());
                         break;
                     case R.id.chakan:
                         OrderDetailActivity.start(OrderListSearchActivity.this, item.getId());
                         break;
                     case R.id.zaicigoumai:
-                        ProjectDetailActivity.start(OrderListSearchActivity.this, item.getProject_project_id());
+//                        ProjectDetailActivity.start(OrderListSearchActivity.this, item.getProject_project_id());
+                        OkGo.<String>post(URLs.ORDER_CONFIRM)
+                                .params("order_id", item.getId())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+//                                        onViewClicked(talPingjia);
+                                    }
+                                });
                         break;
                     case R.id.qupingjia:
 //                        UserEvaluateActivity.start(OrderListSearchActivity.this, false, item.getShop_shop_id() + "",

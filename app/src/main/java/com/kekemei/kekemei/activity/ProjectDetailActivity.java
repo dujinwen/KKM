@@ -297,7 +297,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 // TODO: 2018/12/10
                 //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this,R.style.Dialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this, R.style.Dialog);
                 LayoutInflater inflater = getLayoutInflater();
                 final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
                 builder.setView(layout);
@@ -664,7 +664,15 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         yuYueActivityBean.setOrderIconUrl(detailBean.getImage());
         yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
         yuYueActivityBean.setProject_id(detailBean.getId() + "");
-
+        yuYueActivityBean.setFromDetail(true);
+        if (detailBean.getMyDenvelopes() != null) {
+            yuYueActivityBean.setRed_id(detailBean.getMyDenvelopes().get(0).getRedenvelopes_id());
+            yuYueActivityBean.setRed_text(detailBean.getMyDenvelopes().get(0).getRes().getPrice_reduction() + "");
+        }
+        if (detailBean.getMyCoupons() != null) {
+            yuYueActivityBean.setCoupon_id(detailBean.getMyCoupons().get(0).getCoupon_id());
+            yuYueActivityBean.setCoupon_text(detailBean.getMyCoupons().get(0).getCoupon().getPrice_reduction() + "");
+        }
         PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
     }
 
@@ -848,7 +856,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             Gson gson = new Gson();
                             detailBean = gson.fromJson(data, ProjectDetailBean.class);
                             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + detailBean.getImage(), shop_detail_icon);
-                            shopName.setText(detailBean.getName());
+                                shopName.setText(detailBean.getName());
                             price.setText("￥" + detailBean.getPrice_discount());
                             marketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
                             marketPrice.getPaint().setAntiAlias(true);// 抗锯齿
@@ -862,7 +870,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 tvRedBao.setText(shopDetailBean.getRedenvelopes().get(0).getName());
                                 latx = Double.parseDouble(shopDetailBean.getLatitude());
                                 laty = Double.parseDouble(shopDetailBean.getLongitude());
-                                mAddress= shopDetailBean.getAddress();
+                                mAddress = shopDetailBean.getAddress();
                             } else {
                                 ivRedBao.setVisibility(View.GONE);
                                 tvRedBao.setVisibility(View.GONE);

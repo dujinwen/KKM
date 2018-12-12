@@ -128,6 +128,8 @@ public class PayActivity extends BaseActivity {
     private int order_count;
     private String order_image;
     private String order_name;
+    private String order_id;
+    private String orderCreatTime;
 
     private int hongbaonum, youhuiqunnum, manjiannum = 0;
 
@@ -148,6 +150,7 @@ public class PayActivity extends BaseActivity {
     private String redId;
     private String couponId;
     private String manjianId;
+    private String out_trade_no;
 
     private OrderGeneratingBean orderGeneratingBean;
 
@@ -197,7 +200,31 @@ public class PayActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        getData();
+        if (!yuYueActivityBean.getFromDetail())
+            getData();
+        else
+            getDataFromDetail();
+    }
+
+    private void getDataFromDetail() {
+//        generatingOrder(redId, couponId);
+        order_name = yuYueActivityBean.getOrderName();
+
+        tvOrderName.setText(order_name);
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + order_image, ivOrderIcon);
+//                        order_price = orderByIdBean.getData().getPrice();
+        tvPrice.setText("¥ " + order_price);
+        order_count = yuYueActivityBean.getOrderCount();
+        tvOrderNum.setText("X" + order_count);
+
+        money.setText("¥ " + (order_price * order_count - youhuiqunnum - hongbaonum - manjiannum));
+
+        redId = yuYueActivityBean.getRed_id() + "";
+        couponId = yuYueActivityBean.getCoupon_id() + "";
+        tvRedBaoNum.setText(yuYueActivityBean.getRed_text());
+        tvYouhuiquanNum.setText(yuYueActivityBean.getCoupon_text());
+        generatingOrder(redId, couponId);
+
     }
 
     private void getData() {
@@ -236,7 +263,9 @@ public class PayActivity extends BaseActivity {
 
                             money.setText("¥ " + (order_price * order_count - youhuiqunnum - hongbaonum - manjiannum));
 
-                            generatingOrder(redId, couponId);
+                            order_id = yuYueActivityBean.getOrderId();
+                            orderCreatTime = yuYueActivityBean.getOrderCreateTime();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -271,6 +300,8 @@ public class PayActivity extends BaseActivity {
                             }
                             Gson gson = new Gson();
                             orderGeneratingBean = gson.fromJson(response.body(), OrderGeneratingBean.class);
+                            order_id = orderGeneratingBean.getData().getOrder_id();
+                            orderCreatTime = orderGeneratingBean.getTime();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -312,9 +343,9 @@ public class PayActivity extends BaseActivity {
                     return;
                 }
                 if (ivCheckAli.isChecked()) {
-                    toALiPay(orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
+                    toALiPay(order_id, orderCreatTime);
                 } else {
-                    toWXPay(orderGeneratingBean.getData().getOrder_id(), orderGeneratingBean.getTime());
+                    toWXPay(order_id, orderCreatTime);
                 }
                 break;
         }
@@ -341,6 +372,7 @@ public class PayActivity extends BaseActivity {
                             req.nonceStr = data.getNonce_str();
                             req.timeStamp = data.getPay_time() + "";
                             req.sign = data.getSign2();
+                            out_trade_no = data.getOut_trade_no();
                             // 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
                             LogUtil.d("PAY_GET", req.toString());
                             if (!api.isWXAppInstalled()) {
@@ -365,6 +397,7 @@ public class PayActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         final ALiPayResultBean payResultBean = gson.fromJson(response.body(), ALiPayResultBean.class);
+                        out_trade_no = payResultBean.getData().getOut_trade_no();
                         Runnable payRunnable = new Runnable() {
                             @Override
                             public void run() {
@@ -411,14 +444,14 @@ public class PayActivity extends BaseActivity {
     // TODO: 2018/11/13 去预约美容师页面
     private void toSelectActivity() {
         OkGo.<String>post(URLs.ORDER_REFUND)
-                .params("out_trade_no", yuYueActivityBean.getOrderId())
+                .params("out_trade_no", out_trade_no)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
-                            String code = (String) jsonObject.opt("code");
-                            if (code.equals("1")) {
+                            int code = (int) jsonObject.opt("code");
+                            if (code == 1) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
                                 builder.setTitle("提示");
                                 builder.setMessage("您已支付成功，请预约美容师");
@@ -426,15 +459,15 @@ public class PayActivity extends BaseActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         MainActivity.start(PayActivity.this, 2);
-                                        SPUtils.putBoolean(getApplicationContext(),SPUtils.SELECT_YUYUE,true);
+                                        SPUtils.putBoolean(getApplicationContext(), SPUtils.SELECT_YUYUE, true);
                                         dialog.dismiss();
                                     }
                                 });
                                 AlertDialog dialog = builder.create();
                                 dialog.setCanceledOnTouchOutside(false);
                                 dialog.show();
-                            }else {
-                                ToastUtil.showToastMsg(getApplicationContext(),(String) jsonObject.opt("msg"));
+                            } else {
+                                ToastUtil.showToastMsg(getApplicationContext(), (String) jsonObject.opt("msg"));
                             }
 
                         } catch (JSONException e) {
@@ -445,7 +478,7 @@ public class PayActivity extends BaseActivity {
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        ToastUtil.showToastMsg(getApplicationContext(),response.body());
+                        ToastUtil.showToastMsg(getApplicationContext(), response.body());
                     }
                 });
 
