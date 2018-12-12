@@ -337,7 +337,7 @@ public class PushOrderActivity extends BaseActivity {
                         .params("shop_id", shopId)
                         .params("beautician_id", beauticianId)
                         .params("timedata", timeSelectPosition)
-                        .params("timedstartdate", daySelectPosition+"".length() ==13?daySelectPosition/1000:daySelectPosition)
+                        .params("timedstartdate", (daySelectPosition+"").substring(0,11))
                         .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
                             @Override
