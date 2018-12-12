@@ -86,7 +86,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean.DataBean, B
                 break;
             case "4": //服务完成
             case "5"://待评价
-                helper.setGone(R.id.quxiaodingdan, false);
+                helper.setGone(R.id.quxiaodingdan, true);
                 helper.setGone(R.id.chakan, false);
                 helper.setGone(R.id.querenfuwu, false);
                 helper.setGone(R.id.lijifukuan, false);
