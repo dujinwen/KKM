@@ -90,6 +90,16 @@ public class ProjectDetailBean implements Serializable {
     private List<String> service;
     private List<RedenvloesDataBean> redenvloesdata;
 
+    public NearShop getNearshop() {
+        return nearshop;
+    }
+
+    public void setNearshop(NearShop nearshop) {
+        this.nearshop = nearshop;
+    }
+
+    private NearShop nearshop;
+
     public WaiterBean getWaiter() {
         return waiter;
     }
