@@ -176,6 +176,8 @@ public class OrderFragment extends Fragment {
                 yuYueActivityBean.setOrderCount(item.getCount());
                 yuYueActivityBean.setOrderIconUrl(item.getImage());
                 yuYueActivityBean.setOrderName(item.getName());
+                yuYueActivityBean.setOrderId(item.getId());
+                yuYueActivityBean.setProject_id(item.getProject_project_id());
                 switch (view.getId()) {
                     case R.id.iv_del_order:
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

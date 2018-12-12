@@ -83,7 +83,7 @@ public class OrderByIdBean {
         private int id;
         private String name;
         private String pay_type_text;
-        private int price;
+        private double price;
         private ProjectBean project;
         private int project_project_id;
         private int servicetime;
@@ -153,11 +153,11 @@ public class OrderByIdBean {
             this.pay_type_text = pay_type_text;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 
@@ -290,11 +290,11 @@ public class OrderByIdBean {
             private String image;
             private String images;
             private String name;
-            private int price_discount;
-            private int price_market;
-            private int price_member;
-            private int price_newmember;
-            private int price_second;
+            private double price_discount;
+            private double price_market;
+            private double price_member;
+            private double price_newmember;
+            private double price_second;
             private int project_category_id;
             private String quality;
             private String quality_text;
@@ -362,43 +362,43 @@ public class OrderByIdBean {
                 this.name = name;
             }
 
-            public int getPrice_discount() {
+            public double getPrice_discount() {
                 return price_discount;
             }
 
-            public void setPrice_discount(int price_discount) {
+            public void setPrice_discount(double price_discount) {
                 this.price_discount = price_discount;
             }
 
-            public int getPrice_market() {
+            public double getPrice_market() {
                 return price_market;
             }
 
-            public void setPrice_market(int price_market) {
+            public void setPrice_market(double price_market) {
                 this.price_market = price_market;
             }
 
-            public int getPrice_member() {
+            public double getPrice_member() {
                 return price_member;
             }
 
-            public void setPrice_member(int price_member) {
+            public void setPrice_member(double price_member) {
                 this.price_member = price_member;
             }
 
-            public int getPrice_newmember() {
+            public double getPrice_newmember() {
                 return price_newmember;
             }
 
-            public void setPrice_newmember(int price_newmember) {
+            public void setPrice_newmember(double price_newmember) {
                 this.price_newmember = price_newmember;
             }
 
-            public int getPrice_second() {
+            public double getPrice_second() {
                 return price_second;
             }
 
-            public void setPrice_second(int price_second) {
+            public void setPrice_second(double price_second) {
                 this.price_second = price_second;
             }
 

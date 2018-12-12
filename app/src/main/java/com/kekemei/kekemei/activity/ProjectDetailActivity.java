@@ -87,9 +87,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     public static final String EXTRA_KEY_SHOP_DETAIL_BEAN = "shopDetailBean";
     public static final String EXTRA_KEY_BEAUTICIAN_DETAIL_BEAN = "beauticianDetailBean";
     public static final String EXTRA_KEY_DETAIL_ENUM = "detailEnum";
-
-    private double latx = 39.9037448095;
-    private double laty = 116.3980007172;
+    private double latx = 39.9555282581;
+    private double laty = 116.3211617110;
     private String mAddress = "北京天安门";
 
     @BindView(R.id.toolbar)
@@ -296,7 +295,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 // TODO: 2018/12/10
                 //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProjectDetailActivity.this,R.style.Dialog);
                 LayoutInflater inflater = getLayoutInflater();
                 final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
                 builder.setView(layout);

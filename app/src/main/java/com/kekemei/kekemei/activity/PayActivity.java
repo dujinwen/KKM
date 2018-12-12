@@ -439,6 +439,12 @@ public class PayActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        ToastUtil.showToastMsg(getApplicationContext(),response.body());
+                    }
                 });
 
     }

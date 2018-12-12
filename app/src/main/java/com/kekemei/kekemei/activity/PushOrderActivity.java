@@ -224,7 +224,6 @@ public class PushOrderActivity extends BaseActivity {
         tvOrderNum.setVisibility(View.GONE);
 
 
-        Intent intent = new Intent();
         yuYueActivityBean = (YuYueActivityBean) getIntent().getSerializableExtra(EXTRA_KEY_YUYUE_BEAN);
         order_name = yuYueActivityBean.getOrderName();
         image_url = yuYueActivityBean.getOrderIconUrl();
@@ -337,7 +336,7 @@ public class PushOrderActivity extends BaseActivity {
                         .params("shop_id", shopId)
                         .params("beautician_id", beauticianId)
                         .params("timedata", timeSelectPosition)
-                        .params("timedstartdate", daySelectPosition)
+                        .params("timedstartdate", daySelectPosition+"".length() ==13?daySelectPosition/1000:daySelectPosition)
                         .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
                             @Override

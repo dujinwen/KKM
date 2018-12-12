@@ -69,7 +69,7 @@ public class HongBaoDataBean {
 
         private int id;
         private int redenvelopes_id;
-        private int price_reduction;
+        private double price_reduction;
         private String red_type;
         private int user_id;
         private int project_project_id;
@@ -99,11 +99,11 @@ public class HongBaoDataBean {
             this.redenvelopes_id = redenvelopes_id;
         }
 
-        public int getPrice_reduction() {
+        public double getPrice_reduction() {
             return price_reduction;
         }
 
-        public void setPrice_reduction(int price_reduction) {
+        public void setPrice_reduction(double price_reduction) {
             this.price_reduction = price_reduction;
         }
 
