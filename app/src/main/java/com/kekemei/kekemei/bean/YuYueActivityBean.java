@@ -22,9 +22,18 @@ public class YuYueActivityBean implements Serializable {
 
     private BeauticianDetailBean beauticianDetailBean;
     private ShopDetailBean shopDetailBean;
+    private NearShopBean nearShopBean;
     private int red_id;
     private int coupon_id;
     private String red_text;
+
+    public NearShopBean getNearShopBean() {
+        return nearShopBean;
+    }
+
+    public void setNearShopBean(NearShopBean nearShopBean) {
+        this.nearShopBean = nearShopBean;
+    }
 
     public int getRed_id() {
         return red_id;

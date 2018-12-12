@@ -605,7 +605,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tvToShopDetail:
                 if (detailBean != null) {
-                    ShopActivity.start(this, detailBean.getId(), DetailEnum.SHOP);
+                    ShopActivity.start(this, detailBean.getNearshop().getId()+"", DetailEnum.SHOP);
                 }
                 break;
             case R.id.coupon:
@@ -665,6 +665,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         yuYueActivityBean.setOrderPrice(detailBean.getPrice_discount());
         yuYueActivityBean.setProject_id(detailBean.getId() + "");
         yuYueActivityBean.setFromDetail(true);
+        yuYueActivityBean.setNearShopBean(detailBean.getNearshop());
         if (detailBean.getMyDenvelopes() != null) {
             yuYueActivityBean.setRed_id(detailBean.getMyDenvelopes().get(0).getRedenvelopes_id());
             yuYueActivityBean.setRed_text(detailBean.getMyDenvelopes().get(0).getRes().getPrice_reduction() + "");
@@ -673,6 +674,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
             yuYueActivityBean.setCoupon_id(detailBean.getMyCoupons().get(0).getCoupon_id());
             yuYueActivityBean.setCoupon_text(detailBean.getMyCoupons().get(0).getCoupon().getPrice_reduction() + "");
         }
+
         PayActivity.start(ProjectDetailActivity.this, yuYueActivityBean);
     }
 

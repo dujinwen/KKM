@@ -458,8 +458,10 @@ public class PayActivity extends BaseActivity {
                                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        MainActivity.start(PayActivity.this, 2);
-                                        SPUtils.putBoolean(getApplicationContext(), SPUtils.SELECT_YUYUE, true);
+//                                        MainActivity.start(PayActivity.this, 2);
+//                                        SPUtils.putBoolean(getApplicationContext(), SPUtils.SELECT_YUYUE, true);
+                                        yuYueActivityBean.setOrderId(order_id);
+                                        PushOrderActivity.start(PayActivity.this,yuYueActivityBean);
                                         dialog.dismiss();
                                     }
                                 });

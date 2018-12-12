@@ -23,6 +23,7 @@ import com.kekemei.kekemei.adapter.YuYueDataListAdapter;
 import com.kekemei.kekemei.bean.BeauticianBean;
 import com.kekemei.kekemei.bean.BeauticianDetailBean;
 import com.kekemei.kekemei.bean.CanlBean;
+import com.kekemei.kekemei.bean.NearShopBean;
 import com.kekemei.kekemei.bean.ShopBean;
 import com.kekemei.kekemei.bean.ShopDetailBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
@@ -146,6 +147,7 @@ public class PushOrderActivity extends BaseActivity {
     private ShopDetailBean shpDataBeanData;
     private String shopId;
     private String beauticianId;
+    private NearShopBean nearShopBean;
 
     public static void start(Context context, YuYueActivityBean yuYueActivityBean) {
         Intent intent = new Intent(context, PushOrderActivity.class);
@@ -171,7 +173,7 @@ public class PushOrderActivity extends BaseActivity {
         if (yuYueActivityBean.getShopDetailBean() != null) {
             // TODO: 2018/11/14  通过店铺查找美容师
             llShopPlace.setClickable(false);
-            tvPlace.setText(yuYueActivityBean.getShopDetailBean().getCity() + yuYueActivityBean.getShopDetailBean().getAddress());
+            tvPlace.setText(yuYueActivityBean.getShopDetailBean().getAddress());
         } else {
             tvPlace.setText("请选择店铺");
         }
@@ -184,9 +186,15 @@ public class PushOrderActivity extends BaseActivity {
             tvPlace.setText(yuYueActivityBean.getBeauticianDetailBean().getPlace());
             ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + yuYueActivityBean.getBeauticianDetailBean().getImage(), civIcon);
             sbNum.setStarMark(Float.valueOf(yuYueActivityBean.getBeauticianDetailBean().getStart()));
-        }else {
+        } else {
             llMeirongshiInfo.setVisibility(View.GONE);
             llMeirongshiInfoHint.setVisibility(View.VISIBLE);
+        }
+        if (yuYueActivityBean.getNearShopBean() != null && tvPlace.getText().equals("请选择店铺")) {
+            llShopPlace.setClickable(false);
+            tvPlace.setText(yuYueActivityBean.getNearShopBean().getShopname());
+        } else {
+            tvPlace.setText("请选择店铺");
         }
 
 
@@ -241,6 +249,10 @@ public class PushOrderActivity extends BaseActivity {
         if (yuYueActivityBean.getShopDetailBean() != null) {
             shpDataBeanData = yuYueActivityBean.getShopDetailBean();
             shopId = shpDataBeanData.getId();
+        }
+        if (yuYueActivityBean.getNearShopBean() != null) {
+            nearShopBean = yuYueActivityBean.getNearShopBean();
+            shopId = nearShopBean.getId() + "";
         }
 
         tvNum.setText(orderNumber + "");
@@ -319,7 +331,7 @@ public class PushOrderActivity extends BaseActivity {
                 break;
             case R.id.btn_yuyue:
                 long userId = UserHelp.getUserId(this);
-                if (userId==-1L){
+                if (userId == -1L) {
                     LoginActivity.start(this);
                     return;
                 }
@@ -328,6 +340,7 @@ public class PushOrderActivity extends BaseActivity {
                 if (beauticianDataBeanData != null && StringUtils.isEmpty(beauticianId)) {
                     beauticianId = beauticianDataBeanData.getId();
                 }
+                if (StringUtils.isEmpty(shopId)) shopId = nearShopBean.getId()+"";
                 if (StringUtils.isEmpty(shopId) || StringUtils.isEmpty(beauticianId) || timeSelectPosition == -1 || daySelectPosition == -1L) {
                     ToastUtil.showToastMsg(getBaseContext(), "请依次确定预约信息");
                     return;
@@ -337,7 +350,7 @@ public class PushOrderActivity extends BaseActivity {
                         .params("shop_id", shopId)
                         .params("beautician_id", beauticianId)
                         .params("timedata", timeSelectPosition)
-                        .params("timedstartdate", (daySelectPosition+"").substring(0,11))
+                        .params("timedstartdate", (daySelectPosition + "").substring(0, 11))
                         .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
                             @Override

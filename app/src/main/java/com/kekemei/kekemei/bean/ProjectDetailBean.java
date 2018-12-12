@@ -91,7 +91,15 @@ public class ProjectDetailBean implements Serializable {
     private List<RedenvloesDataBean> redenvloesdata;
     private List<MyDenvelopes> myDenvelopes;
     private List<MyCoupon> myCoupons;
+    public NearShopBean getNearshop() {
+        return nearshop;
+    }
 
+    public void setNearshop(NearShopBean nearshop) {
+        this.nearshop = nearshop;
+    }
+
+    private NearShopBean nearshop;
 
     public List<MyDenvelopes> getMyDenvelopes() {
         return myDenvelopes;

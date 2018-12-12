@@ -359,7 +359,7 @@ public class ShopDetailBean implements Serializable {
 
         private int id;
         private String name;
-        private double price;
+        private int price;
         private int type;
 
         public int getId() {
@@ -378,11 +378,11 @@ public class ShopDetailBean implements Serializable {
             this.name = name;
         }
 
-        public double getPrice() {
+        public int getPrice() {
             return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(int price) {
             this.price = price;
         }
 
