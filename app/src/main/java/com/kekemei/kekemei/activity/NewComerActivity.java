@@ -87,6 +87,9 @@ public class NewComerActivity extends BaseActivity {
     @BindView(R.id.sectionForYouRv)
     RecyclerView sectionForYouRv;
 
+    @BindView(R.id.bottomBar)
+    LinearLayout bottomBar;
+
     private MyGridAdapter allAdapter, forYouAdapter;
 
     private boolean isNewComer;
@@ -215,14 +218,15 @@ public class NewComerActivity extends BaseActivity {
         loadData(true);
     }
 
-    @OnClick({R.id.lookMoreAll, R.id.tvAllProject, R.id.topBanner})
+    @OnClick({R.id.lookMoreAll, R.id.tvAllProject, R.id.onLineService, R.id.buyNow})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tvAllProject:
-            case R.id.lookMoreAll:
-                ProjectListActivity.start(this, "");
+            case R.id.onLineService:
+                if (newComerBean != null && newComerBean.getAdmin() != null) {
+                    ChatActivity.start(this, newComerBean.getAdmin());
+                }
                 break;
-            case R.id.topBanner:
+            case R.id.buyNow:
                 OkGo.<String>get(URLs.ADD_NEW_PEOPLE).params("user_id", UserHelp.getUserId(NewComerActivity.this))
                         .execute(new StringCallback() {
                             @Override
@@ -247,6 +251,10 @@ public class NewComerActivity extends BaseActivity {
                                 ToastUtil.showToastMsg(NewComerActivity.this, "领取失败");
                             }
                         });
+                break;
+            case R.id.tvAllProject:
+            case R.id.lookMoreAll:
+                ProjectListActivity.start(this, "");
                 break;
         }
     }
@@ -325,6 +333,7 @@ public class NewComerActivity extends BaseActivity {
                     showRefreshLoading(false);
                 if (newComerBean.getIsnew() == 0) {
                     scrollContent.setVisibility(View.VISIBLE);
+                    bottomBar.setVisibility(View.VISIBLE);
                     multipleStatusView.showOutContentView(scrollContent);
                     ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + newComerBean.getBanner().getImage(), topBanner);
                     if (CollectionUtils.isNotEmpty(newComerBean.getProjectall())) {
@@ -352,6 +361,7 @@ public class NewComerActivity extends BaseActivity {
                 } else {
                     toolbar.setBackgroundColor(Color.parseColor("#7AD2D2"));
                     scrollContent.setVisibility(View.GONE);
+                    bottomBar.setVisibility(View.GONE);
                     multipleStatusView.showOutContentView(refresh_layout);
                     if (CollectionUtils.isNotEmpty(newComerBean.getNewpopledata())) {
                         listAdapter.replaceData(newComerBean.getNewpopledata());
