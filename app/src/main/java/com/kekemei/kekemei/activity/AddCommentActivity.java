@@ -286,7 +286,7 @@ public class AddCommentActivity extends BaseActivity {
         }
         OkGo.<String>post(URLs.ADD_COMMENT).tag(this).params("comment_type", commonType)
                 .params("order_id", orderId).params("tags_ids", commentTags.toString())
-                .params("content", content).params("start", starBar.getStarMark())
+                .params("content", content).params("start", (int) starBar.getStarMark())
                 .params("satisfaction", satisfaction).params("images", adapter.getItems().toString())
                 .execute(new StringCallback() {
                     @Override
