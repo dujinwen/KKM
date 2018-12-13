@@ -29,9 +29,9 @@ public class ServiceOrderListAdapter extends BaseQuickAdapter<ServiceOrderListBe
         helper.setText(R.id.name, item.getUser_name());
         helper.setText(R.id.phone, item.getUser_mobile());
         helper.setText(R.id.address, item.getService_address());
-        helper.setText(R.id.orderId, item.getId());
+        helper.setText(R.id.orderId, item.getId()+"");
         helper.setText(R.id.projectContent, item.getProject_name());
-        helper.setText(R.id.appointmentTime, item.getServicetime_text());
+        helper.setText(R.id.appointmentTime, item.getBeauticiantime());
         helper.setText(R.id.countNum, "X " + item.getCount());
         helper.setText(R.id.orderPrice, "￥ " + item.getProject_price());
         helper.getView(R.id.callPhone).setOnClickListener(new View.OnClickListener() {

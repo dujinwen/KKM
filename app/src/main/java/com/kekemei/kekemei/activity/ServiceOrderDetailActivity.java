@@ -32,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -95,6 +96,8 @@ public class ServiceOrderDetailActivity extends BaseActivity {
     EditText inputReply;
     @BindView(R.id.replayComment)
     Button replayComment;
+    @BindView(R.id.serviceTime)
+    TextView serviceTime;
 
     private ServiceOrderListBean serviceItemBean;
     OrderDetailBean.DataBean data;
@@ -149,6 +152,7 @@ public class ServiceOrderDetailActivity extends BaseActivity {
                         name.setText(serviceItemBean.getUser_name());
                         phone.setText(serviceItemBean.getUser_mobile());
                         shopAddress.setText(data.getAddress());
+                        serviceTime.setText(data.getServicetime_text());
                         if (data.getState().equals("2")) {
                             bottomBar.setVisibility(View.VISIBLE);
                             cancelOrder.setVisibility(View.VISIBLE);
@@ -165,7 +169,7 @@ public class ServiceOrderDetailActivity extends BaseActivity {
                             finishService.setVisibility(View.GONE);
                             bottomLayout.setVisibility(View.VISIBLE);
                             commentLayout.setVisibility(View.VISIBLE);
-                            if(CollectionUtils.isNotEmpty(data.getReply())){
+                            if (CollectionUtils.isNotEmpty(data.getReply())) {
                                 OrderDetailBean.ReplyBean replyBean = data.getReply().get(0);
                                 commentText.setText(replyBean.getContent());
                             }
@@ -297,5 +301,12 @@ public class ServiceOrderDetailActivity extends BaseActivity {
                 ToastUtil.showToastMsg(ServiceOrderDetailActivity.this, "回复失败");
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

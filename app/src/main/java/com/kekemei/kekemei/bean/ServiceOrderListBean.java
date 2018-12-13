@@ -5,56 +5,58 @@ import java.io.Serializable;
 public class ServiceOrderListBean implements Serializable{
 
     /**
-     * id : 3
-     * name : 测试
-     * price : 100
-     * user_id : 2
+     * id : 1000000189
+     * name : 瘦腿针/瘦肩针二选一，纤细小鸟腿，平肩一字肩
+     * price : 0.01
+     * user_id : 1
      * count : 1
-     * project_project_id : 5
-     * shop_shop_id : 1
-     * state : 4
-     * pay_type : 0
+     * project_project_id : 9
+     * shop_shop_id : 2
+     * pay_type : null
      * beautician_beautician_id : 2
      * coupon_id : null
      * myredenvelopes_id : null
      * servicetime : 0
      * finishtime : 0
-     * createtime : 1539742649
+     * createtime : 1544676037
      * source : 1
-     * user_name : 13269501725
-     * user_mobile : 13269501725
-     * service_address : 2222
-     * project_name : 【水光针】【润百颜水光针2.5ml】肌肤喝饱水，不惧炎炎夏日！
-     * project_price : 99
-     * image : /uploads/20181022/63b5dc1f595937b86f1a7ad7e21185fa.jpg
-     * pay_type_text : Pay_type 0
+     * state : 2
+     * user_name : admin
+     * user_mobile : 13269501726
+     * service_address : 德胜门店
+     * project_name : 瘦腿针/瘦肩针二选一，纤细小鸟腿，平肩一字肩
+     * project_price : 0.01
+     * beauticiantime : 2459-06-2811:00
+     * image : /uploads/20181118/7b325b14d9eb6a1f6163a0e374ab0987.jpg
+     * pay_type_text :
      * servicetime_text : 1970-01-01 08:00:00
      * finishtime_text : 1970-01-01 08:00:00
-     * source_text : Source 1
-     * state_text : 完成
+     * source_text : 项目
+     * state_text : 待服务
      */
 
-    private String id;
+    private int id;
     private String name;
-    private float price;
+    private double price;
     private int user_id;
     private int count;
-    private String project_project_id;
+    private int project_project_id;
     private int shop_shop_id;
-    private String state;
-    private String pay_type;
+    private Object pay_type;
     private int beautician_beautician_id;
     private Object coupon_id;
     private Object myredenvelopes_id;
-    private long servicetime;
-    private long finishtime;
-    private long createtime;
+    private int servicetime;
+    private int finishtime;
+    private int createtime;
     private String source;
+    private String state;
     private String user_name;
     private String user_mobile;
     private String service_address;
     private String project_name;
-    private float project_price;
+    private double project_price;
+    private String beauticiantime;
     private String image;
     private String pay_type_text;
     private String servicetime_text;
@@ -62,11 +64,11 @@ public class ServiceOrderListBean implements Serializable{
     private String source_text;
     private String state_text;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -78,11 +80,11 @@ public class ServiceOrderListBean implements Serializable{
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -102,11 +104,11 @@ public class ServiceOrderListBean implements Serializable{
         this.count = count;
     }
 
-    public String getProject_project_id() {
+    public int getProject_project_id() {
         return project_project_id;
     }
 
-    public void setProject_project_id(String project_project_id) {
+    public void setProject_project_id(int project_project_id) {
         this.project_project_id = project_project_id;
     }
 
@@ -118,19 +120,11 @@ public class ServiceOrderListBean implements Serializable{
         this.shop_shop_id = shop_shop_id;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPay_type() {
+    public Object getPay_type() {
         return pay_type;
     }
 
-    public void setPay_type(String pay_type) {
+    public void setPay_type(Object pay_type) {
         this.pay_type = pay_type;
     }
 
@@ -158,27 +152,27 @@ public class ServiceOrderListBean implements Serializable{
         this.myredenvelopes_id = myredenvelopes_id;
     }
 
-    public long getServicetime() {
+    public int getServicetime() {
         return servicetime;
     }
 
-    public void setServicetime(long servicetime) {
+    public void setServicetime(int servicetime) {
         this.servicetime = servicetime;
     }
 
-    public long getFinishtime() {
+    public int getFinishtime() {
         return finishtime;
     }
 
-    public void setFinishtime(long finishtime) {
+    public void setFinishtime(int finishtime) {
         this.finishtime = finishtime;
     }
 
-    public long getCreatetime() {
+    public int getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(long createtime) {
+    public void setCreatetime(int createtime) {
         this.createtime = createtime;
     }
 
@@ -188,6 +182,14 @@ public class ServiceOrderListBean implements Serializable{
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getUser_name() {
@@ -222,12 +224,20 @@ public class ServiceOrderListBean implements Serializable{
         this.project_name = project_name;
     }
 
-    public float getProject_price() {
+    public double getProject_price() {
         return project_price;
     }
 
-    public void setProject_price(float project_price) {
+    public void setProject_price(double project_price) {
         this.project_price = project_price;
+    }
+
+    public String getBeauticiantime() {
+        return beauticiantime;
+    }
+
+    public void setBeauticiantime(String beauticiantime) {
+        this.beauticiantime = beauticiantime;
     }
 
     public String getImage() {
