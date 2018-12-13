@@ -62,9 +62,9 @@ public class ServiceOrderListAdapter extends BaseQuickAdapter<ServiceOrderListBe
         //状态值:1=待预约,2=待服务,3=服务中,4=服务完成,5=待回复（回复客户评价）,6=已完成,10=已取消
         switch (showOrHide) {
             case "2":
-                helper.setGone(R.id.startService, !flag);
+                helper.setGone(R.id.startService, flag);
                 helper.setGone(R.id.cancelOrder, true);
-                helper.setGone(R.id.finishService, flag);
+                helper.setGone(R.id.finishService, !flag);
                 helper.setGone(R.id.replayComment, false);
                 break;
             case "3":
