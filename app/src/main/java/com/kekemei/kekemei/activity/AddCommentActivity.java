@@ -327,7 +327,8 @@ public class AddCommentActivity extends BaseActivity {
                     tvVerySatisfied.setSelected(true);
                     tvSatisfied.setSelected(false);
                     tvCommonly.setSelected(false);
-                    satisfaction = tvVerySatisfied.getText().toString();
+//                    satisfaction = tvVerySatisfied.getText().toString();
+                    satisfaction = "3";
                 }
                 break;
             case R.id.tvSatisfied:
@@ -338,7 +339,8 @@ public class AddCommentActivity extends BaseActivity {
                     tvSatisfied.setSelected(true);
                     tvVerySatisfied.setSelected(false);
                     tvCommonly.setSelected(false);
-                    satisfaction = tvSatisfied.getText().toString();
+//                    satisfaction = tvSatisfied.getText().toString();
+                    satisfaction = "2";
                 }
                 break;
             case R.id.tvCommonly:
@@ -349,7 +351,8 @@ public class AddCommentActivity extends BaseActivity {
                     tvCommonly.setSelected(true);
                     tvSatisfied.setSelected(false);
                     tvVerySatisfied.setSelected(false);
-                    satisfaction = tvCommonly.getText().toString();
+//                    satisfaction = tvCommonly.getText().toString();
+                    satisfaction = "1";
                 }
                 break;
         }
