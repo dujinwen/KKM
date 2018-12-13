@@ -119,6 +119,8 @@ public class AddCommentActivity extends BaseActivity {
 
     private String commonType;
     private String orderId;
+    private StringBuilder tags_ids = new StringBuilder();
+    private StringBuilder images = new StringBuilder();
 
     public static void start(Context context, String commonType, String orderId) {
         Intent intent = new Intent(context, AddCommentActivity.class);
@@ -284,10 +286,22 @@ public class AddCommentActivity extends BaseActivity {
             ToastUtil.showToastMsg(this, "请上传图片！");
             return;
         }
+        for (int i = 0; i < commentTags.size(); i++) {
+            if (i != commentTags.size() - 1)
+                tags_ids = tags_ids.append(commentTags.get(i) + ",");
+            else
+                tags_ids = tags_ids.append(commentTags.get(i));
+        }
+        for (int i = 0; i < adapter.getItems().size(); i++) {
+            if (i != adapter.getItems().size() - 1)
+                images = images.append(adapter.getItems().get(i) + ",");
+            else
+                images = images.append(adapter.getItems().get(i));
+        }
         OkGo.<String>post(URLs.ADD_COMMENT).tag(this).params("comment_type", commonType)
-                .params("order_id", orderId).params("tags_ids", commentTags.toString())
+                .params("order_id", orderId).params("tags_ids", tags_ids.toString())
                 .params("content", content).params("start", (int) starBar.getStarMark())
-                .params("satisfaction", satisfaction).params("images", adapter.getItems().toString())
+                .params("satisfaction", satisfaction).params("images", images.toString())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
