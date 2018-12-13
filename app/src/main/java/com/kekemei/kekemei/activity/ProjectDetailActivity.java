@@ -54,6 +54,7 @@ import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.CustomDatePicker;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.MapUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -604,7 +605,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.tvToShopDetail:
                 if (detailBean != null) {
-                    ShopActivity.start(this, detailBean.getNearshop().getId()+"", DetailEnum.SHOP);
+                    ShopActivity.start(this, detailBean.getNearshop().getId() + "", DetailEnum.SHOP);
                 }
                 break;
             case R.id.coupon:
@@ -843,6 +844,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
         OkGo.<String>post(URLs.PROJECT_DETAILS)
                 .params("id", beauticianId)
                 .params("user_id", userId == -1L ? "" : userId + "")
+                .params("longitude", SPUtils.getString(getApplicationContext(), "longitude", ""))
+                .params("latitude", SPUtils.getString(getApplicationContext(), "latitude", ""))
                 .execute(new StringCallback() {
                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @SuppressLint("StringFormatMatches")
@@ -886,7 +889,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                 ivFull.setVisibility(View.GONE);
                                 tvFul.setVisibility(View.GONE);
                             }
-                            tvDistance.setText(getString(R.string.shop_detail_distance, shopDetailBean == null ? "" : shopDetailBean.getDistance()));
+                            tvDistance.setText(getString(R.string.shop_detail_distance, detailBean.getNearshop().getDistance()));
                             if (detailBean != null && CollectionUtils.isNotEmpty(detailBean.getRedenvloesdata())) {
                                 for (ProjectDetailBean.RedenvloesDataBean redenvloesDataBean : detailBean.getRedenvloesdata()) {
                                     if (redenvloesDataBean.getType() == 1) {

@@ -44,7 +44,7 @@ public class BeauticianBean implements Serializable {
     private String identity;
     private String image;
     private String images;
-    private int isfriend;
+    private int isfirend;
     private String name;
     private int order_count;
     private String place;
@@ -140,11 +140,11 @@ public class BeauticianBean implements Serializable {
     }
 
     public int getIsfriend() {
-        return isfriend;
+        return isfirend;
     }
 
-    public void setIsfriend(int isfriend) {
-        this.isfriend = isfriend;
+    public void setIsfriend(int isfirend) {
+        this.isfirend = isfirend;
     }
 
     public String getName() {

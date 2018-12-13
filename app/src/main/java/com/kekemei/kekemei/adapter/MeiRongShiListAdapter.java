@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
 import com.kekemei.kekemei.bean.BeauticianBean;
+import com.kekemei.kekemei.utils.URLs;
 import com.kekemei.kekemei.view.StarBar;
 
 /**
@@ -53,6 +56,7 @@ public class MeiRongShiListAdapter extends BaseQuickAdapter<BeauticianBean, Base
                 view.setVisibility(View.GONE);
             }
         }
+        ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(),  (ImageView) helper.getView(R.id.iv_icon));
         helper.setText(R.id.tv_juli, "距离" +
                 item.getDistance() + "KM");
         StarBar star_bar = helper.getView(R.id.star_bar);
