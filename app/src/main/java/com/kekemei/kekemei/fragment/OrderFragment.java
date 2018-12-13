@@ -401,7 +401,7 @@ public class OrderFragment extends Fragment {
                 break;
             case R.id.tal_pingjia:
                 page = 1;
-                jOrderStatus = OrderListBean.ORDER_STATUS_FINISHED;
+                jOrderStatus = OrderListBean.ORDER_STATUS_COMMENT;
                 break;
             case R.id.tal_quit:
                 page = 1;

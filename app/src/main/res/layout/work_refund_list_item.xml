@@ -42,7 +42,8 @@
             android:gravity="center"
             android:text="待发货"
             android:textColor="#999999"
-            android:textSize="@dimen/px_37"/>
+            android:textSize="@dimen/px_37" />
+
         <View
             android:layout_width="1px"
             android:layout_height="19dp"
@@ -51,11 +52,11 @@
 
         <ImageView
             android:id="@+id/iv_del_order"
-            android:paddingRight="@dimen/px_50"
-            android:paddingLeft="@dimen/px_43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/orderform_delete_btn"/>
+            android:paddingLeft="@dimen/px_43"
+            android:paddingRight="@dimen/px_50"
+            android:src="@mipmap/orderform_delete_btn" />
     </LinearLayout>
 
     <include
@@ -78,9 +79,9 @@
         android:background="#fff"
         android:gravity="right"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/work_refund_item_ll_padding_b"
+        android:paddingTop="@dimen/work_refund_item_ll_padding_b"
         android:paddingRight="@dimen/work_refund_item_btn_padding_r"
-        android:paddingTop="@dimen/work_refund_item_ll_padding_b">
+        android:paddingBottom="@dimen/work_refund_item_ll_padding_b">
 
         <Button
             android:id="@+id/zaicigoumai"
@@ -122,11 +123,12 @@
             android:layout_width="@dimen/work_refund_item_btn_width"
             android:layout_height="@dimen/work_refund_item_btn_height"
             android:layout_marginRight="@dimen/work_refund_item_btn_margin_r"
-            android:background="@drawable/refund_btn_background"
-            android:text="预约"
-            android:textColor="#999"
+            android:background="@drawable/refund_yellow_btn_background"
+            android:text="立即预约"
+            android:textColor="#fff"
             android:textSize="@dimen/work_refund_item_btn_text_size"
             android:visibility="visible" />
+
         <Button
             android:id="@+id/quxiaodingdan"
             style="?android:attr/borderlessButtonStyle"
@@ -138,6 +140,7 @@
             android:textColor="#999"
             android:textSize="@dimen/work_refund_item_btn_text_size"
             android:visibility="visible" />
+
         <Button
             android:id="@+id/chakan"
             style="?android:attr/borderlessButtonStyle"
@@ -149,6 +152,7 @@
             android:textColor="#999"
             android:textSize="@dimen/work_refund_item_btn_text_size"
             android:visibility="visible" />
+
         <Button
             android:id="@+id/querenfuwu"
             style="?android:attr/borderlessButtonStyle"
@@ -160,6 +164,7 @@
             android:textColor="#fff"
             android:textSize="@dimen/work_refund_item_btn_text_size"
             android:visibility="visible" />
+
         <Button
             android:id="@+id/lijifukuan"
             style="?android:attr/borderlessButtonStyle"
