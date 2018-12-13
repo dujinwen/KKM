@@ -169,6 +169,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                             if (msg.equals("暂无数据")) {
                                                 return;
                                             }
+                                            loadData(true);
                                             ToastUtil.showToastMsg(ServiceOrderListActivity.this, "取消成功");
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -197,6 +198,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                                 return;
                                             }
                                             ToastUtil.showToastMsg(ServiceOrderListActivity.this, "接单成功");
+                                            loadData(true);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -208,7 +210,6 @@ public class ServiceOrderListActivity extends BaseActivity {
                                         ToastUtil.showToastMsg(ServiceOrderListActivity.this, "接单失败");
                                     }
                                 });
-                        loadData(true);
                         break;
                     case R.id.finishService:
                         OkGo.<String>get(URLs.OVER_ORDER)
@@ -224,6 +225,7 @@ public class ServiceOrderListActivity extends BaseActivity {
                                                 return;
                                             }
                                             ToastUtil.showToastMsg(ServiceOrderListActivity.this, "订单完成");
+                                            loadData(true);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -235,7 +237,6 @@ public class ServiceOrderListActivity extends BaseActivity {
                                         ToastUtil.showToastMsg(ServiceOrderListActivity.this, "完成失败");
                                     }
                                 });
-                        loadData(true);
                         break;
                     case R.id.replayComment:
                         ServiceOrderDetailActivity.start(ServiceOrderListActivity.this, jAdapter.getItem(position));
