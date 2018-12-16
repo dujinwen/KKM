@@ -46,6 +46,7 @@ import com.kekemei.kekemei.utils.CollectionUtils;
 import com.kekemei.kekemei.utils.CustomDatePicker;
 import com.kekemei.kekemei.utils.LogUtil;
 import com.kekemei.kekemei.utils.MapUtil;
+import com.kekemei.kekemei.utils.SPUtils;
 import com.kekemei.kekemei.utils.StringUtils;
 import com.kekemei.kekemei.utils.ToastUtil;
 import com.kekemei.kekemei.utils.URLs;
@@ -82,7 +83,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private double latx = 39.9037448095;
     private double laty = 116.3980007172;
     private String mAddress = "北京天安门";
-
+    private String latitude;
+    private String longitude;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -933,6 +935,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         super.initData();
+        latitude = SPUtils.getString(getApplicationContext(), "latitude", "");
+        longitude = SPUtils.getString(getApplicationContext(), "longitude", "");
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
             LoginActivity.start(this);
@@ -941,6 +945,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         multipleStatusView.showLoading();
         if (detailEnum == DetailEnum.SHOP) {
             OkGo.<String>post(URLs.SHOP_DETAILS).params("id", beauticianId)
+                    .params("longitude", longitude).params("latitude", latitude)
                     .params("user_id", userId + "").execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
@@ -1046,7 +1051,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             });
         } else {
 
-            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS).params("id", beauticianId).params("user_id", userId).execute(new StringCallback() {
+            OkGo.<String>post(URLs.BEAUTICIAN_DETAILS)
+                    .params("id", beauticianId)
+                    .params("longitude", longitude).params("latitude", latitude)
+                    .params("user_id", userId).execute(new StringCallback() {
                 @SuppressLint("StringFormatMatches")
                 @Override
                 public void onSuccess(Response<String> response) {
