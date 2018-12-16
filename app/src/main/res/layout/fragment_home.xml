@@ -37,8 +37,8 @@
                     android:layout_width="@dimen/px_1005"
                     android:layout_height="@dimen/px_275"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/px_45"
                     android:layout_marginTop="@dimen/px_45"
+                    android:layout_marginBottom="@dimen/px_45"
                     android:background="@drawable/btn_white_background"
                     android:orientation="horizontal">
 
@@ -134,8 +134,8 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/px_27"
-                    android:paddingTop="@dimen/px_32">
+                    android:paddingTop="@dimen/px_32"
+                    android:paddingBottom="@dimen/px_27">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -198,10 +198,10 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/px_15"
                                 android:background="#ECF9F9"
-                                android:paddingBottom="@dimen/px_3"
                                 android:paddingLeft="@dimen/px_20"
-                                android:paddingRight="@dimen/px_20"
                                 android:paddingTop="@dimen/px_3"
+                                android:paddingRight="@dimen/px_20"
+                                android:paddingBottom="@dimen/px_3"
                                 android:text="立刻领取"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/px_20"
@@ -255,10 +255,10 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/px_15"
                                 android:background="#ECF9F9"
-                                android:paddingBottom="@dimen/px_3"
                                 android:paddingLeft="@dimen/px_20"
-                                android:paddingRight="@dimen/px_20"
                                 android:paddingTop="@dimen/px_3"
+                                android:paddingRight="@dimen/px_20"
+                                android:paddingBottom="@dimen/px_3"
                                 android:text="立刻领取"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/px_20"
@@ -312,10 +312,10 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="@dimen/px_15"
                                 android:background="#ECF9F9"
-                                android:paddingBottom="@dimen/px_3"
                                 android:paddingLeft="@dimen/px_20"
-                                android:paddingRight="@dimen/px_20"
                                 android:paddingTop="@dimen/px_3"
+                                android:paddingRight="@dimen/px_20"
+                                android:paddingBottom="@dimen/px_3"
                                 android:text="立刻领取"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/px_20"
@@ -329,8 +329,8 @@
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/px_30"
-                        android:paddingRight="@dimen/px_30"
-                        android:paddingTop="@dimen/px_19">
+                        android:paddingTop="@dimen/px_19"
+                        android:paddingRight="@dimen/px_30">
 
                         <ImageView
                             android:id="@+id/ivNewComer"
