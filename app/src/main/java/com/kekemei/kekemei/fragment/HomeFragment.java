@@ -80,8 +80,6 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
     ImageView ivPlace;
     @BindView(R.id.place)
     TextView place;
-    @BindView(R.id.ll_place)
-    RelativeLayout llPlace;
     @BindView(R.id.text_msg)
     TextView textMsg;
     @BindView(R.id.ll_search)
@@ -215,9 +213,10 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
         mPicker.init(getActivity());
         initView();
         initCityList();
+        final String city = SPUtils.getString(getActivity(), "city", "");
         if (StringUtils.isNotEmpty(latitude) && StringUtils.isNotEmpty(longitude)) {
             initData(latitude, longitude);
-            place.setText(SPUtils.getString(getActivity(), "city", ""));
+            place.setText(city);
         } else {
             AppUtil.getUserPoint(getActivity(), this);
         }
@@ -229,7 +228,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
             public void onRefresh() {
                 if (StringUtils.isNotEmpty(latitude) && StringUtils.isNotEmpty(longitude)) {
                     initData(latitude, longitude);
-                    place.setText(SPUtils.getString(getActivity(), "city", ""));
+                    place.setText(city);
                 }
             }
         });

@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#97222222"
     android:gravity="bottom"
     android:orientation="horizontal"
-    android:background="#97222222"
     android:paddingBottom="@dimen/px_20">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/ll_place"
         android:layout_width="@dimen/px_251"
         android:layout_height="@dimen/px_86"
@@ -18,30 +18,26 @@
 
         <ImageView
             android:id="@+id/iv_place"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/px_43"
+            android:layout_height="@dimen/px_50"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/px_24"
+            android:background="@mipmap/location" />
+
+
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:src="@mipmap/home_icon_site_normal"
-            android:background="@drawable/btn_transparent_background"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right">
-
-            <TextView
-                android:id="@+id/place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/iv_place"
-                android:layout_gravity="right|center"
-                android:layout_marginRight="@dimen/px_30"
-                android:text="北京"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/px_40" />
-        </LinearLayout>
-
-
-    </RelativeLayout>
+            android:layout_alignTop="@id/iv_place"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="@dimen/px_30"
+            android:text="北京"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/px_40" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_search"
