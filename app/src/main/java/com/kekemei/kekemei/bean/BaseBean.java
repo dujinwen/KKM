@@ -56,6 +56,7 @@ public class BaseBean implements Serializable {
     private String state;
     private int weigh;
     private int views;
+    private int like_count;
     private float createtime;
     private double distance;
     private String quality_text;
@@ -271,4 +272,14 @@ public class BaseBean implements Serializable {
     public void setFull(List<String> full) {
         this.full = full;
     }
+
+    public int getLike_count() {
+        return like_count;
+    }
+
+    public void setLike_count(int like_count) {
+        this.like_count = like_count;
+    }
+
+
 }

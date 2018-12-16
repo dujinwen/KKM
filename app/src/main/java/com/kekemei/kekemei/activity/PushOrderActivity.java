@@ -350,7 +350,7 @@ public class PushOrderActivity extends BaseActivity {
                         .params("shop_id", shopId)
                         .params("beautician_id", beauticianId)
                         .params("timedata", timeSelectPosition)
-                        .params("timedstartdate", (daySelectPosition + "").substring(0, 11))
+                        .params("timedstartdate", (daySelectPosition + "").substring(0, 10))
                         .params("order_id", yuYueActivityBean.getOrderId())
                         .execute(new StringCallback() {
                             @Override
@@ -465,7 +465,7 @@ public class PushOrderActivity extends BaseActivity {
     public void timeData(long timedstartdate) {
         OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA)
                 .params("beautician", beauticianId)
-                .params("timedstartdate", timedstartdate).execute(new StringCallback() {
+                .params("startdate", (timedstartdate+"").substring(0,10)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e("PushOrderActivity", "follow beautician:" + response.body());

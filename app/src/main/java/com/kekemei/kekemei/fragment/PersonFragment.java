@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.jcloud.image_loader_module.ImageLoaderUtil;
 import com.kekemei.kekemei.R;
+import com.kekemei.kekemei.activity.ChatActivity;
 import com.kekemei.kekemei.activity.CreditActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.MainActivity;
@@ -100,6 +101,7 @@ public class PersonFragment extends Fragment {
     private GridAdapter gridAdapter;
 
     private MyGridAdapter adapter;
+    private MyInfoBean myInfoBean;
 
     @Nullable
     @Override
@@ -144,7 +146,8 @@ public class PersonFragment extends Fragment {
                         startActivity(new Intent(getActivity(), MemberActivity.class));
                         break;
                     case 7:
-                        ToastUtil.showToastMsg(getActivity(), "功能尚未开放，敬请期待");
+                        if (myInfoBean == null) return;
+                        ChatActivity.start(getActivity(),myInfoBean.getData().getAdmin());
                         break;
                 }
             }
@@ -179,7 +182,7 @@ public class PersonFragment extends Fragment {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        MyInfoBean myInfoBean = gson.fromJson(response.body(), MyInfoBean.class);
+                        myInfoBean = gson.fromJson(response.body(), MyInfoBean.class);
                         if (myInfoBean != null && myInfoBean.getData() != null) {
                             tvHongbaonum.setText(String.valueOf(myInfoBean.getData().getRedenvelopes_count()));
                             tvDaijinnum.setText(String.valueOf(myInfoBean.getData().getCoupon_count()));

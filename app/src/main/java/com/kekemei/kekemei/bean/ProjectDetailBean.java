@@ -61,22 +61,10 @@ public class ProjectDetailBean implements Serializable {
     private String treatment_price;
     private String satisfaction;
     private String peer;
-
-    public int getIscollection() {
-        return iscollection;
-    }
-
-    public CommentdataBean getCommentData() {
-        return commentData;
-    }
-
-    public void setCommentData(CommentdataBean commentData) {
-        this.commentData = commentData;
-    }
-
     private int iscollection;
     private int views;
     private int weigh;
+    private int collection_count;
     private WaiterBean waiter;
     private CommentdataBean commentData;
     private List<CouponBean> coupon;
@@ -100,6 +88,27 @@ public class ProjectDetailBean implements Serializable {
     }
 
     private NearShopBean nearshop;
+
+
+    public int getIscollection() {
+        return iscollection;
+    }
+
+    public CommentdataBean getCommentData() {
+        return commentData;
+    }
+
+    public void setCommentData(CommentdataBean commentData) {
+        this.commentData = commentData;
+    }
+
+    public int getCollection_count() {
+        return collection_count;
+    }
+
+    public void setCollection_count(int collection_count) {
+        this.collection_count = collection_count;
+    }
 
     public List<MyDenvelopes> getMyDenvelopes() {
         return myDenvelopes;

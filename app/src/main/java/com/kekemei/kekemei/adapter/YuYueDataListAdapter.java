@@ -43,9 +43,11 @@ public class YuYueDataListAdapter extends BaseQuickAdapter<YuYueDataBean.DataBea
             ll_select_date_time.setElevation(4);
             ll_select_date_time.setEnabled(true);
         } else {
-            helper.setText(R.id.tv_can_yuyue, "约满");
+            helper.setText(R.id.tv_can_yuyue, "不可约");
             ll_select_date_time.setBackground(mContext.getDrawable(R.drawable.btn_c1c1c1_background));
             ll_select_date_time.setElevation(4);
+            helper.setTextColor(R.id.tv_can_yuyue, 0XFFFFFFFF);
+            helper.setTextColor(R.id.tv_date_and_week, 0XFFFFFFFF);
             ll_select_date_time.setEnabled(false);
         }
         if (item.isSelect()) {

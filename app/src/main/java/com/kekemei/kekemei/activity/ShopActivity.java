@@ -322,7 +322,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 // TODO: 2018/12/10
                 //这里的经纬度是直接获取的，在实际开发中从应用的地图中获取经纬度;
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ShopActivity.this,R.style.Dialog);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShopActivity.this, R.style.Dialog);
                 LayoutInflater inflater = getLayoutInflater();
                 final View layout = inflater.inflate(R.layout.map_alert_dialog, null);//获取自定义布局
                 builder.setView(layout);
@@ -898,7 +898,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
      * 预约时间
      */
     public void timeData(long timedstartdate) {
-        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
+        String startDate = (timedstartdate + "").substring(0, 10);
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA)
+                .params("beautician", beauticianId)
+                .params("startdate", startDate).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 LogUtil.e(TAG, "follow beautician:" + response.body());

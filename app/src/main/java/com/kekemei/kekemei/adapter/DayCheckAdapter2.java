@@ -102,7 +102,9 @@ public class DayCheckAdapter2 extends RecyclerView.Adapter<DayCheckAdapter2.View
 
                 break;
         }
-        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", calendar.getTimeInMillis()).execute(new StringCallback() {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId)
+                .params("startdate", (calendar.getTimeInMillis()+"").substring(0,10))
+                .execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();

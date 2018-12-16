@@ -38,7 +38,7 @@ public class MyGridAdapter extends BaseQuickAdapter<BaseBean, BaseViewHolder> {
         beforePrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
         beforePrice.getPaint().setAntiAlias(true);// 抗锯齿
         helper.setText(R.id.before_price, "￥" + item.getPrice_market());
-        helper.setText(R.id.personNum, String.valueOf(item.getTreatment_count()));
+        helper.setText(R.id.personNum, String.valueOf(item.getLike_count()));
         ImageLoaderUtil.getInstance().loadImage(URLs.BASE_URL + item.getImage(), (ImageView) helper.getView(R.id.iv_beautician_photo));
         if (CollectionUtils.isEmpty(item.getFull()) && CollectionUtils.isEmpty(item.getRedenvelopes())) {
             helper.setVisible(R.id.ll_youhuiquan, false);

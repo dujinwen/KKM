@@ -826,7 +826,8 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      * 预约时间
      */
     public void timeData(long timedstartdate) {
-        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId).params("timedstartdate", timedstartdate).execute(new StringCallback() {
+        OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId)
+                .params("startdate", (timedstartdate+"").substring(0,10)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -869,7 +870,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             marketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); //中间横线
                             marketPrice.getPaint().setAntiAlias(true);// 抗锯齿
                             marketPrice.setText("￥" + detailBean.getPrice_market());
-                            tvFollowNum.setText("已有" + detailBean.getTreatment_count() + "人关注");
+                            tvFollowNum.setText("已有" + detailBean.getCollection_count() + "人关注");
                             tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getAddress());
                             if (detailBean.getIscollection() == 1) {
                                 setTvCollectionLeft();

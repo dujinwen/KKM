@@ -24,8 +24,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.gson.Gson;
 import com.kekemei.kekemei.R;
-import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.MeiRongShiListAdapter;
+import com.kekemei.kekemei.adapter.ProjectListAdapter;
 import com.kekemei.kekemei.adapter.ShopListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.BeauticianBean;
@@ -55,6 +55,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
@@ -64,6 +65,8 @@ import butterknife.Optional;
 public class SearchActivity extends BaseActivity implements TextWatcher {
     private static final String TAG = SearchActivity.class.getSimpleName();
     public static final String EXTRA_KEY_KEYWORD = "keyword";
+    @BindView(R.id.fanhui)
+    ImageView fanhui;
     private int mCurrentTab = 0;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -154,6 +157,13 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
         editTextSearch.setFocusable(true);
         editTextSearch.setFocusableInTouchMode(true);
         editTextSearch.requestFocus();
+        fanhui.setVisibility(View.VISIBLE);
+        fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         moveEditCursor();
         editTextSearch.addTextChangedListener(this);
         editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -727,5 +737,11 @@ public class SearchActivity extends BaseActivity implements TextWatcher {
             footer = LayoutInflater.from(this).inflate(R.layout.layout_list_no_more_footer, null);
             adapter.addFooterView(footer);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
     }
 }
