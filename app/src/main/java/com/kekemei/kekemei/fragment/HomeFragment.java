@@ -348,7 +348,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        LogUtil.d("APPLOCALTION", response.body());
+//                        LogUtil.d("APPLOCALTION", response.body());
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
@@ -388,7 +388,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        LogUtil.d("APPLOCALTION", response.toString());
+//                        LogUtil.d("APPLOCALTION", response.toString());
                         multipleStatusView.showError();
                     }
                 });
@@ -657,7 +657,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        LogUtil.d("APPLOCALTION", response.body());
+//                        LogUtil.d("APPLOCALTION", response.body());
                         try {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
