@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,7 +51,7 @@ public class MainActivity extends BaseActivity {
     private int mCurrentTab = TAB_HOME;
     private boolean hasTitle = false;
     private boolean hasCoupons = false;
-    private View iv_btn_lingqu;
+    private Button iv_btn_lingqu;
     private AlertDialog dlg;
 
     private LinearLayout llOneRed;
@@ -57,6 +59,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayout llThrRed;
     private TextView tvOneName, tvOneNeirong, tvNameOne2, tvNeirongOne2, tvNeirongTow2, tvNameTow2, tvNameOne3, tvNeirongOne3, tvNameTow3, tvNeirongTow3, tvNameThr3, tvNeirongThr3;
     private long isNew;
+    private ImageView iv_close;
 
     public static void start(Context context, int tab) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -130,6 +133,12 @@ public class MainActivity extends BaseActivity {
                 dlg.dismiss();
             }
         });
+        iv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dlg.dismiss();
+            }
+        });
 
         dlg = builder.create();
         dlg.setCanceledOnTouchOutside(false);
@@ -153,7 +162,8 @@ public class MainActivity extends BaseActivity {
         tvNeirongOne3 = layout.findViewById(R.id.tv_neirong_one_3);
         tvNeirongTow3 = layout.findViewById(R.id.tv_neirong_tow_3);
         tvNeirongThr3 = layout.findViewById(R.id.tv_neirong_thr_3);
-        iv_btn_lingqu = layout.findViewById(R.id.iv_btn_lingqu);
+        iv_btn_lingqu = (Button)layout.findViewById(R.id.iv_btn_lingqu);
+        iv_close = (ImageView) layout.findViewById(R.id.iv_close);
 
 
         switch (type) {

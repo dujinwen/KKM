@@ -381,7 +381,7 @@ public class MyCollectionActivity extends BaseActivity {
     }
 
     public void showEmpty() {
-        multipleStatusView.showEmpty();
+        multipleStatusView.showEmpty(R.mipmap.default_soucang);
     }
 
     public void showLoadMoreEnd() {

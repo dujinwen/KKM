@@ -519,7 +519,10 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                 double longitude = amapLocation.getLongitude();//获取经度
                 SPUtils.putString(getActivity(), "latitude", String.valueOf(latitude));
                 SPUtils.putString(getActivity(), "longitude", String.valueOf(longitude));
+                String city = amapLocation.getCity();
+                SPUtils.putString(getActivity(), "city", city);
                 initData(String.valueOf(latitude), String.valueOf(longitude));
+                place.setText(city);
 
                 HttpParams commonParams = new HttpParams();
                 commonParams.put("latitude", latitude);
@@ -660,7 +663,7 @@ public class HomeFragment extends Fragment implements AMapLocationListener {
                             JSONObject jsonObject = new JSONObject(response.body());
                             Object msg = jsonObject.opt("msg");
                             if (msg.equals("暂无数据")) {
-                                ToastUtil.showToastMsg(getActivity(), "领取失败");
+                                ToastUtil.showToastMsg(getActivity(), "您已经领取过");
                                 return;
                             }
                             if (homeBean != null && CollectionUtils.isNotEmpty(homeBean.getIndexcoupon())) {

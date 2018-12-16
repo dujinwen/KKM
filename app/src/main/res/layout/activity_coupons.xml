@@ -300,5 +300,13 @@
             android:layout_height="@dimen/px_669"
             android:layout_marginTop="@dimen/px_144"
             android:src="@mipmap/home_hongbao_huabian_bg" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_marginTop="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/close_copy"/>
     </RelativeLayout>
 </RelativeLayout>
