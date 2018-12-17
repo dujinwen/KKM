@@ -198,29 +198,35 @@ public class BeauticianInfoActivity extends BaseActivity {
     @OnClick(R.id.tvFollow)
     public void onViewClicked() {
         if (tvFollow.getText().toString().equals("关注"))
-            follow();
+            follow(true);
+        else
+            follow(false);
     }
 
     /**
      * 关注
+     *
+     * @param flag
      */
-    private void follow() {
+    private void follow(boolean flag) {
         long userId = UserHelp.getUserId(this);
         if (userId == -1L) {
             LoginActivity.start(this);
             return;
         }
-        OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
-                .params("beautician_id", beauticianId)
-                .params("user_id", userId)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        LogUtil.e("Me", "follow beautician:" + response.body());
-                        Gson gson = new Gson();
-                        tvFollow.setText("已关注");
-                    }
-                });
+        if (flag)
+            OkGo.<String>post(URLs.FOLLOW_BEAUTICIAN)
+                    .params("beautician_id", beauticianId)
+                    .params("user_id", userId)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            LogUtil.e("Me", "follow beautician:" + response.body());
+                            Gson gson = new Gson();
+                            tvFollow.setText("已关注");
+                        }
+                    });
+
     }
 
     private class WorkPhotoListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {

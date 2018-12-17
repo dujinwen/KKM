@@ -571,7 +571,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                                             ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
                                             return;
                                         }
-                                        ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
+                                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "已取消");
                                         setTvCollectionLeft(false);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
