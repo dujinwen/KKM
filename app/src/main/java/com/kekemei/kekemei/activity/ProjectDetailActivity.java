@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -525,34 +526,65 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                     LoginActivity.start(this);
                     return;
                 }
-                OkGo.<String>get(URLs.ADD_COLLECTION)
-                        .params("user_id", userId)
-                        .params("type", "1")
-                        .params("project_id", detailBean.getId())
-                        .execute(new StringCallback() {
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response.body());
-                                    Object msg = jsonObject.opt("msg");
-                                    if (msg.equals("暂无数据")) {
-                                        ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
-                                        return;
+                if (tvCollection.getText().toString().equals("收藏")) {
+                    OkGo.<String>get(URLs.ADD_COLLECTION)
+                            .params("user_id", userId)
+                            .params("type", "1")
+                            .params("project_id", detailBean.getId())
+                            .execute(new StringCallback() {
+                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response.body());
+                                        Object msg = jsonObject.opt("msg");
+                                        if (msg.equals("暂无数据")) {
+                                            ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                                            return;
+                                        }
+                                        ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
+                                        setTvCollectionLeft(true);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-                                    ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
-                                    setTvCollectionLeft();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
                                 }
-                            }
 
-                            @Override
-                            public void onError(Response<String> response) {
-                                super.onError(response);
-                                ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
-                            }
-                        });
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+                                    ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                                }
+                            });
+                } else {
+                    OkGo.<String>get(URLs.DEL_COLLECTION)
+                            .params("user_id", userId)
+                            .params("type", "1")
+                            .params("project_id", detailBean.getId())
+                            .execute(new StringCallback() {
+                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response.body());
+                                        Object msg = jsonObject.opt("msg");
+                                        if (msg.equals("暂无数据")) {
+                                            ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                                            return;
+                                        }
+                                        ToastUtil.showToastMsg(ProjectDetailActivity.this, msg.toString());
+                                        setTvCollectionLeft(false);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+                                    super.onError(response);
+                                    ToastUtil.showToastMsg(ProjectDetailActivity.this, "关注失败");
+                                }
+                            });
+                }
                 break;
             case R.id.projectDetail:
                 indicatorProjectDetail.setVisibility(View.VISIBLE);
@@ -794,11 +826,20 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void setTvCollectionLeft() {
-        tvCollection.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-        tvCollection.setText("已收藏");
-        tvCollection.setClickable(false);
+    private void setTvCollectionLeft(boolean flag) {
+        if (flag) {
+            tvCollection.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            tvCollection.setText("已收藏");
+        } else {
+            Drawable img = getApplicationContext().getResources().getDrawable(R.mipmap.beautician_detail_satisfaction_ic_1);
+// 调用setCompoundDrawables时，必须调用Drawable.setBounds()方法,否则图片不显示
+            img.setBounds(0, 0, img.getMinimumWidth(), img.getMinimumHeight());
+            tvCollection.setCompoundDrawables(img, null, null, null); //设置左图标
+            tvCollection.setText("收藏");
+        }
+
     }
+
 
     private void scrollTo(final int position) {
         final View view = contentView.getChildAt(position);
@@ -827,7 +868,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
      */
     public void timeData(long timedstartdate) {
         OkGo.<String>post(URLs.APPOINTMENT_TIME_DATA).params("beautician", beauticianId)
-                .params("startdate", (timedstartdate+"").substring(0,10)).execute(new StringCallback() {
+                .params("startdate", (timedstartdate + "").substring(0, 10)).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 Gson gson = new Gson();
@@ -873,7 +914,7 @@ public class ProjectDetailActivity extends BaseActivity implements View.OnClickL
                             tvFollowNum.setText("已有" + detailBean.getCollection_count() + "人关注");
                             tvAddress.setText(shopDetailBean == null ? "" : shopDetailBean.getAddress());
                             if (detailBean.getIscollection() == 1) {
-                                setTvCollectionLeft();
+                                setTvCollectionLeft(true);
                             }
                             if (shopDetailBean != null && CollectionUtils.isNotEmpty(shopDetailBean.getRedenvelopes())) {
                                 tvRedBao.setText(shopDetailBean.getRedenvelopes().get(0).getName());

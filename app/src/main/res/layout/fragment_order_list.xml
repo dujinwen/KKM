@@ -25,9 +25,11 @@
             android:layout_width="@dimen/px_49"
             android:layout_height="@dimen/px_49"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/px_37"
             android:layout_marginTop="@dimen/px_94"
+            android:layout_marginRight="@dimen/px_37"
             android:src="@mipmap/search_btn" />
+
+
     </RelativeLayout>
 
     <HorizontalScrollView
@@ -50,15 +52,31 @@
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/px_24">
 
-                <TextView
-                    android:id="@+id/tv_all"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="全   部"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_all"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="全   部"
+                        android:textColor="@drawable/selector_comment_find_tab"
+                        android:textSize="@dimen/px_45" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape"
+                        android:text="10"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/v_all"
@@ -76,15 +94,32 @@
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/px_24">
 
-                <TextView
-                    android:id="@+id/tv_wait_pay"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="待支付"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_wait_pay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="待支付"
+                        android:textColor="@drawable/selector_comment_find_tab"
+                        android:textSize="@dimen/px_45" />
+
+                    <TextView
+                        android:id="@+id/tv_wait_pay_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape"
+                        android:text="10"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/v_wait_pay"
@@ -127,16 +162,32 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/px_24">
-
-                <TextView
-                    android:id="@+id/tv_wait_server"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="待服务"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_wait_server"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="待服务"
+                        android:textColor="@drawable/selector_comment_find_tab"
+                        android:textSize="@dimen/px_45" />
+
+                    <TextView
+                        android:id="@+id/tv_server_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape"
+                        android:text="10"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/v_wait_server"
@@ -207,16 +258,32 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/px_24">
-
-                <TextView
-                    android:id="@+id/tv_pingjia"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="待评价"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_pingjia"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="待评价"
+                        android:textColor="@drawable/selector_comment_find_tab"
+                        android:textSize="@dimen/px_45" />
+
+                    <TextView
+                        android:id="@+id/tv_pingjia_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape"
+                        android:text="10"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/v_pingjia"
@@ -258,18 +325,34 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/px_24"
-                android:visibility="gone">
+                android:paddingBottom="@dimen/px_24">
 
-                <TextView
-                    android:id="@+id/tv_quit"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="已取消"
-                    android:textColor="@drawable/selector_comment_find_tab"
-                    android:textSize="@dimen/px_45" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_quit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="待回复"
+                        android:textColor="@drawable/selector_comment_find_tab"
+                        android:textSize="@dimen/px_45" />
+
+                    <TextView
+                        android:id="@+id/tv_quit_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/shape"
+                        android:text="10"
+                        android:textColor="#fff"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <View
                     android:id="@+id/v_quit"

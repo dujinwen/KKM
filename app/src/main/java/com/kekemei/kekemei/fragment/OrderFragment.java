@@ -26,13 +26,13 @@ import com.kekemei.kekemei.activity.AddCommentActivity;
 import com.kekemei.kekemei.activity.LoginActivity;
 import com.kekemei.kekemei.activity.OrderDetailActivity;
 import com.kekemei.kekemei.activity.OrderListSearchActivity;
-import com.kekemei.kekemei.activity.PayActivity;
 import com.kekemei.kekemei.activity.ProjectDetailActivity;
 import com.kekemei.kekemei.activity.PushOrderActivity;
 import com.kekemei.kekemei.adapter.MyGridAdapter;
 import com.kekemei.kekemei.adapter.OrderListAdapter;
 import com.kekemei.kekemei.bean.BaseBean;
 import com.kekemei.kekemei.bean.ForYouBean;
+import com.kekemei.kekemei.bean.OrderCountBean;
 import com.kekemei.kekemei.bean.OrderListBean;
 import com.kekemei.kekemei.bean.YuYueActivityBean;
 import com.kekemei.kekemei.utils.LogUtil;
@@ -53,7 +53,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,6 +124,14 @@ public class OrderFragment extends Fragment {
     @BindView(R.id.rl_list)
     RelativeLayout rlList;
     Unbinder unbinder;
+    @BindView(R.id.tv_wait_pay_num)
+    TextView tvWaitPayNum;
+    @BindView(R.id.tv_server_num)
+    TextView tvServerNum;
+    @BindView(R.id.tv_pingjia_num)
+    TextView tvPingjiaNum;
+    @BindView(R.id.tv_quit_num)
+    TextView tvQuitNum;
     private LinearLayoutManager linearLayoutManager;
     private OrderListAdapter jAdapter;
     private RecyclerView rvForYou;
@@ -138,7 +145,37 @@ public class OrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_order_list, container, false);
         unbinder = ButterKnife.bind(this, view);
         initData();
+
+        initNumData();
         return view;
+    }
+
+    private void initNumData() {
+        OkGo.<String>get(URLs.ORDER_COUNT)
+                .params("user_id",UserHelp.getUserId(getActivity().getApplicationContext()))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        OrderCountBean orderCountBean = gson.fromJson(response.body(), OrderCountBean.class);
+                        if (orderCountBean.getData().getState0() != 0){
+                            tvWaitPayNum.setVisibility(View.VISIBLE);
+                            tvWaitPayNum.setText(orderCountBean.getData().getState0()+"");
+                        }
+                        if (orderCountBean.getData().getState1() != 0){
+                            tvServerNum.setVisibility(View.VISIBLE);
+                            tvServerNum.setText(orderCountBean.getData().getState1()+"");
+                        }
+                        if (orderCountBean.getData().getState5() != 0){
+                            tvPingjiaNum.setVisibility(View.VISIBLE);
+                            tvPingjiaNum.setText(orderCountBean.getData().getState5()+"");
+                        }
+                        if (orderCountBean.getData().getState10() != 0){
+                            tvQuitNum.setVisibility(View.VISIBLE);
+                            tvQuitNum.setText(orderCountBean.getData().getState10()+"");
+                        }
+                    }
+                });
     }
 
     private void initData() {
@@ -179,7 +216,7 @@ public class OrderFragment extends Fragment {
                 yuYueActivityBean.setOrderName(item.getName());
                 yuYueActivityBean.setOrderId(item.getId());
                 yuYueActivityBean.setProject_id(item.getProject_project_id());
-                yuYueActivityBean.setOrderCreateTime(item.getCreatetime()+"");
+                yuYueActivityBean.setOrderCreateTime(item.getCreatetime() + "");
                 yuYueActivityBean.setFromDetail(false);
                 switch (view.getId()) {
                     case R.id.iv_del_order:
@@ -311,7 +348,7 @@ public class OrderFragment extends Fragment {
             onViewClicked(talAll);
         } else {
             onViewClicked(talWaitYuyue);
-            SPUtils.putBoolean(getActivity().getApplicationContext(),SPUtils.SELECT_YUYUE,false);
+            SPUtils.putBoolean(getActivity().getApplicationContext(), SPUtils.SELECT_YUYUE, false);
         }
     }
 
