@@ -230,7 +230,6 @@ public class CreditActivity extends BaseActivity {
 //            jifens.add(e);
 //        }
 //        jiFenBean.setJifens(jifens);
-        getData(page);
-
+        loadData(true);
     }
 }

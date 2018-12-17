@@ -640,8 +640,11 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvFollow:
-                if (tvFollow.getText().toString().equals("关注"))
+                if (tvFollow.getText().toString().equals("关注")) {
                     follow();
+                } else {
+                    delFollow();
+                }
                 break;
             case R.id.shopHome:
                 indicatorShopHome.setVisibility(View.VISIBLE);
@@ -763,7 +766,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                         ToastUtil.showToastMsg(ShopActivity.this, "关注失败");
                         return;
                     }
-                    tvFollow.setText("已关注");
+                    setFollowStatus(true);
                     ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -774,6 +777,42 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             public void onError(Response<String> response) {
                 super.onError(response);
                 ToastUtil.showToastMsg(ShopActivity.this, "关注失败");
+            }
+        });
+    }
+
+    /**
+     * 取消关注
+     */
+    private void delFollow() {
+        long userId = UserHelp.getUserId(this);
+        if (userId == -1L) {
+            LoginActivity.start(this);
+            return;
+        }
+        OkGo.<String>post(URLs.DEL_FOLLOW).params("beautician_id", beauticianId)
+                .params("user_id", userId).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                LogUtil.e(TAG, "follow beautician:" + response.body());
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body());
+                    Object msg = jsonObject.opt("msg");
+                    if (msg.equals("暂无数据")) {
+                        ToastUtil.showToastMsg(ShopActivity.this, "取消失败");
+                        return;
+                    }
+                    setFollowStatus(false);
+                    ToastUtil.showToastMsg(ShopActivity.this, msg.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                ToastUtil.showToastMsg(ShopActivity.this, "取消失败");
             }
         });
     }
@@ -1187,7 +1226,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
     private void setFollowStatus(boolean status) {
         tvFollow.setText(status ? "已关注" : "关注");
-        tvFollow.setClickable(!status);
         tvFollow.setTextColor(ContextCompat.getColor(ShopActivity.this, status ? R.color.common_text_dark : R.color.white));
         tvFollow.setBackground(ContextCompat.getDrawable(ShopActivity.this, status ? R.mipmap.orderform_determine_btn_1 : R.mipmap.orderform_determine_btn));
     }

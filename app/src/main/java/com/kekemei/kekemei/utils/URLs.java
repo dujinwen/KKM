@@ -27,10 +27,9 @@ public class URLs {
     //根据id查订单
     public static final String ORDER_BY_ID = BASE_URL + "/api/order/orderbyid";
     //购买会员卡
-    public static final String BUY_MEMBER_CAR = BASE_URL +"/api/order/buyMemberCar";
+    public static final String BUY_MEMBER_CAR = BASE_URL + "/api/order/buyMemberCar";
     //订单个数
-    public static final String ORDER_COUNT = BASE_URL +"/api/order/ordercount";
-
+    public static final String ORDER_COUNT = BASE_URL + "/api/order/ordercount";
 
 
     /**
@@ -48,12 +47,13 @@ public class URLs {
 
     /**
      * 我的
-     *
      */
     //我的积分
-    public static final String MY_INTEGRAL = BASE_URL +"/api/user/integral";
+    public static final String MY_INTEGRAL = BASE_URL + "/api/user/integral";
     //取消收藏
     public static final String DEL_COLLECTION = BASE_URL + "/api/user/delColleciton";
+    //取消关注
+    public static final String DEL_FOLLOW = BASE_URL + "/api/beautician/delfollow";
     //确认订单
     public static final String ORDER_CONFIRM = BASE_URL + "/api/order/confirm";
     //会员卡
